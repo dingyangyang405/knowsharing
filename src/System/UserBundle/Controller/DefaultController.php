@@ -12,7 +12,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
 
-        $user = $this->getUserService()->getUser(1);
+        $user = $this->getUserService()->getUser(2);
         return $this->render('SystemUserBundle:Default:index.html.twig',array('user'=> $user));
     }
     public function getUserService()
