@@ -1,8 +1,8 @@
-{% extends 'SystemUserBundle::base.html.twig' %}
+{% extends 'SystemWebBundle::base.html.twig' %}
 {% set loadjs = {'site':'default.js'} %}
 {% if loadjs is defined and not null %}
     {% block javascripts %}
-        <script src="{{ asset('bundles/systemuser/js/default.js') }}"></script>
+        <script src="{{ asset('bundles/systemweb/js/default.js') }}"></script>
     {% endblock %}
 {% endif %}
 {% block contentTitle %}
