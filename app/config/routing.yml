@@ -1,7 +1,11 @@
-system_user:
-    resource: "@SystemUserBundle/Resources/config/routing.yml"
+system_web:
+    resource: "@SystemWebBundle/Resources/config/routing.yml"
     prefix:   /
 
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+#system_user:
+#    resource: "@SystemUserBundle/Resources/config/routing.yml"
+#    prefix:   /
+
+#app:
+#    resource: "@AppBundle/Controller/"
+#    type:     annotation
