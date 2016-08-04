@@ -1,4 +1,0 @@
-system_web_homepage:
-    path:     /
-    defaults: { _controller: SystemWebBundle:Default:index }
-
