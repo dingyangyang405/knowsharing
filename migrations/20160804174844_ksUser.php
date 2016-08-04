@@ -19,7 +19,6 @@ class KsUser extends Migration
         $table->addColumn('password', 'string', array('null' => false, 'length' => 20, 'comment' => '密码'));
         $table->addColumn('email', 'string', array('null' => false, 'length' => 20, 'comment' => '邮箱'));
         $table->setPrimaryKey(array('id'));
-        var_dump(1111);
         $container['db']->getSchemaManager()->createTable($table);
     }
 
