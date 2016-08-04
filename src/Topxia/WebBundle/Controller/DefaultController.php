@@ -12,7 +12,8 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
 
-        $user = $this->getUserService()->getUser(2);
+        $user = $this->getUserService()->getUser(1);
+
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array('user'=> $user));
     }
     public function getUserService()
