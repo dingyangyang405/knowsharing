@@ -2,22 +2,21 @@
 
 namespace Topxia\WebBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Topxia\WebBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
-use Topxia\Service\User\Impl\UserServiceImpl;
 
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
     public function indexAction(Request $request)
     {
-
-        $user = $this->getUserService()->getUser(2);
-        return $this->render('TopxiaWebBundle:Default:index.html.twig',array('user'=> $user));
+        $konwledges = $this->getKnowledgeService()->findKnowledges();
+        return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
+            'konwledges' => $konwledges
+            ));
     }
-    public function getUserService()
+
+    public function getKnowledgeService()
     {
-        $container = $this->container->get('biz_kernel');
-        return $container['user_service'];
+        return $this->getServiceKernel('knowledge_service');
     }
 }
