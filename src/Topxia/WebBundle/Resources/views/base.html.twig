@@ -20,13 +20,12 @@
         {% include 'TopxiaWebBundle:Default:right-aside.html.twig' %}
         <div class="content-wrapper" id="base-tab">
           <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-              <li role="newknowledge" class="active"><a href="#profile" aria-controls="newknowledge" role="tab" data-toggle="tab">最新知识</a></li>
-              <li role="myconcern"><a href="#timeline" aria-controls="myconcern" role="tab" data-toggle="tab">我的关注<span style="color:#f00">999+</span></a></li>
-              <li role="theme"><a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">主题</a></li>
-            </ul>
-        </div>
+              {% block navTabs %}
+
+              {% endblock %}
+          </div>
           {% block content %}
+
           {% endblock %}
         </div>
 
