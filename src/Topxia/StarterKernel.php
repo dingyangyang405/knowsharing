@@ -4,6 +4,8 @@ namespace Topxia;
 use Codeages\Biz\Framework\Context\Kernel;
 use Topxia\Service\User\Impl\UserServiceImpl;
 use Topxia\Service\User\Dao\Impl\UserDaoImpl;
+use Topxia\Service\Theme\Impl\ThemeServiceImpl;
+use Topxia\Service\Theme\Dao\Impl\ThemeDaoImpl;
 
 class StarterKernel extends Kernel
 {
@@ -28,5 +30,13 @@ class StarterKernel extends Kernel
         $this['user_service'] = function($container) {
             return new UserServiceImpl($container);
         };
+
+        $this['theme_service'] = function($container) {
+            return new ThemeServiceImpl($container);
+        };
+
+        $this['theme_dao'] = $this->dao(function($container) {
+            return new ThemeDaoImpl($container);
+        });
     }
 }

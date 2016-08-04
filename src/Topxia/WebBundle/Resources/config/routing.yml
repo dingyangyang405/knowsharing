@@ -2,3 +2,7 @@ system_web_homepage:
     path:     /
     defaults: { _controller: TopxiaWebBundle:Default:index }
 
+theme:
+    path: /theme
+    defaults: { _controller: TopxiaWebBundle:Theme:index }
+

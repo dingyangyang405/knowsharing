@@ -1,0 +1,14 @@
+{% extends 'TopxiaWebBundle::base.html.twig' %}
+{% set loadjs = {'site':'default.js'} %}
+{% if loadjs is defined and not null %}
+    {% block javascripts %}
+        <script src="{{ asset('bundles/Topxiaweb/js/default.js') }}"></script>
+    {% endblock %}
+{% endif %}
+{% block navTabs %}
+    <ul class="nav nav-tabs">
+        <li role="newknowledge" class="active"><a href="#profile" aria-controls="newknowledge" role="tab" data-toggle="tab">最新知识</a></li>
+        <li role="myconcern"><a href="#timeline" aria-controls="myconcern" role="tab" data-toggle="tab">我的关注<span style="color:#f00">999+</span></a></li>
+        <li role="theme"><a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">主题</a></li>
+    </ul>
+{% endblock %}
