@@ -1,4 +1,6 @@
 .select-theme
 {
-    height:50px;
+    height:30px;
+    line-height: 30px;
+    margin-top: 10px;
 }

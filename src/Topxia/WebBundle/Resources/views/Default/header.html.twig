@@ -23,6 +23,20 @@
                         <i class="fa fa-edit"></i>
                     </a>
                 </li>
+                <li>
+                    <select class="form-control select-theme">
+                        <option value="">主题</option>
+                        <option value="default">标签</option>
+                        <option value="weibo">分享者</option>
+                    </select>
+                </li>
+                <li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="navbar-search-input" placeholder="Search">
+                        </div>
+                    </form>
+                </li>
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ asset('bundles/Topxiaweb/img/user.jpg') }}" class="user-image" alt="User Image">
@@ -63,20 +77,6 @@
                             </div>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <select class="form-control select-theme">
-                        <option value="">主题</option>
-                        <option value="default">标签</option>
-                        <option value="weibo">分享者</option>
-                    </select>
-                </li>
-                <li>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="navbar-search-input" placeholder="Search">
-                        </div>
-                    </form>
                 </li>
                 <li>
                     <a href="#" data-toggle="control-sidebar">知识榜单</a>
