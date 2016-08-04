@@ -1,7 +1,7 @@
 <?php
 
 use Codeages\Biz\Framework\Dao\MigrationBootstrap;
-use System\StarterKernel;
+use Topxia\StarterKernel;
 use Symfony\Component\Yaml\Yaml;
 
 $parameters = Yaml::parse(__DIR__ . '/app/config/parameters.yml');
