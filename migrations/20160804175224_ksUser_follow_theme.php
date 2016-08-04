@@ -2,7 +2,7 @@
 
 use Phpmig\Migration\Migration;
 
-class User extends Migration
+class KsUserFollowTheme extends Migration
 {
     /**
      * Do the migration
@@ -10,12 +10,10 @@ class User extends Migration
     public function up()
     {
         $container = $this->getContainer();
-
-        $table = new Doctrine\DBAL\Schema\Table('user');
+        $table = new Doctrine\DBAL\Schema\Table('user_follow_theme');
         $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement'=> true));
-        $table->addColumn('name', 'string', array('length' => 100, 'null' => false, 'comment' => '用户姓名'));
-        $table->addColumn('updated', 'integer', array('default' => 0, 'signed' => true));
-        $table->addColumn('created', 'integer', array('default' => 0, 'signed' => true));
+        $table->addColumn('user_id', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '用户id'));
+        $table->addColumn('theme_id', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '主题id'));
         $table->setPrimaryKey(array('id'));
 
         $container['db']->getSchemaManager()->createTable($table);
@@ -27,6 +25,6 @@ class User extends Migration
     public function down()
     {
         $container = $this->getContainer();
-        $container['db']->getSchemaManager()->dropTable('user');
+        $container['db']->getSchemaManager()->dropTable('user_follow_theme');
     }
 }
