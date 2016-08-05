@@ -14,19 +14,23 @@ class DefaultController extends BaseController
 
         $knowledges = $this->getKnowledgeService()->findKnowledges();
         $knowledges = TimeToolKit::arrayToDetailTime($knowledges);
-        $userIds = ArrayToolKit::column($knowledges,'ownerId');
-        $users = $this->getUserService()->findUsersByIds($userIds);
+        $userKnowledges = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $user = $this->getUserService()->getUser($knowledge['ownerId']);
+            $knowledge['userName'] = $user['name'];
+            $userKnowledges[] = $knowledge;
+        }
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
-            'knowledges' => $knowledges
+            'userKnowledges' => $userKnowledges
             ));
     }
 
-    public function getKnowledgeService()
+    protected function getKnowledgeService()
     {
         return $this->getServiceKernel('knowledge_service');
     }
 
-    public function getUserService()
+    protected function getUserService()
     {
         return $this->getServiceKernel('user_service');
     }

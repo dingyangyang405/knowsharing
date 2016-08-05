@@ -1,11 +1,11 @@
 <div class="box">
   <div class="box-header with-border">
-    <h3 class="box-title">{{knowledge.title}}</h3>
+    <h3 class="box-title"><a href="#">{{userKnowledge.title}}</a><a href="#"><i class="{% if userKnowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}"></i></a></h3>
   </div>
-<div class="box-body" style="display: block;">
-{{knowledge.summary}}
+<div class="box-body">
+{{userKnowledge.summary}}
 </div>
-<div class="box-footer" style="display: block;">
-{{knowledge.createdTime}}
+<div class="box-footer">
+<span>创建日期:{{userKnowledge.createdTime}}</span><span>创建者:{{userKnowledge.userName}}</span>
 </div>
 </div>
