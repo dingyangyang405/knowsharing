@@ -15,9 +15,11 @@ class KsKnowledge extends Migration
         $table->addColumn('title', 'string', array('length' => 10, 'null' => false, 'comment' => '标题'));
         $table->addColumn('summary', 'text', array('comment' => '摘要'));
         $table->addColumn('type', 'string', array('length' => 10, 'null' => false, 'comment' => '分享类型'));
-        $table->addColumn('theme_id', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '主题id'));
-        $table->addColumn('like_num', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '点赞总数'));
-        $table->addColumn('collect_num', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '收藏总数'));
+        $table->addColumn('themeId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '主题id'));
+        $table->addColumn('likeNum', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '点赞总数'));
+        $table->addColumn('collectNum', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '收藏总数'));
+        $table->addColumn('userId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '创建者id'));
+        $table->addColumn('createTime', 'time', array('null' => false, 'comment' => '创建日期'));
         $table->setPrimaryKey(array('id'));
 
         $container['db']->getSchemaManager()->createTable($table);
