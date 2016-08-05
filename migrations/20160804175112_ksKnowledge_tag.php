@@ -12,8 +12,8 @@ class KsKnowledgeTag extends Migration
         $container = $this->getContainer();
         $table = new Doctrine\DBAL\Schema\Table('knowledge_tag');
         $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement'=> true));
-        $table->addColumn('knowledge_id', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '知识id'));
-        $table->addColumn('tag_id', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '标签id'));
+        $table->addColumn('knowledgeId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '知识id'));
+        $table->addColumn('tagId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '标签id'));
         $table->setPrimaryKey(array('id'));
 
         $container['db']->getSchemaManager()->createTable($table);
