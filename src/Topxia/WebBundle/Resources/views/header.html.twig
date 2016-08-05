@@ -11,9 +11,16 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#" class="" data-toggle="modal" data-target="#myModal">
+                    <div class="dropdown">
+                        <a class="btn btn-success dropdown-toggle btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <i class="fa fa-plus"></i>
-                    </a>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#docModal">文档</a></li>
+                            <li><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#linkModal">链接</a></li>
+                        </ul>
+                        </a>
+                    </div>
                 </li>
                 <li>
                     <select class="form-control select-theme">

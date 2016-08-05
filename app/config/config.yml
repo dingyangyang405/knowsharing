@@ -39,6 +39,7 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
+        wrapper_class:   Codeages\Biz\Framework\Dao\Connection
         driver:   pdo_mysql
         host:     "%database_host%"
         port:     "%database_port%"

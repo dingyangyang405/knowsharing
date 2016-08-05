@@ -3,6 +3,7 @@ namespace Topxia\WebBundle\Controller;
 
 use Topxia\WebBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class KnowledgeController extends BaseController
 {
@@ -16,12 +17,27 @@ class KnowledgeController extends BaseController
             'user' => $user
         ));
     }
+
     protected function getKnowledgeService()
     {
         return $this->getServiceKernel('knowledge_service');
     }
+
     protected function getUserService()
     {
         return $this->getServiceKernel('user_service');
+    }
+    public function addLinkAction(Request $request){
+        $post = $request->request->all();
+        $data = array(
+            'title' => $post['title'],
+            'summary' => $post['summary'],
+            'content' => $post['linkurl'],
+            'type' => 'link',
+            'userId' => 1,
+            'createdTime' => time(),
+        );
+        $this->getKnowledgeService()->addLink($data);
+        return new JsonResponse($data);
     }
 }
