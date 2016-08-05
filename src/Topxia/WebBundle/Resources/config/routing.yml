@@ -6,3 +6,13 @@ user_page:
     path:     /user_page
     defaults: { _controller: TopxiaWebBundle:User:index }
 
+knowledge_detail:
+    path:     /detail/{id}
+    defaults: { _controller: TopxiaWebBundle:Knowledge:detail }
+    methods: [GET]
+
+theme:
+    path: /theme
+    defaults: { _controller: TopxiaWebBundle:Theme:index }
+
+

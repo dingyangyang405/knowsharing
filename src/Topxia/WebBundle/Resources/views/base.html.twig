@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-{% set loadjs = loadjs|default(null) %}
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -17,9 +16,6 @@
     <div class="wrapper">
         {% include 'TopxiaWebBundle::header.html.twig' %}
         {% block leftaside %}
-
-        {% endblock %}
-        {% block rightaside %}
 
         {% endblock %}
         <div class="content-wrapper" id="base-tab">
@@ -40,7 +36,9 @@
             <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
             reserved.
         </footer>
-        {% include 'TopxiaWebBundle::right-aside.html.twig' %}
+        {% block rightaside %}
+
+        {% endblock %}
         <div class="control-sidebar-bg"></div>
     </div>
 {% endblock %}
