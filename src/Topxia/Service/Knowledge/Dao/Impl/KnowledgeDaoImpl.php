@@ -15,6 +15,14 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
         return $this->db()->fetchAll($sql)?:null;
     }
 
+    // public function count($conditions)
+    // {
+    //     $builder = $this->_createQueryBuilder($conditions)
+    //         ->select('COUNT(*)');
+
+    //     return $builder->execute()->fetchColumn(0);
+    // }
+
     public function declares()
     {
         return array(

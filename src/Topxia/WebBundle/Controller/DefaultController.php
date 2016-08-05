@@ -13,10 +13,10 @@ class DefaultController extends BaseController
         $konwledges = $this->getKnowledgeService()->findKnowledges();
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
             'konwledges' => $konwledges
-            ));
+        ));
     }
 
-    public function getKnowledgeService()
+    protected function getKnowledgeService()
     {
         return $this->getServiceKernel('knowledge_service');
     }

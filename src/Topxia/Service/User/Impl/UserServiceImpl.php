@@ -13,10 +13,12 @@ class UserServiceImpl implements UserService
     {
         $this->container = $container;
     }
+
     public function getUser($id)
     {
         return $this->getUserDao()->get($id);
     }
+    
     protected function getUserDao()
     {
         return $this->container['user_dao'];

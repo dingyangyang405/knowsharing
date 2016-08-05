@@ -13,6 +13,12 @@ class KnowledgeServiceImpl implements KnowledgeService
         $this->container = $container;
     }
 
+    public function findKnowledgeCount($conditions)
+    {
+        var_dump($conditions);
+        return $this->getDao()->count($conditions);
+    }
+
     public function findKnowledges()
     {
         return $this->getDao()->find();

@@ -1,20 +1,13 @@
 <?php
 
-namespace Topxia\Service\User\Dao\Impl;
+namespace Topxia\Service\Collection\Dao\Impl;
 
-use Topxia\Service\User\Dao\UserDao;
+use Topxia\Service\Collection\Dao\CollectionDao;
 use Codeages\Biz\Framework\Dao\GeneralDaoImpl;
 
-class UserDaoImpl extends GeneralDaoImpl implements UserDao
+class CollectionDaoImpl extends GeneralDaoImpl implements CollectionDao
 {
-    protected $table = 'user';
-
-    public function get($id)
-    {
-        $sql = "SELECT * FROM {$this->table()} WHERE id = ?";
-
-        return $this->db()->fetchAssoc($sql, array($id)) ?: null;
-    }
+    protected $table = 'user_collect';
 
     public function declares()
     {
@@ -29,5 +22,4 @@ class UserDaoImpl extends GeneralDaoImpl implements UserDao
             ),
         );
     }
-
 }

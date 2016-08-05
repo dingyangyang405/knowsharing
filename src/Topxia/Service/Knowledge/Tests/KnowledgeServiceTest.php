@@ -8,7 +8,6 @@ class KnowledgeServiceTest extends \PHPUnit_Framework_TestCase
 {
     public function testFindKnowledges()
     {
-        $knowledgeServiceImpl = new KnowledgeServiceImpl();
-        
+        $knowledgeServiceImpl = new KnowledgeServiceImpl(); 
     }
 }

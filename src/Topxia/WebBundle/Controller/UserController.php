@@ -2,8 +2,7 @@
 
 namespace Topxia\WebBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Topxia\WebBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Topxia\Service\User\Impl\UserServiceImpl;
 
@@ -14,9 +13,11 @@ class UserController extends BaseController
 
         $user = $this->getUserService()->getUser(1);
 
-        $knowledgeCount = $this->getKnowledgeService()->findKnowledgeCount($user['id']);
+        $knowledgeCount = $this->getKnowledgeService()->findKnowledgeCount(array('ownerId' => $user['id']));
 
-        $collectionCount = $this->getCollectionService()->findCollectionCount($user['id']);
+        // $collectionCount = $this->getCollectionService()->findCollectionCount($user['id']);
+
+        // var_dump($knowledgeCount);exit;
 
         return $this->render('TopxiaWebBundle:User:index.html.twig',array(
             'user' => $user,
@@ -25,9 +26,18 @@ class UserController extends BaseController
         ));
     }
 
-    public function getUserService()
+    protected function getKnowledgeService()
     {
-        $container = $this->container->get('biz_kernel');
-        return $container['user_service'];
+        return $this->getServiceKernel('knowledge_service');
+    }
+
+    protected function getCollectionService()
+    {
+        return $this->getServiceKernel('collection_service');
+    }
+
+    protected function getUserService()
+    {
+        return $this->getServiceKernel('user_service');
     }
 }
