@@ -21,8 +21,6 @@ class UserController extends BaseController
 
         $collectionCount = $this->getCollectionService()->findCollectionCount($conditions);
 
-        var_dump($collectionCount);exit;
-
         return $this->render('TopxiaWebBundle:User:index.html.twig',array(
             'user' => $user,
             'knowledgeCount' => $knowledgeCount,

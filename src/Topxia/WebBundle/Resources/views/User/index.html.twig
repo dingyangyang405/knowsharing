@@ -1,1 +1,12 @@
 {% extends 'TopxiaWebBundle::base.html.twig' %}
+
+{% block body %}
+    <div class="wrapper">
+        {% include 'TopxiaWebBundle::header.html.twig' %}
+        {% block leftaside %}
+        	昵称：{{ user.name }}
+        	上传文档数：{{ knowledgeCount }}
+        	收藏数：{{ collectionCount }}
+
+        {% endblock %}
+{% endblock %}
