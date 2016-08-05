@@ -4,7 +4,7 @@ system_web_homepage:
 
 knowledge_addLink: 
     path: /addlink
-    defaults: {_controller: TopxiaWebBundle:Knowledge:addlink }
+    defaults: {_controller: TopxiaWebBundle:Knowledge:addLink }
 
 knowledge_detail:
     path:     /detail/{id}

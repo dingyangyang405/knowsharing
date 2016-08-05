@@ -21,7 +21,8 @@ class KnowledgeServiceImpl implements KnowledgeService
     public function addLink($field)
     {
         return $this->getDao()->create($field);
-
+    }
+    
     public function getKnowledgeDetial($id)
     {
         return $this->getDao()->get($id);
