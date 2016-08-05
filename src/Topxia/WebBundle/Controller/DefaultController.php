@@ -17,13 +17,7 @@ class DefaultController extends BaseController
             ));
     }
 
-    public function addlinkAction(Request $request){
-        $data = $request->request->all();
-        $this->getKnowledgeService()->addKnowledge($data);
-        return new JsonResponse($data);
-    }
-
-    public function getKnowledgeService()
+    protected function getKnowledgeService()
     {
         return $this->getServiceKernel('knowledge_service');
     }

@@ -6,5 +6,7 @@ interface KnowledgeService
 {
     public function findKnowledges();
 
-    public function addKnowledges($field);
+    public function addLink($field);
+
+    public function getKnowledgeDetial($id);
 }
