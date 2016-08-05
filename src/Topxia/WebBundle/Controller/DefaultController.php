@@ -16,6 +16,15 @@ class DefaultController extends BaseController
             ));
     }
 
+    public function shareListAction(Request $request)
+    {   
+        $shareKnowledges = $this->getKnowledgeService()->getKnowledgesById(1);
+        // var_dump($shareKnowledges);exit();
+        return $this->render('TopxiaWebBundle:Default:knowledge-share.html.twig',array(
+            'shareKnowledges' => $shareKnowledges
+            ));
+    }
+
     public function getKnowledgeService()
     {
         return $this->getServiceKernel('knowledge_service');
