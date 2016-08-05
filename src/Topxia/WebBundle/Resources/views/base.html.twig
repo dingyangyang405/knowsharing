@@ -8,7 +8,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.icon') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/vendor.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/baseHeader.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base-header.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/left-aside.css') }}">
     <script src="{{ asset('assets/js/vendor.js') }}"></script>
 </head>
@@ -16,8 +16,12 @@
 {% block body %}
     <div class="wrapper">
         {% include 'TopxiaWebBundle::header.html.twig' %}
-        {% include 'TopxiaWebBundle::left-aside.html.twig' %}
-        {% include 'TopxiaWebBundle::right-aside.html.twig' %}
+        {% block leftaside %}
+
+        {% endblock %}
+        {% block rightaside %}
+
+        {% endblock %}
         <div class="content-wrapper" id="base-tab">
           <div class="nav-tabs-custom">
               {% block navTabs %}
