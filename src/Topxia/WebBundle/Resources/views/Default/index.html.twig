@@ -2,9 +2,15 @@
 {% set loadjs = {'site':'default.js'} %}
 {% if loadjs is defined and not null %}
     {% block javascripts %}
-        <script src="{{ asset('bundles/Topxiaweb/js/default.js') }}"></script>
+        <script src="{{ asset('bundles/topxiaweb/js/default.js') }}"></script>
     {% endblock %}
 {% endif %}
+        {% block leftaside %}
+            {% include 'TopxiaWebBundle::left-aside.html.twig' %}
+        {% endblock %}
+        {% block rightaside %}
+            {% include 'TopxiaWebBundle::right-aside.html.twig' %}
+        {% endblock %}
 {% block contentTitle %}
     {{ user.name }} 的 工号是 {{ user.id }}
 {% endblock %}
@@ -16,7 +22,7 @@
     </ul>
 {% endblock %}
 {% block contentBody %}
-    我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚
+    我是晋刚我是晋刚我是晋刚我是晋刚啊我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚
 {% endblock %}
  {% block contentFooter %}
      那一天那一天那一天那一天那一天那一天那一天那一天那一天那一天

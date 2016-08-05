@@ -12,7 +12,7 @@ class KsKnowledgeContent extends Migration
         $container = $this->getContainer();
         $table = new Doctrine\DBAL\Schema\Table('knowledge_content');
         $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement'=> true));
-        $table->addColumn('knowledge_id', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '知识id'));
+        $table->addColumn('knowledgeId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '知识id'));
         $table->addColumn('type', 'string', array('length' => 10, 'null' => false, 'comment' => '分享类型'));
         $table->addColumn('content', 'blob', array('null' => false, 'comment' => '内容'));
         $table->setPrimaryKey(array('id'));

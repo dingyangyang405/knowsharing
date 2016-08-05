@@ -12,8 +12,8 @@ class KsUserLike extends Migration
         $container = $this->getContainer();
         $table = new Doctrine\DBAL\Schema\Table('user_like');
         $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement'=> true));
-        $table->addColumn('user_id', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '用户id'));
-        $table->addColumn('knowledge_id', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '知识id'));
+        $table->addColumn('userId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '用户id'));
+        $table->addColumn('knowledgeId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '知识id'));
         $table->setPrimaryKey(array('id'));
 
         $container['db']->getSchemaManager()->createTable($table);
