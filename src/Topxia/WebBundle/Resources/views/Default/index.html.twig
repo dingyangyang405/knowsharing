@@ -5,6 +5,12 @@
         <script src="{{ asset('bundles/topxiaweb/js/default.js') }}"></script>
     {% endblock %}
 {% endif %}
+        {% block leftaside %}
+            {% include 'TopxiaWebBundle::left-aside.html.twig' %}
+        {% endblock %}
+        {% block rightaside %}
+            {% include 'TopxiaWebBundle::right-aside.html.twig' %}
+        {% endblock %}
 {% block contentTitle %}
     {{ user.name }} 的 工号是 {{ user.id }}
 {% endblock %}
