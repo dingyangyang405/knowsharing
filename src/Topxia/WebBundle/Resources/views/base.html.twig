@@ -15,9 +15,9 @@
 <body class="hold-transition skin-green-light sidebar-mini">
 {% block body %}
     <div class="wrapper">
-        {% include 'TopxiaWebBundle:Default:header.html.twig' %}
-        {% include 'TopxiaWebBundle:Default:left-aside.html.twig' %}
-        {% include 'TopxiaWebBundle:Default:right-aside.html.twig' %}
+        {% include 'TopxiaWebBundle::header.html.twig' %}
+        {% include 'TopxiaWebBundle::left-aside.html.twig' %}
+        {% include 'TopxiaWebBundle::right-aside.html.twig' %}
         <div class="content-wrapper" id="base-tab">
           <div class="nav-tabs-custom">
               {% block navTabs %}
@@ -36,7 +36,7 @@
             <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
             reserved.
         </footer>
-        {% include 'TopxiaWebBundle:Default:right-aside.html.twig' %}
+        {% include 'TopxiaWebBundle::right-aside.html.twig' %}
         <div class="control-sidebar-bg"></div>
     </div>
 {% endblock %}
