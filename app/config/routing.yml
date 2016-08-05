@@ -1,4 +1,4 @@
-system_web:
+Topxia_web:
     resource: "@TopxiaWebBundle/Resources/config/routing.yml"
     prefix:   /
 
