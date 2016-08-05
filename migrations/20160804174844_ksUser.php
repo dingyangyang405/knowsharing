@@ -15,7 +15,7 @@ class KsUser extends Migration
         $table->addColumn('name', 'string', array('length' => 10, 'null' => false, 'comment' => '用户名'));
         $table->addColumn('role', 'string', array('length' => 10, 'null' => false, 'comment' => '角色'));
         $table->addColumn('icon', 'text', array('comment' => '头像'));
-        $table->addColumn('mobile_No', 'string', array('length' => 20, 'comment' => '手机号'));
+        $table->addColumn('mobileNo', 'string', array('length' => 20, 'comment' => '手机号'));
         $table->addColumn('password', 'string', array('null' => false, 'length' => 20, 'comment' => '密码'));
         $table->addColumn('email', 'string', array('null' => false, 'length' => 20, 'comment' => '邮箱'));
         $table->setPrimaryKey(array('id'));
