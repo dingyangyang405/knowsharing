@@ -18,6 +18,8 @@ class KsKnowledge extends Migration
         $table->addColumn('theme_id', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '主题id'));
         $table->addColumn('like_num', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '点赞总数'));
         $table->addColumn('collect_num', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '收藏总数'));
+        $table->addColumn('user_id', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '创建者id'));
+        $table->addColumn('create_date', 'date', array('null' => false, 'comment' => '创建日期'));
         $table->setPrimaryKey(array('id'));
 
         $container['db']->getSchemaManager()->createTable($table);
