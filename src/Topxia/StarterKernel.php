@@ -5,7 +5,7 @@ use Codeages\Biz\Framework\Context\Kernel;
 use Topxia\Service\User\Impl\UserServiceImpl;
 use Topxia\Service\User\Dao\Impl\UserDaoImpl;
 use Topxia\Service\Knowledge\Impl\KnowledgeServiceImpl;
-use Topxia\Service\Knowledge\Dao\KnowledgeDao\KnowledgeDaoImpl;
+use Topxia\Service\Knowledge\Dao\Impl\KnowledgeDaoImpl;
 
 class StarterKernel extends Kernel
 {
@@ -36,7 +36,7 @@ class StarterKernel extends Kernel
         };
 
         $this['knowledge_dao'] = function($container) {
-            return new KnowledgeServiceImpl($container);
+            return new KnowledgeDaoImpl($container);
         };
 
     }
