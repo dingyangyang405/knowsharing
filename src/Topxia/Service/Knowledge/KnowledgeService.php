@@ -8,5 +8,7 @@ interface KnowledgeService
 
     public function findKnowledgeCount($conditions);
 
+    public function addLink($field);
+
     public function getKnowledgeDetial($id);
 }
