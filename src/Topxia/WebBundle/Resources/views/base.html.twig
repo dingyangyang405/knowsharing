@@ -11,11 +11,13 @@
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base-header.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/left-aside.css') }}">
     <script src="{{ asset('assets/js/vendor.js') }}"></script>
+    <script src="{{ asset('assets/js/modal.js') }}"></script>
 </head>
 <body class="hold-transition skin-green-light sidebar-mini">
 {% block body %}
     <div class="wrapper">
         {% include 'TopxiaWebBundle::header.html.twig' %}
+        {% include 'TopxiaWebBundle::addLink.html.twig' %}
         {% block leftaside %}
 
         {% endblock %}
