@@ -12,8 +12,9 @@ class ThemeController extends Controller
     public function indexAction()
     {
         $themes = $this->getThemeService()->findAllThemes();
-        return $this->render('TopxiaWebBundle:Theme:Theme.html.twig',array('themes'=> $themes));
+        return $this->render('TopxiaWebBundle:Theme:Theme.html.twig',array('themes' => $themes));
     }
+
     public function getThemeService()
     {
         $container = $this->container->get('biz_kernel');

@@ -11,16 +11,8 @@ class ThemeDaoImpl extends GeneralDaoImpl implements ThemeDao
 
     public function findAllThemes()
     {
-        return array(
-            'timestamps' => array('created', 'updated'),
-            'serializes' => array(),
-            'conditions' => array(
-                'id = :id',
-                'name = :name',
-                'status = :status',
-                'type = :type',
-            ),
-        );
+        $sql = "SELECT * FROM {$this->table()} ORDER BY createTime DESC";
+        return $this->db()->fetchAll($sql) ?: null;
     }
 
     public function declares()

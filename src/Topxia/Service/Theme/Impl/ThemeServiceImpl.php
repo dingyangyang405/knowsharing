@@ -13,10 +13,12 @@ class ThemeServiceImpl implements ThemeService
     {
         $this->container = $container;
     }
+
     public function findAllThemes()
     {
         return $this->getThemeDao()->findAllThemes();
     }
+    
     protected function getThemeDao()
     {
         return $this->container['theme_dao'];
