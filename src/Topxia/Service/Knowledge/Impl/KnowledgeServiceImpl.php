@@ -15,10 +15,10 @@ class KnowledgeServiceImpl implements KnowledgeService
 
     public function findKnowledges()
     {
-        return $this->getDao()->find();
+        return $this->getKnowledgeDao()->find();
     }
 
-    public function getDao()
+    public function getKnowledgeDao()
     {
         return $this->container['knowledge_dao'];
     }
