@@ -7,3 +7,7 @@ knowledge_detail:
     defaults: { _controller: TopxiaWebBundle:Knowledge:detail }
     methods: [GET]
 
+theme:
+    path: /theme
+    defaults: { _controller: TopxiaWebBundle:Theme:index }
+
