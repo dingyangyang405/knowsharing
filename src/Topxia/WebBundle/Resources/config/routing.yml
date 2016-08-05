@@ -2,6 +2,11 @@ system_web_homepage:
     path:     /
     defaults: { _controller: TopxiaWebBundle:Default:index }
 
+knowledge_detail:
+    path:     /detail/{id}
+    defaults: { _controller: TopxiaWebBundle:Knowledge:detail }
+    methods: [GET]
+
 theme:
     path: /theme
     defaults: { _controller: TopxiaWebBundle:Theme:index }

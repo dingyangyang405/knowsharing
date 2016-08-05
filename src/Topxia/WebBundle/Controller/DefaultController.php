@@ -16,7 +16,7 @@ class DefaultController extends BaseController
             ));
     }
 
-    public function getKnowledgeService()
+    protected function getKnowledgeService()
     {
         return $this->getServiceKernel('knowledge_service');
     }

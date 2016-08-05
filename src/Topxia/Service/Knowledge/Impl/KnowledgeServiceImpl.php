@@ -18,6 +18,11 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $this->getDao()->find();
     }
 
+    public function getKnowledgeDetial($id)
+    {
+        return $this->getDao()->get($id);
+    }
+
     public function getDao()
     {
         return $this->container['knowledge_dao'];
