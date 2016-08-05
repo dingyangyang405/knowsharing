@@ -15,10 +15,7 @@ class CollectionDaoImpl extends GeneralDaoImpl implements CollectionDao
             'timestamps' => array('created', 'updated'),
             'serializes' => array(),
             'conditions' => array(
-                'id = :id',
-                'name = :name',
-                'status = :status',
-                'type = :type',
+                'user_id = :ownerId',
             ),
         );
     }

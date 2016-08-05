@@ -22,10 +22,7 @@ class UserDaoImpl extends GeneralDaoImpl implements UserDao
             'timestamps' => array('created', 'updated'),
             'serializes' => array(),
             'conditions' => array(
-                'id = :id',
-                'name = :name',
-                'status = :status',
-                'type = :type',
+                'id = :id'
             ),
         );
     }

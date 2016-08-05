@@ -6,6 +6,8 @@ use Topxia\Service\User\Impl\UserServiceImpl;
 use Topxia\Service\User\Dao\Impl\UserDaoImpl;
 use Topxia\Service\Knowledge\Impl\KnowledgeServiceImpl;
 use Topxia\Service\Knowledge\Dao\Impl\KnowledgeDaoImpl;
+use Topxia\Service\Collection\Impl\CollectionServiceImpl;
+use Topxia\Service\Collection\Dao\Impl\CollectionDaoImpl;
 
 class StarterKernel extends Kernel
 {

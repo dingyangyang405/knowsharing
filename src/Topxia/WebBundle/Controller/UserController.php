@@ -13,11 +13,15 @@ class UserController extends BaseController
 
         $user = $this->getUserService()->getUser(1);
 
-        $knowledgeCount = $this->getKnowledgeService()->findKnowledgeCount(array('ownerId' => $user['id']));
+        $conditions = array(
+            'ownerId' => $user['id'],
+        );
 
-        // $collectionCount = $this->getCollectionService()->findCollectionCount($user['id']);
+        $knowledgeCount = $this->getKnowledgeService()->findKnowledgeCount($conditions);
 
-        // var_dump($knowledgeCount);exit;
+        $collectionCount = $this->getCollectionService()->findCollectionCount($conditions);
+
+        var_dump($collectionCount);exit;
 
         return $this->render('TopxiaWebBundle:User:index.html.twig',array(
             'user' => $user,

@@ -2,7 +2,7 @@
 
 namespace Topxia\Service\Collection\Impl;
 
-use Topxia\Service\Collection\KnowledgeService;
+use Topxia\Service\Collection\CollectionService;
 
 class CollectionServiceImpl implements CollectionService
 {
