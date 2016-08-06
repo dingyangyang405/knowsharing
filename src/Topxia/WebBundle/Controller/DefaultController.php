@@ -28,7 +28,6 @@ class DefaultController extends BaseController
     public function shareListAction(Request $request)
     {   
         $shareKnowledges = $this->getKnowledgeService()->getKnowledgesByUserId(1);
-
         return $this->render('TopxiaWebBundle:Default:knowledge-share.html.twig',array(
             'shareKnowledges' => $shareKnowledges
             ));
