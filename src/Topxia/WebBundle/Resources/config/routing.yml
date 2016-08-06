@@ -2,3 +2,15 @@ homepage:
     path:     /
     defaults: { _controller: TopxiaWebBundle:Default:index }
 
+knowledge_addLink: 
+    path: /addlink
+    defaults: {_controller: TopxiaWebBundle:Knowledge:addLink }
+
+knowledge_detail:
+    path:     /detail/{id}
+    defaults: { _controller: TopxiaWebBundle:Knowledge:detail }
+    methods: [GET]
+
+theme:
+    path: /theme
+    defaults: { _controller: TopxiaWebBundle:Theme:index }
