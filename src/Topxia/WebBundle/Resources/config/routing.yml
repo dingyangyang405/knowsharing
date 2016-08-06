@@ -2,9 +2,9 @@ system_web_homepage:
     path:     /
     defaults: { _controller: TopxiaWebBundle:Default:index }
 
-knowledge_addLink: 
+knowledge_addKnowledge: 
     path: /addlink
-    defaults: {_controller: TopxiaWebBundle:Knowledge:addLink }
+    defaults: {_controller: TopxiaWebBundle:Knowledge:addKnowledge }
 
 knowledge_detail:
     path:     /detail/{id}
