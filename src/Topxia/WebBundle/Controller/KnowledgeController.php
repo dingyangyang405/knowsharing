@@ -27,7 +27,6 @@ class KnowledgeController extends BaseController
             'content' => $post['content'],
             'type' => $post['type'],
             'userId' => 1,
-            // 'createdTime' => time(),
         );
         $this->getKnowledgeService()->addKnowledge($data);
 
