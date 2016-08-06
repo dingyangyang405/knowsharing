@@ -10,8 +10,7 @@ $(document).ready(function(){
             data:{content:$linkurl,title:$title,summary:$summary,type:'link'},
             type:"POST",
             success:function(data){
-                console.log(data);
-                
+                location.href = '/';
             },
             error:function(jqXHR){
                 console.log("添加失败！");
@@ -30,8 +29,7 @@ $(document).ready(function(){
             data:{content:$file,title:$title,summary:$summary,type:'file'},
             type:"POST",
             success:function(data){
-                console.log(data);
-                
+                location.href = '/';
             },
             error:function(jqXHR){
                 console.log("添加失败！");
