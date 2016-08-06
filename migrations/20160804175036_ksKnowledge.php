@@ -19,7 +19,7 @@ class KsKnowledge extends Migration
         $table->addColumn('userId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '创建者id'));
         $table->addColumn('createdTime', 'integer', array('null' => false, 'comment' => '创建日期'));
         $table->addColumn('updateTime', 'integer', array('comment' => '修改日期'));
-        $table->addColumn('content', 'blob', array('null' => false, 'comment' => '内容'));
+        $table->addColumn('content', 'string', array('length' => 60, 'null' => false, 'comment' => '内容'));
         $table->setPrimaryKey(array('id'));
 
         $container['db']->getSchemaManager()->createTable($table);

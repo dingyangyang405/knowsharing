@@ -14,7 +14,7 @@ class KsUser extends Migration
         $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement'=> true));
         $table->addColumn('name', 'string', array('length' => 10, 'null' => false, 'comment' => '用户名'));
         $table->addColumn('roles', 'string', array('length' => 10, 'null' => false, 'comment' => '角色'));
-        $table->addColumn('picture', 'blob', array('comment' => '头像'));
+        $table->addColumn('picture', 'string', array('length' => 60, 'comment' => '头像'));
         $table->addColumn('mobile', 'string', array('length' => 20, 'comment' => '手机号'));
         $table->addColumn('password', 'string', array('null' => false, 'length' => 20, 'comment' => '密码'));
         $table->addColumn('email', 'string', array('null' => false, 'length' => 20, 'comment' => '邮箱'));
