@@ -8,5 +8,7 @@ interface KnowledgeService
 
     public function addKnowledge($field);
 
+    public function getKnowledgesByUserId($id);
+
     public function getKnowledgeDetial($id);
 }
