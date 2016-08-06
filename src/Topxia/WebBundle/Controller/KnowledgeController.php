@@ -10,7 +10,6 @@ class KnowledgeController extends BaseController
     public function detailAction($id)
     {
         $konwledge = $this->getKnowledgeService()->getKnowledgeDetial($id);
-        $konwledge['createdTime'] = date("Y-m-d", $konwledge['createdTime']);
         $user = $this->getUserService()->getUser($konwledge['userId']);
         $showBangdan = 'null';
 
