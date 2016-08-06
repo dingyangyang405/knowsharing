@@ -1,9 +1,6 @@
 {% extends 'TopxiaWebBundle:Default:index.html.twig' %}
 {% set loadjs = {'site':'default.js'} %}
 {% if loadjs is defined and not null %}
-    {% block javascripts %}
-        <script src="{{ asset('bundles/Topxiaweb/js/default.js') }}"></script>
-    {% endblock %}
 {% endif %}
 
 {% block navTabs %}
@@ -19,7 +16,7 @@
         <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">{{ theme.name }}</h3>
-              <p style="float:right; text-align:right">{{ theme.createTime }}</p>
+              <p style="float:right; text-align:right">{{ theme.createdTime }}</p>
             </div>
         </div>
     {% endfor %}

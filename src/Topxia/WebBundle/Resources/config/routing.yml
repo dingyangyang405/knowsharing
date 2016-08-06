@@ -1,17 +1,21 @@
 homepage:
-    path:     /
+    path:  /
     defaults: { _controller: TopxiaWebBundle:Default:index }
-    
+
 knowledge_share_list:
     path:  /share/list
     defaults: { _controller: TopxiaWebBundle:Default:shareList }
 
-knowledge_addLink: 
-    path: /addlink
-    defaults: {_controller: TopxiaWebBundle:Knowledge:addLink }
+user_page:
+    path:  /user/page
+    defaults: { _controller: TopxiaWebBundle:User:index }
+
+knowledge_addKnowledge:
+    path:  /addKnowledge
+    defaults: {_controller: TopxiaWebBundle:Knowledge:addKnowledge }
 
 knowledge_detail:
-    path:     /detail/{id}
+    path:  /detail/{id}
     defaults: { _controller: TopxiaWebBundle:Knowledge:detail }
     methods: [GET]
 

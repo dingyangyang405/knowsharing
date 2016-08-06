@@ -13,6 +13,11 @@ class KnowledgeServiceImpl implements KnowledgeService
         $this->container = $container;
     }
 
+    public function findKnowledgeCount($conditions)
+    {
+        return $this->getKnowledgeDao()->count($conditions);
+    }
+
     public function findKnowledges()
     {
         return $this->getKnowledgeDao()->find();
@@ -23,7 +28,7 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $this->getKnowledgeDao()->getKnowledgesByUserId($id);
     }
     
-    public function addLink($field)
+    public function addKnowledge($field)
     {
         return $this->getKnowledgeDao()->create($field);
     }

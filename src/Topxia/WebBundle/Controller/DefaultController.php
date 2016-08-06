@@ -15,14 +15,14 @@ class DefaultController extends BaseController
         $knowledges = TimeToolKit::arrayToDetailTime($knowledges);
         $userKnowledges = array();
         foreach ($knowledges as $key => $knowledge) {
-            $user = $this->getUserService()->getUser($knowledge['ownerId']);
+            $user = $this->getUserService()->getUser($knowledge['userId']);
             $knowledge['userName'] = $user['name'];
             $userKnowledges[] = $knowledge;
         }
-
+        
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
             'userKnowledges' => $userKnowledges
-            ));
+        ));
     }
 
     public function shareListAction(Request $request)
