@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade modal-start-abstract modal-bg" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade modal-start-abstract modal-bg" id="docModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,23 +7,23 @@
         <h4 class="modal-title" id="myModalLabel">添加</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" id="addlinkForm">
+        <form class="form-horizontal" id="addfileForm">
           <div class="form-group">
             <label for="inputlink" class="col-sm-2 control-label">链接</label>
             <div class="col-sm-10">
-              <input type="url" name="linkurl" class="form-control" id="inputlink" placeholder="URL">
+              <input type="file" name="file" id="inputfile">
             </div>
           </div>
           <div class="form-group">
             <label for="title" class="col-sm-2 control-label">标题</label>
             <div class="col-sm-10">
-              <input type="text" name="linkUrlTitle" class="form-control" id="title" placeholder="标题">
+              <input type="text" name="fileTitle" class="form-control" id="title" placeholder="标题">
             </div>
           </div>
           <div class="form-group">
             <label for="summary" class="col-sm-2 control-label">摘要</label>
             <div class="col-sm-10">
-              <textarea rows="3" type="textarea" name="linkUrlSummary" class="form-control" id="summary" placeholder="摘要">
+              <textarea rows="3" type="textarea" name="fileSummary" class="form-control" id="summary" placeholder="摘要">
               </textarea>
             </div>
           </div>
@@ -31,7 +31,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary" id="addlink" data-url="{{path('knowledge_addKnowledge')}}" data-dismiss="modal">保存</button>
+        <button type="button" class="btn btn-primary" id="addfile" data-url="{{path('knowledge_addKnowledge')}}" data-dismiss="modal">保存</button>
       </div>
     </div>
   </div>

@@ -6,9 +6,9 @@ knowledge_share_list:
     path:  /share/list
     defaults: { _controller: TopxiaWebBundle:Default:shareList }
 
-knowledge_addLink: 
+knowledge_addKnowledge: 
     path: /addlink
-    defaults: {_controller: TopxiaWebBundle:Knowledge:addLink }
+    defaults: {_controller: TopxiaWebBundle:Knowledge:addKnowledge }
 
 knowledge_detail:
     path:     /detail/{id}
