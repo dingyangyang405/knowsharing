@@ -12,6 +12,7 @@ class KnowledgeController extends BaseController
         $konwledge = $this->getKnowledgeService()->getKnowledgeDetial($id);
         $konwledge['createdTime'] = date("Y-m-d", $konwledge['createdTime']);
         $user = $this->getUserService()->getUser($konwledge['id']);
+
         return $this->render('TopxiaWebBundle:Knowledge:detail.html.twig',array(
             'konwledge' => $konwledge,
             'user' => $user
@@ -38,6 +39,7 @@ class KnowledgeController extends BaseController
             'createdTime' => time(),
         );
         $this->getKnowledgeService()->addLink($data);
+
         return new JsonResponse($data);
     }
 }
