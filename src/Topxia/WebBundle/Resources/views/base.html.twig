@@ -12,38 +12,38 @@
     <script src="{{ asset('assets/js/vendor.js') }}"></script>
     <script src="{{ asset('bundles/topxiaweb/js/modal.js') }}"></script>
 </head>
-<body class="hold-transition skin-green-light sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
 {% block body %}
-    <div class="wrapper">
+    <section class="container user-select">
         {% include 'TopxiaWebBundle::header.html.twig' %}
-        {% include 'TopxiaWebBundle::add-link.html.twig' %}
-        {% include 'TopxiaWebBundle::add-file.html.twig' %}
-        {% block leftaside %}
+        {% include 'TopxiaWebBundle::left-header.html.twig' %}
+        <div class="content-wrap">
+            <!--内容-->
+            {% block base_content %}
+            <div class="content">
+                <div class="content-block new-content">
+                    {% block navTabs %}
 
-        {% endblock %}
-        <div class="content-wrapper" id="base-tab">
-          <div class="nav-tabs-custom">
-              {% block navTabs %}
-
-              {% endblock %}
-          </div>
-          {% block content %}
-
-          {% endblock %}
-        </div>
-
-        <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                <b>Version</b> 2.3.3
+                    {% endblock %}
+                </div>
             </div>
-            <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-            reserved.
-        </footer>
-        {% block rightaside %}
+            {% endblock %}
+            <!--/内容-->
+        </div>
+        {% block aside %}
 
         {% endblock %}
-        <div class="control-sidebar-bg"></div>
-    </div>
+        {% block base_footer %}
+            <footer class="footer">POWERED BY &copy;
+                <a href="http://www.ylsat.com">异清轩 YLSAT.COM</a>
+                ALL RIGHTS RESERVED &nbsp;&nbsp;&nbsp;
+                <span>
+                    <a href="http://www.miitbeian.gov.cn/" target="_blank">豫ICP备15026801号-1</a>
+                </span>
+                <span style="display:none"><a href="index.html">网站统计</a></span>
+            </footer>
+        {% endblock %}
+    </section>
 {% endblock %}
 {% block javascripts %}{% endblock %}
 </body>

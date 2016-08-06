@@ -1,19 +1,25 @@
 {% extends 'TopxiaWebBundle::base.html.twig' %}
-{% block leftaside %}
-    {% include 'TopxiaWebBundle::left-aside.html.twig' %}
+
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+            {% block navTabs %}
+                <ul class="nav nav-tabs">
+                    <li role="newknowledge" class="active"><a href="{{path('homepage')}}">最新知识</a></li>
+                    <li role="myconcern"><a href="#timeline">我的关注<span style="color:#f00">999+</span></a></li>
+                    <li role="theme"><a href="{{path('theme')}}">主题</a></li>
+                </ul>
+                <br>
+            {% endblock %}
+            <div class="row">
+                {% for userKnowledge in userKnowledges %}
+                    {% include "TopxiaWebBundle:Default:singel-knowledge-list.html.twig" %}
+                {% endfor %}
+            </div>
+            <div class="quotes" style="margin-top:15px"><span class="disabled">首页</span><span class="disabled">上一页</span><span class="current">1</span><a href="index.html">2</a><a href="index.html">下一页</a><a href="index.html">尾页</a></div>
+        </div>
+    </div>
 {% endblock %}
-{% block rightaside %}
-  {% include 'TopxiaWebBundle::right-aside.html.twig' %}
-{% endblock %}
-{% block navTabs %}
-  <ul class="nav nav-tabs">
-    <li role="newknowledge" class="active"><a href="{{path('homepage')}}">最新知识</a></li>
-    <li role="myconcern"><a href="#timeline">我的关注<span style="color:#f00">999+</span></a></li>
-    <li role="theme"><a href="{{path('theme')}}">主题</a></li>
-  </ul>
-{% endblock %}
-{% block content %}
-  {% for userKnowledge in userKnowledges %}
-    {% include "TopxiaWebBundle:Default:singel-knowledge-list.html.twig" %}
-  {% endfor %}
+{% block aside %}
+    {% include 'TopxiaWebBundle::aside.html.twig' %}
 {% endblock %}

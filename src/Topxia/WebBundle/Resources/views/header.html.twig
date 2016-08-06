@@ -1,8 +1,4 @@
 <header class="main-header">
-    <a href="{{ path('homepage') }}" class="logo">
-        <span class="logo-mini"><b>Te</b>am</span>
-        <span class="logo-lg"><b>知识分享</b>系统</span>
-    </a>
     <nav class="navbar navbar-static-top">
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
@@ -14,20 +10,6 @@
                         <li><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#docModal">文档</a></li>
                         <li><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#linkModal">链接</a></li>
                     </ul>
-                </li>
-                <li>
-                    <select class="form-control select-theme">
-                        <option value="">主题</option>
-                        <option value="default">标签</option>
-                        <option value="weibo">分享者</option>
-                    </select>
-                </li>
-                <li>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="navbar-search-input" placeholder="Search">
-                        </div>
-                    </form>
                 </li>
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -65,12 +47,6 @@
                         </li>
                     </ul>
                 </li>
-                {% set defaultshow = bangdan|default('show') %}
-                {% if defaultshow == 'show' %}
-                <li>
-                    <a href="#" data-toggle="control-sidebar">榜单</a>
-                </li>
-                {% endif %}
             </ul>
         </div>
     </nav>
