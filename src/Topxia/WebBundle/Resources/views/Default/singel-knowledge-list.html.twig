@@ -1,6 +1,13 @@
 <div class="box">
   <div class="box-header with-border">
-    <h3 class="box-title"><a href="{{path('knowledge_detail',{id:userKnowledge.id})}}">{{userKnowledge.title}}</a><a href="#"><i class="{% if userKnowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}"></i></a></h3>
+    <h3 class="box-title">
+      <a href="{{path('knowledge_detail',{id:userKnowledge.id})}}">{{userKnowledge.title}}</a>
+      <a href="#" class="default-link">
+        <i class="{% if userKnowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}">
+
+        </i>
+      </a>
+    </h3>
   </div>
 <div class="box-body">
 {{userKnowledge.summary}}
