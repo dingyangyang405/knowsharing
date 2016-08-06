@@ -9,10 +9,17 @@ class UserDaoImpl extends GeneralDaoImpl implements UserDao
 {
     protected $table = 'user';
 
+    public function get($id)
+    {
+        $sql = "SELECT * FROM {$this->table()} WHERE id = ?";
+
+        return $this->db()->fetchAssoc($sql, array($id)) ?: null;
+    }
     public function findByIds($ids)
     {
         $marks = str_repeat('?,', count($ids)-1).'?';
         $sql = "SELECT * FROM {$this->table} WHERE id IN ({$marks})";
+
         return $this->db()->fetchAll($sql,$ids);
     }
 
@@ -22,10 +29,7 @@ class UserDaoImpl extends GeneralDaoImpl implements UserDao
             'timestamps' => array('created', 'updated'),
             'serializes' => array(),
             'conditions' => array(
-                'id = :id',
-                'name = :name',
-                'status = :status',
-                'type = :type',
+                'id = :id'
             ),
         );
     }
