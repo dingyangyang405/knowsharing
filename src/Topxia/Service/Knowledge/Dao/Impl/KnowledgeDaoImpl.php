@@ -11,7 +11,7 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
 
     public function find()
     {
-        $sql = "SELECT * FROM {$this->table} ORDER BY createdTime";
+        $sql = "SELECT * FROM {$this->table} ORDER BY createdTime DESC";
         return $this->db()->fetchAll($sql);
     }
 
