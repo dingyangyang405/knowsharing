@@ -19,10 +19,10 @@ class DefaultController extends BaseController
             $knowledge['userName'] = $user['name'];
             $userKnowledges[] = $knowledge;
         }
-
+        
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
             'userKnowledges' => $userKnowledges
-            ));
+        ));
     }
 
     public function shareListAction(Request $request)
