@@ -4,6 +4,7 @@ namespace Topxia\WebBundle\Controller;
 
 use Topxia\WebBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends BaseController
 {
@@ -25,7 +26,7 @@ class DefaultController extends BaseController
             ));
     }
 
-    public function getKnowledgeService()
+    protected function getKnowledgeService()
     {
         return $this->getServiceKernel('knowledge_service');
     }

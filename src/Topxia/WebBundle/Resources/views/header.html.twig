@@ -1,18 +1,19 @@
 <header class="main-header">
-    <!-- Logo -->
     <a href="../../index2.html" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>Te</b>am</span>
-        <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><b>知识分享</b>系统</span>
     </a>
-    <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                        <i class="fa fa-plus"></i>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="fa fa-plus"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#docModal">文档</a></li>
+                        <li><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#linkModal">链接</a></li>
+                    </ul>
                     </a>
                 </li>
                 <li>
@@ -35,16 +36,13 @@
                         <span class="hidden-xs">邢晋刚</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <!-- User image -->
                         <li class="user-header">
                             <img src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" class="img-circle" alt="User Image">
-
                             <p>
                                 邢晋刚
                                 <small>Member since Nov. 2012</small>
                             </p>
                         </li>
-                        <!-- Menu Body -->
                         <li class="user-body">
                             <div class="row">
                                 <div class="col-xs-4 text-center">
@@ -57,9 +55,7 @@
                                     <i class="fa  fa-graduation-cap"></i>
                                 </div>
                             </div>
-                            <!-- /.row -->
                         </li>
-                        <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
                                 <a href="#" class="btn btn-default btn-flat">设置</a>

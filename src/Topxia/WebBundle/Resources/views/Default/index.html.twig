@@ -1,16 +1,7 @@
 {% extends 'TopxiaWebBundle::base.html.twig' %}
-{% set loadjs = {'site':'default.js'} %}
-{% if loadjs is defined and not null %}
-    {% block javascripts %}
-        <script src="{{ asset('bundles/topxiaweb/js/default.js') }}"></script>
-    {% endblock %}
-{% endif %}
-        {% block leftaside %}
-            {% include 'TopxiaWebBundle::left-aside.html.twig' %}
-        {% endblock %}
-        {% block rightaside %}
-            {% include 'TopxiaWebBundle::right-aside.html.twig' %}
-        {% endblock %}
+{% block leftaside %}
+    {% include 'TopxiaWebBundle::left-aside.html.twig' %}
+{% endblock %}
 {% block navTabs %}
     <ul class="nav nav-tabs">
         <li role="newknowledge" class="active"><a href="#profile" aria-controls="newknowledge" role="tab" data-toggle="tab">最新知识</a></li>
@@ -18,6 +9,6 @@
         <li role="theme"><a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">主题</a></li>
     </ul>
 {% endblock %}
-{% block content %}
-    我是晋刚我是晋刚我是晋刚我是晋刚啊我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚
+{% block rightaside %}
+    {% include 'TopxiaWebBundle::right-aside.html.twig' %}
 {% endblock %}

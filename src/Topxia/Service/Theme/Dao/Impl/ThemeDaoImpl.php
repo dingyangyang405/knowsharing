@@ -1,13 +1,20 @@
 <?php
 
-namespace Topxia\Service\User\Dao\Impl;
+namespace Topxia\Service\Theme\Dao\Impl;
 
-use Topxia\Service\User\Dao\UserDao;
+use Topxia\Service\Theme\Dao\ThemeDao;
 use Codeages\Biz\Framework\Dao\GeneralDaoImpl;
 
-class UserDaoImpl extends GeneralDaoImpl implements UserDao
+class ThemeDaoImpl extends GeneralDaoImpl implements ThemeDao
 {
-    protected $table = 'user';
+    protected $table = 'theme';
+
+    public function findAllThemes()
+    {
+        $sql = "SELECT * FROM {$this->table()} ORDER BY createTime DESC";
+        return $this->db()->fetchAll($sql);
+    }
+
     public function declares()
     {
         return array(

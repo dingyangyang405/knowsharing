@@ -5,3 +5,16 @@ system_web_homepage:
 knowledge_share_list:
     path:  /share/list
     defaults: { _controller: TopxiaWebBundle:Default:shareList }
+
+knowledge_addLink: 
+    path: /addlink
+    defaults: {_controller: TopxiaWebBundle:Knowledge:addLink }
+
+knowledge_detail:
+    path:     /detail/{id}
+    defaults: { _controller: TopxiaWebBundle:Knowledge:detail }
+    methods: [GET]
+
+theme:
+    path: /theme
+    defaults: { _controller: TopxiaWebBundle:Theme:index }
