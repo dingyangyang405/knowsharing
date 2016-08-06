@@ -12,10 +12,12 @@ class KnowledgeController extends BaseController
         $konwledge = $this->getKnowledgeService()->getKnowledgeDetial($id);
         $konwledge['createdTime'] = date("Y-m-d", $konwledge['createdTime']);
         $user = $this->getUserService()->getUser($konwledge['userId']);
+        $showBangdan = 'null';
 
         return $this->render('TopxiaWebBundle:Knowledge:detail.html.twig',array(
             'konwledge' => $konwledge,
-            'user' => $user
+            'user' => $user,
+            'bangdan' => $showBangdan
         ));
     }
 

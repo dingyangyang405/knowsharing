@@ -65,9 +65,12 @@
                         </li>
                     </ul>
                 </li>
+                {% set defaultshow = bangdan|default('show') %}
+                {% if defaultshow == 'show' %}
                 <li>
                     <a href="#" data-toggle="control-sidebar">榜单</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </nav>
