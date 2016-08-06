@@ -18,14 +18,9 @@ class ThemeDaoImpl extends GeneralDaoImpl implements ThemeDao
     public function declares()
     {
         return array(
-            'timestamps' => array('created', 'updated'),
+            'timestamps' => array(),
             'serializes' => array(),
-            'conditions' => array(
-                'id = :id',
-                'name = :name',
-                'status = :status',
-                'type = :type',
-            ),
+            'conditions' => array(),
         );
     }
 
