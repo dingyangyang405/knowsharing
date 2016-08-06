@@ -1,6 +1,10 @@
 homepage:
     path:     /
     defaults: { _controller: TopxiaWebBundle:Default:index }
+    
+knowledge_share_list:
+    path:  /share/list
+    defaults: { _controller: TopxiaWebBundle:Default:shareList }
 
 knowledge_addLink: 
     path: /addlink
