@@ -7,7 +7,7 @@ use Codeages\Biz\Framework\Dao\GeneralDaoImpl;
 
 class CollectionDaoImpl extends GeneralDaoImpl implements CollectionDao
 {
-    protected $table = 'user_collect';
+    protected $table = 'user_collection';
 
     public function declares()
     {
@@ -15,7 +15,7 @@ class CollectionDaoImpl extends GeneralDaoImpl implements CollectionDao
             'timestamps' => array('created', 'updated'),
             'serializes' => array(),
             'conditions' => array(
-                'user_id = :ownerId',
+                'userId = :userId',
             ),
         );
     }

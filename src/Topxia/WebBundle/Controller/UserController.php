@@ -14,7 +14,7 @@ class UserController extends BaseController
         $user = $this->getUserService()->getUser(1);
 
         $conditions = array(
-            'ownerId' => $user['id'],
+            'userId' => $user['id'],
         );
 
         $knowledgeCount = $this->getKnowledgeService()->findKnowledgeCount($conditions);

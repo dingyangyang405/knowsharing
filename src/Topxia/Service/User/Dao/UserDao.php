@@ -7,4 +7,6 @@ use Codeages\Biz\Framework\Dao\GeneralDaoInterface;
 interface UserDao extends GeneralDaoInterface
 {
     public function get($id);
+
+    public function findByIds($ids);
 }

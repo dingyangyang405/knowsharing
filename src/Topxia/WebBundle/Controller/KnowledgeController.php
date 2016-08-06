@@ -10,8 +10,11 @@ class KnowledgeController extends BaseController
     public function detailAction($id)
     {
         $konwledge = $this->getKnowledgeService()->getKnowledgeDetial($id);
+        $konwledge['createdTime'] = date("Y-m-d", $konwledge['createdTime']);
+        $user = $this->getUserService()->getUser($konwledge['id']);
         return $this->render('TopxiaWebBundle:Knowledge:detail.html.twig',array(
-            'konwledge' => $konwledge
+            'konwledge' => $konwledge,
+            'user' => $user
         ));
     }
 
@@ -20,6 +23,10 @@ class KnowledgeController extends BaseController
         return $this->getServiceKernel('knowledge_service');
     }
 
+    protected function getUserService()
+    {
+        return $this->getServiceKernel('user_service');
+    }
     public function addLinkAction(Request $request){
         $post = $request->request->all();
         $data = array(

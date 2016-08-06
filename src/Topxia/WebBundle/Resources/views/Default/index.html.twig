@@ -1,29 +1,19 @@
 {% extends 'TopxiaWebBundle::base.html.twig' %}
-{% set loadjs = {'site':'default.js'} %}
-{% if loadjs is defined and not null %}
-    {% block javascripts %}
-        <script src="{{ asset('bundles/topxiaweb/js/default.js') }}"></script>
-    {% endblock %}
-{% endif %}
-        {% block leftaside %}
-            {% include 'TopxiaWebBundle::left-aside.html.twig' %}
-        {% endblock %}
-        {% block rightaside %}
-            {% include 'TopxiaWebBundle::right-aside.html.twig' %}
-        {% endblock %}
-{% block contentTitle %}
-    {{ user.name }} 的 工号是 {{ user.id }}
+{% block leftaside %}
+    {% include 'TopxiaWebBundle::left-aside.html.twig' %}
+{% endblock %}
+{% block rightaside %}
+  {% include 'TopxiaWebBundle::right-aside.html.twig' %}
 {% endblock %}
 {% block navTabs %}
-    <ul class="nav nav-tabs">
-        <li role="newknowledge" class="active"><a href="#profile" aria-controls="newknowledge" role="tab" data-toggle="tab">最新知识</a></li>
-        <li role="myconcern"><a href="#timeline" aria-controls="myconcern" role="tab" data-toggle="tab">我的关注<span style="color:#f00">999+</span></a></li>
-        <li role="theme"><a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">主题</a></li>
-    </ul>
+  <ul class="nav nav-tabs">
+    <li role="newknowledge" class="active"><a href="{{path('homepage')}}">最新知识</a></li>
+    <li role="myconcern"><a href="#timeline">我的关注<span style="color:#f00">999+</span></a></li>
+    <li role="theme"><a href="{{path('theme')}}">主题</a></li>
+  </ul>
 {% endblock %}
-{% block contentBody %}
-    我是晋刚我是晋刚我是晋刚我是晋刚啊我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚我是晋刚
+{% block content %}
+  {% for userKnowledge in userKnowledges %}
+    {% include "TopxiaWebBundle:Default:singel-knowledge-list.html.twig" %}
+  {% endfor %}
 {% endblock %}
- {% block contentFooter %}
-     那一天那一天那一天那一天那一天那一天那一天那一天那一天那一天
- {% endblock %}
