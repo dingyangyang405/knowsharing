@@ -12,10 +12,26 @@ class KnowledgeController extends BaseController
         $konwledge = $this->getKnowledgeService()->getKnowledgeDetial($id);
         $konwledge['createdTime'] = date("Y-m-d", $konwledge['createdTime']);
         $user = $this->getUserService()->getUser($konwledge['id']);
+
         return $this->render('TopxiaWebBundle:Knowledge:detail.html.twig',array(
             'konwledge' => $konwledge,
             'user' => $user
         ));
+    }
+
+    public function addKnowledgeAction(Request $request){
+        $post = $request->request->all();
+        $data = array(
+            'title' => $post['title'],
+            'summary' => $post['summary'],
+            'content' => $post['content'],
+            'type' => $post['type'],
+            'userId' => 1,
+            'createdTime' => time(),
+        );
+        $this->getKnowledgeService()->addKnowledge($data);
+
+        return new JsonResponse($data);
     }
 
     protected function getKnowledgeService()
@@ -26,18 +42,5 @@ class KnowledgeController extends BaseController
     protected function getUserService()
     {
         return $this->getServiceKernel('user_service');
-    }
-    public function addLinkAction(Request $request){
-        $post = $request->request->all();
-        $data = array(
-            'title' => $post['title'],
-            'summary' => $post['summary'],
-            'content' => $post['linkurl'],
-            'type' => 'link',
-            'userId' => 1,
-            'createdTime' => time(),
-        );
-        $this->getKnowledgeService()->addLink($data);
-        return new JsonResponse($data);
     }
 }

@@ -15,6 +15,13 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
         return $this->db()->fetchAll($sql)?:null;
     }
 
+    public function getKnowledgesByUserId($id)
+    {   
+        $sql = "SELECT * FROM {$this->table()} WHERE userId = ?";
+
+        return $this->db()->fetchAll($sql, array($id)) ?: null;
+    }
+
     public function declares()
     {
         return array(
