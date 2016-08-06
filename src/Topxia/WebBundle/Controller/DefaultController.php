@@ -9,8 +9,8 @@ class DefaultController extends BaseController
 {
     public function indexAction(Request $request)
     {
-
         $konwledges = $this->getKnowledgeService()->findKnowledges();
+
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
             'konwledges' => $konwledges
             ));
@@ -19,7 +19,7 @@ class DefaultController extends BaseController
     public function shareListAction(Request $request)
     {   
         $shareKnowledges = $this->getKnowledgeService()->getKnowledgesById(1);
-        // var_dump($shareKnowledges);exit();
+
         return $this->render('TopxiaWebBundle:Default:knowledge-share.html.twig',array(
             'shareKnowledges' => $shareKnowledges
             ));
