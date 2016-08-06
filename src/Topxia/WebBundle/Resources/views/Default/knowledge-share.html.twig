@@ -20,7 +20,7 @@
   {% for shareKnowledge in shareKnowledges %}
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4>{% if shareKnowledge.type == 'file' %}<i class="fa fa-sticky-note-o"></i>{% else %}<i class="fa fa-link"></i>{% endif %}&nbsp<a href="#">{{shareKnowledge.title}}</a>
+        <h4><a href="#">{{shareKnowledge.title}}</a>&nbsp&nbsp{% if shareKnowledge.type == 'file' %}<i class="fa fa-sticky-note-o"></i>{% else %}<i class="fa fa-link"></i>{% endif %}
         </h4>
       </div>
       <div class="panel-body">
