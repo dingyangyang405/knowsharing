@@ -1,7 +1,7 @@
-system_web_homepage:
-    path: /
-    defaults: {_controller: TopxiaWebBundle:Default:index }
-
+homepage:
+    path:     /
+    defaults: { _controller: TopxiaWebBundle:Default:index }
+    
 knowledge_share_list:
     path:  /share/list
     defaults: { _controller: TopxiaWebBundle:Default:shareList }

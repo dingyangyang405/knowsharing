@@ -8,5 +8,5 @@ interface KnowledgeDao extends GeneralDaoInterface
 {
     public function find();
 
-    public function getKnowledgesById($id);
+    public function getKnowledgesByUserId($id);
 }
