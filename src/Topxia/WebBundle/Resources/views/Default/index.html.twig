@@ -2,13 +2,18 @@
 {% block leftaside %}
     {% include 'TopxiaWebBundle::left-aside.html.twig' %}
 {% endblock %}
-{% block navTabs %}
-    <ul class="nav nav-tabs">
-        <li role="newknowledge" class="active"><a href="#profile" aria-controls="newknowledge" role="tab" data-toggle="tab">最新知识</a></li>
-        <li role="myconcern"><a href="#timeline" aria-controls="myconcern" role="tab" data-toggle="tab">我的关注<span style="color:#f00">999+</span></a></li>
-        <li role="theme"><a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">主题</a></li>
-    </ul>
-{% endblock %}
 {% block rightaside %}
-    {% include 'TopxiaWebBundle::right-aside.html.twig' %}
+  {% include 'TopxiaWebBundle::right-aside.html.twig' %}
+{% endblock %}
+{% block navTabs %}
+  <ul class="nav nav-tabs">
+    <li role="newknowledge" class="active"><a href="{{path('homepage')}}">最新知识</a></li>
+    <li role="myconcern"><a href="#timeline">我的关注<span style="color:#f00">999+</span></a></li>
+    <li role="theme"><a href="#theme">主题</a></li>
+  </ul>
+{% endblock %}
+{% block content %}
+  {% for userKnowledge in userKnowledges %}
+    {% include "TopxiaWebBundle:Default:singel-knowledge-list.html.twig" %}
+  {% endfor %}
 {% endblock %}

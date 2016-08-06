@@ -15,20 +15,20 @@ class KnowledgeServiceImpl implements KnowledgeService
 
     public function findKnowledges()
     {
-        return $this->getDao()->find();
+        return $this->getKnowledgeDao()->find();
     }
 
     public function addLink($field)
     {
-        return $this->getDao()->create($field);
+        return $this->getKnowledgeDao()->create($field);
     }
     
     public function getKnowledgeDetial($id)
     {
-        return $this->getDao()->get($id);
+        return $this->getKnowledgeDao()->get($id);
     }
 
-    public function getDao()
+    public function getKnowledgeDao()
     {
         return $this->container['knowledge_dao'];
     }
