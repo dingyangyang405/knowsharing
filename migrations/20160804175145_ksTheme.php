@@ -13,7 +13,7 @@ class KsTheme extends Migration
         $table = new Doctrine\DBAL\Schema\Table('theme');
         $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement'=> true));
         $table->addColumn('name', 'string', array('length' => 10, 'null' => false, 'comment' => '主题名字'));
-        $table->addColumn('createTime', 'integer', array('null' => false, 'comment' => '创建日期'));
+        $table->addColumn('createdTime', 'integer', array('null' => false, 'comment' => '创建日期'));
         $table->addColumn('userId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '创建者id'));
 
         $table->setPrimaryKey(array('id'));
