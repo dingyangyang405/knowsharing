@@ -12035,7 +12035,7 @@ body, input, button, textarea, select {
 }
 .news-info {
 	overflow: hidden;
-	padding: 10px;
+	padding: 0px;
 	display: block;
 	position: relative;
 }
