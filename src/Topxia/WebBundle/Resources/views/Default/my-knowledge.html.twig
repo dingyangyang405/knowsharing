@@ -18,11 +18,10 @@
               <div class="news-info col-xs-12 col-sm-12 col-md-11">
                 <dl>
                   <dt>
-                    <a href="#">{{shareKnowledge.title}}&nbsp&nbsp{% if shareKnowledge.type == 'file' %}
+                    <a href="{{path('knowledge_detail',{id:shareKnowledge.id})}}">{{shareKnowledge.title}}&nbsp&nbsp{% if shareKnowledge.type == 'file' %}
                     <i class="fa fa-sticky-note-o"></i>{% else %}<i class="fa fa-link"></i>{% endif %}
                     </a>
                   </dt>
-                  <dd class="text">{{shareKnowledge.summary}}</dd>
                   <div class="col-md-offset-10">
                     <button type="button" class="btn btn-primary fa fa-edit"></button>
                     <button type="button" class="btn btn-default fa fa-trash"></button>
@@ -32,9 +31,9 @@
             </div>  
           {% endfor %}
         {% else %}
-          <div class="panel-title">
-            <h4 align="center">---暂无分享记录---</h4>
-          </div>
+            <div class="panel-title">
+              <h4 align="center">---暂无分享记录---</h4>
+            </div>
         {% endif %}
       </div>
       <div class="quotes" style="margin-top:15px">
