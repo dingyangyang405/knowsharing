@@ -17,7 +17,7 @@ class KnowledgeController extends BaseController
             'user' => $user,
         ));
     }
-
+    
     public function addKnowledgeAction(Request $request){
         $post = $request->request->all();
         $data = array(
