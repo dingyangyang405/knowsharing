@@ -25,3 +25,13 @@ knowledge_detail:
 theme:
     path: /theme
     defaults: { _controller: TopxiaWebBundle:Theme:index }
+
+theme_follow: 
+    path: /theme/{id}/follow
+    defaults: { _controller: TopxiaWebBundle:Theme:follow }
+    methods: [POST]
+
+theme_unfollow: 
+    path: /theme/{id}/unfollow
+    defaults: { _controller: TopxiaWebBundle:Theme:unfollow }
+    methods: [POST]

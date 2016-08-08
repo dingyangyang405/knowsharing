@@ -6,6 +6,7 @@ use Topxia\Service\User\Impl\UserServiceImpl;
 use Topxia\Service\User\Dao\Impl\UserDaoImpl;
 use Topxia\Service\Theme\Impl\ThemeServiceImpl;
 use Topxia\Service\Theme\Dao\Impl\ThemeDaoImpl;
+use Topxia\Service\Theme\Dao\Impl\FollowDaoImpl;
 use Topxia\Service\Knowledge\Impl\KnowledgeServiceImpl;
 use Topxia\Service\Knowledge\Dao\Impl\KnowledgeDaoImpl;
 use Topxia\Service\Collection\Impl\CollectionServiceImpl;
@@ -65,5 +66,8 @@ class StarterKernel extends Kernel
             return new CommentDaoImpl($container);
         });
 
+        $this['follow_dao'] = function($container) {
+            return new FollowDaoImpl($container);
+        };
     }
 }
