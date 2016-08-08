@@ -1,5 +1,4 @@
 {% extends 'TopxiaWebBundle::base.html.twig' %}
-
 {% block base_content %} 
   <div class="content">
     <div class="content-block new-content">
@@ -18,11 +17,11 @@
                     </a>
                   </dt>
                   <dd class="text">{{shareKnowledge.summary}}</dd>
+                  <div class="col-md-offset-10">
+                    <button type="button" class="btn btn-primary fa fa-edit"></button>
+                    <button type="button" class="btn btn-default fa fa-trash"></button>
+                  </div>
                 </dl>
-                <div class="col-md-offset-9">
-                  <button type="button" class="btn btn-default">编辑</button>
-                  <button type="button" class="btn btn-primary">删除</button>
-                </div>
               </div>
             </div>  
           {% endfor %}
