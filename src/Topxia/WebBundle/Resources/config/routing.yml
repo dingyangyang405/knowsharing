@@ -7,7 +7,7 @@ knowledge_share_list:
     defaults: { _controller: TopxiaWebBundle:Default:shareList }
 
 user_page:
-    path:  /user/page
+    path:  /user/{id}
     defaults: { _controller: TopxiaWebBundle:User:index }
 
 knowledge_addKnowledge:
