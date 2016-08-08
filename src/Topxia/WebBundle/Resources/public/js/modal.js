@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    $("body").css({ 'overflow-y': 'scroll'});
     $('#addlink').click(function(){
         var $formParam = $('#addlinkForm').serialize();
         var $url = $(this).data('url');
