@@ -1,13 +1,13 @@
 $(document).ready(function(){
-    $('#addlink').click(function(){
-        var $formParam = $('#addlinkForm').serialize();
+    $("body").css({ 'overflow-y': 'scroll'});
+    $('#addLink').click(function(){
         var $url = $(this).data('url');
-        var $linkurl = $('[name = linkurl]').val();
+        var $linkUrl = $('[name = linkUrl]').val();
         var $title = $('[name = linkUrlTitle]').val();
         var $summary = $('[name = linkUrlSummary]').val();
         $.ajax({
             url:$url,
-            data:{content:$linkurl,title:$title,summary:$summary,type:'link'},
+            data:{content:$linkUrl,title:$title,summary:$summary,type:'link'},
             type:"POST",
             success:function(data){
                 location.href = '/';
@@ -18,8 +18,7 @@ $(document).ready(function(){
         })
     })
 
-    $('#addfile').click(function(){
-        var $formParam = $('#addfileForm').serialize();
+    $('#addFile').click(function(){
         var $url = $(this).data('url');
         var $file = $('[name = file]').val();
         var $title = $('[name = fileTitle]').val();
