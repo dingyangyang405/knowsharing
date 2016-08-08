@@ -15,7 +15,7 @@ class ThemeController extends BaseController
         return $this->render('TopxiaWebBundle:Theme:theme.html.twig',array('themes' => $themes));
     }
 
-    public function getThemeService()
+    protected function getThemeService()
     {
         return $this->getServiceKernel('theme_service');
     }
