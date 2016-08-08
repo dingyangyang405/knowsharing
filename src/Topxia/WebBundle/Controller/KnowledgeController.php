@@ -18,7 +18,7 @@ class KnowledgeController extends BaseController
             'user' => $user
         ));
     }
-
+    
     protected function getKnowledgeService()
     {
         return $this->getServiceKernel('knowledge_service');

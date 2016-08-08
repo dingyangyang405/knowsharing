@@ -11,4 +11,5 @@ interface KnowledgeService
     public function addLink($field);
 
     public function getKnowledgeDetial($id);
+
 }

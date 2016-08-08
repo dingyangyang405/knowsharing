@@ -18,3 +18,7 @@ knowledge_detail:
 theme:
     path: /theme
     defaults: { _controller: TopxiaWebBundle:Theme:index }
+
+MyKnowledge_addCollection:
+    path: /addCollection/{knowledgeId}
+    defaults: {_controller: TopxiaWebBundle:MyKnowledge:addCollection}
