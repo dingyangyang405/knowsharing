@@ -15,7 +15,6 @@ class KnowledgeController extends BaseController
         return $this->render('TopxiaWebBundle:Knowledge:detail.html.twig',array(
             'konwledge' => $konwledge,
             'user' => $user,
-            'bangdan' => $showBangdan
         ));
     }
 
