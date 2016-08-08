@@ -13,7 +13,6 @@ class ThemeController extends BaseController
     public function indexAction()
     {
         $themes = $this->getThemeService()->findAllThemes();
-        var_dump($themes);exit();
         return $this->render('TopxiaWebBundle:Theme:theme.html.twig',array(
             'themes' => $themes
         ));
