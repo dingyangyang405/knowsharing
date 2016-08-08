@@ -22,9 +22,9 @@ class UserServiceImpl implements UserService
         return $this->getUserDao()->findByIds($ids);
     }
 
-    public function findUserKnowledgesLike()
+    public function findUserLikeByKnowledgeId($id)
     {
-        return $this->getUserLikeDao()->findUserLike();
+        return $this->getUserLikeDao()->findUserLikeByKnowledgeId($id);
     }
 
     public function addUserCollect($fields)
@@ -37,10 +37,16 @@ class UserServiceImpl implements UserService
         return $this->getUserLikeDao()->create($fields);
     }
 
-    public function findUserKnowledgesCollect()
+    public function findUserCollectByKnowledgeId($id)
     {
-        return $this->getUserCollectDao()->findUserCollect();
+        return $this->getUserCollectDao()->findUserCollectByKnowledgeId($id);
     }
+
+    public function getCollectByUserAndKnowledgeId($userId, $knowledgeId)
+    {
+        return $this->getUserCollectDao()->getCollectByUserAndKnowledgeId($userId, $knowledgeId);
+    }
+
     protected function getUserDao()
     {
         return $this->container['user_dao'];

@@ -6,5 +6,5 @@ use Codeages\Biz\Framework\Dao\GeneralDaoInterface;
 
 interface UserLikeDao extends GeneralDaoInterface
 {
-    public function findUserLike();
+    public function findUserLikeByKnowledgeId($id);
 }

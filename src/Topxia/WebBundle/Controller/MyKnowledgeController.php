@@ -16,10 +16,19 @@ class MyKnowledgeController extends BaseController
             'knowledgeId' => $knowledgeId
             );
 
-        $this->getUserService()->addUserCollect($fields);
+        $hasCollected = $this->getUserService()->addUserCollect($fields);
         return new JsonResponse(array(
             'status' => 'success'
-            ));
+        ));
+    }
+
+    public function delCollectionAction(Request $request, $knowledgeId)
+    {
+        // $fields = array(
+        //     'userId' => '1',
+        //     'knowledgeId' => $knowledgeId
+        //     );
+
     }
 
     public function addLikeAction(Request $request, $id)
@@ -33,7 +42,7 @@ class MyKnowledgeController extends BaseController
         $this->getUserService()->addUserLike($fields);
         return new JsonResponse(array(
             'status' => 'success'
-            ));
+        ));
     }
 
     protected function getUserService()

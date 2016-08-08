@@ -8,11 +8,14 @@ interface UserService
 
     public function findUsersByIds($ids);
 
-    public function findUserKnowledgesLike();
+    public function findUserLikeByKnowledgeId($id);
 
-    public function findUserKnowledgesCollect();
+    public function findUserCollectByKnowledgeId($id);
 
     public function addUserCollect($fields);
 
     public function addUserLike($fields);
+
+    public function getCollectByUserAndKnowledgeId($userId, $knowledgeId);
+
 }

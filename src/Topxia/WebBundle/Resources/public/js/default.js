@@ -1,15 +1,24 @@
- $("#collect-link").click(function(event) {
-    var url = $(event.target).attr("href");
-    var id = $(event.target).attr("data-id");
-    $.ajax({
-        url: url,
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
+$(function(){
+    $("#collect-btn").click(function(){
+        var $btn = $(this);
+        var $id = $btn.data('id');
+        var $collectNum = $("#collect-btn").text();
+        $.post($btn.data('url'),function(data){
             if (data.status == 'success') {
-                $("#knowledge-list-"+id).attr('class', 'fa fa-star text-yellow');
-            }
-        }
+                $collectNum = parseInt($collectNum)+parseInt(1);
+                console.log($collectNum);
+                $("#collect-btn").html($collectNum)
+                $btn.hide();
+                $btn.next().show();
+            } 
+        })
     });
 
- });
+    $("#uncollect-btn").click(function(){
+        var $btn = $(this);
+        $.post($btn.data('url'),function(data){
+            $btn.hide();
+            $btn.prev().show();
+        })
+    });
+});

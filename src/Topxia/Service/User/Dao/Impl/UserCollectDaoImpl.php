@@ -9,12 +9,17 @@ class UserCollectDaoImpl extends GeneralDaoImpl implements UserCollectDao
 {
     protected $table = 'user_collection';
 
-    public function findUserCollect()
+    public function findUserCollectByKnowledgeId($id)
     {
-        $sql = "SELECT * FROM {$this->table} ORDER BY createdTime";
-        return $this->db()->fetchAll($sql);
+        $sql = "SELECT * FROM {$this->table} WHERE knowledgeId = ? ORDER BY createdTime";
+        return $this->db()->fetchAll($sql,array($id));
     }
 
+    public function getCollectByUserAndKnowledgeId($userId, $knowledgeId)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE userId = ? And knowledgeId = ?";
+        return $this->db()->fetchAssoc($sql,array($userId, $knowledgeId));
+    }
     public function declares()
     {
         return array(

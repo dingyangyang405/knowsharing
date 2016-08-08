@@ -9,10 +9,10 @@ class UserLikeDaoImpl extends GeneralDaoImpl implements UserLikeDao
 {
     protected $table = 'user_like';
 
-    public function findUserLike()
+    public function findUserLikeByKnowledgeId($id)
     {
-        $sql = "SELECT * FROM {$this->table} ORDER BY createdTime";
-        return $this->db()->fetchAll($sql);      
+        $sql = "SELECT * FROM {$this->table} WHERE knowledgeId = ? ORDER BY createdTime";
+        return $this->db()->fetchAll($sql,array($id));      
     }
 
     public function declares()

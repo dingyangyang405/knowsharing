@@ -25,9 +25,8 @@
         <a href="javascript:;">PHP</a>
       </span>
       <span class="look">
-        <i class="fa fa-star-o"></i><strong title="收藏" style="cursor: pointer"> 2126 </strong>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <i class="fa fa-thumbs-up"></i><strong title="点赞" style="cursor: pointer"> 12 </strong>
+        <a class="pull-center" id="collect-btn" data-url="{{ path('MyKnowledge_addCollection', {knowledgeId:userKnowledge.id}) }}" data-id="{{userKnowledge.id}}" {% if not userKnowledge.hasCollected %}style="display:none"{% endif %}><i class="fa fa-fw fa-heart-o"></i>{{userKnowledge.collectNum}}</a >
+        <a class="pull-right" id="uncollect-btn" data-url="{{ path('MyKnowledge_addCollection', {knowledgeId:userKnowledge.id}) }}" {% if userKnowledge.hasCollected %}style="display:none"{% endif %}><i class="fa fa-fw fa-heart"></i>{{userKnowledge.collectNum}}</a >
       </span>
     </div>
   </div>
