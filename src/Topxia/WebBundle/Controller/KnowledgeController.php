@@ -11,7 +11,6 @@ class KnowledgeController extends BaseController
     {
         $konwledge = $this->getKnowledgeService()->getKnowledgeDetial($id);
         $user = $this->getUserService()->getUser($konwledge['userId']);
-        $showBangdan = 'null';
 
         return $this->render('TopxiaWebBundle:Knowledge:detail.html.twig',array(
             'konwledge' => $konwledge,
