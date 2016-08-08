@@ -6,7 +6,7 @@ interface ThemeService
 {
     public function findAllThemes();
 
-    public function followTheme($id);
+    public function followTheme($themeId);
 
-    public function unfollowTheme($id);
+    public function unfollowTheme($themeId);
 }

@@ -18,6 +18,18 @@ class ThemeServiceImpl implements ThemeService
     {
         return $this->getThemeDao()->findAllThemes();
     }
+
+    public function followTheme($themeId)
+    {
+        $user['id'] = 1;
+
+
+    }
+
+    public function unfollowTheme($themeId)
+    {
+
+    }
     
     protected function getThemeDao()
     {
