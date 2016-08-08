@@ -13,7 +13,7 @@ $(document).ready(function(){
                 location.href = '/';
             },
             error:function(jqXHR){
-                console.log("添加失败！");
+                alert("添加失败！");
             }
         })
     })
@@ -32,7 +32,7 @@ $(document).ready(function(){
                 location.href = '/';
             },
             error:function(jqXHR){
-                console.log("添加失败！");
+                alert("添加失败！");
             }
         })
     })
