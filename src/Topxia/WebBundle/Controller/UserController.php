@@ -8,10 +8,9 @@ use Topxia\Service\User\Impl\UserServiceImpl;
 
 class UserController extends BaseController
 {
-    public function indexAction(Request $request)
+    public function indexAction(Request $request,$id)
     {
-
-        $user = $this->getUserService()->getUser(1);
+        $user = $this->getUserService()->getUser($id);
 
         $conditions = array(
             'userId' => $user['id'],
@@ -26,6 +25,20 @@ class UserController extends BaseController
             'knowledgeCount' => $knowledgeCount,
             'collectionCount' => $collectionCount
         ));
+    }
+
+    public function followAction(Request $request, $id)
+    {
+        $this->getUserService()->followUser($id);
+
+        return $this->createJsonResponse(true);
+    }
+
+    public function unfollowAction(Request $request, $id)
+    {
+        $this->getUserService()->unfollowUser($id);
+
+        return $this->createJsonResponse(true);
     }
 
     protected function getKnowledgeService()

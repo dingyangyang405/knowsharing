@@ -22,6 +22,16 @@ class UserServiceImpl implements UserService
         return $this->getUserDao()->findByIds($ids);
     }
 
+    public function followUser($userId)
+    {   
+        // $user = $this->getCurrentUser();
+        $this->getUserDao()->addfollow(array(
+            'userId'=> 1,
+            'objectType'=>'user',
+            'objectId'=>$userId
+            ));
+    }
+
     protected function getUserDao()
     {
         return $this->container['user_dao'];

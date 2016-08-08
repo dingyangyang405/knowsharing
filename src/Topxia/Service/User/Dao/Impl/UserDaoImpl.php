@@ -23,6 +23,11 @@ class UserDaoImpl extends GeneralDaoImpl implements UserDao
         return $this->db()->fetchAll($sql,$ids);
     }
 
+    public function addfollow($follow)
+    {
+
+    }
+
     public function declares()
     {
         return array(

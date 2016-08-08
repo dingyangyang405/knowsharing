@@ -22,3 +22,13 @@ knowledge_detail:
 theme:
     path: /theme
     defaults: { _controller: TopxiaWebBundle:Theme:index }
+
+user_follow:
+    path: /user/follow/{id}
+    defaults: { _controller: TopxiaWebBundle:User:follow }
+    methods: [POST]
+    
+user_unfollow:
+    path: /user/unfollow/{id}
+    defaults: { _controller: TopxiaWebBundle:User:unfollow }
+    methods: [POST]
