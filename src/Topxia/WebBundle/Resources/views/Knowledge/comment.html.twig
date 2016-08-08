@@ -1,9 +1,25 @@
-<form method="post" action="">
+<form method="post" action="{{ path('knowledge_add_comment') }}">
 	<div class="input-group margin">
 		<input type="text" class="form-control" name="comment">
+		<input type="hidden" name="knowledgeId" value="{{ knowledge.id }}">
 	    <span class="input-group-btn">
-	      <button type="botton" id="comment" class="btn btn-info btn-flat" data-url="{{ path('knowledge_add_comment') }}" data-id="{{ user.name }}">评论</button>
+	      <button type="botton" class="btn btn-info btn-flat">评论</button>
 	    </span>
 	</div>
 </form>
-<script src="{{ asset('bundles/topxiaweb/js/knowledge/comment.js') }}"></script>
+{% for comment in comments %}
+ <div class="box-footer box-comments">
+  <div class="box-comment">
+    <!-- User image -->
+    <img class="img-circle img-sm" src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" alt="User Image">
+    <div class="comment-text">
+          <span class="username">
+            {{ comment.userId }}
+            <span class="text-muted pull-right">{{ comment.createdTime|date('Y年m月d日') }}</span>
+          </span><!-- /.username -->
+      {{ comment.value }}
+    </div>
+    <!-- /.comment-text -->
+  </div>
+ </div>
+{% endfor %}

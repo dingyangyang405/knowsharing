@@ -15,7 +15,7 @@ class KsComment extends Migration
         $table->addColumn('value', 'string', array('null' => false, 'comment' => '评论内容'));
         $table->addColumn('knowledgeId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '知识id'));
         $table->addColumn('userId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '用户id'));
-        $table->addColumn('createTime', 'integer', array('null' => false, 'comment' => '评论日期'));
+        $table->addColumn('createdTime', 'integer', array('null' => false, 'comment' => '评论日期'));
 
         $table->setPrimaryKey(array('id'));
 

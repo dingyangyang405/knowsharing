@@ -9,14 +9,14 @@ class KnowledgeController extends BaseController
 {
     public function detailAction($id)
     {
-        $konwledge = $this->getKnowledgeService()->getKnowledgeDetial($id);
-        $user = $this->getUserService()->getUser($konwledge['userId']);
-        $showBangdan = 'null';
+        $knowledge = $this->getKnowledgeService()->getKnowledgeDetial($id);
+        $user = $this->getUserService()->getUser($knowledge['userId']);
+        $comments = $this->getKnowledgeService()->searchComments($id);
 
         return $this->render('TopxiaWebBundle:Knowledge:detail.html.twig',array(
-            'konwledge' => $konwledge,
+            'knowledge' => $knowledge,
             'user' => $user,
-            'bangdan' => $showBangdan
+            'comments' => $comments
         ));
     }
 
@@ -37,9 +37,17 @@ class KnowledgeController extends BaseController
 
     public function addCommentAction(Request $request)
     {
+        // $user = 
         $data = $request->request->all();
+        $params = array(
+            'value' => $data['comment'],
+            'userId' => 1,
+            // 'userId' => $user['id'],
+            'knowledgeId' => $data['knowledgeId']
+        );
+        $this->getKnowledgeService()->addComment($params);
 
-        return new JsonResponse($data);
+        return new JsonResponse('ok');
     }
 
     protected function getKnowledgeService()
