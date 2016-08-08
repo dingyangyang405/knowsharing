@@ -1,22 +1,36 @@
-<div class="box box-widget">
-    <div class="box-header with-border">
-        <div class="user-block">
-            <p>
-                {{ konwledge.title }}
-                <span class="text-muted pull-right detail-date">分享日期:{{ konwledge.createdTime }}</span>
-                <span class="text-muted pull-right detail-username username">分享者:{{ user.name }}</span>
-            </p>
+<div class="news-list">
+    <div class="news-info col-xs-12 col-sm-12 col-md-11">
+        <dl>
+            <dt>
+                <a href="javascript:;" target="_blank" >
+                    {{ konwledge.title }}
+                </a>
+            </dt>
+            <dd>
+        <span class="name">
+          <a href="javascript:;"  rel="author">分享者:{{ user.name }}</a>
+        </span>
+                <span class="identity"></span>
+        <span class="time">
+          分享日期:{{ konwledge.createdTime |date('Y年m月j日') }}
+        </span>
+            </dd>
+            <dd class="text">{{ konwledge.summary }}</dd>
+        </dl>
+        <p>
+            链接:
+            <a href="http://{{ konwledge.content  }}">{{ konwledge.content  }}</a>
+        </p>
+        <div class="news_bot col-sm-7 col-md-8">
+      <span class="tags visible-lg visible-md">
+        <a href="avascript:;">技术贴</a>
+        <a href="javascript:;">PHP</a>
+      </span>
+      <span class="look">
+        <i class="fa fa-star-o"></i><strong title="收藏" style="cursor: pointer"> 2126 </strong>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <i class="fa fa-thumbs-up"></i><strong title="点赞" style="cursor: pointer"> 12 </strong>
+      </span>
         </div>
     </div>
-    <!-- /.box-header -->
-    <div class="box-body">
-        <!-- post text -->
-        <p>
-            {{ konwledge.summary }}
-        </p>
-        <!-- Social sharing buttons -->
-        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-    </div>
-    <!-- /.box-body -->
 </div>

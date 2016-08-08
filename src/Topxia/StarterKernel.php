@@ -10,6 +10,8 @@ use Topxia\Service\Knowledge\Impl\KnowledgeServiceImpl;
 use Topxia\Service\Knowledge\Dao\Impl\KnowledgeDaoImpl;
 use Topxia\Service\User\Dao\Impl\UserCollectDaoImpl;
 use Topxia\Service\User\Dao\Impl\UserLikeDaoImpl;
+use Topxia\Service\Collection\Impl\CollectionServiceImpl;
+use Topxia\Service\Collection\Dao\Impl\CollectionDaoImpl;
 
 class StarterKernel extends Kernel
 {
@@ -50,6 +52,14 @@ class StarterKernel extends Kernel
         $this['knowledge_dao'] = $this->dao(function($container) {
             return new KnowledgeDaoImpl($container);
         });
+
+        $this['collection_dao'] = $this->dao(function($container) {
+            return new CollectionDaoImpl($container);
+        });
+
+        $this['collection_service'] = function($container) {
+            return new CollectionServiceImpl($container);
+        };
 
         $this['userCollect_dao'] = $this->dao(function($container) {
             return new UserCollectDaoImpl($container);

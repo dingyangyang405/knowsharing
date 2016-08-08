@@ -4,7 +4,8 @@ elixir(function(mix) {
     mix.styles([
         './node_modules/bootstrap/dist/css/bootstrap.css',
         './app/Resources/public/css/AdminLTE.css',
-        './node_modules/admin-lte/dist/css/skins/skin-green-light.css',
+        './app/Resources/public/css/style.css',
+        './node_modules/admin-lte/dist/css/skins/skin-blue.css',
         './node_modules/font-awesome/css/font-awesome.css',
     ], 'web/assets/css/vendor.css');
 
@@ -16,12 +17,16 @@ elixir(function(mix) {
         './node_modules/jquery/dist/jquery.js',
         './node_modules/bootstrap/dist/js/bootstrap.js',
         './node_modules/admin-lte/dist/js/app.js',
+        './app/Resources/public/js/html5shiv.min.js',
     ], 'web/assets/js/vendor.js');
 
     // mix.scripts([
     //     './resources/assets/js/adminui.js',
     // ], 'web/assets/js/adminui.js');
 
-    mix.copy('./node_modules/font-awesome/fonts', 'web/assets/fonts');
+    mix.copy([
+        './node_modules/font-awesome/fonts',
+        './app/Resources/public/fonts',
+    ],'web/assets/fonts');
     // mix.copy('./resources/assets/js/pages', 'web/assets/js/pages');
 });

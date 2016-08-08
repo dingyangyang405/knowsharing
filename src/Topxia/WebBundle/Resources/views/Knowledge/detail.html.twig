@@ -1,7 +1,13 @@
 {% extends 'TopxiaWebBundle::base.html.twig' %}
-{% block leftaside %}
-    {% include 'TopxiaWebBundle::left-aside.html.twig' %}
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+            <div class="row">
+                {% include 'TopxiaWebBundle:Knowledge:detail-box.html.twig' %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
-{% block content %}
-    {% include 'TopxiaWebBundle:Knowledge:detail-box.html.twig' %}
+{% block aside %}
+    {% include 'TopxiaWebBundle::aside.html.twig' %}
 {% endblock %}

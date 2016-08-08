@@ -11,8 +11,8 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
 
     public function find()
     {
-        $sql = "SELECT * FROM {$this->table} ORDER BY createdTime";
-        return $this->db()->fetchAll($sql)?:null;
+        $sql = "SELECT * FROM {$this->table} ORDER BY createdTime DESC";
+        return $this->db()->fetchAll($sql);
     }
 
     public function getKnowledgesByUserId($id)
@@ -25,13 +25,10 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
     public function declares()
     {
         return array(
-            'timestamps' => array('created', 'updated'),
+            'timestamps' => array('createdTime', 'updatedTime'),
             'serializes' => array(),
             'conditions' => array(
-                'id = :id',
-                'name = :name',
-                'status = :status',
-                'type = :type',
+                'userId = :userId',
             ),
         );
     }

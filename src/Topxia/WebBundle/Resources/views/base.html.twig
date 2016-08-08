@@ -10,40 +10,91 @@
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base-header.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/left-aside.css') }}">
     <script src="{{ asset('assets/js/vendor.js') }}"></script>
-    <script src="{{ asset('assets/js/modal.js') }}"></script>
+    <script src="{{ asset('bundles/topxiaweb/js/modal.js') }}"></script>
 </head>
-<body class="hold-transition skin-green-light sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
 {% block body %}
-    <div class="wrapper">
+    <section class="container user-select">
         {% include 'TopxiaWebBundle::header.html.twig' %}
-        {% include 'TopxiaWebBundle::addLink.html.twig' %}
-        {% block leftaside %}
-
-        {% endblock %}
-        <div class="content-wrapper" id="base-tab">
-          <div class="nav-tabs-custom">
-              {% block navTabs %}
-
-              {% endblock %}
-          </div>
-          {% block content %}
-
-          {% endblock %}
-        </div>
-
-        <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                <b>Version</b> 2.3.3
+        {% include 'TopxiaWebBundle::add-link.html.twig' %}
+        {% include 'TopxiaWebBundle::add-file.html.twig' %}
+        <!--左边模块-->
+        <header>
+            <div class="hidden-xs header">
+                <h1 class="logo"> <a href="{{path('homepage')}}"></a> </h1>
+                {% block left_header %}
+                    {% include 'TopxiaWebBundle::left-header.html.twig' %}
+                {% endblock %}
+                <div class="feeds">
+                    <li>
+                        <a class="feed feed-xlweibo" href="index.html" target="_blank"><i></i>阔知大学</a>
+                    </li>
+                    <li>
+                        <a class="feed feed-txweibo" href="index.html" target="_blank"><i></i>气球鱼学院</a>
+                    </li>
+                    <li>
+                        <a class="feed feed-rss" href="index.html" target="_blank"><i></i>订阅本站</a>
+                    </li>
+                    <li>
+                        <a class="feed feed-weixin"><i></i>EDUSOHO</a>
+                    </li>
+                </div>
+                <div class="wall"><a href="readerWall.html" target="_blank">读者墙</a> | <a href="tags.html" target="_blank">标签云</a></div>
             </div>
-            <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-            reserved.
-        </footer>
-        {% block rightaside %}
+            <div class="visible-xs header-xs">
+                <!--超小屏幕可见-->
+                <div class="navbar-header header-xs-logo">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-xs-menu" aria-expanded="false" aria-controls="navbar"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+                </div>
+                <div id="header-xs-menu" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav header-xs-nav">
+                        <li class="active"><a href="{{path('homepage')}}"><i class="fa fa-book"></i>&nbsp;&nbsp;</span>知识广场</a></li>
+                        <li><a href="{{path('knowledge_share_list')}}"><i class="fa fa-child"></i>&nbsp;&nbsp;</span>我的知识库</a></li>
+                    </ul>
+                    <form class="navbar-form" action="search.php" method="post" style="padding:0 25px;">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="请输入关键字">
+                    <span class="input-group-btn">
+                    <button class="btn btn-default btn-search" type="submit">搜索</button>
+                    </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <!--/左边模块-->
+        <div class="content-wrap">
+            <!--内容-->
+            {% block base_content %}
+            <div class="content">
+                <div class="content-block new-content">
+                    {% block navTabs %}
+
+                    {% endblock %}
+                </div>
+            </div>
+            {% endblock %}
+            <!--/内容-->
+        </div>
+        <!--右边模块-->
+        {% block aside %}
 
         {% endblock %}
-        <div class="control-sidebar-bg"></div>
-    </div>
+        <!--/右边模块-->
+        {% block base_footer %}
+            <footer class="footer">POWERED BY &copy;
+                <a href="http://www.ylsat.com">www.edusoho.com</a>
+                ALL RIGHTS RESERVED &nbsp;&nbsp;&nbsp;
+                <span>
+                    <a href="http://www.miitbeian.gov.cn/" target="_blank">豫ICP备15026802号-1</a>
+                </span>
+                <span style="display:none"><a href="index.html">网站统计</a></span>
+            </footer>
+        {% endblock %}
+    </section>
 {% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/topxiaweb/js/base.js') }}"></script>
+{% endblock %}
 </body>
 </html>
