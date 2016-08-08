@@ -29,7 +29,7 @@ class ThemeController extends BaseController
         return $this->createJsonResponse(true);
     }
 
-    public function getThemeService()
+    protected function getThemeService()
     {
         return $this->getServiceKernel('theme_service');
     }
