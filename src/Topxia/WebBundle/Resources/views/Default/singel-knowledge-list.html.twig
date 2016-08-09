@@ -25,8 +25,8 @@
         <a href="javascript:;">PHP</a>
       </span>
       <span class="look">
-        <a class="pull-center" id="collect-btn" data-url="{{ path('MyKnowledge_addCollection', {knowledgeId:userKnowledge.id}) }}" data-id="{{userKnowledge.id}}" {% if not userKnowledge.hasCollected %}style="display:none"{% endif %}><i class="fa fa-fw fa-heart-o"></i>{{userKnowledge.collectNum}}</a >
-        <a class="pull-right" id="uncollect-btn" data-url="{{ path('MyKnowledge_addCollection', {knowledgeId:userKnowledge.id}) }}" {% if userKnowledge.hasCollected %}style="display:none"{% endif %}><i class="fa fa-fw fa-heart"></i>{{userKnowledge.collectNum}}</a >
+        <a class="pull-center" id="collect-btn" data-url="{{ path('MyKnowledge_addCollection', {knowledgeId:userKnowledge.id}) }}" data-id="{{userKnowledge.id}}" {% if userKnowledge.hasCollected %}style="display:none"{% endif %}><i class="fa fa-fw fa-heart-o"></i><span id="collect-num-{{userKnowledge.id}}">{{userKnowledge.collectNum}}</span></a >
+        <a class="pull-right" id="uncollect-btn" data-url="{{ path('MyKnowledge_delCollection', {knowledgeId:userKnowledge.id}) }}" {% if not userKnowledge.hasCollected %}style="display:none"{% endif %}><i class="fa fa-fw fa-heart"></i><span id="uncollect-num-{{userKnowledge.id}}">{{userKnowledge.collectNum}}</span></a>
       </span>
     </div>
   </div>

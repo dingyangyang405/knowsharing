@@ -14,6 +14,8 @@ interface UserService
 
     public function addUserCollect($fields);
 
+    public function delUserCollect($fields);
+
     public function addUserLike($fields);
 
     public function getCollectByUserAndKnowledgeId($userId, $knowledgeId);

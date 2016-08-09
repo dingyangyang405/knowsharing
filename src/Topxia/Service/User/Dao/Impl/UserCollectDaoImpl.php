@@ -20,6 +20,16 @@ class UserCollectDaoImpl extends GeneralDaoImpl implements UserCollectDao
         $sql = "SELECT * FROM {$this->table} WHERE userId = ? And knowledgeId = ?";
         return $this->db()->fetchAssoc($sql,array($userId, $knowledgeId));
     }
+
+    public function delUserCollect($fields)
+    {
+        var_dump($fields);
+        exit();
+        $sql = "DELETE FROM {$this->table} WHERE userId = :userId AND knowledgeId = :knowledgeId";
+        $stmt = $this->db()->prepare($sql);
+        $stmlt->excute($fields);
+    }
+
     public function declares()
     {
         return array(

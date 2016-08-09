@@ -9,4 +9,6 @@ interface UserCollectDao extends  GeneralDaoInterface
     public function findUserCollectByKnowledgeId($id);
 
     public function getCollectByUserAndKnowledgeId($userId, $knowledgeId);
+
+    public function delUserCollect($fields);
 }
