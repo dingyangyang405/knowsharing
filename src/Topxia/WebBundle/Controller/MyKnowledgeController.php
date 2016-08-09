@@ -10,13 +10,12 @@ class MyKnowledgeController extends BaseController
 {
     public function addCollectionAction(Request $request, $knowledgeId)
     {
-/*        $user = $this->getCurrentUser();*/
         $fields = array(
             'userId' => '1',
             'knowledgeId' => $knowledgeId
             );
 
-        $hasCollected = $this->getUserService()->addUserCollect($fields);
+        $this->getUserService()->addUserCollect($fields);
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -24,10 +23,14 @@ class MyKnowledgeController extends BaseController
 
     public function delCollectionAction(Request $request, $knowledgeId)
     {
-        // $fields = array(
-        //     'userId' => '1',
-        //     'knowledgeId' => $knowledgeId
-        //     );
+        $fields = array(
+            'userId' => '1',
+            'knowledgeId' => $knowledgeId
+            );
+        $this->getUserService()->delUserCollect($fields);
+        return new JsonResponse(array(
+            'status' => 'success'
+        ));
 
     }
 

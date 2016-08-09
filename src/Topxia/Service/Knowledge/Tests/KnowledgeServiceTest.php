@@ -12,7 +12,8 @@ class KnowledgeServiceTest extends WebTestCase
     {
         static::$kernel = static::createKernel();
         static::$kernel->boot();
-        $this->knowledgeServiceImpl = static::$kernel->getContainer()->get('knowledge_service');
+        $startKernel = static::$kernel->getContainer()->get('biz_kernel');
+        $this->knowledgeServiceImpl = $startKernel['knowledge_service'];
     }
 
     public function testDetail()
@@ -32,7 +33,7 @@ class KnowledgeServiceTest extends WebTestCase
         );
         $knowledge = $KnowledgeServiceImpl->addKnowledge($data);
         $result = $KnowledgeServiceImpl->getKnowledgeDetial($data['id']);
-        
+
         $this->assertEquals($knowledge['title'], $result['title']);
         $this->assertEquals($knowledge['summary'], $result['summary']);
         $this->assertEquals($knowledge['content'], $result['content']);
