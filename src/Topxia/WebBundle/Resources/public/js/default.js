@@ -1,28 +1,27 @@
 $(function(){
-    $("#knowledge-list #collect-btn").click(function(){
+    $(".collect-btn").click(function(){
         var $btn = $(this);
-        var $id = $btn.data('id');
-        var $collectNum = $("#uncollect-btn #uncollect-num-"+$id).text();
+        var $collectNum = $btn.find(".collect-num").html();
         $.post($btn.data('url'),function(data){
             if (data.status == 'success') {
                 $collectNum = parseInt($collectNum)+parseInt(1);
-                $("#uncollect-btn #uncollect-num-"+$id).html($collectNum);
                 $btn.hide();
-                $btn.next().show();
+                $btn.parent().find(".uncollect-btn").show();
+                $btn.parent().find(".uncollect-btn").find(".uncollect-num").html($collectNum);
             } 
         })
     });
 
-    $("#knowledge-list #uncollect-btn").click(function(){
+    $(".uncollect-btn").click(function(){
         var $btn = $(this);
-        var $id = $btn.data('id');
-        var $collectNum = $("#collect-btn #collect-num-"+$id).text();
+        var $collectNum = $btn.find(".uncollect-num").html();
         $.post($btn.data('url'),function(data){
             if (data.status == 'success') {
-                $("#uncollect-btn #uncollect-num-"+$id).html($collectNum)
+                $collectNum = parseInt($collectNum)-parseInt(1);
+                $btn.parent().find(".collect-btn").find(".collect-num").html($collectNum);
                 $btn.hide();
-                $btn.parent().find('#knowledge-list #collect-btn').show();
-            } 
+                $btn.parent().find(".collect-btn").show();
+            }
         })
     });
 });
