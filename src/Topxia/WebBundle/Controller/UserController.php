@@ -13,10 +13,10 @@ class UserController extends BaseController
     {
         $user = $this->getUserService()->get(1);
         $hasfollowed = $this->getUserService()->getFollowObjectStatus(1,$id);
+
         $conditions = array(
             'userId' => $user['id'],
         );
-
         $knowledgeCount = $this->getKnowledgeService()->getKnowledgeCount($conditions);
 
         $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);

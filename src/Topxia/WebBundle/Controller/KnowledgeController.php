@@ -4,6 +4,7 @@ namespace Topxia\WebBundle\Controller;
 use Topxia\WebBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Topxia\Common\ArrayToolKit;
 
 class KnowledgeController extends BaseController
 {
@@ -25,11 +26,14 @@ class KnowledgeController extends BaseController
             0,
             PHP_INT_MAX
         );
+        $commentUserIds = ArrayToolKit::column($comments, 'userId');
+        $commentUsers = $this->getUserService()->findUsersByIds(array_unique($commentUserIds));
 
         return $this->render('TopxiaWebBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge,
             'user' => $user,
-            'comments' => $comments
+            'comments' => $comments,
+            'commentUsers' => $commentUsers
         ));
     }
 
@@ -60,7 +64,7 @@ class KnowledgeController extends BaseController
         );
         $this->getKnowledgeService()->addComment($params);
 
-        return new JsonResponse('ok');
+        return new JsonResponse(ture);
     }
 
     protected function getKnowledgeService()
