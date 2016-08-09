@@ -1,5 +1,5 @@
 $(function(){
-    $("#collect-btn").click(function(){
+    $("#knowledge-list #collect-btn").click(function(){
         var $btn = $(this);
         var $id = $btn.data('id');
         var $collectNum = $("#uncollect-btn #uncollect-num-"+$id).text();
@@ -13,7 +13,7 @@ $(function(){
         })
     });
 
-    $("#uncollect-btn").click(function(){
+    $("#knowledge-list #uncollect-btn").click(function(){
         var $btn = $(this);
         var $id = $btn.data('id');
         var $collectNum = $("#collect-btn #collect-num-"+$id).text();
@@ -21,7 +21,7 @@ $(function(){
             if (data.status == 'success') {
                 $("#uncollect-btn #uncollect-num-"+$id).html($collectNum)
                 $btn.hide();
-                $btn.next().show();
+                $btn.parent().find('#knowledge-list #collect-btn').show();
             } 
         })
     });
