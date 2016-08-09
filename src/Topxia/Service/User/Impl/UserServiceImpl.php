@@ -17,28 +17,38 @@ class UserServiceImpl implements UserService
         return $this->getUserDao()->get($id);
     }
 
+    public function getFollowObjectStatus($userId,$objectId)
+    {
+        $objectUser = $this->getFollowDao()->getFollowByUserIdAndObjectId($userId,$objectId);
+        if (isset($objectUser)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function findUsersByIds($ids)
     {
         return $this->getUserDao()->findByIds($ids);
     }
 
-    public function followUser($userId)
+    public function followUser($id)
     {   
         // $user = $this->getCurrentUser();
         $user['id'] = 1;
         $this->getFollowDao()->create(array(
             'userId'=> $user['id'],
             'objectType'=>'user',
-            'objectId'=>$userId
+            'objectId'=>$id
             ));
 
         return true;
     }
 
-    public function unfollowUser($userId)
+    public function unfollowUser($id)
     {
         $user['id'] = 1;
-        $follow = $this->getFollowDao()->getFollowByUserIdAndObjectId($user['id'], $userId, 'user');
+        $follow = $this->getFollowDao()->getFollowByUserIdAndObjectId($user['id'], $id);
         $this->getFollowDao()->delete($follow['id']);
 
         return true;

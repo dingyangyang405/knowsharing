@@ -33,7 +33,7 @@ class KnowledgeController extends BaseController
         ));
     }
 
-    public function addKnowledgeAction(Request $request)
+    public function addAction(Request $request)
     {
         $post = $request->request->all();
         $data = array(
@@ -43,7 +43,7 @@ class KnowledgeController extends BaseController
             'type' => $post['type'],
             'userId' => 1,
         );
-        $this->getKnowledgeService()->addKnowledge($data);
+        $this->getKnowledgeService()->add($data);
 
         return new JsonResponse($data);
     }
