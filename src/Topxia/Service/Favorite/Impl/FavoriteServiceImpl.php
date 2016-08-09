@@ -20,6 +20,6 @@ class FavoriteServiceImpl implements FavoriteService
 
     public function getDao()
     {
-        return $this->container['collection_dao'];
+        return $this->container['favorite_dao'];
     }
 }
