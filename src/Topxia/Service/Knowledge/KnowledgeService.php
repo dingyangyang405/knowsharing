@@ -12,6 +12,9 @@ interface KnowledgeService
 
     public function getKnowledgesByUserId($id);
 
-    public function getKnowledgeDetial($id);
+    public function get($id);
 
+    public function addComment($conditions);
+
+    public function searchComments($id);
 }

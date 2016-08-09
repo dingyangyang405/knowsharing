@@ -4,15 +4,18 @@ namespace Topxia;
 use Codeages\Biz\Framework\Context\Kernel;
 use Topxia\Service\User\Impl\UserServiceImpl;
 use Topxia\Service\User\Dao\Impl\UserDaoImpl;
-use Topxia\Service\Theme\Impl\ThemeServiceImpl;
-use Topxia\Service\Theme\Dao\Impl\ThemeDaoImpl;
-use Topxia\Service\Theme\Dao\Impl\FollowDaoImpl;
+use Topxia\Service\User\Dao\Impl\FollowUserDaoImpl;
+use Topxia\Service\Topic\Impl\TopicServiceImpl;
+use Topxia\Service\Topic\Dao\Impl\TopicDaoImpl;
+use Topxia\Service\Topic\Dao\Impl\FollowDaoImpl;
 use Topxia\Service\Knowledge\Impl\KnowledgeServiceImpl;
 use Topxia\Service\Knowledge\Dao\Impl\KnowledgeDaoImpl;
 use Topxia\Service\User\Dao\Impl\UserCollectDaoImpl;
 use Topxia\Service\User\Dao\Impl\UserLikeDaoImpl;
 use Topxia\Service\Collection\Impl\CollectionServiceImpl;
 use Topxia\Service\Collection\Dao\Impl\CollectionDaoImpl;
+use Topxia\Service\Knowledge\Dao\Impl\CommentDaoImpl;
+
 
 class StarterKernel extends Kernel
 {
@@ -38,12 +41,12 @@ class StarterKernel extends Kernel
             return new UserServiceImpl($container);
         };
 
-        $this['theme_service'] = function($container) {
-            return new ThemeServiceImpl($container);
+        $this['topic_service'] = function($container) {
+            return new TopicServiceImpl($container);
         };
 
-        $this['theme_dao'] = $this->dao(function($container) {
-            return new ThemeDaoImpl($container);
+        $this['topic_dao'] = $this->dao(function($container) {
+            return new TopicDaoImpl($container);
         });
 
         $this['knowledge_service'] = function($container) {
@@ -62,6 +65,10 @@ class StarterKernel extends Kernel
             return new CollectionServiceImpl($container);
         };
 
+        $this['comment_dao'] = $this->dao(function($container) {
+            return new CommentDaoImpl($container);
+        });
+
         $this['userCollect_dao'] = $this->dao(function($container) {
             return new UserCollectDaoImpl($container);
         });
@@ -70,8 +77,13 @@ class StarterKernel extends Kernel
             return new UserLikeDaoImpl($container);
         });
         
-        $this['follow_dao'] = function($container) {
+        $this['follow_dao'] = $this->dao(function($container) {
+
             return new FollowDaoImpl($container);
-        };
+        });
+
+        $this['follow_user_dao'] = $this->dao(function($container) {
+            return new FollowUserDaoImpl($container);
+        });
     }
 }

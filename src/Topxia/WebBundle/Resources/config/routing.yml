@@ -6,6 +6,10 @@ knowledge_share_list:
     path:  /share/list
     defaults: { _controller: TopxiaWebBundle:Default:shareList }
 
+knowledge_add_comment:
+    path:  /comment
+    defaults: { _controller: TopxiaWebBundle:Knowledge:addComment }
+
 user_page:
     path:  /user/{id}
     defaults: { _controller: TopxiaWebBundle:User:index }
@@ -15,13 +19,22 @@ knowledge_addKnowledge:
     defaults: {_controller: TopxiaWebBundle:Knowledge:addKnowledge }
 
 knowledge_detail:
-    path:  /detail/{id}
-    defaults: { _controller: TopxiaWebBundle:Knowledge:detail }
-    methods: [GET]
+    path:  /index/{id}
+    defaults: { _controller: TopxiaWebBundle:Knowledge:index }
 
-theme:
-    path: /theme
-    defaults: { _controller: TopxiaWebBundle:Theme:index }
+topic:
+    path: /topic
+    defaults: { _controller: TopxiaWebBundle:Topic:index }
+
+user_follow:
+    path: /user/{id}/follow
+    defaults: { _controller: TopxiaWebBundle:User:follow }
+    methods: [POST]
+    
+user_unfollow:
+    path: /user/{id}/unfollow
+    defaults: { _controller: TopxiaWebBundle:User:unfollow }
+    methods: [POST]
 
 MyKnowledge_addCollection:
     path: /addCollection/{knowledgeId}
@@ -31,13 +44,12 @@ MyKnowledge_delCollection:
     path: /delCollection/{knowledgeId}
     defaults: {_controller: TopxiaWebBundle:MyKnowledge:delCollection}
 
-theme_follow: 
-    path: /theme/{id}/follow
-    defaults: { _controller: TopxiaWebBundle:Theme:follow }
+topic_follow: 
+    path: /topic/{id}/follow
+    defaults: { _controller: TopxiaWebBundle:Topic:follow }
     methods: [POST]
 
-theme_unfollow: 
-    path: /theme/{id}/unfollow
-    defaults: { _controller: TopxiaWebBundle:Theme:unfollow }
+topic_unfollow: 
+    path: /topic/{id}/unfollow
+    defaults: { _controller: TopxiaWebBundle:Topic:unfollow }
     methods: [POST]
-

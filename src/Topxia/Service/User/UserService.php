@@ -8,6 +8,10 @@ interface UserService
 
     public function findUsersByIds($ids);
 
+    public function followUser($userId);
+
+    public function unfollowUser($userId);
+
     public function findUserLikeByKnowledgeId($id);
 
     public function findUserCollectByKnowledgeId($id);
@@ -19,5 +23,4 @@ interface UserService
     public function addUserLike($fields);
 
     public function getCollectByUserAndKnowledgeId($userId, $knowledgeId);
-
 }

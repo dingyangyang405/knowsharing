@@ -10,6 +10,7 @@ class BaseController extends Controller
     public function getServiceKernel($service)
     {
         $container = $this->container->get('biz_kernel');
+        
         return $container[$service];
     }
 }
