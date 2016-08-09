@@ -12,13 +12,13 @@
         {% include 'TopxiaWebBundle::knowledge-library-nav.html.twig' %}
       {% endblock %}
       <div class="row">
-        {% if shareKnowledges %} 
-          {% for shareKnowledge in shareKnowledges %}                
+        {% if shareKnowledge %} 
+          {% for knowledge in shareKnowledge %}                
             <div class="news-list">
               <div class="news-info col-xs-12 col-sm-12 col-md-11">
                 <dl>
                   <dt>
-                    <a href="{{path('knowledge_detail',{id:shareKnowledge.id})}}">{{shareKnowledge.title}}&nbsp&nbsp{% if shareKnowledge.type == 'file' %}
+                    <a href="{{path('knowledge_detail',{id:knowledge.id})}}">{{knowledge.title}}&nbsp&nbsp{% if knowledge.type == 'file' %}
                     <i class="fa fa-sticky-note-o"></i>{% else %}<i class="fa fa-link"></i>{% endif %}
                     </a>
                   </dt>
