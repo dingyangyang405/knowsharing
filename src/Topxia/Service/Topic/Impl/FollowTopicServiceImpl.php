@@ -17,12 +17,16 @@ class FollowTopicServiceImpl implements FollowTopicService
     public function followTopic($topicId)
     {
         $user['id'] = 1;
-        var_dump($topicId);exit();
+
         $this->getFollowTopicDao()->create(array(
             'objectId' => $topicId,
             'userId' => $user['id'],
             'type' => 'topic',
         ));
+
+        $ids = array($topicId);
+        $diffs = array('followNum' => 1);
+        $this->waveFollowNum($ids, $diffs);
 
         return true;
     }
@@ -31,14 +35,55 @@ class FollowTopicServiceImpl implements FollowTopicService
     {
         $user['id'] = 1;
 
-        $follow = $this->getFollowTopicDao()->getFollowTopicByUserIdAndTopicId($user['id'], $topicId, 'topic');
-        $this->getFollowTopicDao()->delete($follow['id']);
+        $follow = $this->getFollowTopicByUserIdAndTopicId($user['id'], $topicId);
+        $this->getFollowTopicDao()->delete($follow[0]['id']);
+
+        $ids = array($topicId);
+        $diffs = array('followNum' => -1);
+        $this->waveFollowNum($ids, $diffs);
+
 
         return true;
+    }
+
+    public function getFollowTopicByUserIdAndTopicId($userId, $topicId)
+    {
+        $conditions = array(
+            'userId' => $userId,
+            'objectId' => $topicId,
+            'type' => 'topic',
+        );
+
+        $orderBy = array('objectId', 'ASC');
+
+        return $this->getFollowTopicDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
+    }
+
+    public function findAllFollowedTopics()
+    {
+        $user['id'] = 1;
+
+        $conditions = array(
+            'userId' => $user['id'],
+            'type' => 'topic',
+        );
+        $orderBy = array('objectId', 'ASC');
+        
+        return $this->getFollowTopicDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
+    }
+
+    public function waveFollowNum($ids, $diffs)
+    {
+        return $this->getTopicDao()->wave($ids, $diffs);
     }
 
     protected function getFollowTopicDao()
     {
         return $this->container['follow_topic_dao'];
+    }
+
+    protected function getTopicDao()
+    {
+        return $this->container['topic_dao'];
     }
 }
