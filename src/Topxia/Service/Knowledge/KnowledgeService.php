@@ -10,7 +10,7 @@ interface KnowledgeService
 
     public function add($field);
 
-    public function getKnowledgesByUserId($id);
+    public function getKnowledgeByUserId($id);
 
     public function get($id);
 
