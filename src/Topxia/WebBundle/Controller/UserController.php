@@ -17,14 +17,14 @@ class UserController extends BaseController
             'userId' => $user['id'],
         );
 
-        $knowledgeCount = $this->getKnowledgeService()->findKnowledgeCount($conditions);
+        $knowledgeCount = $this->getKnowledgeService()->getKnowledgeCount($conditions);
 
-        $collectionCount = $this->getCollectionService()->findCollectionCount($conditions);
+        $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
 
         return $this->render('TopxiaWebBundle:User:index.html.twig',array(
             'user' => $user,
             'knowledgeCount' => $knowledgeCount,
-            'collectionCount' => $collectionCount
+            'favoritesCount' => $favoriteCount
         ));
     }
 
@@ -33,9 +33,9 @@ class UserController extends BaseController
         return $this->getServiceKernel('knowledge_service');
     }
 
-    protected function getCollectionService()
+    protected function getFavoriteService()
     {
-        return $this->getServiceKernel('collection_service');
+        return $this->getServiceKernel('favorite_service');
     }
 
     protected function getUserService()
