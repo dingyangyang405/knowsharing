@@ -19,7 +19,7 @@ knowledge_addKnowledge:
     defaults: {_controller: TopxiaWebBundle:Knowledge:addKnowledge }
 
 knowledge_detail:
-    path:  /index/{id}
+    path:  /knowledge/{id}
     defaults: { _controller: TopxiaWebBundle:Knowledge:index }
 
 topic:
