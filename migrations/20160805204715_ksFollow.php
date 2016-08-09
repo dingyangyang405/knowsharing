@@ -13,7 +13,7 @@ class KsFollow extends Migration
         $table = new Doctrine\DBAL\Schema\Table('follow');
         $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement'=> true));
         $table->addColumn('userId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '用户id'));
-        $table->addColumn('objectType', 'string', array('length' => 10, 'null' => false, 'comment' => '被关注的类型（user/theme）'));
+        $table->addColumn('Type', 'string', array('length' => 10, 'null' => false, 'comment' => '被关注的类型（user/topic）'));
         $table->addColumn('objectId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '被关注的id'));
         $table->setPrimaryKey(array('id'));
 

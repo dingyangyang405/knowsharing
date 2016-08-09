@@ -2,7 +2,7 @@
 
 use Phpmig\Migration\Migration;
 
-class KsTheme extends Migration
+class KsTopic extends Migration
 {
     /**
      * Do the migration
@@ -10,7 +10,7 @@ class KsTheme extends Migration
     public function up()
     {
         $container = $this->getContainer();
-        $table = new Doctrine\DBAL\Schema\Table('theme');
+        $table = new Doctrine\DBAL\Schema\Table('topic');
         $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement'=> true));
         $table->addColumn('name', 'string', array('length' => 10, 'null' => false, 'comment' => '主题名字'));
         $table->addColumn('createdTime', 'integer', array('null' => false, 'comment' => '创建日期'));
@@ -27,6 +27,6 @@ class KsTheme extends Migration
     public function down()
     {
         $container = $this->getContainer();
-        $container['db']->getSchemaManager()->dropTable('theme');
+        $container['db']->getSchemaManager()->dropTable('topic');
     }
 }

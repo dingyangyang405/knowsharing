@@ -23,16 +23,6 @@ class FollowDaoImpl extends GeneralDaoImpl implements FollowDao
         return $this->db()->fetchAll($sql, array($userId, $objectType));
     }
 
-    public function addFollow($follow)
-    {
-        return $this->create($follow);
-    }
-
-    public function deleteFollow($id)
-    {
-        return $this->delete($id);
-    }
-
     public function declares()
     {
         return array(

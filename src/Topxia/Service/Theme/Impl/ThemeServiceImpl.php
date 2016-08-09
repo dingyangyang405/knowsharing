@@ -41,7 +41,7 @@ class ThemeServiceImpl implements ThemeService
     {
         $user['id'] = 1;
 
-        $this->getFollowDao()->addFollow(array(
+        $this->getFollowDao()->create(array(
             'objectId' => $themeId,
             'userId' => $user['id'],
             'objectType' => 'theme',
@@ -55,7 +55,7 @@ class ThemeServiceImpl implements ThemeService
         $user['id'] = 1;
 
         $follow = $this->getFollowDao()->getFollowThemeByUserIdAndThemeId($user['id'], $themeId, 'theme');
-        $this->getFollowDao()->deleteFollow($follow['id']);
+        $this->getFollowDao()->delete($follow['id']);
 
         return true;
     }
