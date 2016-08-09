@@ -1,9 +1,8 @@
-<form method="post" action="{{ path('knowledge_add_comment') }}">
+<form method="post" action="">
 	<div class="input-group margin">
 		<input type="text" class="form-control" name="comment">
-		<input type="hidden" name="knowledgeId" value="{{ knowledge.id }}">
 	    <span class="input-group-btn">
-	      <button type="botton" class="btn btn-info btn-flat">评论</button>
+	      <button type="botton" class="btn btn-info btn-flat" id="comment" data-url="{{ path('knowledge_add_comment') }}" data-id="{{ knowledge.id }}">评论</button>
 	    </span>
 	</div>
 </form>
@@ -14,7 +13,7 @@
     <img class="img-circle img-sm" src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" alt="User Image">
     <div class="comment-text">
           <span class="username">
-            {{ comment.userId }}
+            {{ commentUsers[comment.userId-1].name }}
             <span class="text-muted pull-right">{{ comment.createdTime|date('Y年m月d日') }}</span>
           </span><!-- /.username -->
       {{ comment.value }}
