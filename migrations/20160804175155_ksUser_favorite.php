@@ -2,7 +2,7 @@
 
 use Phpmig\Migration\Migration;
 
-class KsUserCollect extends Migration
+class KsUserFavorite extends Migration
 {
     /**
      * Do the migration
@@ -10,7 +10,7 @@ class KsUserCollect extends Migration
     public function up()
     {
         $container = $this->getContainer();
-        $table = new Doctrine\DBAL\Schema\Table('user_collection');
+        $table = new Doctrine\DBAL\Schema\Table('user_favorite');
         $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement'=> true));
         $table->addColumn('userId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '用户id'));
         $table->addColumn('knowledgeId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '知识id'));
@@ -26,6 +26,6 @@ class KsUserCollect extends Migration
     public function down()
     {
         $container = $this->getContainer();
-        $container['db']->getSchemaManager()->dropTable('user_collection');
+        $container['db']->getSchemaManager()->dropTable('user_favorite');
     }
 }
