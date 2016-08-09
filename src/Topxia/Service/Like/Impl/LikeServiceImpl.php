@@ -1,21 +1,16 @@
 <?php
 
-namespace Topxia\Service\Favorite\Impl;
+namespace Topxia\Service\Like\Impl;
 
-use Topxia\Service\Favorite\FavoriteService;
+use Topxia\Service\Like\LikeService;
 
-class FavoriteServiceImpl implements FavoriteService
+class FavoriteServiceImpl implements LikeService
 {
     protected $container;
 
     public function __construct($container)
     {
         $this->container = $container;
-    }
-
-    public function getFavoriteCount($conditions)
-    {
-        return $this->getDao()->count($conditions);
     }
 
     public function create($fields)
@@ -30,6 +25,6 @@ class FavoriteServiceImpl implements FavoriteService
 
     public function getDao()
     {
-        return $this->container['favorite_dao'];
+        return $this->container['like_dao'];
     }
 }

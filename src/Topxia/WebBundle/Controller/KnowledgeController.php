@@ -63,6 +63,58 @@ class KnowledgeController extends BaseController
         return new JsonResponse('ok');
     }
 
+    public function favoriteAction(Request $request, $id)
+    {
+        $fields = array(
+            'userId' => '1',
+            'knowledgeId' => $id
+            );
+
+        $this->getFavoriteService()->create($fields);
+        return new JsonResponse(array(
+            'status' => 'success'
+        ));
+    }
+
+    public function unfavoriteAction(Request $request, $id)
+    {
+        $userId = '1';
+        $this->getFavoriteService()->deleteByIdAndUserId($id, $userId);
+        return new JsonResponse(array(
+            'status' => 'success'
+        ));
+
+    }
+
+    public function dislikeAction(Request $request, $id)
+    {
+        $userId = '1';
+        $this->getLikeService()->deleteByIdAndUserId($id, $userId);
+        return new JsonResponse(array(
+            'status' => 'success'
+        ));
+
+    }
+
+    public function likeAction(Request $request, $id)
+    {
+/*        $user = $this->getCurrentUser();*/
+        $fields = array(
+            'userId' => '1',
+            'knowledgeId' => $knowledgeId
+            );
+
+        $this->getLikeService()->create($fields);
+        return new JsonResponse(array(
+            'status' => 'success'
+        ));
+    }
+
+    protected function getLikeService()
+    {
+        return $this->getServiceKernel('like_service');
+    }
+
     protected function getKnowledgeService()
     {
         return $this->getServiceKernel('knowledge_service');
@@ -72,4 +124,9 @@ class KnowledgeController extends BaseController
     {
         return $this->getServiceKernel('user_service');
     }
+
+    protected function getFavoriteService()
+    {
+        return $this->getServiceKernel('favorite_service');
+    }   
 }
