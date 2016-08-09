@@ -23,11 +23,9 @@ class UserCollectDaoImpl extends GeneralDaoImpl implements UserCollectDao
 
     public function delUserCollect($fields)
     {
-        var_dump($fields);
-        exit();
         $sql = "DELETE FROM {$this->table} WHERE userId = :userId AND knowledgeId = :knowledgeId";
         $stmt = $this->db()->prepare($sql);
-        $stmlt->excute($fields);
+        $stmt->execute($fields);
     }
 
     public function declares()

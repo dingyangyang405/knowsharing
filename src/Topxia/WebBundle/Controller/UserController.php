@@ -5,12 +5,12 @@ namespace Topxia\WebBundle\Controller;
 use Topxia\WebBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Topxia\Service\User\Impl\UserServiceImpl;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserController extends BaseController
 {
-    public function indexAction(Request $request)
+    public function indexAction(Request $request,$id)
     {
-
         $user = $this->getUserService()->get(1);
 
         $conditions = array(
@@ -26,6 +26,20 @@ class UserController extends BaseController
             'knowledgeCount' => $knowledgeCount,
             'favoritesCount' => $favoriteCount
         ));
+    }
+
+    public function followAction(Request $request, $id)
+    {
+        $this->getUserService()->followUser($id);
+
+        return new JsonResponse(true);
+    }
+
+    public function unfollowAction(Request $request, $id)
+    {
+        $this->getUserService()->unfollowUser($id);
+
+        return new JsonResponse(true);
     }
 
     protected function getKnowledgeService()
