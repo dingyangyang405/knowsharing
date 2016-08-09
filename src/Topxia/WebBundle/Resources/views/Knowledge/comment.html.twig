@@ -13,7 +13,7 @@
     <img class="img-circle img-sm" src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" alt="User Image">
     <div class="comment-text">
           <span class="username">
-            {{ commentUsers[comment.userId-1].name }}
+            {{ users[comment.userId].name }}
             <span class="text-muted pull-right">{{ comment.createdTime|date('Y年m月d日') }}</span>
           </span><!-- /.username -->
       {{ comment.value }}
@@ -22,3 +22,6 @@
   </div>
  </div>
 {% endfor %}
+{% if paginator|default(null) %}
+  {{ web_macro.paginator(paginator) }}
+{% endif  %}

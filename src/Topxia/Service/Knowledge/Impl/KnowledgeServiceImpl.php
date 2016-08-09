@@ -43,6 +43,11 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $this->getCommentDao()->create($conditions);
     }
 
+    public function getCommentsCount($conditions)
+    {
+        return $this->getCommentDao()->count($conditions);
+    }
+
     public function searchComments($conditions, $orderBy, $start, $limit)
     {
         return $this->getCommentDao()->search($conditions, $orderBy, $start, $limit);
