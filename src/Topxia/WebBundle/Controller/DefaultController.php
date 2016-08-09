@@ -14,6 +14,7 @@ class DefaultController extends BaseController
         $knowledges = $this->getKnowledgeService()->findKnowledges();
         $knowledges = TimeToolKit::arrayToDetailTime($knowledges);
         $userKnowledges = $this->dealArrayKnowledges($knowledges);
+
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
             'userKnowledges' => $userKnowledges,
         ));
@@ -22,6 +23,7 @@ class DefaultController extends BaseController
     public function shareListAction(Request $request)
     {   
         $shareKnowledges = $this->getKnowledgeService()->getKnowledgesByUserId(1);
+
         return $this->render('TopxiaWebBundle:Default:my-knowledge.html.twig',array(
             'shareKnowledges' => $shareKnowledges
         ));
@@ -40,6 +42,7 @@ class DefaultController extends BaseController
             $knowledge['collectNum'] = count($collectonKnowledges );
             $userKnowledges[] = $knowledge;
         }
+        
         return $userKnowledges;
     }
 
