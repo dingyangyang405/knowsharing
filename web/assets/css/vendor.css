@@ -12021,7 +12021,7 @@ body, input, button, textarea, select {
 .news-list {
 	float: left;
 	width: 100%;
-	padding: 10px 5px;
+	padding: 15px 20px;
 	border-bottom: solid 1px #f0f0f0;
 	margin: 0px;
 	text-decoration: none;
