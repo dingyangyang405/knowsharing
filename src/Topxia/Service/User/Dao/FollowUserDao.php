@@ -6,5 +6,6 @@ use Codeages\Biz\Framework\Dao\GeneralDaoInterface;
 
 interface FollowUserDao extends GeneralDaoInterface
 {
-    public function getFollowByUserIdAndObjectId($id, $userId, $objectType);
+    public function getFollowByUserIdAndObjectId($userId,$objectId);
+
 }
