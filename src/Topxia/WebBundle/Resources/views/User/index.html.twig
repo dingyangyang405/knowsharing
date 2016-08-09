@@ -14,10 +14,10 @@
           <li class="list-group-item">
             <b>收藏数</b> <a class="pull-right">{{ favoriteCount }}</a>
           </li>
-          <li class="list-group-item"  id="follow-btn" data-url="{{path('user_follow',{id:user.id})}}"　{% if hasfollowed is defined and hasfollowed = true %} style="display:none"{% endif %}>
+          <li class="list-group-item" id="follow-btn" data-url="{{path('user_follow',{id:user.id})}}"　{% if hasfollowed is defined and hasfollowed == true %} style="display:none"{% endif %}>
           <b>关注</b> <a class="pull-right"><i class="fa fa-fw fa-heart-o"></i></a>
           </li>
-          <li class="list-group-item" id="unfollow-btn" data-url="{{path('user_unfollow',{id:user.id})}}" {% if hasfollowed is defined and hasfollowed = false %}style="display:none"{% endif %}>
+          <li class="list-group-item" id="unfollow-btn" data-url="{{path('user_unfollow',{id:user.id})}}" {% if hasfollowed is defined and hasfollowed == false %}style="display:none"{% endif %}>
           <b>已关注</b> <a class="pull-right" ><i class="fa fa-fw fa-heart"></i></a>
           </li>
         </ul>
@@ -25,11 +25,21 @@
       <!-- /.box-body -->
     </div>
 {% endblock %}
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+          {% block navTabs %}
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#">他的分享</a></li>
+              <li ><a href="#">他的收藏</a></li>
+              <li ><a href="#">他的关注</a></li>
+            </ul>
+          {% endblock %}
+{#           <div class="row">
+            {% include 'TopxiaWebBundle:Knowledge:detail-box.html.twig' %}
+            {% include 'TopxiaWebBundle:Knowledge:comment.html.twig' %}
+          </div> #}
 
-{% block navTabs %}
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#">他的分享</a></li>
-    <li ><a href="#">他的收藏</a></li>
-    <li ><a href="#">他的关注</a></li>
-  </ul>
+        </div>
+    </div>
 {% endblock %}
