@@ -6,14 +6,14 @@
                 <ul class="nav nav-tabs">
                     <li role="newknowledge" ><a href="{{path('homepage')}}">最新知识</a></li>
                     <li role="myconcern"><a href="#timeline">我的关注<span style="color:#f00">999+</span></a></li>
-                    <li role="theme" class="active"><a href="{{path('theme')}}">主题</a></li>
+                    <li role="topic" class="active"><a href="{{path('topic')}}">主题</a></li>
                 </ul>
                 <br>
             {% endblock %}
-            <div class="row" id="theme-tables">
-                {% if themes is defined and themes %}
-                    {% for theme in themes %}
-                        {% include "TopxiaWebBundle:Theme:single-theme-list.html.twig" %}
+            <div class="row" id="topic-tables">
+                {% if topics is defined and topics %}
+                    {% for topic in topics %}
+                        {% include "TopxiaWebBundle:Topic:single-topic-list.html.twig" %}
                     {% endfor %}
 
                 {% else %}

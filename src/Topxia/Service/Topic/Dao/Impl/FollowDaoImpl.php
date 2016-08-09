@@ -1,19 +1,19 @@
 <?php
 
-namespace Topxia\Service\Theme\Dao\Impl;
+namespace Topxia\Service\Topic\Dao\Impl;
 
-use Topxia\Service\Theme\Dao\FollowDao;
+use Topxia\Service\Topic\Dao\FollowDao;
 use Codeages\Biz\Framework\Dao\GeneralDaoImpl;
 
 class FollowDaoImpl extends GeneralDaoImpl implements FollowDao
 {
     protected $table = 'follow';
 
-    public function getFollowThemeByUserIdAndThemeId($userId, $themeId, $objectType)
+    public function getFollowTopicByUserIdAndTopicId($userId, $topicId, $objectType)
     {
         $sql = "SELECT * FROM {$this->table()} WHERE userId = ? AND objectId = ? AND objectType = ?";
 
-        return $this->db()->fetchAssoc($sql, array($userId, $themeId, $objectType)) ?: null;
+        return $this->db()->fetchAssoc($sql, array($userId, $topicId, $objectType)) ?: null;
     }
 
     public function findFollowsByUserId($userId, $objectType)

@@ -1,15 +1,15 @@
 <?php
 
-namespace Topxia\Service\Theme\Dao\Impl;
+namespace Topxia\Service\Topic\Dao\Impl;
 
-use Topxia\Service\Theme\Dao\ThemeDao;
+use Topxia\Service\Topic\Dao\TopicDao;
 use Codeages\Biz\Framework\Dao\GeneralDaoImpl;
 
-class ThemeDaoImpl extends GeneralDaoImpl implements ThemeDao
+class TopicDaoImpl extends GeneralDaoImpl implements TopicDao
 {
-    protected $table = 'theme';
+    protected $table = 'topic';
 
-    public function findAllThemes()
+    public function findAllTopics()
     {
         $sql = "SELECT * FROM {$this->table()} ORDER BY createdTime DESC";
         return $this->db()->fetchAll($sql);

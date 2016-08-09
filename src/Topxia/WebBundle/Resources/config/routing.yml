@@ -22,9 +22,9 @@ knowledge_detail:
     path:  /index/{id}
     defaults: { _controller: TopxiaWebBundle:Knowledge:index }
 
-theme:
-    path: /theme
-    defaults: { _controller: TopxiaWebBundle:Theme:index }
+topic:
+    path: /topic
+    defaults: { _controller: TopxiaWebBundle:Topic:index }
 
 user_follow:
     path: /user/{id}/follow
@@ -44,12 +44,12 @@ MyKnowledge_delCollection:
     path: /delCollection/{knowledgeId}
     defaults: {_controller: TopxiaWebBundle:MyKnowledge:delCollection}
 
-theme_follow: 
-    path: /theme/{id}/follow
-    defaults: { _controller: TopxiaWebBundle:Theme:follow }
+topic_follow: 
+    path: /topic/{id}/follow
+    defaults: { _controller: TopxiaWebBundle:Topic:follow }
     methods: [POST]
 
-theme_unfollow: 
-    path: /theme/{id}/unfollow
-    defaults: { _controller: TopxiaWebBundle:Theme:unfollow }
+topic_unfollow: 
+    path: /topic/{id}/unfollow
+    defaults: { _controller: TopxiaWebBundle:Topic:unfollow }
     methods: [POST]

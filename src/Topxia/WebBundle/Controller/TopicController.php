@@ -8,33 +8,33 @@ use Symfony\Component\HttpFoundation\Request;
 use Topxia\Service\User\Impl\UserServiceImpl;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class ThemeController extends BaseController
+class TopicController extends BaseController
 {
     public function indexAction()
     {
-        $themes = $this->getThemeService()->findAllThemes();
+        $topics = $this->getTopicService()->findAllTopics();
         
-        return $this->render('TopxiaWebBundle:Theme:theme.html.twig',array(
-            'themes' => $themes
+        return $this->render('TopxiaWebBundle:Topic:topic.html.twig',array(
+            'topics' => $topics
         ));
     }
 
     public function followAction(Request $request, $id)
     {
-        $this->getThemeService()->followTheme($id);
+        $this->getTopicService()->followTopic($id);
 
         return new JsonResponse(true);
     }
 
     public function unfollowAction(Request $request, $id)
     {
-        $this->getThemeService()->unfollowTheme($id);
+        $this->getTopicService()->unfollowTopic($id);
 
         return new JsonResponse(true);
     }
 
-    protected function getThemeService()
+    protected function getTopicService()
     {
-        return $this->getServiceKernel('theme_service');
+        return $this->getServiceKernel('topic_service');
     }
 }
