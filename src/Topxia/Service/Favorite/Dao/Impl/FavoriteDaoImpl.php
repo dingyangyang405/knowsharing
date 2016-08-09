@@ -1,13 +1,13 @@
 <?php
 
-namespace Topxia\Service\Collection\Dao\Impl;
+namespace Topxia\Service\Favorite\Dao\Impl;
 
-use Topxia\Service\Collection\Dao\CollectionDao;
+use Topxia\Service\Favorite\Dao\FavoriteDao;
 use Codeages\Biz\Framework\Dao\GeneralDaoImpl;
 
-class CollectionDaoImpl extends GeneralDaoImpl implements CollectionDao
+class FavoriteDaoImpl extends GeneralDaoImpl implements FavoriteDao
 {
-    protected $table = 'user_collection';
+    protected $table = 'user_favorite';
 
     public function declares()
     {
