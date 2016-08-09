@@ -57,12 +57,12 @@ class StarterKernel extends Kernel
             return new KnowledgeDaoImpl($container);
         });
 
-        $this['collection_dao'] = $this->dao(function($container) {
-            return new CollectionDaoImpl($container);
+        $this['favorite_dao'] = $this->dao(function($container) {
+            return new FavoriteDaoImpl($container);
         });
 
-        $this['collection_service'] = function($container) {
-            return new CollectionServiceImpl($container);
+        $this['favorite_service'] = function($container) {
+            return new FavoriteServiceImpl($container);
         };
 
         $this['comment_dao'] = $this->dao(function($container) {

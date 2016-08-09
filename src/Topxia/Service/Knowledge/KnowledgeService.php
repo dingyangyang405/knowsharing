@@ -6,7 +6,7 @@ interface KnowledgeService
 {
     public function findKnowledges();
 
-    public function findKnowledgeCount($conditions);
+    public function getKnowledgeCount($conditions);
 
     public function addKnowledge($field);
 
@@ -16,5 +16,5 @@ interface KnowledgeService
 
     public function addComment($conditions);
 
-    public function searchComments($id);
+    public function searchComments($conditions, $orderBy, $start, $limit);
 }

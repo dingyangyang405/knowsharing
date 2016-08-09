@@ -1,10 +1,10 @@
 <?php
 
-namespace Topxia\Service\Collection\Impl;
+namespace Topxia\Service\Favorite\Impl;
 
-use Topxia\Service\Collection\CollectionService;
+use Topxia\Service\Favorite\FavoriteService;
 
-class CollectionServiceImpl implements CollectionService
+class FavoriteServiceImpl implements FavoriteService
 {
     protected $container;
 
@@ -13,7 +13,7 @@ class CollectionServiceImpl implements CollectionService
         $this->container = $container;
     }
 
-    public function findCollectionCount($conditions)
+    public function getFavoriteCount($conditions)
     {
         return $this->getDao()->count($conditions);
     }
