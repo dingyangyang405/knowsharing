@@ -4,6 +4,8 @@ namespace Topxia\WebBundle\Controller;
 use Topxia\WebBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Topxia\Common\ArrayToolKit;
+use Topxia\Common\Paginator;
 
 class KnowledgeController extends BaseController
 {
@@ -14,22 +16,29 @@ class KnowledgeController extends BaseController
 
         $conditions = array('knowledgeId' => $knowledge['id']);
         $orderBy = array('createdTime', 'DESC');
-        // $paginator = new Paginator(
-        //     $this->get('request'),
-        //     $this->getKnowledgeService()->getCommentsCount($id),
-        //     20
-        // );
+        $paginator = new Paginator(
+            $this->get('request'),
+            $this->getKnowledgeService()->getCommentsCount($conditions),
+            10
+        );
         $comments = $this->getKnowledgeService()->searchComments(
             $conditions,
             $orderBy,
-            0,
-            PHP_INT_MAX
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
         );
+        $commentUserIds = ArrayToolKit::column($comments, 'userId');
+        $commentUsers = $this->getUserService()->findUsersByIds(array_unique($commentUserIds));
+        foreach ($commentUsers as $commentUser) {
+            $users[$commentUser['id']] = $commentUser;
+        }
 
         return $this->render('TopxiaWebBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge,
             'user' => $user,
-            'comments' => $comments
+            'comments' => $comments,
+            'users' => $users,
+            'paginator' => $paginator
         ));
     }
 
@@ -60,7 +69,7 @@ class KnowledgeController extends BaseController
         );
         $this->getKnowledgeService()->addComment($params);
 
-        return new JsonResponse('ok');
+        return new JsonResponse(ture);
     }
 
     public function favoriteAction(Request $request, $id)

@@ -16,16 +16,17 @@ class UserController extends BaseController
         $conditions = array(
             'userId' => $user['id'],
         );
-
         $knowledgeCount = $this->getKnowledgeService()->getKnowledgeCount($conditions);
+        $favoriteCount = $this->getFavoriteService()->getFavoriteCount($conditions);
 
-        $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
+        $knowledge = $this->getKnowledgeService()->findKnowledgeByUserId($user['id']);
 
         return $this->render('TopxiaWebBundle:User:index.html.twig',array(
             'user' => $user,
             'knowledgeCount' => $knowledgeCount,
-            'favoritesCount' => $favoriteCount,
-            'hasfollowed' => $hasfollowed
+            'favoriteCount' => $favoriteCount,
+            'hasfollowed' => $hasfollowed,
+            'knowledge' => $knowledge
         ));
     }
 

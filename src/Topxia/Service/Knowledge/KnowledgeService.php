@@ -10,11 +10,13 @@ interface KnowledgeService
 
     public function add($field);
 
-    public function getKnowledgesByUserId($id);
+    public function findKnowledgeByUserId($id);
 
     public function get($id);
 
     public function addComment($conditions);
 
     public function searchComments($conditions, $orderBy, $start, $limit);
+
+    public function getCommentsCount($conditions);
 }
