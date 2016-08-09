@@ -36,7 +36,7 @@ class DefaultController extends BaseController
             $user = $this->getUserService()->getUser($knowledge['userId']);
             $collectonKnowledges = $this->getUserService()->findUserCollectByKnowledgeId($knowledge['id']);
             $likeKnowledges = $this->getUserService()->findUserLikeByKnowledgeId($knowledge['id']);
-            $knowledge['hasCollected'] = $this->getUserService()->getCollectByUserAndKnowledgeId($knowledge['userId'],$knowledge['id']);
+            $knowledge['hasCollected'] = $this->getUserService()->getCollectByUserAndKnowledgeId('1',$knowledge['id']);
             $knowledge['userName'] = $user['name'];
             $knowledge['likeNum'] = count($likeKnowledges);
             $knowledge['collectNum'] = count($collectonKnowledges );

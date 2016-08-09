@@ -56,7 +56,7 @@ class UserServiceImpl implements UserService
 
     public function delUserCollect($fields)
     {
-        return $this->getUserCollectDao()->delete($fields);
+        return $this->getUserCollectDao()->delUserCollect($fields);
     }
 
     public function addUserLike($fields)
