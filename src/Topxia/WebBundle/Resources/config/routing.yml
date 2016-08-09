@@ -16,7 +16,7 @@ user_page:
 
 knowledge_addKnowledge:
     path:  /addKnowledge
-    defaults: {_controller: TopxiaWebBundle:Knowledge:addKnowledge }
+    defaults: {_controller: TopxiaWebBundle:Knowledge:add }
 
 knowledge_detail:
     path:  /index/{id}
