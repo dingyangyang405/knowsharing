@@ -12,7 +12,7 @@ class TopicController extends BaseController
 {
     public function indexAction()
     {
-        $topics = $this->getTopicService()->findAllTopics();
+        $topics = $this->getTopicService()->findAll();
         
         return $this->render('TopxiaWebBundle:Topic:topic.html.twig',array(
             'topics' => $topics
