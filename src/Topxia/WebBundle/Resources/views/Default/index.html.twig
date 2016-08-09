@@ -1,6 +1,6 @@
 {% extends 'TopxiaWebBundle::base.html.twig' %}
 {% block left_header %}
- {% include 'TopxiaWebBundle::left-header.html.twig' %}
+    {% include 'TopxiaWebBundle::left-header.html.twig' %}
 {% endblock %}
 {% block base_content %}
     <div class="content">
@@ -14,8 +14,10 @@
                 <br>
             {% endblock %}
             <div class="row" id="knowledge-list">
-                {% if userKnowledges is defined and userKnowledges %}
-                    {% for userKnowledge in userKnowledges %}
+                {% if knowledges is defined and knowledges %}
+                    {% for knowledge in knowledges %}
+                        {% set user = users[knowledge.userId]|default(null) %}
+                        {% set hasFavorited = hasFavorites[knowledge.userId]|default(false) %}
                         {% include "TopxiaWebBundle:Default:singel-knowledge-list.html.twig" %}
                     {% endfor %}
                 {% else %}

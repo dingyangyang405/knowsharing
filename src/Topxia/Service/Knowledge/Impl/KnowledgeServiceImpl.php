@@ -18,7 +18,7 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $this->getKnowledgeDao()->count($conditions);
     }
 
-    public function findKnowledges()
+    public function find()
     {
         return $this->getKnowledgeDao()->find();
     }

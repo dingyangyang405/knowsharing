@@ -4,7 +4,7 @@ namespace Topxia\Service\Like\Impl;
 
 use Topxia\Service\Like\LikeService;
 
-class FavoriteServiceImpl implements LikeService
+class LikeServiceImpl implements LikeService
 {
     protected $container;
 
@@ -15,15 +15,15 @@ class FavoriteServiceImpl implements LikeService
 
     public function create($fields)
     {
-        return $this->getDao()->create($fields);
+        return $this->getLikeDao()->create($fields);
     }
 
     public function deleteByIdAndUserId($id, $userId)
     {
-        return $this->getDao()->deleteByIdAndUserId($id, $userId);
+        return $this->getLikeDao()->deleteByIdAndUserId($id, $userId);
     }
 
-    public function getDao()
+    public function getLikeDao()
     {
         return $this->container['like_dao'];
     }

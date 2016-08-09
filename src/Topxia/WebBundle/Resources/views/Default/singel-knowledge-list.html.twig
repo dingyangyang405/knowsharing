@@ -2,22 +2,22 @@
   <div class="news-info col-xs-12 col-sm-12 col-md-11">
     <dl>
       <dt>
-        <a href="{{path('knowledge_detail',{id:userKnowledge.id})}}" target="_blank" > {{userKnowledge.title}}
-          <i class="{% if userKnowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}">
+        <a href="{{path('knowledge_detail',{id:knowledge.id})}}" target="_blank" > {{knowledge.title}}
+          <i class="{% if knowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}">
 
           </i>
         </a>
       </dt>
       <dd>
         <span class="name">
-          <a href="{{ path('user_page',{id:userKnowledge.userId}) }}"  rel="author">创建者:{{userKnowledge.userName}}</a>
+          <a href="{{ path('user_page',{id:knowledge.userId}) }}"  rel="author">创建者:{{user.name}}</a>
         </span>
         <span class="identity"></span>
         <span class="time">
-          创建日期:{{userKnowledge.createdTime |date('Y年m月d日') }}
+          创建日期:{{knowledge.createdTime |date('Y年m月d日') }}
         </span>
       </dd>
-      <dd class="text">{{userKnowledge.summary}}</dd>
+      <dd class="text">{{knowledge.summary}}</dd>
     </dl>
     <div class="news_bot col-sm-7 col-md-8">
       <span class="tags visible-lg visible-md">
@@ -25,13 +25,13 @@
         <a href="javascript:;">PHP</a>
       </span>
       <span class="look">
-        <a class="pull-center collect-btn"  data-url="{{ path('MyKnowledge_addCollection', {knowledgeId:userKnowledge.id}) }}" {% if userKnowledge.hasCollected %}style="display:none"{% endif %}>
+        <a class="pull-center collect-btn"  data-url="{{ path('knowledge_favorite', {id:knowledge.id}) }}" {% if hasFavorited.Favorite == true %}style="display:none"{% endif %}>
           <i class="fa fa-fw fa-heart-o"></i>
-          <span class="collect-num">{{userKnowledge.collectNum}}</span>
+          <span class="collect-num">{{knowledge.favoriteNum}}</span>
         </a >
-        <a class="pull-right uncollect-btn"  data-url="{{ path('MyKnowledge_delCollection', {knowledgeId:userKnowledge.id}) }}" {% if not userKnowledge.hasCollected %}style="display:none"{% endif %}>
+        <a class="pull-right uncollect-btn"  data-url="{{ path('knowledge_unfavorite', {id:knowledge.id}) }}" {% if hasFavorited.Favorite == false %}style="display:none"{% endif %}>
           <i class="fa fa-fw fa-heart"></i>
-          <span class="uncollect-num">{{userKnowledge.collectNum}}</span>
+          <span class="uncollect-num">{{knowledge.favoriteNum}}</span>
         </a>
       </span>
     </div>
