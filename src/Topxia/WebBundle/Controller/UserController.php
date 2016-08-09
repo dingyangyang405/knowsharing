@@ -12,7 +12,7 @@ class UserController extends BaseController
     public function indexAction(Request $request,$id)
     {
         $user = $this->getUserService()->get(1);
-
+        $hasfollowed = $this->getUserService()->getFollowObjectStatus(1,$id);
         $conditions = array(
             'userId' => $user['id'],
         );
@@ -24,7 +24,8 @@ class UserController extends BaseController
         return $this->render('TopxiaWebBundle:User:index.html.twig',array(
             'user' => $user,
             'knowledgeCount' => $knowledgeCount,
-            'favoritesCount' => $favoriteCount
+            'favoritesCount' => $favoriteCount,
+            'hasfollowed' => $hasfollowed
         ));
     }
 

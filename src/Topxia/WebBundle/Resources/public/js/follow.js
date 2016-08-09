@@ -15,14 +15,14 @@ $(function(){
         })
     });
 
-    $('#unfollow-btn').on('click',function(){
+    $('#user #unfollow-btn').on('click',function(){
         var $btn = $(this);
         $.post($btn.data('url'),function(){
             $btn.hide();
             $('#follow-btn').show();
         });
     });
-    $('#follow-btn').on('click',function(){
+    $('#user #follow-btn').on('click',function(){
         var $btn = $(this);
         $.post($btn.data('url'),function(){
             $btn.hide();
