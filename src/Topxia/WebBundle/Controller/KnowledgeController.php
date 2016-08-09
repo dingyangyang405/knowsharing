@@ -10,7 +10,7 @@ class KnowledgeController extends BaseController
     public function indexAction($id)
     {
         $knowledge = $this->getKnowledgeService()->get($id);
-        $user = $this->getUserService()->getUser($knowledge['userId']);
+        $user = $this->getUserService()->get($knowledge['userId']);
 
         $conditions = array('knowledgeId' => $knowledge['id']);
         $orderBy = array('createdTime', 'DESC');
