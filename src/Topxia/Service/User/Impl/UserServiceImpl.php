@@ -54,7 +54,7 @@ class UserServiceImpl implements UserService
         return true;
     }
 
-    protected function getDao()
+    protected function getUserDao()
     {
         return $this->container['user_dao'];
     }
