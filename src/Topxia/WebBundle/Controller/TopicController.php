@@ -48,6 +48,6 @@ class TopicController extends BaseController
 
     protected function getFollowTopicService()
     {
-        return $this->getServiceKernel('follow_topic_service');
+        return $this->biz['follow_topic_service'];
     }
 }

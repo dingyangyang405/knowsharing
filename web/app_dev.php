@@ -28,12 +28,6 @@ $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
 $kernel->boot();
 
-$serviceKernel= new StarterKernel([]);
-$serviceKernel->boot();
-$serviceKernel['db'] = $kernel->getContainer()->get('doctrine.dbal.default_connection');
-
-$kernel->getContainer()->set('biz_kernel', $serviceKernel);
-
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();

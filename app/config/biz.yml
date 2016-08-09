@@ -1,0 +1,10 @@
+parameters:
+  biz:
+    database:
+      name: starter
+      user: root
+      password: 'JINgang185,.!'
+      host: 127.0.0.1
+      port: 3306
+      driver: pdo_mysql
+      charset: UTF8

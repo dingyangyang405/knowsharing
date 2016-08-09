@@ -50,6 +50,6 @@ class MyKnowledgeController extends BaseController
 
     protected function getUserService()
     {
-        return $this->getServiceKernel('user_service');
+        return $this->biz['user_service'];
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Topxia\Service\Favorite\Dao\Impl;
+namespace Topxia\Service\Like\Dao\Impl;
 
 use Topxia\Service\Favorite\Dao\FavoriteDao;
 use Codeages\Biz\Framework\Dao\GeneralDaoImpl;
 
-class FavoriteDaoImpl extends GeneralDaoImpl implements FavoriteDao
+class LikeDaoImpl extends GeneralDaoImpl implements LikeDao
 {
     protected $table = 'user_like';
 
