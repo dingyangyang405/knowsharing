@@ -43,6 +43,36 @@ class UserServiceImpl implements UserService
 
         return true;
     }
+    
+    public function findUserLikeByKnowledgeId($id)
+    {
+        return $this->getUserLikeDao()->findUserLikeByKnowledgeId($id);
+    }
+
+    public function addUserCollect($fields)
+    {
+        return $this->getUserCollectDao()->create($fields);
+    }
+
+    public function delUserCollect($fields)
+    {
+        return $this->getUserCollectDao()->delete($fields);
+    }
+
+    public function addUserLike($fields)
+    {
+        return $this->getUserLikeDao()->create($fields);
+    }
+
+    public function findUserCollectByKnowledgeId($id)
+    {
+        return $this->getUserCollectDao()->findUserCollectByKnowledgeId($id);
+    }
+
+    public function getCollectByUserAndKnowledgeId($userId, $knowledgeId)
+    {
+        return $this->getUserCollectDao()->getCollectByUserAndKnowledgeId($userId, $knowledgeId);
+    }
 
     protected function getUserDao()
     {
@@ -52,5 +82,15 @@ class UserServiceImpl implements UserService
     protected function getFollowDao()
     {
         return $this->container['follow_user_dao'];
+    }
+
+    protected function getUserLikeDao()
+    {
+        return $this->container['userLike_dao'];
+    }
+
+    protected function getUserCollectDao()
+    {
+        return $this->container['userCollect_dao'];
     }
 }

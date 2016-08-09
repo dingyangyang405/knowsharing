@@ -33,13 +33,31 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $this->getKnowledgeDao()->create($field);
     }
     
-    public function getKnowledgeDetial($id)
+    public function get($id)
     {
         return $this->getKnowledgeDao()->get($id);
     }
 
-    public function getKnowledgeDao()
+    public function addComment($conditions)
+    {
+        return $this->getCommentDao()->create($conditions);
+    }
+
+    public function searchComments($id)
+    {
+        $conditions = array('knowledgeId' => $id);
+        $orderBy = array('createdTime', 'DESC');
+
+        return $this->getCommentDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
+    }
+
+    protected function getKnowledgeDao()
     {
         return $this->container['knowledge_dao'];
+    }
+
+    protected function getCommentDao()
+    {
+        return $this->container['comment_dao'];
     }
 }
