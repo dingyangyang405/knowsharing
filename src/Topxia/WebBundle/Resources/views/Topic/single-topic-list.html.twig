@@ -10,7 +10,7 @@
     </dl>
     <div class="news_bot col-sm-7 col-md-8">
       <span class="look">
-        <a class="pull-center" id="follow-btn" data-url="{{ path('topic_follow', {id:topic.id}) }}" {% if topic.hasFollowed is defined and topic.hasFollowed%}style="display:none"{% endif %}><i class="fa fa-fw fa-heart-o"></i>2555</a>
+        <a class="pull-center" id="follow-btn" data-url="{{ path('topic_follow', {id:topic.id}) }}" {% if topic.hasFollowed is defined and topic.hasFollowed%}style="display:none"{% endif %}><i class="fa fa-fw fa-heart-o"></i>{{ topic.followNum }}</a>
         <a class="pull-right" id="unfollow-btn" data-url="{{ path('topic_unfollow', {id:topic.id}) }}" {% if topic.hasFollowed is defined and not topic.hasFollowed%}style="display:none"{% endif %}><i class="fa fa-fw fa-heart"></i>2555</a>
       </span>
     </div>
