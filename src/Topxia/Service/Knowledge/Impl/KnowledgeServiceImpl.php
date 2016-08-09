@@ -33,7 +33,7 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $this->getKnowledgeDao()->create($field);
     }
     
-    public function getKnowledgeDetial($id)
+    public function get($id)
     {
         return $this->getKnowledgeDao()->get($id);
     }
