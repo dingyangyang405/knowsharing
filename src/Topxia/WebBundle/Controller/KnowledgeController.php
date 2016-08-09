@@ -7,13 +7,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class KnowledgeController extends BaseController
 {
-    public function detailAction($id)
+    public function indexAction($id)
     {
-        $knowledge = $this->getKnowledgeService()->getKnowledgeDetial($id);
+        $knowledge = $this->getKnowledgeService()->get($id);
         $user = $this->getUserService()->getUser($knowledge['userId']);
         $comments = $this->getKnowledgeService()->searchComments($id);
 
-        return $this->render('TopxiaWebBundle:Knowledge:detail.html.twig',array(
+        return $this->render('TopxiaWebBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge,
             'user' => $user,
             'comments' => $comments
