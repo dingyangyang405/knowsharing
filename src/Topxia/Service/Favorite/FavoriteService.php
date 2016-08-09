@@ -1,8 +1,8 @@
 <?php
 
-namespace Topxia\Service\Collection;
+namespace Topxia\Service\Favorite;
 
-interface CollectionService
+interface FavoriteService
 {
-    public function findCollectionCount($conditions);
+    public function getFavoriteCount($conditions);
 }

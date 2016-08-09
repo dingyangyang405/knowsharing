@@ -1,9 +1,9 @@
 <?php
 
-namespace Topxia\Service\Collection\Dao;
+namespace Topxia\Service\Favorite\Dao;
 
 use Codeages\Biz\Framework\Dao\GeneralDaoInterface;
 
-interface CollectionDao extends GeneralDaoInterface
+interface FavoriteDao extends GeneralDaoInterface
 {
 }

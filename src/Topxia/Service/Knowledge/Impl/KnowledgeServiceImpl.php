@@ -13,7 +13,7 @@ class KnowledgeServiceImpl implements KnowledgeService
         $this->container = $container;
     }
 
-    public function findKnowledgeCount($conditions)
+    public function getKnowledgeCount($conditions)
     {
         return $this->getKnowledgeDao()->count($conditions);
     }
@@ -43,12 +43,9 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $this->getCommentDao()->create($conditions);
     }
 
-    public function searchComments($id)
+    public function searchComments($conditions, $orderBy, $start, $limit)
     {
-        $conditions = array('knowledgeId' => $id);
-        $orderBy = array('createdTime', 'DESC');
-
-        return $this->getCommentDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
+        return $this->getCommentDao()->search($conditions, $orderBy, $start, $limit);
     }
 
     protected function getKnowledgeDao()

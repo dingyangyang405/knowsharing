@@ -11,7 +11,7 @@ class UserController extends BaseController
     public function indexAction(Request $request)
     {
 
-        $user = $this->getUserService()->getUser(1);
+        $user = $this->getUserService()->get(1);
 
         $conditions = array(
             'userId' => $user['id'],

@@ -11,7 +11,20 @@ class KnowledgeController extends BaseController
     {
         $knowledge = $this->getKnowledgeService()->get($id);
         $user = $this->getUserService()->getUser($knowledge['userId']);
-        $comments = $this->getKnowledgeService()->searchComments($id);
+
+        $conditions = array('knowledgeId' => $knowledge['id']);
+        $orderBy = array('createdTime', 'DESC');
+        // $paginator = new Paginator(
+        //     $this->get('request'),
+        //     $this->getKnowledgeService()->getCommentsCount($id),
+        //     20
+        // );
+        $comments = $this->getKnowledgeService()->searchComments(
+            $conditions,
+            $orderBy,
+            0,
+            PHP_INT_MAX
+        );
 
         return $this->render('TopxiaWebBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge,
