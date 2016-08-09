@@ -7,6 +7,7 @@ use Topxia\Service\User\Dao\Impl\UserDaoImpl;
 use Topxia\Service\Theme\Impl\ThemeServiceImpl;
 use Topxia\Service\Theme\Dao\Impl\ThemeDaoImpl;
 use Topxia\Service\Theme\Dao\Impl\FollowDaoImpl;
+use Topxia\Service\User\Dao\Impl\FollowUserDaoImpl;
 use Topxia\Service\Knowledge\Impl\KnowledgeServiceImpl;
 use Topxia\Service\Knowledge\Dao\Impl\KnowledgeDaoImpl;
 use Topxia\Service\User\Dao\Impl\UserCollectDaoImpl;
@@ -76,8 +77,13 @@ class StarterKernel extends Kernel
             return new UserLikeDaoImpl($container);
         });
         
-        $this['follow_dao'] = function($container) {
+        $this['follow_dao'] = $this->dao(function($container) {
+
             return new FollowDaoImpl($container);
-        };
+        });
+
+        $this['follow_user_dao'] = $this->dao(function($container) {
+            return new FollowUserDaoImpl($container);
+        });
     }
 }

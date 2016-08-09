@@ -26,6 +26,16 @@ theme:
     path: /theme
     defaults: { _controller: TopxiaWebBundle:Theme:index }
 
+user_follow:
+    path: /user/{id}/follow
+    defaults: { _controller: TopxiaWebBundle:User:follow }
+    methods: [POST]
+    
+user_unfollow:
+    path: /user/{id}/unfollow
+    defaults: { _controller: TopxiaWebBundle:User:unfollow }
+    methods: [POST]
+
 MyKnowledge_addCollection:
     path: /addCollection/{knowledgeId}
     defaults: {_controller: TopxiaWebBundle:MyKnowledge:addCollection}

@@ -22,6 +22,28 @@ class UserServiceImpl implements UserService
         return $this->getUserDao()->findByIds($ids);
     }
 
+    public function followUser($userId)
+    {   
+        // $user = $this->getCurrentUser();
+        $user['id'] = 1;
+        $this->getFollowDao()->create(array(
+            'userId'=> $user['id'],
+            'objectType'=>'user',
+            'objectId'=>$userId
+            ));
+
+        return true;
+    }
+
+    public function unfollowUser($userId)
+    {
+        $user['id'] = 1;
+        $follow = $this->getFollowDao()->getFollowByUserIdAndObjectId($user['id'], $userId, 'user');
+        $this->getFollowDao()->delete($follow['id']);
+
+        return true;
+    }
+    
     public function findUserLikeByKnowledgeId($id)
     {
         return $this->getUserLikeDao()->findUserLikeByKnowledgeId($id);
@@ -55,6 +77,11 @@ class UserServiceImpl implements UserService
     protected function getUserDao()
     {
         return $this->container['user_dao'];
+    }
+
+    protected function getFollowDao()
+    {
+        return $this->container['follow_user_dao'];
     }
 
     protected function getUserLikeDao()
