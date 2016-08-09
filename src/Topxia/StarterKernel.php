@@ -10,8 +10,6 @@ use Topxia\Service\Topic\Dao\Impl\TopicDaoImpl;
 use Topxia\Service\Topic\Dao\Impl\FollowDaoImpl;
 use Topxia\Service\Knowledge\Impl\KnowledgeServiceImpl;
 use Topxia\Service\Knowledge\Dao\Impl\KnowledgeDaoImpl;
-use Topxia\Service\Collection\Impl\CollectionServiceImpl;
-use Topxia\Service\Collection\Dao\Impl\CollectionDaoImpl;
 use Topxia\Service\Knowledge\Dao\Impl\CommentDaoImpl;
 use Topxia\Service\Like\Impl\LikeServiceImpl;
 use Topxia\Service\Like\Dao\Impl\LikeDaoImpl;
