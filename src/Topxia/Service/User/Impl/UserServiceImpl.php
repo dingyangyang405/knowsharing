@@ -38,7 +38,7 @@ class UserServiceImpl implements UserService
         $user['id'] = 1;
         $this->getFollowDao()->create(array(
             'userId'=> $user['id'],
-            'objectType'=>'user',
+            'type'=>'user',
             'objectId'=>$id
             ));
 

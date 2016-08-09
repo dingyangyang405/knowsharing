@@ -19,7 +19,7 @@ class UserController extends BaseController
 
         $knowledgeCount = $this->getKnowledgeService()->getKnowledgeCount($conditions);
 
-        $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
+        $favoriteCount = $this->getFavoriteService()->getFavoriteCount($conditions);
 
         $knowledge = $this->getKnowledgeService()->getKnowledgeByUserId($user['id']);
 
