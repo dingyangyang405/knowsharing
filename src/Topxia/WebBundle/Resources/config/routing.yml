@@ -36,13 +36,21 @@ user_unfollow:
     defaults: { _controller: TopxiaWebBundle:User:unfollow }
     methods: [POST]
 
-MyKnowledge_addCollection:
-    path: /addCollection/{knowledgeId}
-    defaults: {_controller: TopxiaWebBundle:MyKnowledge:addCollection}
+knowledge_favorite:
+    path: /knowledge/favorite/{knowledgeId}
+    defaults: {_controller: TopxiaWebBundle:Knowledge:favorite}
 
-MyKnowledge_delCollection:
-    path: /delCollection/{knowledgeId}
-    defaults: {_controller: TopxiaWebBundle:MyKnowledge:delCollection}
+knowledge_unfavorite:
+    path: /knowledge/unfavorite/{knowledgeId}
+    defaults: {_controller: TopxiaWebBundle:Knowledge:unfavorite}
+
+knowledge_like:
+    path: /knowledge/like/{knowledgeId}
+    defaults: {_controller: TopxiaWebBundle:Knowledge:like}
+
+knowledge_dislike:
+    path: /knowledge/dislike/{knowledgeId}
+    defaults: {_controller: TopxiaWebBundle:Knowledge:dislike}
 
 topic_follow: 
     path: /topic/{id}/follow

@@ -33,7 +33,7 @@ class DefaultController extends BaseController
     {
         $userKnowledges = array();
         foreach ($knowledges as $key => $knowledge) {
-            $user = $this->getUserService()->getUser($knowledge['userId']);
+            $user = $this->getUserService()->get($knowledge['userId']);
             $collectonKnowledges = $this->getUserService()->findUserCollectByKnowledgeId($knowledge['id']);
             $likeKnowledges = $this->getUserService()->findUserLikeByKnowledgeId($knowledge['id']);
             $knowledge['hasCollected'] = $this->getUserService()->getCollectByUserAndKnowledgeId('1',$knowledge['id']);
