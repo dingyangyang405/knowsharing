@@ -51,12 +51,12 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $this->getCommentDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
     }
 
-    public function getKnowledgeDao()
+    protected function getKnowledgeDao()
     {
         return $this->container['knowledge_dao'];
     }
 
-    public function getCommentDao()
+    protected function getCommentDao()
     {
         return $this->container['comment_dao'];
     }
