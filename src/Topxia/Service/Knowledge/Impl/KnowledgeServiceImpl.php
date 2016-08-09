@@ -23,9 +23,9 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $this->getKnowledgeDao()->find();
     }
 
-    public function getKnowledgeByUserId($id)
+    public function findKnowledgeByUserId($id)
     {
-        return $this->getKnowledgeDao()->getKnowledgeByUserId($id);
+        return $this->getKnowledgeDao()->findKnowledgeByUserId($id);
     }
     
     public function add($field)

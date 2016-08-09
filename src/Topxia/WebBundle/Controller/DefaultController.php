@@ -22,10 +22,10 @@ class DefaultController extends BaseController
 
     public function shareListAction(Request $request)
     {   
-        $shareKnowledges = $this->getKnowledgeService()->getKnowledgesByUserId(1);
+        $shareKnowledge = $this->getKnowledgeService()->findKnowledgeByUserId(1);
 
         return $this->render('TopxiaWebBundle:Default:my-knowledge.html.twig',array(
-            'shareKnowledges' => $shareKnowledges
+            'shareKnowledge' => $shareKnowledge
         ));
     }
 
