@@ -6,6 +6,10 @@ knowledge_share_list:
     path:  /share/list
     defaults: { _controller: TopxiaWebBundle:Default:shareList }
 
+knowledge_add_comment:
+    path:  /comment
+    defaults: { _controller: TopxiaWebBundle:Knowledge:addComment }
+
 user_page:
     path:  /user/{id}
     defaults: { _controller: TopxiaWebBundle:User:index }
@@ -17,7 +21,6 @@ knowledge_addKnowledge:
 knowledge_detail:
     path:  /detail/{id}
     defaults: { _controller: TopxiaWebBundle:Knowledge:detail }
-    methods: [GET]
 
 theme:
     path: /theme
@@ -36,4 +39,3 @@ theme_unfollow:
     path: /theme/{id}/unfollow
     defaults: { _controller: TopxiaWebBundle:Theme:unfollow }
     methods: [POST]
-

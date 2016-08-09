@@ -14,4 +14,7 @@ interface KnowledgeService
 
     public function get($id);
 
+    public function addComment($conditions);
+
+    public function searchComments($id);
 }
