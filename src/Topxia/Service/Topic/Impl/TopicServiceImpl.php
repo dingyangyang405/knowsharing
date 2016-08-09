@@ -13,9 +13,9 @@ class TopicServiceImpl implements TopicService
         $this->container = $container;
     }
 
-    public function findAll()
+    public function findAllTopics()
     {
-        $topics = $this->getTopicDao()->findAll();
+        $topics = $this->getTopicDao()->findAllTopics();
         $followedTopics = $this->findAllFollowedTopics();
         foreach ($topics as $key => $topic) {
             $topics[$key]['hasFollowed'] = false;

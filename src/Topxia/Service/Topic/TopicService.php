@@ -4,7 +4,7 @@ namespace Topxia\Service\Topic;
 
 interface TopicService
 {
-    public function findAll();
+    public function findAllTopics();
 
     public function findAllFollowedTopics();
 
