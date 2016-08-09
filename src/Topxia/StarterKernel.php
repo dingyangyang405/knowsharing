@@ -12,8 +12,8 @@ use Topxia\Service\Knowledge\Impl\KnowledgeServiceImpl;
 use Topxia\Service\Knowledge\Dao\Impl\KnowledgeDaoImpl;
 use Topxia\Service\User\Dao\Impl\UserCollectDaoImpl;
 use Topxia\Service\User\Dao\Impl\UserLikeDaoImpl;
-use Topxia\Service\Collection\Impl\CollectionServiceImpl;
-use Topxia\Service\Collection\Dao\Impl\CollectionDaoImpl;
+use Topxia\Service\Favorite\Impl\FavoriteServiceImpl;
+use Topxia\Service\Favorite\Dao\Impl\FavoriteDaoImpl;
 use Topxia\Service\Knowledge\Dao\Impl\CommentDaoImpl;
 
 
