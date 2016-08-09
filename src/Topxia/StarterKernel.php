@@ -10,12 +10,11 @@ use Topxia\Service\Topic\Dao\Impl\TopicDaoImpl;
 use Topxia\Service\Topic\Dao\Impl\FollowDaoImpl;
 use Topxia\Service\Knowledge\Impl\KnowledgeServiceImpl;
 use Topxia\Service\Knowledge\Dao\Impl\KnowledgeDaoImpl;
-use Topxia\Service\User\Dao\Impl\UserCollectDaoImpl;
-use Topxia\Service\User\Dao\Impl\UserLikeDaoImpl;
+use Topxia\Service\Knowledge\Dao\Impl\CommentDaoImpl;
+use Topxia\Service\Like\Impl\LikeServiceImpl;
+use Topxia\Service\Like\Dao\Impl\LikeDaoImpl;
 use Topxia\Service\Favorite\Impl\FavoriteServiceImpl;
 use Topxia\Service\Favorite\Dao\Impl\FavoriteDaoImpl;
-use Topxia\Service\Knowledge\Dao\Impl\CommentDaoImpl;
-
 
 class StarterKernel extends Kernel
 {
@@ -69,14 +68,6 @@ class StarterKernel extends Kernel
             return new CommentDaoImpl($container);
         });
 
-        $this['userCollect_dao'] = $this->dao(function($container) {
-            return new UserCollectDaoImpl($container);
-        });
-
-        $this['userLike_dao'] = $this->dao(function($container) {
-            return new UserLikeDaoImpl($container);
-        });
-        
         $this['follow_dao'] = $this->dao(function($container) {
 
             return new FollowDaoImpl($container);
@@ -85,5 +76,13 @@ class StarterKernel extends Kernel
         $this['follow_user_dao'] = $this->dao(function($container) {
             return new FollowUserDaoImpl($container);
         });
+
+        $this['like_dao'] = $this->dao(function($container) {
+            return new LikeDaoImpl($container);
+        });
+
+        $this['like_service'] = function($container) {
+            return new LikeServiceImpl($container);
+        };
     }
 }

@@ -7,7 +7,7 @@ use Codeages\Biz\Framework\Dao\GeneralDaoImpl;
 
 class FavoriteDaoImpl extends GeneralDaoImpl implements FavoriteDao
 {
-    protected $table = 'user_favorite';
+    protected $table = 'user_like';
 
     public function deleteByIdAndUserId($id, $userId)
     {

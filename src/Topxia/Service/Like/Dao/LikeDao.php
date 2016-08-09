@@ -1,6 +1,6 @@
 <?php
 
-namespace Topxia\Service\Favorite\Dao;
+namespace Topxia\Service\Like\Dao;
 
 use Codeages\Biz\Framework\Dao\GeneralDaoInterface;
 
