@@ -9,11 +9,11 @@ class KnowledgeController extends BaseController
 {
     public function detailAction($id)
     {
-        $konwledge = $this->getKnowledgeService()->getKnowledgeDetial($id);
-        $user = $this->getUserService()->getUser($konwledge['userId']);
+        $knowledge = $this->getKnowledgeService()->getKnowledgeDetial($id);
+        $user = $this->getUserService()->getUser($knowledge['userId']);
 
         return $this->render('TopxiaWebBundle:Knowledge:detail.html.twig',array(
-            'konwledge' => $konwledge,
+            'knowledge' => $knowledge,
             'user' => $user,
         ));
     }

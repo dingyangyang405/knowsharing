@@ -9,6 +9,4 @@ interface UserDao extends GeneralDaoInterface
     public function get($id);
 
     public function findByIds($ids);
-
-    public function addfollow($fields);
 }

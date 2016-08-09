@@ -10,5 +10,5 @@ interface UserService
 
     public function followUser($userId);
 
-    // public function unfollowUser($userId);
+    public function unfollowUser($userId);
 }

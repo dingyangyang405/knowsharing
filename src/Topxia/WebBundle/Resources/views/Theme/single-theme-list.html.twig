@@ -10,7 +10,8 @@
     </dl>
     <div class="news_bot col-sm-7 col-md-8">
       <span class="look">
-        <i class="fa fa-star-o"></i><strong title="收藏" style="cursor: pointer"> 2126 </strong>
+        <a class="pull-center" id="follow-btn" data-url="{{ path('theme_follow', {id:theme.id}) }}" {% if theme.hasFollowed is defined and theme.hasFollowed%}style="display:none"{% endif %}><i class="fa fa-fw fa-heart-o"></i>2555</a>
+        <a class="pull-right" id="unfollow-btn" data-url="{{ path('theme_unfollow', {id:theme.id}) }}" {% if theme.hasFollowed is defined and not theme.hasFollowed%}style="display:none"{% endif %}><i class="fa fa-fw fa-heart"></i>2555</a>
       </span>
     </div>
   </div>

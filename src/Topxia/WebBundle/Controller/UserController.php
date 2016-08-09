@@ -5,6 +5,7 @@ namespace Topxia\WebBundle\Controller;
 use Topxia\WebBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Topxia\Service\User\Impl\UserServiceImpl;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserController extends BaseController
 {
@@ -31,14 +32,14 @@ class UserController extends BaseController
     {
         $this->getUserService()->followUser($id);
 
-        return $this->createJsonResponse(true);
+        return new JsonResponse(true);
     }
 
     public function unfollowAction(Request $request, $id)
     {
         $this->getUserService()->unfollowUser($id);
 
-        return $this->createJsonResponse(true);
+        return new JsonResponse(true);
     }
 
     protected function getKnowledgeService()
