@@ -25,11 +25,21 @@
       <!-- /.box-body -->
     </div>
 {% endblock %}
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+          {% block navTabs %}
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#">他的分享</a></li>
+              <li ><a href="#">他的收藏</a></li>
+              <li ><a href="#">他的关注</a></li>
+            </ul>
+          {% endblock %}
+          <div class="row">
+            {% include 'TopxiaWebBundle:Knowledge:detail-box.html.twig' %}
+            {% include 'TopxiaWebBundle:Knowledge:comment.html.twig' %}
+          </div>
 
-{% block navTabs %}
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#">他的分享</a></li>
-    <li ><a href="#">他的收藏</a></li>
-    <li ><a href="#">他的关注</a></li>
-  </ul>
+        </div>
+    </div>
 {% endblock %}

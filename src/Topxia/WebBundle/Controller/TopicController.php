@@ -13,7 +13,15 @@ class TopicController extends BaseController
     public function indexAction()
     {
         $topics = $this->getTopicService()->findAllTopics();
-        
+        $followedTopics = $this->getFollowTopicService()->findAllFollowedTopics();
+        foreach ($topics as $key => $topic) {
+            $topics[$key]['hasFollowed'] = false;
+            foreach ($followedTopics as $value) {
+                if ($topic['id'] === $value['objectId']) {
+                    $topics[$key]['hasFollowed'] = true;
+                }
+            }
+        }
         return $this->render('TopxiaWebBundle:Topic:topic.html.twig',array(
             'topics' => $topics
         ));
@@ -21,14 +29,14 @@ class TopicController extends BaseController
 
     public function followAction(Request $request, $id)
     {
-        $this->getTopicService()->followTopic($id);
+        $this->getFollowTopicService()->followTopic($id);
 
         return new JsonResponse(true);
     }
 
-    public function unfollowAction(Request $request, $id)
+    public function unFollowAction(Request $request, $id)
     {
-        $this->getTopicService()->unfollowTopic($id);
+        $this->getFollowTopicService()->unFollowTopic($id);
 
         return new JsonResponse(true);
     }
@@ -36,5 +44,10 @@ class TopicController extends BaseController
     protected function getTopicService()
     {
         return $this->getServiceKernel('topic_service');
+    }
+
+    protected function getFollowTopicService()
+    {
+        return $this->getServiceKernel('follow_topic_service');
     }
 }
