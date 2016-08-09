@@ -18,6 +18,8 @@ class KsUser extends Migration
         $table->addColumn('mobile', 'string', array('length' => 20, 'comment' => '手机号'));
         $table->addColumn('password', 'string', array('null' => false, 'length' => 20, 'comment' => '密码'));
         $table->addColumn('email', 'string', array('null' => false, 'length' => 20, 'comment' => '邮箱'));
+        $table->addColumn('followNum', 'integer', array('unsigned' => true, 'comment' => '被关注总数'));
+        
         $table->setPrimaryKey(array('id'));
         $container['db']->getSchemaManager()->createTable($table);
     }

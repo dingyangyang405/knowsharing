@@ -20,8 +20,8 @@ class KsKnowledge extends Migration
         $table->addColumn('createdTime', 'integer', array('null' => false, 'comment' => '创建日期'));
         $table->addColumn('updatedTime', 'integer', array('comment' => '修改日期'));
         $table->addColumn('content', 'string', array('length' => 60, 'null' => false, 'comment' => '内容'));
-        $table->addColumn('favoriteNo', 'integer', array('unsigned' => true, 'comment' => '被收藏总数'));
-        $table->addColumn('likeNo', 'integer', array('unsigned' => true, 'comment' => '被点赞总数'));
+        $table->addColumn('favoriteNum', 'integer', array('unsigned' => true, 'comment' => '被收藏总数'));
+        $table->addColumn('likeNum', 'integer', array('unsigned' => true, 'comment' => '被点赞总数'));
         $table->setPrimaryKey(array('id'));
 
         $container['db']->getSchemaManager()->createTable($table);
