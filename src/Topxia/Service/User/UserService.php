@@ -14,15 +14,4 @@ interface UserService
 
     public function unfollowUser($id);
 
-    public function findUserLikeByKnowledgeId($id);
-
-    public function findUserCollectByKnowledgeId($id);
-
-    public function addUserCollect($fields);
-
-    public function delUserCollect($fields);
-
-    public function addUserLike($fields);
-
-    public function getCollectByUserAndKnowledgeId($userId, $knowledgeId);
 }
