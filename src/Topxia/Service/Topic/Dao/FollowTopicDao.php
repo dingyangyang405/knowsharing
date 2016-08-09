@@ -4,7 +4,7 @@ namespace Topxia\Service\Topic\Dao;
 
 use Codeages\Biz\Framework\Dao\GeneralDaoInterface;
 
-interface FollowDao extends GeneralDaoInterface
+interface FollowTopicDao extends GeneralDaoInterface
 {
     public function getFollowTopicByUserIdAndTopicId($userId, $topicId, $objectType);
 

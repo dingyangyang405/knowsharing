@@ -33,30 +33,7 @@ class TopicServiceImpl implements TopicService
     {
         $user['id'] = 1;
 
-        return $this->getFollowDao()->findFollowsByUserId($user['id'], 'topic');
-    }
-
-    public function followTopic($topicId)
-    {
-        $user['id'] = 1;
-
-        $this->getFollowDao()->addFollow(array(
-            'objectId' => $topicId,
-            'userId' => $user['id'],
-            'objectType' => 'topic',
-        ));
-
-        return true;
-    }
-
-    public function unfollowTopic($topicId)
-    {
-        $user['id'] = 1;
-
-        $follow = $this->getFollowDao()->getFollowTopicByUserIdAndTopicId($user['id'], $topicId, 'topic');
-        $this->getFollowDao()->deleteFollow($follow['id']);
-
-        return true;
+        return $this->getFollowTopicDao()->findFollowsByUserId($user['id'], 'topic');
     }
     
     protected function getTopicDao()
@@ -64,8 +41,8 @@ class TopicServiceImpl implements TopicService
         return $this->container['topic_dao'];
     }
 
-    protected function getFollowDao()
+    protected function getFollowTopicDao()
     {
-        return $this->container['follow_dao'];
+        return $this->container['follow_topic_dao'];
     }
 }

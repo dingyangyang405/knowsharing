@@ -2,10 +2,10 @@
 
 namespace Topxia\Service\Topic\Dao\Impl;
 
-use Topxia\Service\Topic\Dao\FollowDao;
+use Topxia\Service\Topic\Dao\FollowTopicDao;
 use Codeages\Biz\Framework\Dao\GeneralDaoImpl;
 
-class FollowDaoImpl extends GeneralDaoImpl implements FollowDao
+class FollowTopicDaoImpl extends GeneralDaoImpl implements FollowTopicDao
 {
     protected $table = 'follow';
 
