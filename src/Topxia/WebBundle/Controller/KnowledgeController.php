@@ -80,6 +80,9 @@ class KnowledgeController extends BaseController
             );
 
         $this->getFavoriteService()->create($fields);
+        $knowledge = $this->getKnowledgeService()->get($id);
+        $knowledge['favoriteNum'] += 1; 
+        $this->getKnowledgeService()->update($id, $knowledge);
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -89,6 +92,9 @@ class KnowledgeController extends BaseController
     {
         $userId = '1';
         $this->getFavoriteService()->deleteByIdAndUserId($id, $userId);
+        $knowledge = $this->getKnowledgeService()->get($id);
+        $knowledge['favoriteNum'] = $knowledge['favoriteNum'] - 1; 
+        $this->getKnowledgeService()->update($id, $knowledge);
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -121,21 +127,21 @@ class KnowledgeController extends BaseController
 
     protected function getLikeService()
     {
-        return $this->getServiceKernel('like_service');
+        return $this->biz['like_service'];
     }
 
     protected function getKnowledgeService()
     {
-        return $this->getServiceKernel('knowledge_service');
+        return $this->biz['knowledge_service'];
     }
 
     protected function getUserService()
     {
-        return $this->getServiceKernel('user_service');
+        return $this->biz['user_service'];
     }
 
     protected function getFavoriteService()
     {
-        return $this->getServiceKernel('favorite_service');
+        return $this->biz['favorite_service'];
     }   
 }

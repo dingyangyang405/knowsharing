@@ -19,4 +19,6 @@ interface KnowledgeService
     public function searchComments($conditions, $orderBy, $start, $limit);
 
     public function getCommentsCount($conditions);
+
+    public function update($id, $fields);
 }

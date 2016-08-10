@@ -10,6 +10,6 @@ interface FavoriteService
 
     public function deleteByIdAndUserId($id, $userId);
 
-    public function findByKnowledgeIds($knowledgeIds);
+    public function findByUserId($userId);
 
 }

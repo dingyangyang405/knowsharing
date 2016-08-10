@@ -4,6 +4,7 @@ namespace Topxia\Service\Knowledge\Impl;
 
 use Topxia\Service\Knowledge\KnowledgeService;
 
+
 class KnowledgeServiceImpl implements KnowledgeService
 {
     protected $container;
@@ -11,6 +12,11 @@ class KnowledgeServiceImpl implements KnowledgeService
     public function __construct($container)
     {
         $this->container = $container;
+    }
+
+    public function update($id, $fields)
+    {
+        return $this->getKnowledgeDao()->update($id, $fields);
     }
 
     public function getKnowledgeCount($conditions)

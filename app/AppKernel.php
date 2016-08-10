@@ -5,6 +5,16 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
+    public function boot()
+    {
+        parent::boot();
+
+        $parameters = $this->getContainer()->getParameter('biz');
+        $biz= new Topxia\StarterKernel($parameters);
+        $biz->boot();
+        $this->getContainer()->set('biz_kernel', $biz);
+    }
+
     public function registerBundles()
     {
         $bundles = array(
