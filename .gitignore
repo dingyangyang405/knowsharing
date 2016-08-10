@@ -3,6 +3,7 @@
 /app/config/biz.yml
 /app/cache/*
 /app/config/parameters.yml
+/app/config/biz.yml
 /app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep

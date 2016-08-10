@@ -7,4 +7,6 @@ interface LikeService
     public function create($fields);
 
     public function deleteByIdAndUserId($id, $userId);
+
+    public function findByUserId($userId);
 }
