@@ -11,21 +11,23 @@ class MyKnowledgeShareController extends BaseController
 {
     public function indexAction(Request $request)
     {   
+        // $userId = $this->getUserService()->getCurrentUser();
         $userId = 1;
         $conditions = array('userId' => $userId);
 
         $paginator = new Paginator(
             $this->get('request'),
-            $this->getKnowledgeService()->getKnowledgeCount($conditions),
+            $this->getKnowledgeService()->searchKnowledgeCount($conditions),
             10
         );
 
         $shareKnowledge = $this->getKnowledgeService()->searchAllKnowledge(
-            $conditions,array('createdTime', 'DESC'),
+            $conditions,
+            array('createdTime', 'DESC'),
             $paginator->getOffsetCount(), 
             $paginator->getPerPageCount()
         );
-
+        
         return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-knowledge.html.twig',array(
             'shareKnowledge' => $shareKnowledge,
             'paginator' => $paginator
@@ -34,7 +36,7 @@ class MyKnowledgeShareController extends BaseController
 
     public function editAction(Request $request, $id)
     {
-        $knowledge = $this->getKnowledgeService()->get($id);
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         if ($request->getMethod() == 'POST') {
             $knowledge = $request->request->all();
             $this->getKnowledgeService()->update($id, $knowledge);
@@ -45,7 +47,7 @@ class MyKnowledgeShareController extends BaseController
 
         return $this->render('TopxiaWebBundle:MyKnowledgeShare:edit-knowledge.html.twig', array(
             'knowledge' => $knowledge
-            ));
+        ));
     }
 
     public function deleteAction(Request $request, $id)

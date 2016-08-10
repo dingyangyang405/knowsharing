@@ -6,34 +6,9 @@ use Codeages\Biz\Framework\UnitTests\BaseTestCase;
 
 class KnowledgeServiceTest extends BaseTestCase
 {
-    public function testDetail()
-    {
-            $data = $this->getKnowledgeService()->getKnowledgeDetial(1);
-            $this->assertNull($data);
-    }
-
-//    public function testAddKnowledge()
-//    {
-//        $KnowledgeServiceImpl = new KnowledgeServiceImpl();
-//        $data = array(
-//            'title' => 'title',
-//            'summary' => 'summary',
-//            'content' => 'content',
-//            'type' => 'file',
-//            'userId' => 1,
-//        );
-//        $knowledge = $KnowledgeServiceImpl->addKnowledge($data);
-//        $result = $KnowledgeServiceImpl->getKnowledgeDetial($data['id']);
-//
-//        $this->assertEquals($knowledge['title'], $result['title']);
-//        $this->assertEquals($knowledge['summary'], $result['summary']);
-//        $this->assertEquals($knowledge['content'], $result['content']);
-//        $this->assertEquals($knowledge['type'], $result['type']);
-//        $this->assertEquals($knowledge['userId'], $result['userId']);
-//    }
     public function testGetKnowledgeCount()
     {   
-        $fields =　array(
+        $fields =　array (
             0 => array ( 
                 'title' => '测试１',
                 'summary' => '测试',
@@ -46,7 +21,7 @@ class KnowledgeServiceTest extends BaseTestCase
                 'favoriteNum' => 10,
                 'likeNum' => 10
             ),
-            1 => array(
+            1 => array (
                 'title' => '测试2',
                 'summary' => '测试',
                 'type' => 'link',
@@ -95,6 +70,29 @@ class KnowledgeServiceTest extends BaseTestCase
         );
         $updatedKnowledge = $this->getKnowledgeService()->update($knowledged['id'],$updateKnowledge);
         $this->assertEquals($updateKnowledge,$updatedKnowledge);
+    }
+
+    public function testDeleteKnowledge()
+    {
+        $knowledge = array(
+            'title' => '测试１',
+            'summary' => '测试1',
+            'type' => 'file',
+            'themedId' => 1,
+            'userId' => 1,
+            'createdTime' => 2016810,
+            'updatedTime' => 2016811,
+            'content' => '这是测试1',
+            'favoriteNum' => 10,
+            'likeNum' => 10
+        ); 
+        $knowledged = $this->getKnowledgeService()->add($knowledge);
+        $result = $this->getKnowledgeService()->delete($knowledged['id']);
+        $knowledge = $this->getKnowledgeService()->get($knowledged['id']);
+        $this->assertEquals(1,$result);
+        $this->assertFalse($knowledge);
+        $result = $this->getKnowledgeService()->delete($knowledged['id']);
+        $this->assertEquals(0,$result);
     }
 
     protected function getKnowledgeService()

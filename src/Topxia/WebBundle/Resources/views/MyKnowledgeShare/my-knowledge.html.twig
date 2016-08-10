@@ -1,9 +1,20 @@
 {% extends 'TopxiaWebBundle::base.html.twig' %}
 {% block left_header %} 
 <ul class="nav hidden-xs-nav nav-pills nav-stacked">
-    <li><a href="{{path('homepage')}}"><i class="fa fa-book"></i>&nbsp;&nbsp;</span>知识广场</a></li>
-    <li class="active"><a href="{{path('my_knowledge_share')}}"><i class="fa fa-child"></i>&nbsp;&nbsp;</span>我的知识库</a></li>
+  <li>
+    <a href="{{path('homepage')}}">
+      <i class="fa fa-book"></i>&nbsp;&nbsp;<span>知识广场</span>
+    </a>
+  </li>
+  <li class="active">
+    <a href="{{path('my_knowledge_share')}}">
+      <i class="fa fa-child"></i>&nbsp;&nbsp;<span>我的知识库</span>
+    </a>
+  </li>
 </ul>
+{% endblock %}
+{% block aside %}
+  {% include 'TopxiaWebBundle::aside.html.twig' %}
 {% endblock %}
 {% block base_content %} 
   <div class="content">
@@ -23,23 +34,20 @@
                     </a>
                   </dt>
                   <div class="col-md-offset-10">
-                    <button type="button" class="btn btn-primary fa fa-edit" data-url="{{path('my_knowledge_share_edit',{id:knowledge.id})}}" data-toggle="modal" data-target="#modal"></button>
-                    <button type="button" class="btn btn-default fa fa-trash"></button>
+                    <a class="btn btn-primary fa fa-edit" data-url="{{path('my_knowledge_share_edit',{id:knowledge.id})}}" data-toggle="modal" data-target="#modal"></a>
+                    <a class="delete-btn" data-url="{{path('my_knowledge_share_delete',{id: knowledge.id})}}"><span class="btn btn-default fa fa-trash"></span></a>
                   </div>
                 </dl>
               </div>
             </div>  
           {% endfor %}
         {% else %}
-            <div class="panel-title">
-              <h4 align="center">---暂无分享记录---</h4>
-            </div>
+          <div class="panel-title">
+            <h4 align="center">---暂无分享记录---</h4>
+          </div>
         {% endif %}
       </div>
     </div>
   </div>  
-  {{ web_macro.paginator(paginator) }}
-{% endblock %}
-{% block aside %}
-  {% include 'TopxiaWebBundle::aside.html.twig' %}
+{{ web_macro.paginator(paginator) }}
 {% endblock %}

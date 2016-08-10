@@ -7,8 +7,10 @@ interface KnowledgeService
     public function find();
 
     public function get($id);
+    
+    public function getKnowledge($id);
 
-    public function getKnowledgeCount($conditions);
+    public function searchCommentsCount($conditions);
 
     public function getCommentsCount($conditions);
 
