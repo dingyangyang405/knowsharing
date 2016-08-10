@@ -13,14 +13,13 @@
     <script src="{{ asset('bundles/topxiaweb/js/modal.js') }}"></script>
     <script src="{{ asset('bundles/topxiaweb/js/default.js') }}"></script>
     <script src="{{ asset('bundles/topxiaweb/js/follow.js') }}"></script>
-    <script src="{{ asset('bundles/topxiaweb/js/comment.js') }}"></script>
+    <script src="{{ asset('bundles/topxiaweb/js/knowledge/comment.js') }}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 {% block body %}
     <section class="container user-select">
         {% include 'TopxiaWebBundle::header.html.twig' %}
-        {% include 'TopxiaWebBundle::add-link.html.twig' %}
-        {% include 'TopxiaWebBundle::add-file.html.twig' %}
+        <div id="uploadModal" class="modal"></div>
         <!--左边模块-->
         <header>
             <div class="hidden-xs header">
