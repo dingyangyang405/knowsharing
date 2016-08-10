@@ -38,14 +38,14 @@ $(document).ready(function(){
     //自动读取标题
     $('#inputlink').bind(
         'input', function() {
-            var url = $(this).val();
-            alert(url);
+            var link = $(this).val();
+            var url = $(this).data('url');
             $.ajax({
                 url : url,
-                data : { link : url },
+                data : { link : link },
                 type : "POST",
-                success :function(){
-
+                success :function(data){
+                    $('#title').val(data.title);
                 },
                 error : function () {
 

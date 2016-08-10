@@ -61,6 +61,12 @@ topic_unfollow:
     path: /topic/{id}/unfollow
     defaults: { _controller: TopxiaWebBundle:Topic:unfollow }
     methods: [POST]
+
 test:
     path: /test
     defaults: { _controller: TopxiaWebBundle:Test:index }
+
+ajax_link:
+    path: /ajax
+    defaults: { _controller: TopxiaWebBundle:Ajax:link }
+    methods: [POST]
