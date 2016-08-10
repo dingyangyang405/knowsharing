@@ -27,10 +27,14 @@ class KnowledgeController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-        $commentUserIds = ArrayToolKit::column($comments, 'userId');
-        $commentUsers = $this->getUserService()->findUsersByIds(array_unique($commentUserIds));
-        foreach ($commentUsers as $commentUser) {
-            $users[$commentUser['id']] = $commentUser;
+
+        $users = array();
+        if (!empty($comments)) {
+            $commentUserIds = ArrayToolKit::column($comments, 'userId');
+            $commentUsers = $this->getUserService()->findByIds(array_unique($commentUserIds));
+            foreach ($commentUsers as $commentUser) {
+                $users[$commentUser['id']] = $commentUser;
+            }
         }
 
         return $this->render('TopxiaWebBundle:Knowledge:index.html.twig',array(
@@ -105,6 +109,9 @@ class KnowledgeController extends BaseController
     {
         $userId = '1';
         $this->getLikeService()->deleteByIdAndUserId($id, $userId);
+        $knowledge = $this->getKnowledgeService()->get($id);
+        $knowledge['likeNum'] = $knowledge['likeNum'] - 1; 
+        $this->getKnowledgeService()->update($id, $knowledge);
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -113,13 +120,15 @@ class KnowledgeController extends BaseController
 
     public function likeAction(Request $request, $id)
     {
-/*        $user = $this->getCurrentUser();*/
         $fields = array(
             'userId' => '1',
-            'knowledgeId' => $knowledgeId
+            'knowledgeId' => $id
             );
 
         $this->getLikeService()->create($fields);
+        $knowledge = $this->getKnowledgeService()->get($id);
+        $knowledge['likeNum'] += 1; 
+        $this->getKnowledgeService()->update($id, $knowledge);
         return new JsonResponse(array(
             'status' => 'success'
         ));

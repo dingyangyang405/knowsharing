@@ -34,24 +34,24 @@ class FavoriteServiceImpl implements FavoriteService
         return $this->getFavoriteDao()->findByUserId($userId);
     }
 
-    public function hasFavoritedKnowledge($knowledges)
+    public function hasFavoritedKnowledge($knowledge)
     {
         $userId = '1';
         $favorites = $this->findByUserId($userId);
         $favoriteKnowledgeIds = ArrayToolKit::column($favorites, 'knowledgeId');
 
         $hasFavorited = array();
-        foreach ($knowledges as $knowledge) {
+        foreach ($knowledge as $singleKnowledge) {
             if (empty($favoriteKnowledgeIds)) {
-                $knowledge['isFavorited'] = '';
+                $singleKnowledge['isFavorited'] = '';
             } else {
-                if(in_array($knowledge['id'], $favoriteKnowledgeIds)) {
-                    $knowledge['isFavorited'] = true;
+                if(in_array($singleKnowledge['id'], $favoriteKnowledgeIds)) {
+                    $singleKnowledge['isFavorited'] = true;
                 } else {
-                    $knowledge['isFavorited'] = '';
+                    $singleKnowledge['isFavorited'] = '';
                 }
             }
-            $hasFavorited[] = $knowledge;
+            $hasFavorited[] = $singleKnowledge;
         }
         return $hasFavorited;
     }
