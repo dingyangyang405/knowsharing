@@ -34,7 +34,7 @@ class FavoriteServiceImpl implements FavoriteService
         return $this->getFavoriteDao()->findByUserId($userId);
     }
 
-    public function hasFavoritedKnowledge($knowledge)
+    public function hasFavoritedKnowledge($knowledge,$userId)
     {
         $userId = '1';
         $favorites = $this->findByUserId($userId);

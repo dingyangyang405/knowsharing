@@ -18,6 +18,6 @@ class BaseController extends Controller
     public function setContainer(ContainerInterface $container = null)
     {
         parent::setContainer($container);
-        $this->biz = $this->container->get('biz_kernel');
+        $this->biz = $this->container->get('biz');
     }
 }

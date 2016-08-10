@@ -33,7 +33,7 @@ $(document).ready(function(){
             error:function(jqXHR){
                 alert("添加失败！");
             }
-        });
+        })
     });
 
     $("#docModal").click(function(event){
@@ -50,6 +50,22 @@ $(document).ready(function(){
             console.log(data);
             $("#uploadModal").html(data).modal();
         });
+    });
+    //自动读取标题
+    $("body").on('input', '#inputlink', function() {
+        var link = $(this).val();
+        var url = $(this).data('url');
+        $.ajax({
+            url : url,
+            data : { link : link },
+            type : 'POST',
+            success :function(data){
+                $('#title').val(data.title);
+            },
+            error : function (data) {
+                $('#title').val('读取标题失败,请手动填写标题');
+            }
+        })
     });
 });
 
