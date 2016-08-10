@@ -14,8 +14,8 @@ user_page:
     path:  /user/{id}
     defaults: { _controller: TopxiaWebBundle:User:index }
 
-knowledge_addKnowledge:
-    path:  /addKnowledge
+knowledge_add_knowledge:
+    path:  /add/knowledge
     defaults: {_controller: TopxiaWebBundle:Knowledge:add }
 
 knowledge_detail:
