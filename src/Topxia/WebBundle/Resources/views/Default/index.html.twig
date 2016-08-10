@@ -17,7 +17,6 @@
                 {% if knowledges is defined and knowledges %}
                     {% for knowledge in knowledges %}
                         {% set user = users[knowledge.userId]|default(null) %}
-                        {% set hasFavorited = hasFavorites[knowledge.userId]|default(false) %}
                         {% include "TopxiaWebBundle:Default:singel-knowledge-list.html.twig" %}
                     {% endfor %}
                 {% else %}

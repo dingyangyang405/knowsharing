@@ -3,6 +3,7 @@
 namespace Topxia\Service\Favorite\Impl;
 
 use Topxia\Service\Favorite\FavoriteService;
+use Topxia\Common\ArrayToolKit;
 
 class FavoriteServiceImpl implements FavoriteService
 {
@@ -28,22 +29,29 @@ class FavoriteServiceImpl implements FavoriteService
         return $this->getFavoriteDao()->deleteByIdAndUserId($id, $userId);
     }
 
-    public function findByKnowledgeIds($knowledgeIds)
+    public function findByUserId($userId)
     {
-        return $this->getFavoriteDao()->findByKnowledgeIds($knowledgeIds);
+        return $this->getFavoriteDao()->findByUserId($userId);
     }
 
-    public function hasFavoritedKnowledge($Favorites)
+    public function hasFavoritedKnowledge($knowledges)
     {
         $userId = '1';
+        $favorites = $this->findByUserId($userId);
+        $favoriteKnowledgeIds = ArrayToolKit::column($favorites, 'knowledgeId');
+
         $hasFavorited = array();
-        foreach ($Favorites as $Favorite) {
-            if ($Favorite['userId'] == $userId) {
-                $Favorite['Favorite'] = true;
+        foreach ($knowledges as $knowledge) {
+            if (empty($favoriteKnowledgeIds)) {
+                $knowledge['isFavorited'] = '';
             } else {
-                $Favorite['Favorite'] = false;
+                if(in_array($knowledge['id'], $favoriteKnowledgeIds)) {
+                    $knowledge['isFavorited'] = true;
+                } else {
+                    $knowledge['isFavorited'] = '';
+                }
             }
-            $hasFavorited[] = $Favorite;
+            $hasFavorited[] = $knowledge;
         }
         return $hasFavorited;
     }

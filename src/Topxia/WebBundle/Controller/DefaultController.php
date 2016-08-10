@@ -10,16 +10,17 @@ class DefaultController extends BaseController
 {
     public function indexAction(Request $request)
     {
+        $userId = '1';
         $knowledges = $this->getKnowledgeService()->find();
+
         $users = $this->getUserService()->findByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
-        $Favorites = $this->getFavoriteService()->findByKnowledgeIds(ArrayToolKit::column($knowledges, 'id'));
-        $hasFavorites = $this->getFavoriteService()->hasFavoritedKnowledge($Favorites);
-        $hasFavorites = ArrayToolKit::index($hasFavorites, 'userId');
+
+        $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges);
+
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
             'knowledges' => $knowledges,
-            'users' => $users,
-            'hasFavorites' => $hasFavorites
+            'users' => $users
         ));
     }
 
