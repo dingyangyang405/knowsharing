@@ -45,6 +45,6 @@ class DefaultController extends BaseController
 
     protected function getFavoriteService()
     {
-        return$this->getServiceKernel('favorite_service');
+        return$this->biz['favorite_service'];
     }
 }
