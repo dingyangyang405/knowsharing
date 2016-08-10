@@ -1,5 +1,6 @@
 /web/bundles/
 /app/bootstrap.php.cache
+/app/config/biz.yml
 /app/cache/*
 /app/config/parameters.yml
 /app/logs/*
@@ -9,5 +10,6 @@
 /build/
 /vendor/
 /bin/
+/app/config/biz.yml
 /composer.phar
 .idea

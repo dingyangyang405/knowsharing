@@ -28,7 +28,7 @@ class KnowledgeController extends BaseController
             $paginator->getPerPageCount()
         );
         $commentUserIds = ArrayToolKit::column($comments, 'userId');
-        $commentUsers = $this->getUserService()->findUsersByIds(array_unique($commentUserIds));
+        $commentUsers = $this->getUserService()->findByIds(array_unique($commentUserIds));
         foreach ($commentUsers as $commentUser) {
             $users[$commentUser['id']] = $commentUser;
         }
