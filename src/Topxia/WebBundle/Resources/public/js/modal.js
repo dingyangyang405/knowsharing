@@ -43,7 +43,7 @@ $(document).ready(function(){
             $.ajax({
                 url : url,
                 data : { link : link },
-                type : "POST",
+                type : 'POST',
                 success :function(data){
                     $('#title').val(data.title);
                 },

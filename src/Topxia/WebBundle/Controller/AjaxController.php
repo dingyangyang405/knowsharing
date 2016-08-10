@@ -12,6 +12,7 @@ class AjaxController  extends BaseController
     {
         $requestData = $request->request->all();
         $title = CurlGet::get($requestData['link']);
+
         return new JsonResponse(array(
             'title' => $title
         ));

@@ -11,11 +11,11 @@ class CurlGet
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
         $data = curl_exec($c);
         curl_close($c);
-        if(!$data){
+        if (!$data) {
             return '读取标题失败,请手动填写标题';
         }
         $code = mb_detect_encoding($data);
-        if(!$code){
+        if (!$code) {
             return '读取标题失败,请手动填写标题';
         }
         if ($code == 'GBK' || $code == 'UTF-8' ) {
@@ -27,6 +27,7 @@ class CurlGet
         $postEnd = strpos($data,'</title>');
         $length = $postEnd - $postStart;
         $title = substr($data ,$postStart, $length);
+
         return $title;
     }
 }
