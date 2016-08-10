@@ -20,6 +20,12 @@ class LikeDaoImpl extends GeneralDaoImpl implements LikeDao
         $stmt->execute($fields);        
     }
 
+    public function findByUserId($userId)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE userId =?";
+        return $this->db()->fetchAll($sql,array($userId));           
+    }
+
     public function declares()
     {
         return array(

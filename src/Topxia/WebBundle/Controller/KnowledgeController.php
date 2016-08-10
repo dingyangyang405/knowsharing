@@ -105,6 +105,9 @@ class KnowledgeController extends BaseController
     {
         $userId = '1';
         $this->getLikeService()->deleteByIdAndUserId($id, $userId);
+        $knowledge = $this->getKnowledgeService()->get($id);
+        $knowledge['likeNum'] = $knowledge['likeNum'] - 1; 
+        $this->getKnowledgeService()->update($id, $knowledge);
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -113,13 +116,15 @@ class KnowledgeController extends BaseController
 
     public function likeAction(Request $request, $id)
     {
-/*        $user = $this->getCurrentUser();*/
         $fields = array(
             'userId' => '1',
-            'knowledgeId' => $knowledgeId
+            'knowledgeId' => $id
             );
 
         $this->getLikeService()->create($fields);
+        $knowledge = $this->getKnowledgeService()->get($id);
+        $knowledge['likeNum'] += 1; 
+        $this->getKnowledgeService()->update($id, $knowledge);
         return new JsonResponse(array(
             'status' => 'success'
         ));
