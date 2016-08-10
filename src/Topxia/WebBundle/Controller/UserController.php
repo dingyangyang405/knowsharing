@@ -21,6 +21,7 @@ class UserController extends BaseController
 
         $knowledge = $this->getKnowledgeService()->findKnowledgeByUserId($user['id']);
         $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge);
+        $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge);
 
         return $this->render('TopxiaWebBundle:User:index.html.twig',array(
             'user' => $user,
@@ -58,5 +59,10 @@ class UserController extends BaseController
     protected function getUserService()
     {
         return $this->biz['user_service'];
+    }
+
+    protected function getLikeService()
+    {
+        return $this->biz['like_service'];
     }
 }
