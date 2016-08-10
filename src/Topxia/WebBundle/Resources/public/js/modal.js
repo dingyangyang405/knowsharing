@@ -38,7 +38,19 @@ $(document).ready(function(){
     //自动读取标题
     $('#inputlink').bind(
         'input', function() {
-           alert(1);
+            var url = $(this).val();
+            alert(url);
+            $.ajax({
+                url : url,
+                data : { link : url },
+                type : "POST",
+                success :function(){
+
+                },
+                error : function () {
+
+                }
+            })
         }
     );
 });

@@ -2,8 +2,6 @@
 
 namespace Topxia\Common;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 class CurlGet
 {
     public static function get($url)
