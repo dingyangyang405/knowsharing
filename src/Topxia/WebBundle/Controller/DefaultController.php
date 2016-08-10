@@ -35,12 +35,12 @@ class DefaultController extends BaseController
 
     protected function getKnowledgeService()
     {
-        return $this->getServiceKernel('knowledge_service');
+        return $this->biz['knowledge_service'];
     }
 
     protected function getUserService()
     {
-        return $this->getServiceKernel('user_service');
+        return $this->biz['user_service'];
     }
 
     protected function getFavoriteService()

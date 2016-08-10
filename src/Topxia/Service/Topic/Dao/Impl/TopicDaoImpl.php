@@ -12,6 +12,7 @@ class TopicDaoImpl extends GeneralDaoImpl implements TopicDao
     public function findAllTopics()
     {
         $sql = "SELECT * FROM {$this->table()} ORDER BY createdTime DESC";
+        
         return $this->db()->fetchAll($sql);
     }
     
