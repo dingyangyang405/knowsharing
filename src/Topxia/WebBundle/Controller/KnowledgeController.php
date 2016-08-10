@@ -27,10 +27,14 @@ class KnowledgeController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-        $commentUserIds = ArrayToolKit::column($comments, 'userId');
-        $commentUsers = $this->getUserService()->findUsersByIds(array_unique($commentUserIds));
-        foreach ($commentUsers as $commentUser) {
-            $users[$commentUser['id']] = $commentUser;
+
+        $users = array();
+        if (!empty($comments)) {
+            $commentUserIds = ArrayToolKit::column($comments, 'userId');
+            $commentUsers = $this->getUserService()->findByIds(array_unique($commentUserIds));
+            foreach ($commentUsers as $commentUser) {
+                $users[$commentUser['id']] = $commentUser;
+            }
         }
 
         return $this->render('TopxiaWebBundle:Knowledge:index.html.twig',array(
