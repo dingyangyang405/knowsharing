@@ -6,9 +6,9 @@
                     <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <i class="fa fa-plus"></i>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#docModal">文档</a></li>
-                        <li><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#linkModal">链接</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="addTable">
+                        <li><a href="#" class="btn btn-lg" id="docModal" data-url="{{path('doc_modal')}}">文档</a></li>
+                        <li><a href="#" class="btn btn-lg" id="linkModal" data-url="{{path('link_modal')}}">链接</a></li>
                     </ul>
                 </li>
                 <li class="dropdown user user-menu">

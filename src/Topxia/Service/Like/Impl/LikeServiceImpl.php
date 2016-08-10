@@ -29,7 +29,7 @@ class LikeServiceImpl implements LikeService
         return $this->getLikeDao()->findByUserId($userId);
     }
 
-    public function haslikedKnowledge($knowledge)
+    public function haslikedKnowledge($knowledge,$userId)
     {
         $userId = '1';
         $likes = $this->findByUserId($userId);

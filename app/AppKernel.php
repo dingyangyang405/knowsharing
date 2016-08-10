@@ -12,7 +12,7 @@ class AppKernel extends Kernel
         $parameters = $this->getContainer()->getParameter('biz');
         $biz= new Topxia\StarterKernel($parameters);
         $biz->boot();
-        $this->getContainer()->set('biz_kernel', $biz);
+        $this->getContainer()->set('biz', $biz);
     }
 
     public function registerBundles()
