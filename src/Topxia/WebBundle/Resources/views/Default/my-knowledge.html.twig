@@ -18,8 +18,8 @@
               <div class="news-info col-xs-12 col-sm-12 col-md-11">
                 <dl>
                   <dt>
-                    <a href="{{path('knowledge_detail',{id:knowledge.id})}}">{{knowledge.title}}&nbsp&nbsp{% if knowledge.type == 'file' %}
-                    <i class="fa fa-sticky-note-o"></i>{% else %}<i class="fa fa-link"></i>{% endif %}
+                    <a href="{{path('knowledge_detail',{id:knowledge.id})}}">{% if knowledge.type == 'file' %}
+                    <i class="fa fa-sticky-note-o"></i>{% elseif knowledge.type == 'link' %}<i class="fa fa-link"></i>{% endif %}&nbsp&nbsp{{knowledge.title}}
                     </a>
                   </dt>
                   <div class="col-md-offset-10">

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/vendor.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base-header.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/left-aside.css') }}">
     <script src="{{ asset('assets/js/vendor.js') }}"></script>
     <script src="{{ asset('bundles/topxiaweb/js/modal.js') }}"></script>
     <script src="{{ asset('bundles/topxiaweb/js/default.js') }}"></script>
@@ -20,8 +19,7 @@
 {% block body %}
     <section class="container user-select">
         {% include 'TopxiaWebBundle::header.html.twig' %}
-        {% include 'TopxiaWebBundle::add-link.html.twig' %}
-        {% include 'TopxiaWebBundle::add-file.html.twig' %}
+        <div id="uploadModal" class="modal"></div>
         <!--左边模块-->
         <header>
             <div class="hidden-xs header">

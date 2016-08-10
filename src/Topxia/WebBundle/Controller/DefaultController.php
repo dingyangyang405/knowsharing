@@ -35,6 +35,16 @@ class DefaultController extends BaseController
         ));
     }
 
+    public function docModalAction(Request $request)
+    {
+        return $this->render('TopxiaWebBundle::add-file.html.twig');
+    }
+
+    public function linkModalAction(Request $request)
+    {
+        return $this->render('TopxiaWebBundle::add-link.html.twig');
+    }
+
     protected function getKnowledgeService()
     {
         return $this->biz['knowledge_service'];

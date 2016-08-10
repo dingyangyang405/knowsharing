@@ -14,8 +14,8 @@ user_page:
     path:  /user/{id}
     defaults: { _controller: TopxiaWebBundle:User:index }
 
-knowledge_addKnowledge:
-    path:  /addKnowledge
+knowledge_add_knowledge:
+    path:  /add/knowledge
     defaults: {_controller: TopxiaWebBundle:Knowledge:add }
 
 knowledge_detail:
@@ -61,6 +61,21 @@ topic_unfollow:
     path: /topic/{id}/unfollow
     defaults: { _controller: TopxiaWebBundle:Topic:unfollow }
     methods: [POST]
+
 test:
     path: /test
     defaults: { _controller: TopxiaWebBundle:Test:index }
+
+ajax_link:
+    path: /ajax
+    defaults: { _controller: TopxiaWebBundle:Ajax:link }
+    methods: [POST]
+
+doc_modal: 
+    path: /modal/doc
+    defaults: { _controller: TopxiaWebBundle:Default:docModal}
+
+link_modal: 
+    path: /modal/link
+    defaults: { _controller: TopxiaWebBundle:Default:linkModal}
+

@@ -1,4 +1,5 @@
 <?php
+
 namespace Topxia\WebBundle\Controller;
 
 use Topxia\WebBundle\Controller\BaseController;

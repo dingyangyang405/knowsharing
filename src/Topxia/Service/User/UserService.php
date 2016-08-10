@@ -6,8 +6,6 @@ interface UserService
 {
     public function get($id);
 
-    // public function getObject($userId,$type,$objectId);
-
     public function findByIds($ids);
 
     public function followUser($id);
