@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $("body").css({ 'overflow-y': 'scroll'});
-    $("body").on('click', '#addLink', function() {
+    $("#addTable").on('click', '#addLink', function() {
         var $url = $(this).data('url');
         var $linkUrl = $('[name = linkUrl]').val();
         var $title = $('[name = linkUrlTitle]').val();
@@ -18,7 +18,7 @@ $(document).ready(function(){
         });
     });
 
-    $("body").on('click', '#addFile', function() {
+    $("#addTable").on('click', '#addFile', function() {
         var $url = $(this).data('url');
         var $file = $('[name = file]').val();
         var $title = $('[name = fileTitle]').val();
