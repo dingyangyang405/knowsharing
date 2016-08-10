@@ -34,6 +34,6 @@ class KnowledgeServiceTest extends BaseTestCase
 
     protected function getKnowledgeService()
     {
-        return self::$kernel['knowledge_service'];
+        return self::$kernel['biz']['knowledge_service'];
     }
 }
