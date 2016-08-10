@@ -4,19 +4,22 @@ namespace Topxia\WebBundle\Controller;
 
 use Topxia\WebBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
-use Topxia\Common\TimeToolKit;
 use Topxia\Common\ArrayToolKit;
 
 class DefaultController extends BaseController
 {
     public function indexAction(Request $request)
     {
-        $knowledges = $this->getKnowledgeService()->findKnowledges();
-        $knowledges = TimeToolKit::arrayToDetailTime($knowledges);
-        $userKnowledges = $this->dealArrayKnowledges($knowledges);
-
+        $knowledges = $this->getKnowledgeService()->find();
+        $users = $this->getUserService()->findByIds(ArrayToolKit::column($knowledges, 'userId'));
+        $users = ArrayToolKit::index($users, 'id');
+        $Favorites = $this->getFavoriteService()->findByKnowledgeIds(ArrayToolKit::column($knowledges, 'id'));
+        $hasFavorites = $this->getFavoriteService()->hasFavoritedKnowledge($Favorites);
+        $hasFavorites = ArrayToolKit::index($hasFavorites, 'userId');
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
-            'userKnowledges' => $userKnowledges,
+            'knowledges' => $knowledges,
+            'users' => $users,
+            'hasFavorites' => $hasFavorites
         ));
     }
 
@@ -29,23 +32,6 @@ class DefaultController extends BaseController
         ));
     }
 
-    private function dealArrayKnowledges($knowledges)
-    {
-        $userKnowledges = array();
-        foreach ($knowledges as $key => $knowledge) {
-            $user = $this->getUserService()->get($knowledge['userId']);
-            $collectonKnowledges = $this->getUserService()->findUserCollectByKnowledgeId($knowledge['id']);
-            $likeKnowledges = $this->getUserService()->findUserLikeByKnowledgeId($knowledge['id']);
-            $knowledge['hasCollected'] = $this->getUserService()->getCollectByUserAndKnowledgeId('1',$knowledge['id']);
-            $knowledge['userName'] = $user['name'];
-            $knowledge['likeNum'] = count($likeKnowledges);
-            $knowledge['collectNum'] = count($collectonKnowledges );
-            $userKnowledges[] = $knowledge;
-        }
-        
-        return $userKnowledges;
-    }
-
     protected function getKnowledgeService()
     {
         return $this->biz['knowledge_service'];
@@ -54,5 +40,10 @@ class DefaultController extends BaseController
     protected function getUserService()
     {
         return $this->biz['user_service'];
+    }
+
+    protected function getFavoriteService()
+    {
+        return$this->getServiceKernel('favorite_service');
     }
 }

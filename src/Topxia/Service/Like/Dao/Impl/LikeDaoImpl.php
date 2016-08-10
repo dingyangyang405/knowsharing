@@ -2,7 +2,7 @@
 
 namespace Topxia\Service\Like\Dao\Impl;
 
-use Topxia\Service\Favorite\Dao\FavoriteDao;
+use Topxia\Service\Like\Dao\LikeDao;
 use Codeages\Biz\Framework\Dao\GeneralDaoImpl;
 
 class LikeDaoImpl extends GeneralDaoImpl implements LikeDao

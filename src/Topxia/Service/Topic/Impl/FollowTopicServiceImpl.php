@@ -59,7 +59,7 @@ class FollowTopicServiceImpl implements FollowTopicService
         return $this->getFollowTopicDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
     }
 
-    public function findAllFollowedTopics()
+    public function findFollowedTopics()
     {
         $user['id'] = 1;
 

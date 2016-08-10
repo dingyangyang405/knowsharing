@@ -37,19 +37,19 @@ user_unfollow:
     methods: [POST]
 
 knowledge_favorite:
-    path: /knowledge/favorite/{knowledgeId}
+    path: /knowledge/favorite/{id}
     defaults: {_controller: TopxiaWebBundle:Knowledge:favorite}
 
 knowledge_unfavorite:
-    path: /knowledge/unfavorite/{knowledgeId}
+    path: /knowledge/unfavorite/{id}
     defaults: {_controller: TopxiaWebBundle:Knowledge:unfavorite}
 
 knowledge_like:
-    path: /knowledge/like/{knowledgeId}
+    path: /knowledge/like/{id}
     defaults: {_controller: TopxiaWebBundle:Knowledge:like}
 
 knowledge_dislike:
-    path: /knowledge/dislike/{knowledgeId}
+    path: /knowledge/dislike/{id}
     defaults: {_controller: TopxiaWebBundle:Knowledge:dislike}
 
 topic_follow: 

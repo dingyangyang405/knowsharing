@@ -27,7 +27,7 @@ class UserServiceImpl implements UserService
         }
     }
 
-    public function findUsersByIds($ids)
+    public function findByIds($ids)
     {
         return $this->getUserDao()->findByIds($ids);
     }

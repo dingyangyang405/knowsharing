@@ -9,4 +9,7 @@ interface FavoriteService
     public function create($fields);
 
     public function deleteByIdAndUserId($id, $userId);
+
+    public function findByKnowledgeIds($knowledgeIds);
+
 }
