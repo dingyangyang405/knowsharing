@@ -21,4 +21,5 @@ interface KnowledgeService
     public function getCommentsCount($conditions);
 
     public function update($id, $fields);
+
 }

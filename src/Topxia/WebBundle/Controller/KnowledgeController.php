@@ -78,15 +78,8 @@ class KnowledgeController extends BaseController
 
     public function favoriteAction(Request $request, $id)
     {
-        $fields = array(
-            'userId' => '1',
-            'knowledgeId' => $id
-            );
-
-        $this->getFavoriteService()->create($fields);
-        $knowledge = $this->getKnowledgeService()->get($id);
-        $knowledge['favoriteNum'] += 1; 
-        $this->getKnowledgeService()->update($id, $knowledge);
+        $userId = '1';
+        $this->getFavoriteService()->favoriteKnowledge($id, $userId);
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -95,10 +88,7 @@ class KnowledgeController extends BaseController
     public function unfavoriteAction(Request $request, $id)
     {
         $userId = '1';
-        $this->getFavoriteService()->deleteByIdAndUserId($id, $userId);
-        $knowledge = $this->getKnowledgeService()->get($id);
-        $knowledge['favoriteNum'] = $knowledge['favoriteNum'] - 1; 
-        $this->getKnowledgeService()->update($id, $knowledge);
+        $this->getFavoriteService()->unfavoriteKnowledge($id, $userId);
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -108,10 +98,7 @@ class KnowledgeController extends BaseController
     public function dislikeAction(Request $request, $id)
     {
         $userId = '1';
-        $this->getLikeService()->deleteByIdAndUserId($id, $userId);
-        $knowledge = $this->getKnowledgeService()->get($id);
-        $knowledge['likeNum'] = $knowledge['likeNum'] - 1; 
-        $this->getKnowledgeService()->update($id, $knowledge);
+        $this->getLikeService()->likeKnowledge($id, $userId);
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -120,15 +107,8 @@ class KnowledgeController extends BaseController
 
     public function likeAction(Request $request, $id)
     {
-        $fields = array(
-            'userId' => '1',
-            'knowledgeId' => $id
-            );
-
-        $this->getLikeService()->create($fields);
-        $knowledge = $this->getKnowledgeService()->get($id);
-        $knowledge['likeNum'] += 1; 
-        $this->getKnowledgeService()->update($id, $knowledge);
+        $userId = '1';
+        $this->getLikeService()->likeKnowledge($id, $userId);
         return new JsonResponse(array(
             'status' => 'success'
         ));
