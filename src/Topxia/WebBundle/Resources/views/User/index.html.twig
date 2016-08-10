@@ -46,15 +46,15 @@
             <div class="box-footer">
               <ul class="list-inline pull-right">
                 <li>创建日期:{{userKnowledge.createdTime|date('Y年m月d日')}}</li>
-                <li>创建者:{{userKnowledge.userId}}</li>
+                <li>创建者:{{userKnowledge.id}}</li>
               </ul>
               <ul class="list-inline">
-                <li><a href="{{path('knowledge_favorite',{knowledgeId:userKnowledge.id})}}" id="collect-link" data-id="{{userKnowledge.id}}"><i class="fa fa-star-o text-yellow" id="knowledge-list-{{userKnowledge.id}}"></i></a>{{userKnowledge.favoriteNum}}</li>
+                <li><a href="{{path('knowledge_favorite',{id:userKnowledge.id})}}" id="collect-link" data-id="{{userKnowledge.id}}"><i class="fa fa-star-o text-yellow" id="knowledge-list-{{userKnowledge.id}}"></i></a>{{userKnowledge.favoriteNum}}</li>
                 <li><a href="#"><i class="fa fa-thumbs-o-up text-yellow"></i></a>{{userKnowledge.likeNum}}</li>
               </ul>
             </div>
             </div>
-            
+
           {% endfor %}
         {% else %}
             <div class="panel-title">
