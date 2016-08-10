@@ -31,6 +31,71 @@ class KnowledgeServiceTest extends BaseTestCase
 //        $this->assertEquals($knowledge['type'], $result['type']);
 //        $this->assertEquals($knowledge['userId'], $result['userId']);
 //    }
+    public function testGetKnowledgeCount()
+    {   
+        $fields =　array(
+            0 => array ( 
+                'title' => '测试１',
+                'summary' => '测试',
+                'type' => 'file',
+                'themedId' => 1,
+                'userId' => 1,
+                'createdTime' => 2016810,
+                'updatedTime' => 2016811,
+                'content' => '这是测试',
+                'favoriteNum' => 10,
+                'likeNum' => 10
+            ),
+            1 => array(
+                'title' => '测试2',
+                'summary' => '测试',
+                'type' => 'link',
+                'themedId' => 1,
+                'userId' => 1,
+                'createdTime' => 2016810,
+                'updatedTime' => 2016811,
+                'content' => '这是测试',
+                'favoriteNum' => 10,
+                'likeNum' => 10  
+            )
+
+        );
+        $this->getKnowledgeService()->add($fields[0]);
+        $this->getKnowledgeService()->add($fields[1]);
+        $count = getKnowledgeService()->getKnowledgeCount('userId' => 1);
+        $this->assertEquals(2, $count);
+    }
+
+    public function testUpdate()
+    {
+        $knowledge = array(
+            'title' => '测试１',
+            'summary' => '测试1',
+            'type' => 'file',
+            'themedId' => 1,
+            'userId' => 1,
+            'createdTime' => 2016810,
+            'updatedTime' => 2016811,
+            'content' => '这是测试1',
+            'favoriteNum' => 10,
+            'likeNum' => 10
+        );
+        $knowledged = $this->getKnowledgeService()->add($knowledge);
+        $updateKnowledge = array(
+            'title' => '测试2',
+            'summary' => '测试2',
+            'type' => 'file',
+            'themedId' => 1,
+            'userId' => 1,
+            'createdTime' => 2016810,
+            'updatedTime' => 2016811,
+            'content' => '这是测试2',
+            'favoriteNum' => 10,
+            'likeNum' => 10
+        );
+        $updatedKnowledge = $this->getKnowledgeService()->update($knowledged['id'],$updateKnowledge);
+        $this->assertEquals($updateKnowledge,$updatedKnowledge);
+    }
 
     protected function getKnowledgeService()
     {
