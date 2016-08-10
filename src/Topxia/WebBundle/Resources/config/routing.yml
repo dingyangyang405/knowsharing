@@ -2,9 +2,18 @@ homepage:
     path:  /
     defaults: { _controller: TopxiaWebBundle:Default:index }
 
-knowledge_share_list:
-    path:  /share/list
-    defaults: { _controller: TopxiaWebBundle:Default:shareList }
+my_knowledge_share:
+    path:  /knowledge/share
+    defaults: { _controller: TopxiaWebBundle:KnowledgeShare:index }
+
+my_knowledge_share_edit:
+    path: /knowledge/share/{id}/edit
+    defaults: { _controller: TopxiaWebBundle:KnowledgeShare:edit }
+
+my_knowledge_share_delete:
+    path: /knowledge/share/{id}/delete
+    defaults: { _controller: TopxiaWebBundle:KnowledgeShare:delete }
+    methods: [POST]
 
 knowledge_add_comment:
     path:  /comment
