@@ -47,8 +47,8 @@ $(document).ready(function(){
                 success :function(data){
                     $('#title').val(data.title);
                 },
-                error : function () {
-
+                error : function (data) {
+                    $('#title').val('读取标题失败,请手动填写标题');
                 }
             })
         }
