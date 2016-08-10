@@ -64,3 +64,11 @@ topic_unfollow:
 test:
     path: /test
     defaults: { _controller: TopxiaWebBundle:Test:index }
+
+doc_modal: 
+    path: /modal/doc
+    defaults: { _controller: TopxiaWebBundle:Default:docModal}
+
+link_modal: 
+    path: /modal/link
+    defaults: { _controller: TopxiaWebBundle:Default:linkModal}

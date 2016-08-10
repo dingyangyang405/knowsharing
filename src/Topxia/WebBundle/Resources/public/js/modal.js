@@ -15,8 +15,8 @@ $(document).ready(function(){
             error:function(jqXHR){
                 alert("添加失败！");
             }
-        })
-    })
+        });
+    });
 
     $('#addFile').click(function(){
         var $url = $(this).data('url');
@@ -33,7 +33,23 @@ $(document).ready(function(){
             error:function(jqXHR){
                 alert("添加失败！");
             }
-        })
-    })
+        });
+    });
+
+    $("#docModal").click(function(event){
+        var $url = $(event.target).attr("data-url");
+        $.get($url, function(data){
+            console.log(data);
+            $("#uploadModal").html(data).modal();
+        });
+    });
+
+    $("#linkModal").click(function(event){
+        var $url = $(event.target).attr("data-url");
+        $.get($url, function(data){
+            console.log(data);
+            $("#uploadModal").html(data).modal();
+        });
+    });
 });
 
