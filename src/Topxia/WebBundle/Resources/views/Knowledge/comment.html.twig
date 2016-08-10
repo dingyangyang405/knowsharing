@@ -6,22 +6,28 @@
 	    </span>
 	</div>
 </form>
-{% for comment in comments %}
- <div class="box-footer box-comments">
-  <div class="box-comment">
-    <!-- User image -->
-    <img class="img-circle img-sm" src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" alt="User Image">
-    <div class="comment-text">
-          <span class="username">
-            {{ users[comment.userId].name }}
-            <span class="text-muted pull-right">{{ comment.createdTime|date('Y年m月d日') }}</span>
-          </span><!-- /.username -->
-      {{ comment.value }}
+{% if comments %}
+  {% for comment in comments %}
+   <div class="box-footer box-comments">
+    <div class="box-comment">
+      <!-- User image -->
+      <img class="img-circle img-sm" src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" alt="User Image">
+      <div class="comment-text">
+            <span class="username">
+              {{ users[comment.userId].name }}
+              <span class="text-muted pull-right">{{ comment.createdTime|date('Y年m月d日') }}</span>
+            </span><!-- /.username -->
+        {{ comment.value }}
+      </div>
+      <!-- /.comment-text -->
     </div>
-    <!-- /.comment-text -->
-  </div>
- </div>
-{% endfor %}
+   </div>
+  {% endfor %}
+{% else %}
+    <div class="panel-title">
+      <h4 align="center">---暂无评论---</h4>
+    </div>
+{% endif %}
 {% if paginator|default(null) %}
   {{ web_macro.paginator(paginator) }}
 {% endif  %}
