@@ -4,15 +4,15 @@ homepage:
 
 my_knowledge_share:
     path:  /knowledge/share
-    defaults: { _controller: TopxiaWebBundle:KnowledgeShare:index }
+    defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:index }
 
 my_knowledge_share_edit:
     path: /knowledge/share/{id}/edit
-    defaults: { _controller: TopxiaWebBundle:KnowledgeShare:edit }
+    defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:edit }
 
 my_knowledge_share_delete:
     path: /knowledge/share/{id}/delete
-    defaults: { _controller: TopxiaWebBundle:KnowledgeShare:delete }
+    defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:delete }
     methods: [POST]
 
 knowledge_add_comment:

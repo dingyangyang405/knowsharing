@@ -19,6 +19,11 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $this->getKnowledgeDao()->update($id, $fields);
     }
 
+    public function delete($id)
+    {
+        return $this->getKnowledgeDao()->delete($id);
+    }
+
     public function getKnowledgeCount($conditions)
     {
         return $this->getKnowledgeDao()->count($conditions);
@@ -57,6 +62,16 @@ class KnowledgeServiceImpl implements KnowledgeService
     public function searchComments($conditions, $orderBy, $start, $limit)
     {
         return $this->getCommentDao()->search($conditions, $orderBy, $start, $limit);
+    }
+
+    public function searchKnowledgeCount($conditions)
+    {
+        return $this->getKnowledgeDao()->count($conditions);
+    }
+
+    public function searchAllKnowledge($conditions, $orderBy, $start, $limit)
+    {
+        return $this->getKnowledgeDao()->search($conditions, $orderBy, $start, $limit);
     }
 
     protected function getKnowledgeDao()

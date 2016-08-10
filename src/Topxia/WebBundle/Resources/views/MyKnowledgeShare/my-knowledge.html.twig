@@ -2,7 +2,7 @@
 {% block left_header %} 
 <ul class="nav hidden-xs-nav nav-pills nav-stacked">
     <li><a href="{{path('homepage')}}"><i class="fa fa-book"></i>&nbsp;&nbsp;</span>知识广场</a></li>
-    <li class="active"><a href="{{path('knowledge_share_list')}}"><i class="fa fa-child"></i>&nbsp;&nbsp;</span>我的知识库</a></li>
+    <li class="active"><a href="{{path('my_knowledge_share')}}"><i class="fa fa-child"></i>&nbsp;&nbsp;</span>我的知识库</a></li>
 </ul>
 {% endblock %}
 {% block base_content %} 
@@ -18,12 +18,12 @@
               <div class="news-info col-xs-12 col-sm-12 col-md-11">
                 <dl>
                   <dt>
-                    <a href="{{path('knowledge_detail',{id:knowledge.id})}}">{{knowledge.title}}&nbsp&nbsp{% if knowledge.type == 'file' %}
-                    <i class="fa fa-sticky-note-o"></i>{% else %}<i class="fa fa-link"></i>{% endif %}
+                    <a href="{{path('knowledge_detail',{id:knowledge.id})}}">
+                    {% if knowledge.type == 'file' %}<i class="fa fa-sticky-note-o"></i>{% elseif knowledge.type == 'link' %}<i class="fa fa-link"></i>{% endif %}&nbsp&nbsp{{knowledge.title}}
                     </a>
                   </dt>
                   <div class="col-md-offset-10">
-                    <button type="button" class="btn btn-primary fa fa-edit"></button>
+                    <button type="button" class="btn btn-primary fa fa-edit" data-url="{{path('my_knowledge_share_edit',{id:knowledge.id})}}" data-toggle="modal" data-target="#modal"></button>
                     <button type="button" class="btn btn-default fa fa-trash"></button>
                   </div>
                 </dl>
@@ -36,14 +36,6 @@
             </div>
         {% endif %}
       </div>
-      {# <div class="quotes" style="margin-top:15px">
-        <span class="disabled">首页</span>
-        <span class="disabled">上一页</span>
-        <span class="current">1</span>
-        <a href="index.html">2</a>
-        <a href="index.html">下一页</a>
-        <a href="index.html">尾页</a></div>
-      </div> #}
     </div>
   </div>  
   {{ web_macro.paginator(paginator) }}
