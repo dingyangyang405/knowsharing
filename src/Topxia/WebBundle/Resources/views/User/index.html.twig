@@ -25,51 +25,27 @@
       <!-- /.box-body -->
     </div>
 {% endblock %}
-
-{% block base_content %} 
-  <div class="content">
-    <div class="content-block new-content">
-      {% block navTabs %}
-        {% include 'TopxiaWebBundle::knowledge-library-nav.html.twig' %}
-      {% endblock %}
-      <div class="row">
-        {% if knowledge %} 
-          {% for userKnowledge in knowledge %}  
-
-            <div class="box">
-              <div class="box-header with-border">
-                <h3 class="box-title"><a href="{{path('knowledge_detail',{id:userKnowledge.id})}}">{{userKnowledge.title}}</a><a href="#"><i class="{% if userKnowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}"></i></a></h3>
-              </div>
-            <div class="box-body">
-            {{userKnowledge.summary}}
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+            {% block navTabs %}
+                <ul class="nav nav-tabs">
+                    <li role="newknowledge" class="active"><a href="{{path('user_page', {id:user.id})}}">他的分享</a></li>
+                    <li role="myconcern"><a href="#timeline">他的关注<span style="color:#f00">999+</span></a></li>
+                    <li role="topic"><a href="{{path('topic')}}">他的收藏</a></li>
+                </ul>
+                <br>
+            {% endblock %}
+            <div class="row" id="knowledge-list">
+                {% if knowledge is defined and knowledge %}
+                    {% for singleKnowledge in knowledge %}
+                        {% include "TopxiaWebBundle:Default:single-knowledge-list.html.twig" %}
+                    {% endfor %}
+                {% else %}
+                    <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>
+                {% endif %}
             </div>
-            <div class="box-footer">
-              <ul class="list-inline pull-right">
-                <li>创建日期:{{userKnowledge.createdTime|date('Y年m月d日')}}</li>
-                <li>创建者:{{userKnowledge.id}}</li>
-              </ul>
-              <ul class="list-inline">
-                <li><a href="{{path('knowledge_favorite',{id:userKnowledge.id})}}" id="collect-link" data-id="{{userKnowledge.id}}"><i class="fa fa-star-o text-yellow" id="knowledge-list-{{userKnowledge.id}}"></i></a>{{userKnowledge.favoriteNum}}</li>
-                <li><a href="#"><i class="fa fa-thumbs-o-up text-yellow"></i></a>{{userKnowledge.likeNum}}</li>
-              </ul>
-            </div>
-            </div>
-
-          {% endfor %}
-        {% else %}
-            <div class="panel-title">
-              <h4 align="center">---暂无分享记录---</h4>
-            </div>
-        {% endif %}
-      </div>
-      <div class="quotes" style="margin-top:15px">
-        <span class="disabled">首页</span>
-        <span class="disabled">上一页</span>
-        <span class="current">1</span>
-        <a href="index.html">2</a>
-        <a href="index.html">下一页</a>
-        <a href="index.html">尾页</a></div>
-      </div>
+            <div class="quotes" style="margin-top:15px"><span class="disabled">首页</span><span class="disabled">上一页</span><span class="current">1</span><a href="index.html">2</a><a href="index.html">下一页</a><a href="index.html">尾页</a></div>
+        </div>
     </div>
-  </div>  
 {% endblock %}
