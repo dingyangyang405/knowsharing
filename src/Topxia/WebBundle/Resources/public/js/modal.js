@@ -52,7 +52,7 @@ $(document).ready(function(){
         });
     });
     //自动读取标题
-    $("body").on('input', '#inputlink', function() {
+    $('body').on('input', '#inputlink', function() {
         var link = $(this).val();
         var url = $(this).data('url');
         $.ajax({
