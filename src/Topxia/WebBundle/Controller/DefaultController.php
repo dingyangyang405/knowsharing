@@ -16,9 +16,9 @@ class DefaultController extends BaseController
         $users = $this->getUserService()->findByIds(ArrayToolKit::column($knowledge, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
-        $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge);
+        $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$userId);
 
-        $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge);
+        $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$userId);
 
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
             'knowledge' => $knowledge,

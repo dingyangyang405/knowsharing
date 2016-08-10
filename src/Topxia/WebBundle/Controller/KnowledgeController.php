@@ -11,6 +11,7 @@ class KnowledgeController extends BaseController
 {
     public function indexAction($id)
     {
+        $userId = 1;
         $knowledge = $this->getKnowledgeService()->get($id);
         $user = $this->getUserService()->get($knowledge['userId']);
 
@@ -36,9 +37,28 @@ class KnowledgeController extends BaseController
                 $users[$commentUser['id']] = $commentUser;
             }
         }
+        $knowledge = array($knowledge);
+        $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$userId);
+        $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$userId);
+
+        /*$favorites = $this->getFavoriteService()->findByUserId(1);
+        $favoriteKnowledgeIds = ArrayToolKit::column($favorites, 'knowledgeId');
+        if (in_array($id, $favoriteKnowledgeIds)) {
+            $knowledge['isFavorited'] = true;
+        } else {
+            $knowledge['isFavorited'] = false;
+        }
+
+        $likes = $this->getLikeService()->findByUserId(1);
+        $likeKnowledgeIds = ArrayToolKit::column($likes, 'knowledgeId');
+        if (in_array($id, $favoriteKnowledgeIds)) {
+            $knowledge['isLiked'] = true;
+        } else {
+            $knowledge['isLiked'] = false;
+        }*/
 
         return $this->render('TopxiaWebBundle:Knowledge:index.html.twig',array(
-            'knowledge' => $knowledge,
+            'knowledge' => $knowledge[0],
             'user' => $user,
             'comments' => $comments,
             'users' => $users,
@@ -152,5 +172,10 @@ class KnowledgeController extends BaseController
     protected function getFavoriteService()
     {
         return $this->biz['favorite_service'];
-    }   
+    }
+
+    protected function getFollowTopicService()
+    {
+        return $this->biz['follow_topic_service'];
+    }
 }
