@@ -12,8 +12,8 @@
                 <br>
             {% endblock %}
             <div class="row" id="knowledge-list">
-                {% if favorites is defined and favorites %}
-                    {% for favorite in knowledges %}
+                {% if knowledges is defined and knowledges %}
+                    {% for knowledge in knowledges %}
                         {% include "TopxiaWebBundle:User:single-favorite-list.html.twig" %}
                     {% endfor %}
                 {% else %}

@@ -36,10 +36,27 @@ class UserController extends BaseController
     public function listFavoriteAction(Request $request, $userId)
     {
         $userId = 1;
-        $favorites = $this->getFavoriteService()->findFavoritesByUserId($userId);
+        $user = $this->getUserService()->get(1);
+        $conditions = array(
+            'userId' => $user['id'],
+        );
 
-        return $this->render('TopxiaWebBundle:User:index.html.twig',array(
-            'favorites' => $favorites
+        $favorites = $this->getFavoriteService()->findFavoritesByUserId($userId);
+        foreach ($favorites as $key => $favorite) {
+            $knowledges[] = $this->getKnowledgeService()->get($favorite['knowledgeId']);
+        }
+        $hasfollowed = $this->getUserService()->getFollowUserByUserIdAndObjectUserId(1,$userId);
+
+        $knowledgeCount = $this->getKnowledgeService()->getKnowledgeCount($conditions);
+        $favoriteCount = $this->getFavoriteService()->getFavoriteCount($conditions);
+
+        return $this->render('TopxiaWebBundle:User:favorite.html.twig',array(
+            'user' => $user,
+            'knowledgeCount' => $knowledgeCount,
+            'favoriteCount' => $favoriteCount,
+            'hasfollowed' => $hasfollowed,
+            'favorites' => $favorites,
+            'knowledges' => $knowledges
         ));
     }
 
