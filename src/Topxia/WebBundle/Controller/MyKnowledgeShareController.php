@@ -18,7 +18,7 @@ class MyKnowledgeShareController extends BaseController
         $paginator = new Paginator(
             $this->get('request'),
             $this->getKnowledgeService()->getKnowledgesCount($conditions),
-            2
+            10
         );
 
         $knowledges = $this->getKnowledgeService()->searchAllKnowledges(
