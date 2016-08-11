@@ -11733,16 +11733,6 @@ body, input, button, textarea, select {
 	-ms-user-select: none;
 	user-select: none;
 }
- /*@media (min-width: 1366px) {*/
-/*.container {*/
-	/*width: 1280px;*/
-/*}*/
-/*}*/
-/*@media (max-width: 1920px) {*/
-	/*.container {*/
-		/*width: 1920px;*/
-	/*}*/
-/*}*/
 /*导航样式开始*/
 .header {
 	position: fixed;
@@ -11758,7 +11748,6 @@ body, input, button, textarea, select {
 	overflow: hidden;
 	height: 124px;
 	line-height: 300px;
-	background: #3399CC url(../images/logo.png) no-repeat 50% 50%;
 }
 .header .logo a {
 	-moz-transition: all 0.8s ease-in-out;
