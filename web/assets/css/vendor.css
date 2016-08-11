@@ -11732,14 +11732,9 @@ body, input, button, textarea, select {
 	-ms-user-select: none;
 	user-select: none;
 }
- @media (min-width: 1366px) {
-.container {
-	width: 1400px;
-}
-}
 @media (min-width: 1280px) {
   .container {
-    width: 1330px;
+    width: 1300px;
   }
 }
 @media (min-width: 1400px) {
