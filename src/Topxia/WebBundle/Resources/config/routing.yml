@@ -79,3 +79,6 @@ link_modal:
     path: /modal/link
     defaults: { _controller: TopxiaWebBundle:Default:linkModal}
 
+user_favorite:
+    path: /user/{userId}/favorite
+    defaults: {_controller: TopxiaWebBundle:User:listFavorite}

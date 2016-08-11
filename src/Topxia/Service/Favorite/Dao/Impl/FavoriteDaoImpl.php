@@ -20,10 +20,11 @@ class FavoriteDaoImpl extends GeneralDaoImpl implements FavoriteDao
         $stmt->execute($fields);        
     }
 
-    public function findByUserId($userId)
+    public function findFavoritesByUserId($userId)
     {
-        $sql = "SELECT * FROM {$this->table} WHERE userId =?";
-        return $this->db()->fetchAll($sql,array($userId));        
+        $sql = "SELECT * FROM {$this->table()} WHERE userId = ?";
+
+        return $this->db()->fetchAll($sql, array($userId));
     }
 
     public function declares()

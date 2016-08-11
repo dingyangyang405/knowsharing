@@ -13,7 +13,7 @@ class UserController extends BaseController
     {
         $userId = 1;
         $user = $this->getUserService()->get(1);
-        $hasfollowed = $this->getUserService()->getFollowObjectStatus(1,$id);
+        $hasfollowed = $this->getUserService()->getFollowUserByUserIdAndObjectUserId(1,$id);
         $conditions = array(
             'userId' => $user['id'],
         );
@@ -30,6 +30,16 @@ class UserController extends BaseController
             'favoriteCount' => $favoriteCount,
             'hasfollowed' => $hasfollowed,
             'knowledge' => $knowledge
+        ));
+    }
+
+    public function listFavoriteAction(Request $request, $userId)
+    {
+        $userId = 1;
+        $favorites = $this->getFavoriteService()->findFavoritesByUserId($userId);
+
+        return $this->render('TopxiaWebBundle:User:index.html.twig',array(
+            'favorites' => $favorites
         ));
     }
 

@@ -1,0 +1,26 @@
+{% extends 'TopxiaWebBundle:User:index.html.twig' %}
+
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+            {% block navTabs %}
+                <ul class="nav nav-tabs">
+                    <li role="newknowledge"><a href="{{path('user_page', {id:user.id})}}">他的分享</a></li>
+                    <li role="myconcern"><a href="">他的关注</a></li>
+                    <li role="topic" class="active"><a href="{{path('user_favorite', {userId:user.id})}}">他的收藏</a></li>
+                </ul>
+                <br>
+            {% endblock %}
+            <div class="row" id="knowledge-list">
+                {% if favorites is defined and favorites %}
+                    {% for favorite in knowledges %}
+                        {% include "TopxiaWebBundle:User:single-favorite-list.html.twig" %}
+                    {% endfor %}
+                {% else %}
+                    <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>
+                {% endif %}
+            </div>
+            <div class="quotes" style="margin-top:15px"><span class="disabled">首页</span><span class="disabled">上一页</span><span class="current">1</span><a href="index.html">2</a><a href="index.html">下一页</a><a href="index.html">尾页</a></div>
+        </div>
+    </div>
+{% endblock %}
