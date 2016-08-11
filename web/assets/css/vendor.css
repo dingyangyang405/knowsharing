@@ -11740,7 +11740,7 @@ body, input, button, textarea, select {
 	bottom: 0;
 	width: 190px;
 	background-color: #f6f6f6;
-	z-index: 1090;
+	z-index: 1031;
 	display: block;
 }
 .header .logo a {
