@@ -6,12 +6,6 @@ use Codeages\Biz\Framework\UnitTests\BaseTestCase;
 
 class KnowledgeServiceTest extends BaseTestCase
 {
-    public function testDetail()
-    {
-            $data = $this->getKnowledgeService()->getKnowledgeDetial(1);
-            $this->assertNull($data);
-    }
-
     public function testAddKnowledge()
     {
         $data = array(
@@ -21,8 +15,8 @@ class KnowledgeServiceTest extends BaseTestCase
             'type' => 'file',
             'userId' => 1,
         );
-        $knowledge = $this->getKnowledgeService()->addKnowledge($data);
-        $result = $this->getKnowledgeService()->getKnowledgeDetial($data['id']);
+        $knowledge = $this->getKnowledgeService()->add($data);
+        $result = $this->getKnowledgeService()->get($knowledge['id']);
 
         $this->assertEquals($knowledge['title'], $result['title']);
         $this->assertEquals($knowledge['summary'], $result['summary']);
@@ -33,6 +27,6 @@ class KnowledgeServiceTest extends BaseTestCase
 
     protected function getKnowledgeService()
     {
-        return self::$kernel['biz']['knowledge_service'];
+        return self::$kernel['knowledge_service'];
     }
 }
