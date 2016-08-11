@@ -4,17 +4,17 @@ namespace Topxia\Service\Knowledge;
 
 interface KnowledgeService
 {
-    public function find();
+    public function findKnowledges();
 
-    public function getKnowledgeCount($conditions);
+    public function getKnowledgesCount($conditions);
 
-    public function add($field);
+    public function createKnowledge($field);
 
-    public function findKnowledgeByUserId($id);
+    public function findKnowledgesByUserId($id);
 
-    public function get($id);
+    public function getKnowledge($id);
 
-    public function addComment($conditions);
+    public function createComment($conditions);
 
     public function searchComments($conditions, $orderBy, $start, $limit);
 

@@ -11,27 +11,28 @@ class DefaultController extends BaseController
     public function indexAction(Request $request)
     {
         $userId = '1';
-        $knowledge = $this->getKnowledgeService()->find();
+        $knowledges = $this->getKnowledgeService()->findKnowledges();
 
-        $users = $this->getUserService()->findByIds(ArrayToolKit::column($knowledge, 'userId'));
+        $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
-        $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$userId);
+        $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$userId);
 
-        $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$userId);
-
+        $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$userId);
+        // var_dump($users);
+        // exit();
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
-            'knowledge' => $knowledge,
+            'knowledges' => $knowledges,
             'users' => $users
         ));
     }
 
     public function shareListAction(Request $request)
     {   
-        $shareKnowledge = $this->getKnowledgeService()->findKnowledgeByUserId(1);
+        $knowledges = $this->getKnowledgeService()->findKnowledgesByUserId(1);
 
         return $this->render('TopxiaWebBundle:Default:my-knowledge.html.twig',array(
-            'shareKnowledge' => $shareKnowledge
+            'knowledges' => $knowledges
         ));
     }
 

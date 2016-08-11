@@ -19,32 +19,32 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $this->getKnowledgeDao()->update($id, $fields);
     }
 
-    public function getKnowledgeCount($conditions)
+    public function getKnowledgesCount($conditions)
     {
         return $this->getKnowledgeDao()->count($conditions);
     }
 
-    public function find()
+    public function findKnowledges()
     {
         return $this->getKnowledgeDao()->find();
     }
 
-    public function findKnowledgeByUserId($id)
+    public function findKnowledgesByUserId($id)
     {
-        return $this->getKnowledgeDao()->findKnowledgeByUserId($id);
+        return $this->getKnowledgeDao()->findKnowledgesByUserId($id);
     }
     
-    public function add($field)
+    public function createKnowledge($field)
     {
         return $this->getKnowledgeDao()->create($field);
     }
     
-    public function get($id)
+    public function getKnowledge($id)
     {
         return $this->getKnowledgeDao()->get($id);
     }
 
-    public function addComment($conditions)
+    public function createComment($conditions)
     {
         if (empty($conditions['value'])) {
             throw new \RuntimeException("评论内容为空！");

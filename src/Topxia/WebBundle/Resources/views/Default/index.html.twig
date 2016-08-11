@@ -14,9 +14,9 @@
                 <br>
             {% endblock %}
             <div class="row" id="knowledge-list">
-                {% if knowledge is defined and knowledge %}
-                    {% for singleKnowledge in knowledge %}
-                        {% set user = users[singleKnowledge.userId]|default(null) %}
+                {% if knowledges is defined and knowledges %}
+                    {% for knowledge in knowledges %}
+                        {% set user = users[knowledge.userId]|default(null) %}
                         {% include "TopxiaWebBundle:Default:single-knowledge-list.html.twig" %}
                     {% endfor %}
                 {% else %}
