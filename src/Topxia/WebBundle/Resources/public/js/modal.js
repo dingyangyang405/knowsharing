@@ -39,7 +39,6 @@ $(document).ready(function(){
     $("#docModal").click(function(event){
         var $url = $(event.target).attr("data-url");
         $.get($url, function(data){
-            console.log(data);
             $("#uploadModal").html(data).modal();
         });
     });
@@ -47,7 +46,6 @@ $(document).ready(function(){
     $("#linkModal").click(function(event){
         var $url = $(event.target).attr("data-url");
         $.get($url, function(data){
-            console.log(data);
             $("#uploadModal").html(data).modal();
         });
     });

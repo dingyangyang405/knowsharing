@@ -29,7 +29,7 @@ class LikeServiceImpl implements LikeService
         return $this->getLikeDao()->findByUserId($userId);
     }
 
-    public function haslikedKnowledge($knowledge)
+    public function haslikedKnowledge($knowledge,$userId)
     {
         $userId = '1';
         $likes = $this->findByUserId($userId);
@@ -51,8 +51,34 @@ class LikeServiceImpl implements LikeService
         return $hasliked;
     }        
 
-    public function getLikeDao()
+    public function dislikeKnowledge($id, $userId)
+    {
+        $this->getLikeDao()->deleteByIdAndUserId($id, $userId);
+        $knowledge = $this->getKnowledgeDao()->get($id);
+        $knowledge['likeNum'] = $knowledge['likeNum'] - 1; 
+        $this->getKnowledgeDao()->update($id, $knowledge);
+    }
+
+    public function likeKnowledge($id, $userId)
+    {
+        $fields = array(
+            'userId' => $userId,
+            'knowledgeId' => $id
+        );
+
+        $this->getLikeDao()->create($fields);
+        $knowledge = $this->getKnowledgeDao()->get($id);
+        $knowledge['likeNum'] += 1; 
+        $this->getKnowledgeDao()->update($id, $knowledge);
+    }
+
+    protected function getLikeDao()
     {
         return $this->container['like_dao'];
+    }
+
+    protected function getKnowledgeDao()
+    {
+        return $this->container['knowledge_dao'];
     }
 }

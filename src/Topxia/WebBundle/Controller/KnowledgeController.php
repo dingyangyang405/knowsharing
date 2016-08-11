@@ -12,6 +12,7 @@ class KnowledgeController extends BaseController
 {
     public function indexAction($id)
     {
+        $userId = 1;
         $knowledge = $this->getKnowledgeService()->get($id);
         $user = $this->getUserService()->get($knowledge['userId']);
 
@@ -37,9 +38,12 @@ class KnowledgeController extends BaseController
                 $users[$commentUser['id']] = $commentUser;
             }
         }
+        $knowledge = array($knowledge);
+        $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$userId);
+        $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$userId);
 
         return $this->render('TopxiaWebBundle:Knowledge:index.html.twig',array(
-            'knowledge' => $knowledge,
+            'knowledge' => $knowledge[0],
             'user' => $user,
             'comments' => $comments,
             'users' => $users,
@@ -79,15 +83,8 @@ class KnowledgeController extends BaseController
 
     public function favoriteAction(Request $request, $id)
     {
-        $fields = array(
-            'userId' => '1',
-            'knowledgeId' => $id
-            );
-
-        $this->getFavoriteService()->create($fields);
-        $knowledge = $this->getKnowledgeService()->get($id);
-        $knowledge['favoriteNum'] += 1; 
-        $this->getKnowledgeService()->update($id, $knowledge);
+        $userId = '1';
+        $this->getFavoriteService()->favoriteKnowledge($id, $userId);
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -96,10 +93,7 @@ class KnowledgeController extends BaseController
     public function unfavoriteAction(Request $request, $id)
     {
         $userId = '1';
-        $this->getFavoriteService()->deleteByIdAndUserId($id, $userId);
-        $knowledge = $this->getKnowledgeService()->get($id);
-        $knowledge['favoriteNum'] = $knowledge['favoriteNum'] - 1; 
-        $this->getKnowledgeService()->update($id, $knowledge);
+        $this->getFavoriteService()->unfavoriteKnowledge($id, $userId);
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -109,10 +103,7 @@ class KnowledgeController extends BaseController
     public function dislikeAction(Request $request, $id)
     {
         $userId = '1';
-        $this->getLikeService()->deleteByIdAndUserId($id, $userId);
-        $knowledge = $this->getKnowledgeService()->get($id);
-        $knowledge['likeNum'] = $knowledge['likeNum'] - 1; 
-        $this->getKnowledgeService()->update($id, $knowledge);
+        $this->getLikeService()->likeKnowledge($id, $userId);
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -121,15 +112,8 @@ class KnowledgeController extends BaseController
 
     public function likeAction(Request $request, $id)
     {
-        $fields = array(
-            'userId' => '1',
-            'knowledgeId' => $id
-            );
-
-        $this->getLikeService()->create($fields);
-        $knowledge = $this->getKnowledgeService()->get($id);
-        $knowledge['likeNum'] += 1; 
-        $this->getKnowledgeService()->update($id, $knowledge);
+        $userId = '1';
+        $this->getLikeService()->likeKnowledge($id, $userId);
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -153,5 +137,10 @@ class KnowledgeController extends BaseController
     protected function getFavoriteService()
     {
         return $this->biz['favorite_service'];
-    }   
+    }
+
+    protected function getFollowTopicService()
+    {
+        return $this->biz['follow_topic_service'];
+    }
 }

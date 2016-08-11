@@ -11,6 +11,7 @@ class UserController extends BaseController
 {
     public function indexAction(Request $request,$id)
     {
+        $userId = 1;
         $user = $this->getUserService()->get(1);
         $hasfollowed = $this->getUserService()->getFollowObjectStatus(1,$id);
         $conditions = array(
@@ -20,8 +21,8 @@ class UserController extends BaseController
         $favoriteCount = $this->getFavoriteService()->getFavoriteCount($conditions);
 
         $knowledge = $this->getKnowledgeService()->findKnowledgeByUserId($user['id']);
-        $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge);
-        $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge);
+        $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$userId);
+        $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$userId);
 
         return $this->render('TopxiaWebBundle:User:index.html.twig',array(
             'user' => $user,
