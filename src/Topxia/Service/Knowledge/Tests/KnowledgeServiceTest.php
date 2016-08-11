@@ -6,38 +6,26 @@ use Codeages\Biz\Framework\UnitTests\BaseTestCase;
 
 class KnowledgeServiceTest extends BaseTestCase
 {
-    public function testGetKnowledgeCount()
+    public function testGetKnowledgesCount()
     {   
-        $fields =　array (
-            0 => array ( 
-                'title' => '测试１',
-                'summary' => '测试',
-                'type' => 'file',
-                'themedId' => 1,
-                'userId' => 1,
-                'createdTime' => 2016810,
-                'updatedTime' => 2016811,
-                'content' => '这是测试',
-                'favoriteNum' => 10,
-                'likeNum' => 10
-            ),
-            1 => array (
-                'title' => '测试2',
-                'summary' => '测试',
-                'type' => 'link',
-                'themedId' => 1,
-                'userId' => 1,
-                'createdTime' => 2016810,
-                'updatedTime' => 2016811,
-                'content' => '这是测试',
-                'favoriteNum' => 10,
-                'likeNum' => 10  
-            )
-
+        $knowledge1 = array(
+            'title' => 1,
+            'userId' => 1,
+            'createdTime' => '1464591741'
         );
-        $this->getKnowledgeService()->add($fields[0]);
-        $this->getKnowledgeService()->add($fields[1]);
-        $count = getKnowledgeService()->getKnowledgeCount('userId' => 1);
+        $knowledge2 = array(
+            'title' => 1,
+            'userId' => 1,
+            'createdTime' => '1464591742'
+        );
+        $this->getKnowledgeService()->createKnowledge($knowledge1);
+        $this->getKnowledgeService()->createKnowledge($knowledge2);
+        $ids           = array(
+            $knowledge1['id'] = 1,
+            $knowledge2['id'] = 2
+        );
+
+        $count = $this->getKnowledgeService()->getKnowledgesCount($ids);
         $this->assertEquals(2, $count);
     }
 
@@ -47,7 +35,7 @@ class KnowledgeServiceTest extends BaseTestCase
             'title' => '测试１',
             'summary' => '测试1',
             'type' => 'file',
-            'themedId' => 1,
+            'topicId' => 1,
             'userId' => 1,
             'createdTime' => 2016810,
             'updatedTime' => 2016811,
@@ -55,12 +43,12 @@ class KnowledgeServiceTest extends BaseTestCase
             'favoriteNum' => 10,
             'likeNum' => 10
         );
-        $knowledged = $this->getKnowledgeService()->add($knowledge);
+        $knowledge = $this->getKnowledgeService()->createKnowledge($knowledge);
         $updateKnowledge = array(
             'title' => '测试2',
             'summary' => '测试2',
             'type' => 'file',
-            'themedId' => 1,
+            'topicId' => 1,
             'userId' => 1,
             'createdTime' => 2016810,
             'updatedTime' => 2016811,
@@ -68,7 +56,7 @@ class KnowledgeServiceTest extends BaseTestCase
             'favoriteNum' => 10,
             'likeNum' => 10
         );
-        $updatedKnowledge = $this->getKnowledgeService()->update($knowledged['id'],$updateKnowledge);
+        $updatedKnowledge = $this->getKnowledgeService()->updateKnowledge(1,$updateKnowledge);
         $this->assertEquals($updateKnowledge,$updatedKnowledge);
     }
 
@@ -86,7 +74,7 @@ class KnowledgeServiceTest extends BaseTestCase
             'favoriteNum' => 10,
             'likeNum' => 10
         ); 
-        $knowledged = $this->getKnowledgeService()->add($knowledge);
+        $knowledged = $this->getKnowledgeService()->createKnowledge($knowledge);
         $result = $this->getKnowledgeService()->delete($knowledged['id']);
         $knowledge = $this->getKnowledgeService()->get($knowledged['id']);
         $this->assertEquals(1,$result);

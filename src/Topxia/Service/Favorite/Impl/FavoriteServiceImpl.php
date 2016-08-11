@@ -24,7 +24,7 @@ class FavoriteServiceImpl implements FavoriteService
         return $this->getFavoriteDao()->create($fields);
     }
 
-    public function deleteFavoritesByIdAndUserId($id, $userId)
+    public function deleteFavoriteByIdAndUserId($id, $userId)
     {
         return $this->getFavoriteDao()->deleteByIdAndUserId($id, $userId);
     }
