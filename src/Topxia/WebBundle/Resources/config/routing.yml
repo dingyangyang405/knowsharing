@@ -2,21 +2,30 @@ homepage:
     path:  /
     defaults: { _controller: TopxiaWebBundle:Default:index }
 
-knowledge_share_list:
-    path:  /share/list
-    defaults: { _controller: TopxiaWebBundle:Default:shareList }
+my_knowledge_share:
+    path:  /knowledge/share
+    defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:index }
 
-knowledge_add_comment:
+my_knowledge_share_edit:
+    path: /knowledge/share/{id}/edit
+    defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:edit }
+
+my_knowledge_share_delete:
+    path: /knowledge/share/{id}/delete
+    defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:delete }
+    methods: [POST]
+
+knowledge_create_comment:
     path:  /comment
-    defaults: { _controller: TopxiaWebBundle:Knowledge:addComment }
+    defaults: { _controller: TopxiaWebBundle:Knowledge:createComment }
 
 user_page:
     path:  /user/{id}
     defaults: { _controller: TopxiaWebBundle:User:index }
 
-knowledge_add_knowledge:
-    path:  /add/knowledge
-    defaults: {_controller: TopxiaWebBundle:Knowledge:add }
+knowledge_create_knowledge:
+    path:  /create/knowledge
+    defaults: {_controller: TopxiaWebBundle:Knowledge:createKnowledge }
 
 knowledge_detail:
     path:  /knowledge/{id}
@@ -84,3 +93,6 @@ link_modal:
     path: /modal/link
     defaults: { _controller: TopxiaWebBundle:Default:linkModal}
 
+user_favorite:
+    path: /user/{userId}/favorite
+    defaults: {_controller: TopxiaWebBundle:User:listFavorite}

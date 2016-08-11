@@ -1,48 +1,25 @@
 <?php
 
-namespace Topxia\Service\Favorite\Tests;
+namespace Topxia\Service\Knowledge\Tests;
 
 use Codeages\Biz\Framework\UnitTests\BaseTestCase;
 
-class FavoriteServiceTest extends BaseTestCase
+class LikeServiceTest extends BaseTestCase
 {
-    public function testGetFavoriteCount()
-    {
-        $favorite1 = array(
-            'userId' => 1,
-            'knowledgeId' => 1,
-            'createdTime' => '1464591741'
-        );
-        $favorite2 = array(
-            'userId' => 1,
-            'knowledgeId' => 2,
-            'createdTime' => '1464591742'
-        );
-        $this->getFavoriteService()->createFavorite($favorite1);
-        $this->getFavoriteService()->createFavorite($favorite2);
-        $ids           = array(
-            $favorite1['id'] = 1,
-            $favorite2['id'] = 2
-        );
-
-        $count = $this->getFavoriteService()->getFavoritesCount($ids);
-        $this->assertEquals(2, $count);
-    }
-
-    public function testCreateFavorite()
+    public function testCreateLike()
     {
         $likeFields = array(
             'userId' => 1,
             'knowledgeId'=>1
         );
 
-        $like = $this->getFavoriteService()->createFavorite($likeFields);
+        $like = $this->getLikeService()->createLike($likeFields);
         $this->assertEquals(1,$like['userId']);
     }
 
-    public function testDeleteFavoriteByIdAndUserId()
+    public function testDeleteLikeByIdAndUserId()
     {
-        $FavoriteFields = array(
+        $likeFields = array(
             'Fields1' => array(
                 'userId' => 1,
                 'knowledgeId'=>1
@@ -53,18 +30,18 @@ class FavoriteServiceTest extends BaseTestCase
             )
         );
 
-        $this->getFavoriteService()->createFavorite($FavoriteFields['Fields1']);
-        $this->getFavoriteService()->createFavorite($FavoriteFields['Fields2']);
+        $this->getLikeService()->createLike($likeFields['Fields1']);
+        $this->getLikeService()->createLike($likeFields['Fields2']);
 
-        $this->getFavoriteService()->deleteFavoriteByIdAndUserId('2','2');
-        $favorite2 = $this->getFavoriteDao()->get('2');
+        $this->getLikeService()->deleteLikeByIdAndUserId('2','2');
+        $like2 = $this->getLikeDao()->get('2');
 
-        $this->assertNull($favorite2);
+        $this->assertNull($like2);
     }
 
-    public function testFindFavoriteByUserId()
+    public function testFindLikeByUserId()
     {
-        $FavoriteFields = array(
+        $likeFields = array(
             'Fields1' => array(
                 'userId' => 1,
                 'knowledgeId'=>1
@@ -75,15 +52,15 @@ class FavoriteServiceTest extends BaseTestCase
             )
         );
 
-        $this->getFavoriteService()->createFavorite($FavoriteFields['Fields1']);
-        $this->getFavoriteService()->createFavorite($FavoriteFields['Fields2']);
+        $this->getLikeService()->createLike($likeFields['Fields1']);
+        $this->getLikeService()->createLike($likeFields['Fields2']);
 
-        $likes = $this->getFavoriteService()->findFavoritesByUserId('1');
+        $likes = $this->getLikeService()->findLikeByUserId('1');
 
         $this->assertEquals(2,count($likes));
     }
 
-    public function testHasFavoritedKnowledge()
+    public function testHaslikedKnowledge()
     {
         $userId = '1';
         $knowledge = array(
@@ -115,20 +92,21 @@ class FavoriteServiceTest extends BaseTestCase
             )
         );
 
-        $FavoriteFields = array(
+        $likeFields = array(
             'Fields1' => array(
                 'userId' => 1,
                 'knowledgeId'=>1
             )
         );
 
-        $this->getFavoriteService()->createFavorite($FavoriteFields['Fields1']);
-        $hasliked = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$userId);
+        $this->getLikeService()->createLike($likeFields['Fields1']);
+        $hasliked = $this->getLikeService()->haslikedKnowledge($knowledge,$userId);
 
-        $this->assertTrue($hasliked[0]['isFavorited']);
+        $this->assertTrue($hasliked[0]['isLiked']);
 
     }
-    public function testFavoriteKnowledge()
+
+    public function testLikeKnowledge()
     {
         $userId = '1';
         $knowledge = array(
@@ -147,14 +125,14 @@ class FavoriteServiceTest extends BaseTestCase
             )
         );
 
-        $this->getKnowledgeDao()->create($knowledge['singleKnowledge1']);
+        $this->getKnowledgeService()->add($knowledge['singleKnowledge1']);
 
-        $result = $this->getFavoriteService()->favoriteKnowledge('1','1');
+        $result = $this->getLikeService()->likeKnowledge('1','1');
 
-        $this->assertEquals(1,$result['favoriteNum']);
+        $this->assertEquals(1,$result['likeNum']);
     }
 
-    public function testUnfavoriteKnowledge()
+    public function testDislikeKnowledge()
     {
         $userId = '1';
         $knowledge = array(
@@ -173,27 +151,27 @@ class FavoriteServiceTest extends BaseTestCase
             )
         );
 
-        $this->getKnowledgeDao()->create($knowledge['singleKnowledge1']);
+        $this->getKnowledgeService()->add($knowledge['singleKnowledge1']);
 
-        $result = $this->getFavoriteService()->favoriteKnowledge('1','1'); 
+        $result = $this->getLikeService()->likeKnowledge('1','1');  
 
-        $result = $this->getFavoriteService()->unfavoriteKnowledge('1','1');
+        $result = $this->getLikeService()->dislikeKnowledge('1','1');
 
-        $this->assertEquals(0,$result['favoriteNum']);        
+        $this->assertEquals(1,$result['likeNum']);        
     }
 
-    protected function getFavoriteService()
+    protected function getLikeService()
     {
-        return self::$kernel['favorite_service'];
+        return self::$kernel['like_service'];
     }
 
-    protected function getFavoriteDao()
+    protected function getLikeDao()
     {
-        return self::$kernel['favorite_dao'];
+        return self::$kernel['like_dao'];
     }
 
-    protected function getKnowledgeDao()
+    protected function getKnowledgeService()
     {
-        return self::$kernel['knowledge_dao'];
+        return self::$kernel['knowledge_service'];
     }
 }

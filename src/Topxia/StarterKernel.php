@@ -10,6 +10,7 @@ use Topxia\Service\Topic\Impl\FollowTopicServiceImpl;
 use Topxia\Service\Topic\Dao\Impl\TopicDaoImpl;
 use Topxia\Service\Topic\Dao\Impl\FollowTopicDaoImpl;
 use Topxia\Service\Knowledge\Impl\KnowledgeServiceImpl;
+use Topxia\Service\Knowledge\Impl\KnowledgeShareServiceImpl;
 use Topxia\Service\Knowledge\Dao\Impl\KnowledgeDaoImpl;
 use Topxia\Service\Knowledge\Dao\Impl\CommentDaoImpl;
 use Topxia\Service\Like\Impl\LikeServiceImpl;
@@ -51,6 +52,10 @@ class StarterKernel extends Kernel
 
         $this['knowledge_service'] = function($container) {
             return new KnowledgeServiceImpl($container);
+        };
+
+        $this['knowledge_share_service'] = function($container) {
+            return new KnowledgeShareServiceImpl($container);
         };
 
         $this['knowledge_dao'] = $this->dao(function($container) {

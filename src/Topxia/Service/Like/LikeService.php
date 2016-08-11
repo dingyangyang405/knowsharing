@@ -4,9 +4,9 @@ namespace Topxia\Service\Like;
 
 interface LikeService
 {
-    public function create($fields);
+    public function createLike($fields);
 
-    public function deleteByIdAndUserId($id, $userId);
+    public function deleteLikeByIdAndUserId($id, $userId);
 
-    public function findByUserId($userId);
+    public function findLikeByUserId($userId);
 }

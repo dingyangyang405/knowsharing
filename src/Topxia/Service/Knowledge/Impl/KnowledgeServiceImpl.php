@@ -14,37 +14,42 @@ class KnowledgeServiceImpl implements KnowledgeService
         $this->container = $container;
     }
 
-    public function update($id, $fields)
+    public function updateKnowledge($id, $fields)
     {
         return $this->getKnowledgeDao()->update($id, $fields);
     }
 
-    public function getKnowledgeCount($conditions)
+    public function deleteKnowledge($id)
+    {
+        return $this->getKnowledgeDao()->delete($id);
+    }
+
+    public function getKnowledgesCount($conditions)
     {
         return $this->getKnowledgeDao()->count($conditions);
     }
 
-    public function find()
+    public function findKnowledges()
     {
         return $this->getKnowledgeDao()->find();
     }
 
-    public function findKnowledgeByUserId($id)
+    public function findKnowledgesByUserId($id)
     {
-        return $this->getKnowledgeDao()->findKnowledgeByUserId($id);
+        return $this->getKnowledgeDao()->findKnowledgesByUserId($id);
     }
     
-    public function add($field)
+    public function createKnowledge($field)
     {
         return $this->getKnowledgeDao()->create($field);
     }
     
-    public function get($id)
+    public function getKnowledge($id)
     {
         return $this->getKnowledgeDao()->get($id);
     }
-
-    public function addComment($conditions)
+    //
+    public function createComment($conditions)
     {
         if (empty($conditions['value'])) {
             throw new \RuntimeException("评论内容为空！");
@@ -54,15 +59,20 @@ class KnowledgeServiceImpl implements KnowledgeService
 
         return $this->getCommentDao()->create($conditions);
     }
-
+    //
     public function getCommentsCount($conditions)
     {
         return $this->getCommentDao()->count($conditions);
     }
-
+    //
     public function searchComments($conditions, $orderBy, $start, $limit)
     {
         return $this->getCommentDao()->search($conditions, $orderBy, $start, $limit);
+    }
+
+    public function searchKnowledges($conditions, $orderBy, $start, $limit)
+    {
+        return $this->getKnowledgeDao()->search($conditions, $orderBy, $start, $limit);
     }
 
     protected function getKnowledgeDao()

@@ -21,18 +21,18 @@ $(function(){
         })
     });
 
-    $('#user #unfollow-btn').on('click',function(){
+    $('#unfollow-user-btn').on('click',function(){
         var $btn = $(this);
         $.post($btn.data('url'),function(){
             $btn.hide();
-            $('#follow-btn').show();
+            $('#follow-user-btn').show();
         });
     });
-    $('#user #follow-btn').on('click',function(){
+    $('#follow-user-btn').on('click',function(){
         var $btn = $(this);
         $.post($btn.data('url'),function(){
             $btn.hide();
-            $('#unfollow-btn').show();
+            $('#unfollow-user-btn').show();
         });
     });
 })

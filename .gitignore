@@ -1,6 +1,5 @@
 /web/bundles/
 /app/bootstrap.php.cache
-/app/config/biz.yml
 /app/cache/*
 /app/config/parameters.yml
 /app/config/parameters_test.yml
