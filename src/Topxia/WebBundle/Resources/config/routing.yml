@@ -67,8 +67,13 @@ test:
     defaults: { _controller: TopxiaWebBundle:Test:index }
 
 ajax_link:
-    path: /ajax
+    path: /link
     defaults: { _controller: TopxiaWebBundle:Ajax:link }
+    methods: [POST]
+
+ajax_topic:
+    path: /topic
+    defaults: { _controller: TopxiaWebBundle:Ajax:topic }
     methods: [POST]
 
 doc_modal: 
