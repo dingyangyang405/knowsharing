@@ -42,12 +42,12 @@ class UserController extends BaseController
 
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($userId);
         foreach ($favorites as $key => $favorite) {
-            $knowledges[] = $this->getKnowledgeService()->get($favorite['knowledgeId']);
+            $knowledges[] = $this->getKnowledgeService()->getKnowledge($favorite['knowledgeId']);
         }
         $hasfollowed = $this->getUserService()->getFollowUserByUserIdAndObjectUserId(1,$userId);
 
-        $knowledgeCount = $this->getKnowledgeService()->getKnowledgeCount($conditions);
-        $favoriteCount = $this->getFavoriteService()->getFavoriteCount($conditions);
+        $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
+        $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
 
         return $this->render('TopxiaWebBundle:User:favorite.html.twig',array(
             'user' => $user,
