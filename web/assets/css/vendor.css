@@ -4018,6 +4018,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-tabs {
   border-bottom: 1px solid #ddd;
+  margin-top: 0px;
+}
+.header .nav-stacked {
+  margin-top: 70px;
 }
 .nav-tabs > li {
   float: left;
@@ -11745,7 +11749,7 @@ body, input, button, textarea, select {
 /*导航样式开始*/
 .header {
 	position: fixed;
-	top: 50px;
+	top: 0;
 	bottom: 0;
 	width: 190px;
 	background-color: #f6f6f6;
