@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $("body").css({ 'overflow-y': 'scroll'});
-    $("#addTable").on('click', '#addLink', function() {
+    $("body").on('click', '#addLink', function() {
         var $url = $(this).data('url');
         var $linkUrl = $('[name = linkUrl]').val();
         var $title = $('[name = linkUrlTitle]').val();
@@ -18,7 +18,7 @@ $(document).ready(function(){
         });
     });
 
-    $("#addTable").on('click', '#addFile', function() {
+    $("body").on('click', '#addFile', function() {
         var $url = $(this).data('url');
         var $file = $('[name = file]').val();
         var $title = $('[name = fileTitle]').val();
@@ -39,7 +39,6 @@ $(document).ready(function(){
     $("#docModal").click(function(event){
         var $url = $(event.target).attr("data-url");
         $.get($url, function(data){
-            console.log(data);
             $("#uploadModal").html(data).modal();
         });
     });
@@ -47,7 +46,6 @@ $(document).ready(function(){
     $("#linkModal").click(function(event){
         var $url = $(event.target).attr("data-url");
         $.get($url, function(data){
-            console.log(data);
             $("#uploadModal").html(data).modal();
         });
     });

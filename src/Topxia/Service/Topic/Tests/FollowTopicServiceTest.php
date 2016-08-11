@@ -12,12 +12,11 @@ class FollowTopicServiceTest extends BaseTestCase
             'userId' => 1,
             'type' => 'topic',
         );
-        $this->getFollowTopicService()->getTopicDao()->create($topic);
+        $this->getFollowTopicService()->getFollowTopicDao()->create($topic);
         $result = $this->getFollowTopicService()->getFollowTopicByUserIdAndTopicId(1, 1);
-
-        $this->assertEqual($result['userId'], $topic['userId']);
-        $this->assertEqual($result['objectId'], $topic['objectId']);
-        $this->assertEqual($result['type'], $topic['type']);
+        $this->assertEquals($result[0]['userId'], $topic['userId']);
+        $this->assertEquals($result[0]['objectId'], $topic['objectId']);
+        $this->assertEquals($result[0]['type'], $topic['type']);
     }
 
     public function testFollowTopic()
@@ -26,20 +25,19 @@ class FollowTopicServiceTest extends BaseTestCase
 
         $result = $this->getFollowTopicService()->getFollowTopicByUserIdAndTopicId(1, 2);
 
-        $this->assertEqual(1, $result['userId']);
-        $this->assertEqual(2, $result['objectId']);
+        $this->assertEquals(1, $result[0]['userId']);
+        $this->assertEquals(2, $result[0]['objectId']);
     }
 
     public function testUnFollowTopic()
     {
+        $this->getFollowTopicService()->followTopic(2);
         $this->getFollowTopicService()->unFollowTopic(2);
 
         $result = $this->getFollowTopicService()->getFollowTopicByUserIdAndTopicId(1, 2);
 
-        $this->assertEqual(null, $result);
+        $this->assertEquals(array(), $result);
     }
-
-    
 
     protected function getFollowTopicService()
     {

@@ -77,7 +77,7 @@ class FollowTopicServiceImpl implements FollowTopicService
         return $this->getTopicDao()->wave($ids, $diffs);
     }
 
-    protected function getFollowTopicDao()
+    public function getFollowTopicDao()
     {
         return $this->container['follow_topic_dao'];
     }
