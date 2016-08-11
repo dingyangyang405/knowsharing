@@ -49,6 +49,33 @@ class UserServiceTest extends BaseTestCase
         $this->assertEquals($user1['name'],$result['name']);
     }
 
+    public function testFollowUser()
+    {
+        $followUser = array(
+            'userId' => 1,
+            'type' => 'user',
+            'objectId' => 2
+        );
+        $this->getUserService()->followUser(2);
+        $status = $this->getUserService()->getFollowUserByUserIdAndObjectUserId(1,2);
+        $this->assertEquals($status,1);
+    }
+
+    public function testUnfollowUser()
+    {
+        $followUser = array(
+            'userId' => 1,
+            'type' => 'user',
+            'objectId' => 2
+        );
+        $this->getUserService()->followUser(2);
+        $status0 = $this->getUserService()->getFollowUserByUserIdAndObjectUserId(1,2);
+        $this->getUserService()->unfollowUser(2);
+        $status1 = $this->getUserService()->getFollowUserByUserIdAndObjectUserId(1,2);
+        $this->assertEquals($status0,1);
+        $this->assertEquals($status1,0);
+    }
+
     protected function getUserService()
     {
         return self::$kernel['user_service'];
@@ -57,5 +84,10 @@ class UserServiceTest extends BaseTestCase
     protected function getUserDao()
     {
         return self::$kernel['user_dao'];
+    }
+
+    protected function getFollowDao()
+    {
+        return $this->container['follow_user_dao'];
     }
 }

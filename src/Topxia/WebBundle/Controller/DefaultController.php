@@ -13,7 +13,7 @@ class DefaultController extends BaseController
     {
         $userId = '1';
         $knowledges = $this->getKnowledgeService()->findKnowledges();
-
+        
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
@@ -30,6 +30,7 @@ class DefaultController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
+
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
             'knowledges' => $knowledges,
             'users' => $users,

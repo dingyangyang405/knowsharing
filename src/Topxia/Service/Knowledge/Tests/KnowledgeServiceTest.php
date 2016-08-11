@@ -39,7 +39,7 @@ class KnowledgeServiceTest extends BaseTestCase
         $this->assertEquals(2, $count);
     }
 
-    public function testUpdate()
+    public function testUpdateKnowledge()
     {
         $knowledge = array(
             'title' => '测试１',
@@ -95,7 +95,45 @@ class KnowledgeServiceTest extends BaseTestCase
         $this->assertEquals(0,$result);
     }
 
-    public function testAddKnowledge()
+    public function testSearchKnowledges()
+    {
+        $knowledge0 = array(
+            'title' => '测试１',
+            'summary' => '测试1',
+            'type' => 'file',
+            'topicId' => 1,
+            'userId' => 1,
+            'createdTime' => 2016810,
+            'updatedTime' => 2016811,
+            'content' => '这是测试1',
+            'favoriteNum' => 10,
+            'likeNum' => 10
+        );
+        $knowledge1 = array(
+            'title' => '测试１',
+            'summary' => '测试1',
+            'type' => 'file',
+            'topicId' => 1,
+            'userId' => 1,
+            'createdTime' => 2016810,
+            'updatedTime' => 2016811,
+            'content' => '这是测试1',
+            'favoriteNum' => 10,
+            'likeNum' => 10
+        );
+        $condition = array('userId' => 1);
+        $this->getKnowledgeService()->createKnowledge($knowledge0);
+        $this->getKnowledgeService()->createKnowledge($knowledge1);  
+        $knowledges = $this->getKnowledgeService()->searchKnowledges($condition,array('createdTime','DESC'),0,2);
+        $this->assertEquals($knowledge0['title'],$knowledges[0]['title']);
+        $this->assertEquals($knowledge0['summary'],$knowledges[0]['summary']);
+        $this->assertEquals($knowledge0['content'],$knowledges[0]['content']);
+        $this->assertEquals($knowledge1['title'],$knowledges[1]['title']);
+        $this->assertEquals($knowledge1['summary'],$knowledges[1]['summary']);
+        $this->assertEquals($knowledge1['content'],$knowledges[1]['content']);
+    }
+
+    public function testCreateKnowledge()
     {
         $data = array(
             'title' => 'title',
