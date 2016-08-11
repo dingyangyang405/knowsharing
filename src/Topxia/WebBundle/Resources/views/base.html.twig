@@ -55,7 +55,7 @@
                 <div id="header-xs-menu" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav header-xs-nav">
                         <li class="active"><a href="{{path('homepage')}}"><i class="fa fa-book"></i>&nbsp;&nbsp;</span>知识广场</a></li>
-                        <li><a href="{{path('knowledge_share_list')}}"><i class="fa fa-child"></i>&nbsp;&nbsp;</span>我的知识库</a></li>
+                        <li><a href="{{path('my_knowledge_share')}}"><i class="fa fa-child"></i>&nbsp;&nbsp;</span>我的知识库</a></li>
                     </ul>
                     <form class="navbar-form" action="search.php" method="post" style="padding:0 25px;">
                         <div class="input-group">
@@ -80,11 +80,13 @@
                 </div>
             </div>
             {% endblock %}
-            <!--/内容-->
+            <!--/内容-->      
         </div>
+        {# {% block modal %}         
+          {% include 'TopxiaWebBundle::modal-base.html.twig' %}
+        {% endblock %} #}
         <!--右边模块-->
         {% block aside %}
-
         {% endblock %}
         <!--/右边模块-->
         {% block base_footer %}

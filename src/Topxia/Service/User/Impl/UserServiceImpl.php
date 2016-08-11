@@ -40,7 +40,7 @@ class UserServiceImpl implements UserService
             'userId'=> $user['id'],
             'type'=>'user',
             'objectId'=>$id
-            ));
+        ));
 
         return true;
     }
