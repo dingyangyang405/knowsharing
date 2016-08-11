@@ -21,7 +21,7 @@ class MyKnowledgeShareController extends BaseController
             2
         );
 
-        $shareKnowledge = $this->getKnowledgeService()->searchAllKnowledge(
+        $knowledges = $this->getKnowledgeService()->searchAllKnowledge(
             $conditions,
             array('createdTime', 'DESC'),
             $paginator->getOffsetCount(), 
@@ -29,7 +29,7 @@ class MyKnowledgeShareController extends BaseController
         );
         
         return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-knowledge.html.twig',array(
-            'shareKnowledge' => $shareKnowledge,
+            'knowledges' => $knowledges,
             'paginator' => $paginator
         ));
     }
