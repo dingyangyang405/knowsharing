@@ -113,7 +113,9 @@ body, input, button, textarea, select {
 	color: #FFFFFF;
 	font-size: 26px;
 	font-weight: 100;
-	background: #3399CC url(../images/logo.png) no-repeat 50% 50%;
+	height:50px;
+	line-height: 50px;
+	background :#3c8dbc;
 }
 .header-xs-logo .navbar-toggle {
 	padding: 0px;
@@ -396,7 +398,6 @@ body, input, button, textarea, select {
 	padding-left: 18px;
 	padding-right: 4px;
 	height: 20px;
-	background: url(../images/news-icon.png) no-repeat left 3px;
 }
 .news-info .name a {
 	display: inline-block;
@@ -411,7 +412,6 @@ body, input, button, textarea, select {
 	float: left;
 	padding-left: 18px;
 	color: #b8b8b8;
-	background: url(../images/news-icon.png) no-repeat left -28px;
 }
 .news-info .text {
 	float: left;
@@ -1123,18 +1123,4 @@ textarea::-webkit-scrollbar-thumb {
 .footer span {
 	display: block;
 }
-}
-/*返回顶部样式开始*/
-.gotop {
-	position: fixed;
-	right: 25px;
-	bottom: 25px;
-	display: block;
-	width: 50px;
-	height: 50px;
-	background: url(../images/backtop.png) no-repeat 0 0;
-	opacity: 0.5;
-}
-.gotop:hover {
-	background: url(../images/backtop.png) no-repeat 0 -52px;
 }
