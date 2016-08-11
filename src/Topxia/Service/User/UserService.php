@@ -12,4 +12,5 @@ interface UserService
 
     public function unfollowUser($id);
 
+    public function getFollowUserByUserIdAndObjectUserId($userId,$objectId);
 }

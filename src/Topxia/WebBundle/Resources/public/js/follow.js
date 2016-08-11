@@ -25,14 +25,14 @@ $(function(){
         var $btn = $(this);
         $.post($btn.data('url'),function(){
             $btn.hide();
-            $('#follow-btn').show();
+            $('#follow-user-btn').show();
         });
     });
     $('#follow-user-btn').on('click',function(){
         var $btn = $(this);
         $.post($btn.data('url'),function(){
             $btn.hide();
-            $('#unfollow-btn').show();
+            $('#unfollow-user-btn').show();
         });
     });
 })

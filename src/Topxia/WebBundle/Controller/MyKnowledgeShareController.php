@@ -18,10 +18,10 @@ class MyKnowledgeShareController extends BaseController
         $paginator = new Paginator(
             $this->get('request'),
             $this->getKnowledgeService()->getKnowledgesCount($conditions),
-            2
+            10
         );
 
-        $knowledges = $this->getKnowledgeService()->searchAllKnowledges(
+        $knowledges = $this->getKnowledgeService()->searchKnowledges(
             $conditions,
             array('createdTime', 'DESC'),
             $paginator->getOffsetCount(), 
@@ -37,7 +37,6 @@ class MyKnowledgeShareController extends BaseController
     public function editAction(Request $request, $id)
     {
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        // var_dump($knowledge);exit();
         if ($request->getMethod() == 'POST') {
             $knowledge = $request->request->all();
             $this->getKnowledgeService()->updateKnowledge($id, $knowledge);

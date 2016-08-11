@@ -5,6 +5,7 @@ namespace Topxia\WebBundle\Controller;
 use Topxia\WebBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Topxia\Common\ArrayToolKit;
+use Topxia\Common\Paginator;
 
 class DefaultController extends BaseController
 {
@@ -16,13 +17,23 @@ class DefaultController extends BaseController
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
-        $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$userId);
-
-        $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$userId);
-
+        $conditions = array();
+        $orderBy = array('createdTime', 'DESC');
+        $paginator = new Paginator(
+            $this->get('request'),
+            count($knowledges),
+            8
+        );
+        $knowledges = $this->getKnowledgeService()->searchKnowledges(
+            $conditions,
+            $orderBy,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
             'knowledges' => $knowledges,
-            'users' => $users
+            'users' => $users,
+            'paginator' => $paginator
         ));
     }
     

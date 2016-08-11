@@ -15,7 +15,7 @@ class KsKnowledge extends Migration
         $table->addColumn('title', 'string', array('length' => 1024, 'null' => true, 'comment' => '标题'));
         $table->addColumn('summary', 'text', array('comment' => '摘要'));
         $table->addColumn('type', 'string', array('length' => 10, 'null' => false, 'comment' => '分享类型'));
-        $table->addColumn('themeId', 'integer', array('unsigned' => true, 'comment' => '主题id'));
+        $table->addColumn('topicId', 'integer', array('unsigned' => true, 'comment' => '主题id'));
         $table->addColumn('userId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '创建者id'));
         $table->addColumn('createdTime', 'integer', array('null' => false, 'comment' => '创建日期'));
         $table->addColumn('updatedTime', 'integer', array('comment' => '修改日期'));
