@@ -20,7 +20,7 @@ interface KnowledgeService
 
     public function searchComments($conditions, $orderBy, $start, $limit);
 
-    public function searchAllKnowledges($conditions, $orderBy, $start, $limit);
+    public function searchKnowledges($conditions, $orderBy, $start, $limit);
 
     public function updateKnowledge($id, $fields);
 

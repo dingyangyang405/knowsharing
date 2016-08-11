@@ -14,10 +14,10 @@
           <li class="list-group-item">
             <b>收藏数</b> <a class="pull-right">{{ favoritesCount }}</a>
           </li>
-          <li class="list-group-item" id="follow-btn" data-url="{{path('user_follow',{id:user.id})}}"　{% if hasfollowed is defined and hasfollowed == true %} style="display:none"{% endif %}>
+          <li class="list-group-item" id="follow-user-btn" data-url="{{path('user_follow',{id:user.id})}}"　{% if hasfollowed is defined and hasfollowed == true %} style="display:none"{% endif %}>
           <b>关注</b> <a class="pull-right"><i class="fa fa-fw fa-heart-o"></i></a>
           </li>
-          <li class="list-group-item" id="unfollow-btn" data-url="{{path('user_unfollow',{id:user.id})}}" {% if hasfollowed is defined and hasfollowed == false %}style="display:none"{% endif %}>
+          <li class="list-group-item" id="unfollow-user-btn" data-url="{{path('user_unfollow',{id:user.id})}}" {% if hasfollowed is defined and hasfollowed == false %}style="display:none"{% endif %}>
           <b>已关注</b> <a class="pull-right" ><i class="fa fa-fw fa-heart"></i></a>
           </li>
         </ul>

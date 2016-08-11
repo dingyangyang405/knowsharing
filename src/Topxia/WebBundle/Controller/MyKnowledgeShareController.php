@@ -21,7 +21,7 @@ class MyKnowledgeShareController extends BaseController
             10
         );
 
-        $knowledges = $this->getKnowledgeService()->searchAllKnowledges(
+        $knowledges = $this->getKnowledgeService()->searchKnowledges(
             $conditions,
             array('createdTime', 'DESC'),
             $paginator->getOffsetCount(), 
