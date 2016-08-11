@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    $("body").css({ 'overflow-y': 'scroll'});
     $("body").on('click', '#addLink', function() {
         var $url = $(this).data('url');
         var $linkUrl = $('[name = linkUrl]').val();
