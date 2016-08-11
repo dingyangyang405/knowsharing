@@ -9,10 +9,10 @@
 
         <ul class="list-group list-group-unbordered" id="user">
           <li class="list-group-item">
-            <b>分享知识数</b> <a class="pull-right">{{ knowledgeCount }}</a>
+            <b>分享知识数</b> <a class="pull-right">{{ knowledgesCount }}</a>
           </li>
           <li class="list-group-item">
-            <b>收藏数</b> <a class="pull-right">{{ favoriteCount }}</a>
+            <b>收藏数</b> <a class="pull-right">{{ favoritesCount }}</a>
           </li>
           <li class="list-group-item" id="follow-btn" data-url="{{path('user_follow',{id:user.id})}}"　{% if hasfollowed is defined and hasfollowed == true %} style="display:none"{% endif %}>
           <b>关注</b> <a class="pull-right"><i class="fa fa-fw fa-heart-o"></i></a>
@@ -37,8 +37,8 @@
                 <br>
             {% endblock %}
             <div class="row" id="knowledge-list">
-                {% if knowledge is defined and knowledge %}
-                    {% for singleKnowledge in knowledge %}
+                {% if knowledges is defined and knowledges %}
+                    {% for knowledge in knowledges %}
                         {% include "TopxiaWebBundle:Default:single-knowledge-list.html.twig" %}
                     {% endfor %}
                 {% else %}

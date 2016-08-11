@@ -4,11 +4,11 @@ namespace Topxia\Service\Favorite;
 
 interface FavoriteService
 {
-    public function getFavoriteCount($conditions);
+    public function getFavoritesCount($conditions);
 
-    public function create($fields);
+    public function createFavorite($fields);
 
-    public function deleteByIdAndUserId($id, $userId);
+    public function deleteFavoritesByIdAndUserId($id, $userId);
 
     public function findFavoritesByUserId($userId);
 

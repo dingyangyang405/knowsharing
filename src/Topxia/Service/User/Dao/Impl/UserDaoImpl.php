@@ -16,7 +16,7 @@ class UserDaoImpl extends GeneralDaoImpl implements UserDao
         return $this->db()->fetchAssoc($sql, array($id)) ?: null;
     }
     
-    public function findByIds($ids)
+    public function findUsersByIds($ids)
     {
         if (empty($ids)) {
             return array();
@@ -30,12 +30,11 @@ class UserDaoImpl extends GeneralDaoImpl implements UserDao
     public function declares()
     {
         return array(
-            'timestamps' => array('created', 'updated'),
+            'timestamps' => array(),
             'serializes' => array(),
             'conditions' => array(
                 'id = :id'
             ),
         );
     }
-
 }
