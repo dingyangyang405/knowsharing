@@ -25,29 +25,13 @@
         <header>
             <div class="hidden-xs header">
                 <div class="main-header">
-                    <a href="../../index2.html" class="logo">
+                    <a href="{{path('homepage')}}" class="logo">
                         <span class="logo-lg"><b>知识分享系统</b></span>
                     </a>
                 </div>
                 {% block left_header %}
                     {% include 'TopxiaWebBundle::left-header.html.twig' %}
                 {% endblock %}
-                <div class="feeds">
-                    <li>
-                        <a class="feed feed-xlweibo" href="index.html" target="_blank"><i></i>阔知大学</a>
-                    </li>
-                    <li>
-                        <a class="feed feed-txweibo" href="index.html" target="_blank"><i></i>气球鱼学院</a>
-                    </li>
-                    <li>
-                        <a class="feed feed-rss" href="index.html" target="_blank"><i></i>订阅本站</a>
-                    </li>
-                    <li>
-                        <a class="feed feed-weixin"><i></i>EDUSOHO</a>
-                    </li>
-                </div>
-                <div class="wall"><a href="readerWall.html" target="_blank">读者墙</a> | <a href="tags.html" target="_blank">标签云</a></div>
-            </div>
             <div class="visible-xs header-xs">
                 <!--超小屏幕可见-->
                 <div id="header-xs-menu" class="navbar-collapse collapse">
