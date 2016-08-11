@@ -8,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.icon') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/vendor.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/modal.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base-header.css') }}">
     <script src="{{ asset('assets/js/vendor.js') }}"></script>
     <script src="{{ asset('bundles/topxiaweb/js/modal.js') }}"></script>
@@ -23,14 +24,11 @@
         <!--左边模块-->
         <header>
             <div class="hidden-xs header">
-                <header class="main-header">
+                <div class="main-header">
                     <a href="../../index2.html" class="logo">
-                        <!-- mini logo for sidebar mini 50x50 pixels -->
-                        <span class="logo-mini"><b>Te</b>am</span>
-                        <!-- logo for regular state and mobile devices -->
                         <span class="logo-lg"><b>知识分享系统</b></span>
                     </a>
-                </header>
+                </div>
                 {% block left_header %}
                     {% include 'TopxiaWebBundle::left-header.html.twig' %}
                 {% endblock %}

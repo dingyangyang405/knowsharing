@@ -45,7 +45,7 @@ body, input, button, textarea, select {
 	font-family: "Lantinghei SC", "Open Sans", Arial, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "STHeiti", "WenQuanYi Micro Hei", SimSun, sans-serif;
 }
 .container {
-	max-width: 1280px;
+	width: 100%;
 	background-color: #fff;
 	margin: 0 auto;
 	text-align: left;
@@ -59,11 +59,6 @@ body, input, button, textarea, select {
 	-ms-user-select: none;
 	user-select: none;
 }
- @media (min-width: 1366px) {
-.container {
-	width: 1280px;
-}
-}
 /*导航样式开始*/
 .header {
 	position: fixed;
@@ -71,7 +66,7 @@ body, input, button, textarea, select {
 	bottom: 0;
 	width: 190px;
 	background-color: #f6f6f6;
-	z-index: 99;
+	z-index: 1090;
 	display: block;
 }
 .header .logo a {
@@ -79,7 +74,6 @@ body, input, button, textarea, select {
 	overflow: hidden;
 	height: 124px;
 	line-height: 300px;
-	background: #3399CC url(../images/logo.png) no-repeat 50% 50%;
 }
 .header .logo a {
 	-moz-transition: all 0.8s ease-in-out;
@@ -113,7 +107,9 @@ body, input, button, textarea, select {
 	color: #FFFFFF;
 	font-size: 26px;
 	font-weight: 100;
-	background: #3399CC url(../images/logo.png) no-repeat 50% 50%;
+	height:50px;
+	line-height: 50px;
+	background :#3c8dbc;
 }
 .header-xs-logo .navbar-toggle {
 	padding: 0px;
@@ -134,7 +130,7 @@ body, input, button, textarea, select {
 	color: #666;
 	font-size: 14px;
 	display: inline-block;
-	width: 48%;
+	width: 100%;
 	text-decoration: none;
 }
 .header .feeds i {
@@ -396,7 +392,6 @@ body, input, button, textarea, select {
 	padding-left: 18px;
 	padding-right: 4px;
 	height: 20px;
-	background: url(../images/news-icon.png) no-repeat left 3px;
 }
 .news-info .name a {
 	display: inline-block;
@@ -411,7 +406,6 @@ body, input, button, textarea, select {
 	float: left;
 	padding-left: 18px;
 	color: #b8b8b8;
-	background: url(../images/news-icon.png) no-repeat left -28px;
 }
 .news-info .text {
 	float: left;
@@ -1019,6 +1013,9 @@ textarea::-webkit-scrollbar-thumb {
 	padding: 5px 5px 5px 10px;
 	border-radius: 0px;
 }
+.hidden-xs .nav {
+	margin-top: 70px;
+}
 .form-control:focus {
 	border: #3399CC solid 1px;
 	box-shadow: none;
@@ -1123,18 +1120,4 @@ textarea::-webkit-scrollbar-thumb {
 .footer span {
 	display: block;
 }
-}
-/*返回顶部样式开始*/
-.gotop {
-	position: fixed;
-	right: 25px;
-	bottom: 25px;
-	display: block;
-	width: 50px;
-	height: 50px;
-	background: url(../images/backtop.png) no-repeat 0 0;
-	opacity: 0.5;
-}
-.gotop:hover {
-	background: url(../images/backtop.png) no-repeat 0 -52px;
 }

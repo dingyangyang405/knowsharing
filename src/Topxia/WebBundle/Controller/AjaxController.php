@@ -18,4 +18,21 @@ class AjaxController  extends BaseController
         ));
     }
 
+    public function topicAction(Request $request)
+    {
+        $conditions= $request->request->all();
+        $topics = $this->getTopicService()->searchTopics(
+            $conditions,
+            array('createdTime', 'DES')
+        );
+        return new JsonResponse(array(
+            'topics' => $topics
+        ));
+    }
+
+    protected function getTopicService()
+    {
+        return $this->biz['topic_service'];
+    }
+
 }

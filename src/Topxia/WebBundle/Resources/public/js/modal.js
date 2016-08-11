@@ -86,10 +86,26 @@ $(document).ready(function(){
         var fileSize = file.size;
         var maxSize = 20971520;
         if (fileSize >= maxSize) {
-            $("#title").val('文件不能大于20M');
+            $("#title").val('文件不能大于20');
             return;
         }
         $("#title").val(fileName);
+    });
+    //检索主题
+    $('body').on('input', '#topic', function() {
+        var link = $(this).val();
+        var url = $(this).data('url');
+        $.ajax({
+            url : url,
+            data : { link : link },
+            type : 'POST',
+            success :function(data){
+                $('#title').val(data.title);
+            },
+            error : function (data) {
+                $('#title').val('读取标题失败,请手动填写标题');
+            }
+        })
     });
 });
 

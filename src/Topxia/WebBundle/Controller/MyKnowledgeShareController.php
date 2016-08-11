@@ -37,7 +37,6 @@ class MyKnowledgeShareController extends BaseController
     public function editAction(Request $request, $id)
     {
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        // var_dump($knowledge);exit();
         if ($request->getMethod() == 'POST') {
             $knowledge = $request->request->all();
             $this->getKnowledgeService()->updateKnowledge($id, $knowledge);
