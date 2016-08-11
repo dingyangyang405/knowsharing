@@ -14,7 +14,7 @@ class FavoriteServiceImpl implements FavoriteService
         $this->container = $container;
     }
 
-    public function getFavoriteCount($conditions)
+    public function getFavoritesCount($conditions)
     {
         return $this->getFavoriteDao()->count($conditions);
     }
@@ -24,12 +24,12 @@ class FavoriteServiceImpl implements FavoriteService
         return $this->getFavoriteDao()->create($fields);
     }
 
-    public function deleteFavoriteByIdAndUserId($id, $userId)
+    public function deleteFavoritesByIdAndUserId($id, $userId)
     {
         return $this->getFavoriteDao()->deleteByIdAndUserId($id, $userId);
     }
 
-    public function findFavoriteByUserId($userId)
+    public function findFavoritesByUserId($userId)
     {
         return $this->getFavoriteDao()->findByUserId($userId);
     }
@@ -37,7 +37,7 @@ class FavoriteServiceImpl implements FavoriteService
     public function hasFavoritedKnowledge($knowledge,$userId)
     {
         $userId = '1';
-        $favorites = $this->findFavoriteByUserId($userId);
+        $favorites = $this->findFavoritesByUserId($userId);
         $favoriteKnowledgeIds = ArrayToolKit::column($favorites, 'knowledgeId');
 
         $hasFavorited = array();

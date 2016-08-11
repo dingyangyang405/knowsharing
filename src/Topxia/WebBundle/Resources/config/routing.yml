@@ -15,17 +15,17 @@ my_knowledge_share_delete:
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:delete }
     methods: [POST]
 
-knowledge_add_comment:
+knowledge_create_comment:
     path:  /comment
-    defaults: { _controller: TopxiaWebBundle:Knowledge:addComment }
+    defaults: { _controller: TopxiaWebBundle:Knowledge:createComment }
 
 user_page:
     path:  /user/{id}
     defaults: { _controller: TopxiaWebBundle:User:index }
 
-knowledge_add_knowledge:
-    path:  /add/knowledge
-    defaults: {_controller: TopxiaWebBundle:Knowledge:add }
+knowledge_create_knowledge:
+    path:  /create/knowledge
+    defaults: {_controller: TopxiaWebBundle:Knowledge:createKnowledge }
 
 knowledge_detail:
     path:  /knowledge/{id}
