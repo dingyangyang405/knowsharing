@@ -30,7 +30,7 @@ class UserDaoImpl extends GeneralDaoImpl implements UserDao
     public function declares()
     {
         return array(
-            'timestamps' => array('created', 'updated'),
+            'timestamps' => array(),
             'serializes' => array(),
             'conditions' => array(
                 'id = :id'

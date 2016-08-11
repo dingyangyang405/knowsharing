@@ -1,10 +1,10 @@
 <?php
 
-namespace Topxia\Service\Knowledge\Tests;
+namespace Topxia\Service\User\Dao\Tests;
 
 use Codeages\Biz\Framework\UnitTests\BaseTestCase;
 
-class UserServiceTest extends BaseTestCase
+class UserDaoTest extends BaseTestCase
 {
     public function testFindUsersByIds()
     {
@@ -28,15 +28,10 @@ class UserServiceTest extends BaseTestCase
             );
         $userTest1 = $this->getUserDao()->create($userTest1);
         $userTest2 = $this->getUserDao()->create($userTest2);
-        $users = $this->getUserService()->findByIds(array($userTest1['id'],$userTest2['id']));
+        $users = $this->getUserDao()->findByIds(array($userTest1['id'],$userTest2['id']));
         $this->assertEquals(count($users),2);
     }
-
-    protected function getUserService()
-    {
-        return self::$kernel['user_service'];
-    }
-
+    
     protected function getUserDao()
     {
         return self::$kernel['user_dao'];
