@@ -6,5 +6,5 @@ use Codeages\Biz\Framework\Dao\GeneralDaoInterface;
 
 interface TopicDao extends GeneralDaoInterface
 {
-    public function findAllTopics();
+    public function find();
 }

@@ -13,9 +13,14 @@ class TopicServiceImpl implements TopicService
         $this->container = $container;
     }
 
+    public function createTopic($field)
+    {
+        return $this->getTopicDao()->create($field);
+    }
+
     public function findAllTopics()
     {
-        $topics = $this->getTopicDao()->findAllTopics();
+        $topics = $this->getTopicDao()->find();
 
         return $topics;
     }
