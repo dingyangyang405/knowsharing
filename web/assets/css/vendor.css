@@ -11734,12 +11734,12 @@ body, input, button, textarea, select {
 }
  @media (min-width: 1366px) {
 .container {
-	width: 1430px;
+	width: 1400px;
 }
 }
 @media (min-width: 1300px) {
   .container {
-    width: 1366px;
+    width: 1360px;
   }
 }
 @media (min-width: 1400px) {
