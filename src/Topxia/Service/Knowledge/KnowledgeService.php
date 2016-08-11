@@ -16,10 +16,13 @@ interface KnowledgeService
 
     public function createComment($conditions);
 
-    public function searchComments($conditions, $orderBy, $start, $limit);
-
     public function getCommentsCount($conditions);
 
-    public function update($id, $fields);
+    public function searchComments($conditions, $orderBy, $start, $limit);
 
+    public function searchAllKnowledges($conditions, $orderBy, $start, $limit);
+
+    public function updateKnowledge($id, $fields);
+
+    public function deleteKnowledge($id);
 }
