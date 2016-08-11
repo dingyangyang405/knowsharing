@@ -13,8 +13,8 @@ class KnowledgeController extends BaseController
     public function indexAction($id)
     {
         $userId = 1;
-        $knowledge = $this->getKnowledgeService()->get($id);
-        $user = $this->getUserService()->get($knowledge['userId']);
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $user = $this->getUserService()->getUser($knowledge['userId']);
 
         $conditions = array('knowledgeId' => $knowledge['id']);
         $orderBy = array('createdTime', 'DESC');
@@ -33,11 +33,12 @@ class KnowledgeController extends BaseController
         $users = array();
         if (!empty($comments)) {
             $commentUserIds = ArrayToolKit::column($comments, 'userId');
-            $commentUsers = $this->getUserService()->findByIds(array_unique($commentUserIds));
+            $commentUsers = $this->getUserService()->findUsersByIds(array_unique($commentUserIds));
             foreach ($commentUsers as $commentUser) {
                 $users[$commentUser['id']] = $commentUser;
             }
         }
+
         $knowledge = array($knowledge);
         $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$userId);
         $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$userId);
@@ -51,7 +52,7 @@ class KnowledgeController extends BaseController
         ));
     }
 
-    public function addAction(Request $request)
+    public function createKnowledgeAction(Request $request)
     {
         $post = $request->request->all();
         $data = array(
@@ -61,12 +62,12 @@ class KnowledgeController extends BaseController
             'type' => $post['type'],
             'userId' => 1,
         );
-        $this->getKnowledgeService()->add($data);
+        $this->getKnowledgeService()->createKnowledge($data);
 
         return new JsonResponse($data);
     }
 
-    public function addCommentAction(Request $request)
+    public function createCommentAction(Request $request)
     {
         // $user = 
         $data = $request->request->all();
@@ -76,7 +77,7 @@ class KnowledgeController extends BaseController
             // 'userId' => $user['id'],
             'knowledgeId' => $data['knowledgeId']
         );
-        $this->getKnowledgeService()->addComment($params);
+        $this->getKnowledgeService()->createComment($params);
 
         return new JsonResponse(ture);
     }
