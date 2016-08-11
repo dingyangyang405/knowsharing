@@ -65,5 +65,24 @@ $(document).ready(function(){
             }
         })
     });
+    //上传文件
+    $('body').on('change', '#inputfile', function() {
+        var fileInput = document.getElementById('inputfile');
+        //检测是否选择文件
+        if (!fileInput.value) {
+            $("#title").val('请上传文件');
+                    return;
+                }
+        //获取文件相关信息
+        var file = fileInput.files[0];
+        var fileName = file.name;
+        var fileSize = file.size;
+        var maxSize = 20971520;
+        if (fileSize >= maxSize) {
+            $("#title").val('文件不能大于20M');
+            return;
+        }
+        $("#title").val(fileName);
+    });
 });
 
