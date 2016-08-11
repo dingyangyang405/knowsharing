@@ -8,8 +8,8 @@
 !app/logs/.gitkeep
 /app/phpunit.xml
 /build/
-/vendor/
 /bin/
+/vendor/
 /app/config/biz.yml
 /composer.phar
 .idea
