@@ -6,25 +6,28 @@ use Codeages\Biz\Framework\UnitTests\BaseTestCase;
 
 class FavoriteServiceTest extends BaseTestCase
 {
-    // public function testGetFavoriteCount()
-    // {
-    //     $favorite1 = array(
-    //         'id' => 1,
-    //         'userId' => 1,
-    //         'knowledgeId' => 1,
-    //         'createdTime' => '1464591741'
-    //     );
-    //     $favorite2 = array(
-    //         'id' => 2,
-    //         'userId' => 1,
-    //         'knowledgeId' => 2,
-    //         'createdTime' => '1464591742'
-    //     );
-    //     $count = $this->getFavoriteService()->getFavoriteCount(array(
-    //         'userId' => 1,
-    //     ));
-    //     $this->assertEqual(2, $count);
-    // }
+    public function testGetFavoriteCount()
+    {
+        $favorite1 = array(
+            'userId' => 1,
+            'knowledgeId' => 1,
+            'createdTime' => '1464591741'
+        );
+        $favorite2 = array(
+            'userId' => 1,
+            'knowledgeId' => 2,
+            'createdTime' => '1464591742'
+        );
+        $this->getFavoriteService()->createFavorite($favorite1);
+        $this->getFavoriteService()->createFavorite($favorite2);
+        $ids           = array(
+            $favorite1['id'] = 1,
+            $favorite2['id'] = 2
+        );
+
+        $count = $this->getFavoriteService()->getFavoritesCount($ids);
+        $this->assertEquals(2, $count);
+    }
 
     public function testCreateFavorite()
     {
@@ -75,7 +78,7 @@ class FavoriteServiceTest extends BaseTestCase
         $this->getFavoriteService()->createFavorite($FavoriteFields['Fields1']);
         $this->getFavoriteService()->createFavorite($FavoriteFields['Fields2']);
 
-        $likes = $this->getFavoriteService()->findFavoriteByUserId('1');
+        $likes = $this->getFavoriteService()->findFavoritesByUserId('1');
 
         $this->assertEquals(2,count($likes));
     }

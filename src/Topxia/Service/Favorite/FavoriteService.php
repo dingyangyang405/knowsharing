@@ -8,7 +8,7 @@ interface FavoriteService
 
     public function createFavorite($fields);
 
-    public function deleteFavoritesByIdAndUserId($id, $userId);
+    public function deleteFavoriteByIdAndUserId($id, $userId);
 
     public function findFavoritesByUserId($userId);
 

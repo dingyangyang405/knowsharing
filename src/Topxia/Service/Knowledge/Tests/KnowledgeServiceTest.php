@@ -7,8 +7,8 @@ use Codeages\Biz\Framework\UnitTests\BaseTestCase;
 class KnowledgeServiceTest extends BaseTestCase
 {
     public function testGetKnowledgesCount()
-    {   
-        $knowledges[0] = array(
+    {
+        $knowledge[0] = array(
             'title' => '测试１',
             'summary' => '测试',
             'type' => 'file',
@@ -20,7 +20,7 @@ class KnowledgeServiceTest extends BaseTestCase
             'favoriteNum' => 10,
             'likeNum' => 10
         );
-        $knowledges[1] = array(
+        $knowledge[1] = array(
             'title' => '测试2',
             'summary' => '测试',
             'type' => 'link',
@@ -33,8 +33,8 @@ class KnowledgeServiceTest extends BaseTestCase
             'likeNum' => 10  
         );
         $condition = array('userId' => 1);
-        $this->getKnowledgeService()->createKnowledge($knowledges[0]);
-        $this->getKnowledgeService()->createKnowledge($knowledges[1]);
+        $this->getKnowledgeService()->createKnowledge($knowledge[0]);
+        $this->getKnowledgeService()->createKnowledge($knowledge[1]);
         $count = $this->getKnowledgeService()->getKnowledgesCount($condition);
         $this->assertEquals(2, $count);
     }
