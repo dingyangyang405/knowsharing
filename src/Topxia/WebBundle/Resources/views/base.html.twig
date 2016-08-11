@@ -82,27 +82,11 @@
             {% endblock %}
             <!--/内容-->      
         </div>
-        <!--模态框块-->>
-        {# {% block modal %}
-          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                  <div class="modal-header">
-                    {% block modal-header %}{% endblock %}
-                  </div>
-                  <div class="modal-body">
-                    {% block modal-body %}{% endblock %}
-                  </div>
-                  <div class="modal-footer">
-                    {% block modal-footer %}{% endblock %}
-                  </div>
-              </div>
-            </div>
-          </div>
+        {# {% block modal %}         
+          {% include 'TopxiaWebBundle::modal-base.html.twig' %}
         {% endblock %} #}
         <!--右边模块-->
         {% block aside %}
-
         {% endblock %}
         <!--/右边模块-->
         {% block base_footer %}
