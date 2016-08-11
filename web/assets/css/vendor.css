@@ -11719,7 +11719,7 @@ body, input, button, textarea, select {
 	font-family: "Lantinghei SC", "Open Sans", Arial, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "STHeiti", "WenQuanYi Micro Hei", SimSun, sans-serif;
 }
 .container {
-	max-width: 1280px;
+	width: 100%;
 	background-color: #fff;
 	margin: 0 auto;
 	text-align: left;
@@ -11733,11 +11733,16 @@ body, input, button, textarea, select {
 	-ms-user-select: none;
 	user-select: none;
 }
- @media (min-width: 1366px) {
-.container {
-	width: 1280px;
-}
-}
+ /*@media (min-width: 1366px) {*/
+/*.container {*/
+	/*width: 1280px;*/
+/*}*/
+/*}*/
+/*@media (max-width: 1920px) {*/
+	/*.container {*/
+		/*width: 1920px;*/
+	/*}*/
+/*}*/
 /*导航样式开始*/
 .header {
 	position: fixed;
