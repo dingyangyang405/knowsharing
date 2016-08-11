@@ -23,7 +23,14 @@
         <!--左边模块-->
         <header>
             <div class="hidden-xs header">
-                <h1 class="logo"> <a href="{{path('homepage')}}"></a> </h1>
+                <header class="main-header">
+                    <a href="../../index2.html" class="logo">
+                        <!-- mini logo for sidebar mini 50x50 pixels -->
+                        <span class="logo-mini"><b>Te</b>am</span>
+                        <!-- logo for regular state and mobile devices -->
+                        <span class="logo-lg"><b>知识分享</b>系统</span>
+                    </a>
+                </header>
                 {% block left_header %}
                     {% include 'TopxiaWebBundle::left-header.html.twig' %}
                 {% endblock %}
@@ -45,9 +52,6 @@
             </div>
             <div class="visible-xs header-xs">
                 <!--超小屏幕可见-->
-                <div class="navbar-header header-xs-logo">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-xs-menu" aria-expanded="false" aria-controls="navbar"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
-                </div>
                 <div id="header-xs-menu" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav header-xs-nav">
                         <li class="active"><a href="{{path('homepage')}}"><i class="fa fa-book"></i>&nbsp;&nbsp;</span>知识广场</a></li>
