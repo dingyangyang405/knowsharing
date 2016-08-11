@@ -16,15 +16,17 @@
           {% for knowledge in shareKnowledge %}                
             <div class="news-list">
               <div class="news-info col-xs-12 col-sm-12 col-md-11">
-                  <span>
+                <dl>
+                  <dt>
                     <a href="{{path('knowledge_detail',{id:knowledge.id})}}">{% if knowledge.type == 'file' %}
                     <i class="fa fa-sticky-note-o"></i>{% elseif knowledge.type == 'link' %}<i class="fa fa-link"></i>{% endif %}&nbsp&nbsp&nbsp{{knowledge.title}}
                     </a>
-                  </span>
-                  <span style="float:right">
-                    <button type="button" class="btn btn-primary fa fa-edit"></button>
-                    <button type="button" class="btn btn-default fa fa-trash"></button>
-                  </span>
+                    <span style="float:right">
+                      <button type="button" class="btn btn-primary fa fa-edit"></button>
+                      <button type="button" class="btn btn-default fa fa-trash"></button>
+                    </span>
+                  </dt>
+                </dl>
               </div>
             </div>  
           {% endfor %}
