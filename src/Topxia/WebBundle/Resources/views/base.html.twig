@@ -9,23 +9,20 @@
     <link rel="stylesheet" href="{{ asset('assets/css/vendor.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base-header.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/left-aside.css') }}">
     <script src="{{ asset('assets/js/vendor.js') }}"></script>
     <script src="{{ asset('bundles/topxiaweb/js/modal.js') }}"></script>
     <script src="{{ asset('bundles/topxiaweb/js/default.js') }}"></script>
     <script src="{{ asset('bundles/topxiaweb/js/follow.js') }}"></script>
-    <script src="{{ asset('bundles/topxiaweb/js/comment.js') }}"></script>
+    <script src="{{ asset('bundles/topxiaweb/js/knowledge/comment.js') }}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 {% block body %}
     <section class="container user-select">
         {% include 'TopxiaWebBundle::header.html.twig' %}
-        {% include 'TopxiaWebBundle::add-link.html.twig' %}
-        {% include 'TopxiaWebBundle::add-file.html.twig' %}
+        <div id="uploadModal" class="modal"></div>
         <!--左边模块-->
         <header>
             <div class="hidden-xs header">
-                <h1 class="logo"> <a href="{{path('homepage')}}"></a> </h1>
                 {% block left_header %}
                     {% include 'TopxiaWebBundle::left-header.html.twig' %}
                 {% endblock %}
@@ -47,9 +44,6 @@
             </div>
             <div class="visible-xs header-xs">
                 <!--超小屏幕可见-->
-                <div class="navbar-header header-xs-logo">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-xs-menu" aria-expanded="false" aria-controls="navbar"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
-                </div>
                 <div id="header-xs-menu" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav header-xs-nav">
                         <li class="active"><a href="{{path('homepage')}}"><i class="fa fa-book"></i>&nbsp;&nbsp;</span>知识广场</a></li>
@@ -81,7 +75,7 @@
             <!--/内容-->      
         </div>
         <!--模态框块-->>
-        {% block modal %}
+        {# {% block modal %}
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -97,7 +91,7 @@
               </div>
             </div>
           </div>
-        {% endblock %}
+        {% endblock %} #}
         <!--右边模块-->
         {% block aside %}
 

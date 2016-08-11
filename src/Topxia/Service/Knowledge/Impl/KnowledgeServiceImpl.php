@@ -14,12 +14,12 @@ class KnowledgeServiceImpl implements KnowledgeService
         $this->container = $container;
     }
 
-    public function update($id, $fields)
+    public function updateknowledge($id, $fields)
     {
         return $this->getKnowledgeDao()->update($id, $fields);
     }
 
-    public function delete($id)
+    public function deleteknowledge($id)
     {
         return $this->getKnowledgeDao()->delete($id);
     }
@@ -56,6 +56,12 @@ class KnowledgeServiceImpl implements KnowledgeService
 
     public function addComment($conditions)
     {
+        if (empty($conditions['value'])) {
+            throw new \RuntimeException("评论内容为空！");
+        } elseif (strlen($conditions['value']) > 100) {
+            throw new \RuntimeException("评论内容不能超过100字！");
+        }
+
         return $this->getCommentDao()->create($conditions);
     }
 

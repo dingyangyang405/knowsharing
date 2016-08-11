@@ -24,7 +24,7 @@ interface KnowledgeService
 
     public function addComment($conditions);
 
-    public function update($id, $fields);
+    public function updateknowledge($id, $fields);
 
-    public function delete($id);
+    public function deleteknowledge($id);
 }

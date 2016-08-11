@@ -1,4 +1,10 @@
 <header class="main-header">
+    <a href="../../index2.html" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>Te</b>am</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>知识分享</b>系统</span>
+    </a>
     <nav class="navbar navbar-static-top">
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
@@ -6,9 +12,9 @@
                     <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <i class="fa fa-plus"></i>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#docModal">文档</a></li>
-                        <li><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#linkModal">链接</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="addTable">
+                        <li><a href="#" class="btn btn-lg" id="docModal" data-url="{{path('doc_modal')}}">文档</a></li>
+                        <li><a href="#" class="btn btn-lg" id="linkModal" data-url="{{path('link_modal')}}">链接</a></li>
                     </ul>
                 </li>
                 <li class="dropdown user user-menu">

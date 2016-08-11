@@ -12,7 +12,7 @@ class KsKnowledge extends Migration
         $container = $this->getContainer();
         $table = new Doctrine\DBAL\Schema\Table('knowledge');
         $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement'=> true));
-        $table->addColumn('title', 'string', array('length' => 10, 'null' => true, 'comment' => '标题'));
+        $table->addColumn('title', 'string', array('length' => 1024, 'null' => true, 'comment' => '标题'));
         $table->addColumn('summary', 'text', array('comment' => '摘要'));
         $table->addColumn('type', 'string', array('length' => 10, 'null' => false, 'comment' => '分享类型'));
         $table->addColumn('themeId', 'integer', array('unsigned' => true, 'comment' => '主题id'));

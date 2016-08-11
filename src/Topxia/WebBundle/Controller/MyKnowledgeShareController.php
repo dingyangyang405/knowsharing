@@ -18,7 +18,7 @@ class MyKnowledgeShareController extends BaseController
         $paginator = new Paginator(
             $this->get('request'),
             $this->getKnowledgeService()->searchKnowledgeCount($conditions),
-            10
+            2
         );
 
         $shareKnowledge = $this->getKnowledgeService()->searchAllKnowledge(
@@ -39,7 +39,7 @@ class MyKnowledgeShareController extends BaseController
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         if ($request->getMethod() == 'POST') {
             $knowledge = $request->request->all();
-            $this->getKnowledgeService()->update($id, $knowledge);
+            $this->getKnowledgeService()->updateknowledge($id, $knowledge);
 
             return $this->redirect($this->generateUrl('
                 my_knowledge_share'));
@@ -52,7 +52,7 @@ class MyKnowledgeShareController extends BaseController
 
     public function deleteAction(Request $request, $id)
     {
-        $this->getKnowledgeService()->delete($id);
+        $this->getKnowledgeService()->deleteKnowledge($id);
 
         return new JsonResponse(true);
     }
