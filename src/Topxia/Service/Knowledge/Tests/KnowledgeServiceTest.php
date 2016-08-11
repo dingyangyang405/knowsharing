@@ -93,6 +93,7 @@ class KnowledgeServiceTest extends BaseTestCase
         $this->assertFalse($knowledge);
         $result = $this->getKnowledgeService()->delete($knowledged['id']);
         $this->assertEquals(0,$result);
+    }
 
     public function testAddKnowledge()
     {
@@ -103,8 +104,8 @@ class KnowledgeServiceTest extends BaseTestCase
             'type' => 'file',
             'userId' => 1,
         );
-        $knowledge = $this->getKnowledgeService()->addKnowledge($data);
-        $result = $this->getKnowledgeService()->getKnowledgeDetial($data['id']);
+        $knowledge = $this->getKnowledgeService()->add($data);
+        $result = $this->getKnowledgeService()->get($knowledge['id']);
 
         $this->assertEquals($knowledge['title'], $result['title']);
         $this->assertEquals($knowledge['summary'], $result['summary']);
@@ -115,6 +116,6 @@ class KnowledgeServiceTest extends BaseTestCase
 
     protected function getKnowledgeService()
     {
-        return self::$kernel['biz']['knowledge_service'];
+        return self::$kernel['knowledge_service'];
     }
 }

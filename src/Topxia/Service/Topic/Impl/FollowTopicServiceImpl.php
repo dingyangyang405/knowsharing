@@ -18,6 +18,20 @@ class FollowTopicServiceImpl implements FollowTopicService
     {
         $user['id'] = 1;
 
+        if (empty($user['id'])) {
+            throw new \Exception('用户不存在');
+        }
+
+        $topic = $this->getTopicDao()->get($topicId);
+        if (empty($topic)) {
+            throw new \Exception('主题不存在');
+        }
+
+        $followed = $this->getFollowTopicByUserIdAndTopicId($user['id'], $topicId);
+        if ($followed) {
+            throw new \Exception('已经被关注');
+        }
+
         $this->getFollowTopicDao()->create(array(
             'objectId' => $topicId,
             'userId' => $user['id'],
@@ -35,8 +49,21 @@ class FollowTopicServiceImpl implements FollowTopicService
     {
         $user['id'] = 1;
 
-        $follow = $this->getFollowTopicByUserIdAndTopicId($user['id'], $topicId);
-        $this->getFollowTopicDao()->delete($follow[0]['id']);
+        if (empty($user['id'])) {
+            throw new \Exception('用户不存在');
+        }
+
+        $topic = $this->getTopicDao()->get($topicId);
+        if (empty($topic)) {
+            throw new \Exception('主题不存在');
+        }
+
+        $followed = $this->getFollowTopicByUserIdAndTopicId($user['id'], $topicId);
+        if (empty($followed)) {
+            throw new \Exception('未被关注');
+        }
+
+        $this->getFollowTopicDao()->delete($followed[0]['id']);
 
         $ids = array($topicId);
         $diffs = array('followNum' => -1);
@@ -77,7 +104,7 @@ class FollowTopicServiceImpl implements FollowTopicService
         return $this->getTopicDao()->wave($ids, $diffs);
     }
 
-    public function getFollowTopicDao()
+    protected function getFollowTopicDao()
     {
         return $this->container['follow_topic_dao'];
     }

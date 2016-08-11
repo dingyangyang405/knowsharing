@@ -9,7 +9,7 @@ class TopicDaoImpl extends GeneralDaoImpl implements TopicDao
 {
     protected $table = 'topic';
 
-    public function findAllTopics()
+    public function find()
     {
         $sql = "SELECT * FROM {$this->table()} ORDER BY createdTime DESC";
         
@@ -19,9 +19,12 @@ class TopicDaoImpl extends GeneralDaoImpl implements TopicDao
     public function declares()
     {
         return array(
-            'timestamps' => array(),
+            'timestamps' => array('createdTime'),
             'serializes' => array(),
-            'conditions' => array(),
+            'conditions' => array(
+                'name = :name',
+                'userId = :userId'
+            ),
         );
     }
 

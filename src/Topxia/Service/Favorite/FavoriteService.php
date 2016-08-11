@@ -6,10 +6,10 @@ interface FavoriteService
 {
     public function getFavoriteCount($conditions);
 
-    public function create($fields);
+    public function createFavorite($fields);
 
-    public function deleteByIdAndUserId($id, $userId);
+    public function deleteFavoriteByIdAndUserId($id, $userId);
 
-    public function findByUserId($userId);
+    public function findFavoriteByUserId($userId);
 
 }
