@@ -44,6 +44,7 @@ $(document).ready(function(){
     });
 
     $("#linkModal").click(function(event){
+        document.write("<script src="+"{{ asset('bundles/topxiaweb/js/select2.js') }}">"+"</script>");
         var $url = $(event.target).attr("data-url");
         $.get($url, function(data){
             $("#uploadModal").html(data).modal();

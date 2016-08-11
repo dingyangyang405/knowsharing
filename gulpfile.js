@@ -10,11 +10,12 @@ elixir(function(mix) {
         './node_modules/font-awesome/css/font-awesome.css',
     ], 'web/assets/css/vendor.css');
 
+
     mix.scripts([
         './node_modules/jquery/dist/jquery.js',
+        './node_modules/select2/dist/js/select2.min.js',
         './node_modules/bootstrap/dist/js/bootstrap.js',
         './node_modules/admin-lte/dist/js/app.js',
-        './node_modules/select2/dist/js/select2.min.js',
         './app/Resources/public/js/html5shiv.min.js',
     ], 'web/assets/js/vendor.js');
 
