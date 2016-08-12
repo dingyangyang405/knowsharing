@@ -25,6 +25,7 @@ class AjaxController  extends BaseController
             $conditions,
             array('createdTime', 'DES')
         );
+
         return new JsonResponse(array(
             'topics' => $topics
         ));
