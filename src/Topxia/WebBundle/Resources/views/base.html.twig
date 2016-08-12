@@ -8,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.icon') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/vendor.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/modal.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base-header.css') }}">
     <script src="{{ asset('assets/js/vendor.js') }}"></script>
     <script src="{{ asset('bundles/topxiaweb/js/modal.js') }}"></script>
@@ -24,33 +25,14 @@
         <!--左边模块-->
         <header>
             <div class="hidden-xs header">
-                <header class="main-header">
-                    <a href="../../index2.html" class="logo">
-                        <!-- mini logo for sidebar mini 50x50 pixels -->
-                        <span class="logo-mini"><b>Te</b>am</span>
-                        <!-- logo for regular state and mobile devices -->
-                        <span class="logo-lg"><b>知识分享</b>系统</span>
+                <div class="main-header">
+                    <a href="{{path('homepage')}}" class="logo">
+                        <span class="logo-lg"><b>知识分享系统</b></span>
                     </a>
-                </header>
+                </div>
                 {% block left_header %}
                     {% include 'TopxiaWebBundle::left-header.html.twig' %}
                 {% endblock %}
-                <div class="feeds">
-                    <li>
-                        <a class="feed feed-xlweibo" href="index.html" target="_blank"><i></i>阔知大学</a>
-                    </li>
-                    <li>
-                        <a class="feed feed-txweibo" href="index.html" target="_blank"><i></i>气球鱼学院</a>
-                    </li>
-                    <li>
-                        <a class="feed feed-rss" href="index.html" target="_blank"><i></i>订阅本站</a>
-                    </li>
-                    <li>
-                        <a class="feed feed-weixin"><i></i>EDUSOHO</a>
-                    </li>
-                </div>
-                <div class="wall"><a href="readerWall.html" target="_blank">读者墙</a> | <a href="tags.html" target="_blank">标签云</a></div>
-            </div>
             <div class="visible-xs header-xs">
                 <!--超小屏幕可见-->
                 <div id="header-xs-menu" class="navbar-collapse collapse">

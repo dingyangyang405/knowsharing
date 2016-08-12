@@ -24,7 +24,14 @@ class TopicServiceImpl implements TopicService
 
         return $topics;
     }
-    
+
+    public function searchTopics($conditions, $orderBy, $start, $limit)
+    {
+        $topics = $this->getTopicDao()->search($conditions, $orderBy, $start, $limit);
+
+        return $topics;
+    }
+
     protected function getTopicDao()
     {
         return $this->container['topic_dao'];

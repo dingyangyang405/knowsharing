@@ -24,14 +24,9 @@ class FavoriteServiceImpl implements FavoriteService
         return $this->getFavoriteDao()->create($fields);
     }
 
-    public function deleteFavoritesByIdAndUserId($id, $userId)
+    public function deleteFavoriteByIdAndUserId($id, $userId)
     {
         return $this->getFavoriteDao()->deleteByIdAndUserId($id, $userId);
-    }
-
-    public function findFavoritesByUserId($userId)
-    {
-        return $this->getFavoriteDao()->findByUserId($userId);
     }
 
     public function hasFavoritedKnowledge($knowledge,$userId)
@@ -75,6 +70,12 @@ class FavoriteServiceImpl implements FavoriteService
         $knowledge = $this->getKnowledgeDao()->get($id);
         $knowledge['favoriteNum'] = $knowledge['favoriteNum'] - 1; 
         return $this->getKnowledgeDao()->update($id, $knowledge);
+    }
+
+    public function findFavoritesByUserId($userId)
+    {
+        return $this->getFavoriteDao()->findFavoritesByUserId($userId);
+
     }
 
     protected function getFavoriteDao()

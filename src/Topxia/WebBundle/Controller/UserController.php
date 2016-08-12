@@ -12,7 +12,7 @@ class UserController extends BaseController
     public function indexAction(Request $request,$id)
     {
         $user = $this->getUserService()->getUser($id);
-        $hasfollowed = $this->getUserService()->getFollowObjectStatus(1,$id);
+        $hasfollowed = $this->getUserService()->getFollowUserByUserIdAndObjectUserId(1,$id);
         $conditions = array(
             'userId' => $user['id'],
         );
@@ -28,6 +28,33 @@ class UserController extends BaseController
             'knowledgesCount' => $knowledgesCount,
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
+            'knowledges' => $knowledges
+        ));
+    }
+
+    public function listFavoriteAction(Request $request, $userId)
+    {
+        $userId = 1;
+        $user = $this->getUserService()->getUser(1);
+        $conditions = array(
+            'userId' => $user['id'],
+        );
+
+        $favorites = $this->getFavoriteService()->findFavoritesByUserId($userId);
+        foreach ($favorites as $key => $favorite) {
+            $knowledges[] = $this->getKnowledgeService()->getKnowledge($favorite['knowledgeId']);
+        }
+        $hasfollowed = $this->getUserService()->getFollowUserByUserIdAndObjectUserId(1,$userId);
+
+        $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
+        $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
+
+        return $this->render('TopxiaWebBundle:User:favorite.html.twig',array(
+            'user' => $user,
+            'knowledgesCount' => $knowledgesCount,
+            'favoritesCount' => $favoritesCount,
+            'hasfollowed' => $hasfollowed,
+            'favorites' => $favorites,
             'knowledges' => $knowledges
         ));
     }

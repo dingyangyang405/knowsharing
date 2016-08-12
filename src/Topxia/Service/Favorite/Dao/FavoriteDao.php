@@ -8,5 +8,5 @@ interface FavoriteDao extends GeneralDaoInterface
 {
     public function deleteByIdAndUserId($id, $userId);
 
-    public function findByUserId($userId);
+    public function findFavoritesByUserId($userId);
 }

@@ -3,21 +3,21 @@ homepage:
     defaults: { _controller: TopxiaWebBundle:Default:index }
 
 my_knowledge_share:
-    path:  /knowledge/share
+    path: my/knowledge/share
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:index }
 
 my_knowledge_share_edit:
-    path: /knowledge/share/{id}/edit
+    path: my/knowledge/share/{id}/edit
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:edit }
 
 my_knowledge_share_delete:
-    path: /knowledge/share/{id}/delete
+    path: my/knowledge/share/{id}/delete
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:delete }
     methods: [POST]
 
 my_knowledge_share_search:
     path: /knowledge/share/search
-    defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:search }
+    defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:index }
 
 knowledge_create_comment:
     path:  /comment
@@ -80,8 +80,13 @@ test:
     defaults: { _controller: TopxiaWebBundle:Test:index }
 
 ajax_link:
-    path: /ajax
+    path: /link
     defaults: { _controller: TopxiaWebBundle:Ajax:link }
+    methods: [POST]
+
+ajax_topic:
+    path: /topic
+    defaults: { _controller: TopxiaWebBundle:Ajax:topic }
     methods: [POST]
 
 doc_modal: 
@@ -92,3 +97,6 @@ link_modal:
     path: /modal/link
     defaults: { _controller: TopxiaWebBundle:Default:linkModal}
 
+user_favorite:
+    path: /user/{userId}/favorite
+    defaults: {_controller: TopxiaWebBundle:User:listFavorite}

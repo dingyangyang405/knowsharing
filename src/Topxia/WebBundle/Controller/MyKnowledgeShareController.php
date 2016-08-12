@@ -13,15 +13,25 @@ class MyKnowledgeShareController extends BaseController
     {   
         // $userId = $this->getUserService()->getCurrentUser();
         $userId = 1;
-        $conditions = array('userId' => $userId);
+        $fields = $request->query->all();
+        $conditions = array(
+            'userId' => $userId,
+            'keyword' => '',
+        );
+
+        $conditions = array_merge($conditions, $fields);
+        if (isset($conditions['keyword'])) {
+            $conditions['title'] = "%{$conditions['keyword']}%";
+            unset($conditions['keyword']);
+        }
 
         $paginator = new Paginator(
             $this->get('request'),
             $this->getKnowledgeService()->getKnowledgesCount($conditions),
-            2
+            20
         );
 
-        $knowledges = $this->getKnowledgeService()->searchAllKnowledges(
+        $knowledges = $this->getKnowledgeService()->searchKnowledges(
             $conditions,
             array('createdTime', 'DESC'),
             $paginator->getOffsetCount(), 
@@ -37,7 +47,6 @@ class MyKnowledgeShareController extends BaseController
     public function editAction(Request $request, $id)
     {
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        // var_dump($knowledge);exit();
         if ($request->getMethod() == 'POST') {
             $knowledge = $request->request->all();
             $this->getKnowledgeService()->updateKnowledge($id, $knowledge);
@@ -56,37 +65,6 @@ class MyKnowledgeShareController extends BaseController
         $this->getKnowledgeService()->deleteKnowledge($id);
 
         return new JsonResponse(true);
-    }
-
-    public function searchAction(Request $request)
-    {
-        //$userId = $this->getUserService()->getCurrentUser();
-        $keyword = $request->query->get('q');
-        $userId = 1;
-        $conditions = array(
-            'userId' => $userId,
-        );
-        $conditions['title'] = "%{$keyword}%";
-        $orderBy = array('createdTime', 'DESC');
-        $count = $this->getKnowledgeService()->getKnowledgesCount($conditions);
-        $paginator = new Paginator(
-            $this->get('request'),
-            $count,
-            10
-        );
-
-        $knowledges = $this->getKnowledgeService()->searchAllKnowledges(
-            $conditions,
-            $orderBy,
-            $paginator->getOffsetCount(),
-            $paginator->getPerPageCount()
-        );
-
-        return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-knowledge-search.html.twig',array(
-            'knowledges' => $knowledges,
-            'paginator' => $paginator,
-            'count' => $count
-        ));
     }
 
     protected function getKnowledgeService()

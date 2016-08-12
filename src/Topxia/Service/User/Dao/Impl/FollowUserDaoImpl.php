@@ -9,7 +9,7 @@ class FollowUserDaoImpl extends GeneralDaoImpl implements FollowUserDao
 {
     protected $table = "follow";
 
-    public function getFollowByUserIdAndObjectId($userId, $objectId)
+    public function getFollowUserByUserIdAndObjectUserId($userId, $objectId)
     {
         $sql = "SELECT * FROM {$this->table()} WHERE userId = ? AND objectId = ? AND type = ?";
 
