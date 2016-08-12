@@ -44,10 +44,6 @@ class AuthController extends BaseController
     {
         if ('POST' == $request->getMethod()) {
             $user = $request->request->all();
-//            echo "<pre>";
-//            print_r($user);
-//            echo "</pre>";
-//            exit();
             $user = $this->getUserService()->register($user);
             $this->login($user, $request);
             return $this->redirect($this->generateUrl('homepage'));

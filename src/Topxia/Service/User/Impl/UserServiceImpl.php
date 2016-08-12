@@ -59,7 +59,6 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
         $user['password'] = $this->container['password_encoder']->encodePassword($user['password'], $user['salt']);
         if (empty($user['roles'])) {
             $user['roles'] = array('ROLE_USER');
-//            $user['roles'] = 'ROLE_USER';
         }
 
         return $this->getUserDao()->create($user);
