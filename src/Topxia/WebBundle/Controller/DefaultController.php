@@ -16,7 +16,7 @@ class DefaultController extends BaseController
         $paginator = new Paginator(
             $this->get('request'),
             $this->getKnowledgeService()->getKnowledgesCount($conditions),
-            8
+            20
         );
         $knowledges = $this->getKnowledgeService()->searchKnowledges(
             $conditions,
