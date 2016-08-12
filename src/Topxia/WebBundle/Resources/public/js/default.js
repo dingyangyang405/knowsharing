@@ -51,7 +51,7 @@ $(function(){
         })
     });
 
-    $("#delete-favorite").click(function(){
+    $(".delete-favorite").click(function(){
         var $btn = $(this);
         if (confirm('确定要取消收藏吗?')) {
             $.post($btn.data('url'),function(data){
