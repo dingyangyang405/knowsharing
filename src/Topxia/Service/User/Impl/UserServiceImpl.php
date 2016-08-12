@@ -30,22 +30,28 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
     {   
         // $user = $this->getCurrentUser();
         $user['id'] = 1;
-        $this->getFollowDao()->create(array(
+        $followUser = $this->getFollowDao()->create(array(
             'userId'=> $user['id'],
             'type'=>'user',
             'objectId'=>$id
         ));
-
-        return true;
+        if ($user['id'] ==1 && $followUser['objectId'] ==$id) {
+            return true;
+        } else {
+            throw new \RuntimeException("关注该用户失败");
+        }    
     }
 
     public function unfollowUser($id)
     {
         $user['id'] = 1;
-        $follow = $this->getFollowDao()->getFollowUserByUserIdAndObjectUserId($user['id'], $id);
-        $this->getFollowDao()->delete($follow['id']);
-
-        return true;
+        $followUser = $this->getFollowDao()->getFollowUserByUserIdAndObjectUserId($user['id'], $id);
+        $status = $this->getFollowDao()->delete($followUser['id']);
+        if ($status == 1) {
+            return true;
+        } else {
+            throw new \RuntimeException("取消关注该用户失败");
+        }  
     }
 
     public function getUserByUsername($username)

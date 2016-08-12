@@ -39,7 +39,7 @@ class KnowledgeServiceTest extends BaseTestCase
         $this->assertEquals(2, $count);
     }
 
-    public function testUpdate()
+    public function testUpdateKnowledge()
     {
         $knowledge = array(
             'title' => '测试１',
@@ -95,7 +95,45 @@ class KnowledgeServiceTest extends BaseTestCase
         $this->assertEquals(0,$result);
     }
 
-    public function testAddKnowledge()
+    public function testSearchKnowledges()
+    {
+        $knowledge0 = array(
+            'title' => '测试１',
+            'summary' => '测试1',
+            'type' => 'file',
+            'topicId' => 1,
+            'userId' => 1,
+            'createdTime' => 2016810,
+            'updatedTime' => 2016811,
+            'content' => '这是测试1',
+            'favoriteNum' => 10,
+            'likeNum' => 10
+        );
+        $knowledge1 = array(
+            'title' => '测试１',
+            'summary' => '测试1',
+            'type' => 'file',
+            'topicId' => 1,
+            'userId' => 1,
+            'createdTime' => 2016810,
+            'updatedTime' => 2016811,
+            'content' => '这是测试1',
+            'favoriteNum' => 10,
+            'likeNum' => 10
+        );
+        $condition = array('userId' => 1);
+        $this->getKnowledgeService()->createKnowledge($knowledge0);
+        $this->getKnowledgeService()->createKnowledge($knowledge1);  
+        $knowledges = $this->getKnowledgeService()->searchKnowledges($condition,array('createdTime','DESC'),0,2);
+        $this->assertEquals($knowledge0['title'],$knowledges[0]['title']);
+        $this->assertEquals($knowledge0['summary'],$knowledges[0]['summary']);
+        $this->assertEquals($knowledge0['content'],$knowledges[0]['content']);
+        $this->assertEquals($knowledge1['title'],$knowledges[1]['title']);
+        $this->assertEquals($knowledge1['summary'],$knowledges[1]['summary']);
+        $this->assertEquals($knowledge1['content'],$knowledges[1]['content']);
+    }
+
+    public function testCreateKnowledge()
     {
         $data = array(
             'title' => 'title',
@@ -114,8 +152,65 @@ class KnowledgeServiceTest extends BaseTestCase
         $this->assertEquals($knowledge['userId'], $result['userId']);
     }
 
+    public function testCreateComment()
+    {
+        $comment1 = array(
+            'value' => '评论测试',
+            'userId' => 1,
+            'knowledgeId' => 1
+        );
+        $comment1 = $this->getCommentDao()->create($comment1);
+        $result = $this->getCommentDao()->get(1);
+
+        $this->assertEquals($comment1['value'], $result['value']);
+    }
+
+    public function testGetCommentsCount()
+    {
+        $comment1 = array(
+            'value' => '评论测试1',
+            'userId' => 1,
+            'knowledgeId' => 1
+        );
+        $comment2 = array(
+            'value' => '评论测试2',
+            'userId' => 1,
+            'knowledgeId' => 2  
+        );
+        $this->getCommentDao()->create($comment1);
+        $this->getCommentDao()->create($comment2);
+        $condition = array('userId' => 1);
+        $count = $this->getKnowledgeService()->getCommentsCount($condition);
+        $this->assertEquals(2, $count);
+    }
+
+    public function testSearchComments()
+    {
+        $comment1 = array(
+            'value' => '评论测试1',
+            'userId' => 1,
+            'knowledgeId' => 1
+        );
+        $comment2 = array(
+            'value' => '评论测试2',
+            'userId' => 1,
+            'knowledgeId' => 2
+        );
+        $this->getCommentDao()->create($comment1);
+        $this->getCommentDao()->create($comment2);
+        $condition = array('userId' => 1); 
+        $result = $this->getKnowledgeService()->searchComments($condition,array('createdTime','DESC'),0,2);
+        $this->assertEquals($comment1['value'],$result[0]['value']);
+        $this->assertEquals($comment2['value'],$result[1]['value']);
+    }
+
     protected function getKnowledgeService()
     {
         return self::$kernel['knowledge_service'];
+    }
+
+    protected function getCommentDao()
+    {
+        return self::$kernel['comment_dao'];
     }
 }
