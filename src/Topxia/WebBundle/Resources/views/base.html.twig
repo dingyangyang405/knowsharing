@@ -19,10 +19,12 @@
 <body class="hold-transition skin-blue sidebar-mini">
 {% block body %}
     <section class="container user-select">
+        {% block top_header %}
         {% include 'TopxiaWebBundle::header.html.twig' %}
+        {% endblock %}
         <div id="uploadModal" class="modal"></div>
         <!--左边模块-->
-        <header>
+        <div>
             <div class="hidden-xs header">
                 <div class="main-header">
                     <a href="{{path('homepage')}}" class="logo">
@@ -32,24 +34,8 @@
                 {% block left_header %}
                     {% include 'TopxiaWebBundle::left-header.html.twig' %}
                 {% endblock %}
-            <div class="visible-xs header-xs">
-                <!--超小屏幕可见-->
-                <div id="header-xs-menu" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav header-xs-nav">
-                        <li class="active"><a href="{{path('homepage')}}"><i class="fa fa-book"></i>&nbsp;&nbsp;</span>知识广场</a></li>
-                        <li><a href="{{path('my_knowledge_share')}}"><i class="fa fa-child"></i>&nbsp;&nbsp;</span>我的知识库</a></li>
-                    </ul>
-                    <form class="navbar-form" action="search.php" method="post" style="padding:0 25px;">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="请输入关键字">
-                    <span class="input-group-btn">
-                    <button class="btn btn-default btn-search" type="submit">搜索</button>
-                    </span>
-                        </div>
-                    </form>
-                </div>
             </div>
-        </header>
+        </div>
         <!--/左边模块-->
         <div class="content-wrap">
             <!--内容-->
@@ -64,11 +50,9 @@
             {% endblock %}
             <!--/内容-->      
         </div>
-        {# {% block modal %}         
-          {% include 'TopxiaWebBundle::modal-base.html.twig' %}
-        {% endblock %} #}
         <!--右边模块-->
         {% block aside %}
+
         {% endblock %}
         <!--/右边模块-->
         {% block base_footer %}
