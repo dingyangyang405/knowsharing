@@ -15,7 +15,23 @@ class TopicServiceImpl implements TopicService
 
     public function createTopic($field)
     {
+        if (empty($field)) {
+            throw new \Exception('添加内容不能为空');
+        }
         return $this->getTopicDao()->create($field);
+    }
+
+    public function getTopicById($id)
+    {
+        return $this->getTopicDao()->get($id);
+    }
+
+    public function deleteTopicById($id)
+    {
+        if (empty($id)) {
+            throw new \Exception('主题不存在,删除失败!');
+        }
+        return $this->getTopicDao()->delete($id);
     }
 
     public function findAllTopics()
