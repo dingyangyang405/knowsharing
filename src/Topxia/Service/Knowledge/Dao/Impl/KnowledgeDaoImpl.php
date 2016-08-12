@@ -15,7 +15,7 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
         return $this->db()->fetchAll($sql);
     }
 
-    public function findKnowledgeByUserId($id)
+    public function findKnowledgesByUserId($id)
     {   
         $sql = "SELECT * FROM {$this->table()} WHERE userId = ?";
 
@@ -29,6 +29,7 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
             'serializes' => array(),
             'conditions' => array(
                 'userId = :userId',
+                'title Like :title',
             ),
         );
     }

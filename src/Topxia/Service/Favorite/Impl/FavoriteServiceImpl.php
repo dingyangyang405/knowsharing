@@ -14,22 +14,22 @@ class FavoriteServiceImpl implements FavoriteService
         $this->container = $container;
     }
 
-    public function getFavoriteCount($conditions)
+    public function getFavoritesCount($conditions)
     {
         return $this->getFavoriteDao()->count($conditions);
     }
 
-    public function create($fields)
+    public function createFavorite($fields)
     {
         return $this->getFavoriteDao()->create($fields);
     }
 
-    public function deleteByIdAndUserId($id, $userId)
+    public function deleteFavoritesByIdAndUserId($id, $userId)
     {
         return $this->getFavoriteDao()->deleteByIdAndUserId($id, $userId);
     }
 
-    public function findByUserId($userId)
+    public function findFavoritesByUserId($userId)
     {
         return $this->getFavoriteDao()->findByUserId($userId);
     }
@@ -37,7 +37,7 @@ class FavoriteServiceImpl implements FavoriteService
     public function hasFavoritedKnowledge($knowledge,$userId)
     {
         $userId = '1';
-        $favorites = $this->findByUserId($userId);
+        $favorites = $this->findFavoritesByUserId($userId);
         $favoriteKnowledgeIds = ArrayToolKit::column($favorites, 'knowledgeId');
 
         $hasFavorited = array();
@@ -66,7 +66,7 @@ class FavoriteServiceImpl implements FavoriteService
         $this->getFavoriteDao()->create($fields);
         $knowledge = $this->getKnowledgeDao()->get($id);
         $knowledge['favoriteNum'] += 1; 
-        $this->getKnowledgeDao()->update($id, $knowledge);
+        return $this->getKnowledgeDao()->update($id, $knowledge);
     }
 
     public function unfavoriteKnowledge($id, $userId)
@@ -74,7 +74,7 @@ class FavoriteServiceImpl implements FavoriteService
         $this->getFavoriteDao()->deleteByIdAndUserId($id, $userId);
         $knowledge = $this->getKnowledgeDao()->get($id);
         $knowledge['favoriteNum'] = $knowledge['favoriteNum'] - 1; 
-        $this->getKnowledgeDao()->update($id, $knowledge);
+        return $this->getKnowledgeDao()->update($id, $knowledge);
     }
 
     protected function getFavoriteDao()
