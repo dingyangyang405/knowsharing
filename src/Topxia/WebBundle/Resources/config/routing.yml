@@ -23,6 +23,10 @@ knowledge_create_comment:
     path:  /comment
     defaults: { _controller: TopxiaWebBundle:Knowledge:createComment }
 
+user_favorites:
+    path: /user/{userId}/favorites
+    defaults: {_controller: TopxiaWebBundle:User:listFavorites}
+
 user_page:
     path:  /user/{id}
     defaults: { _controller: TopxiaWebBundle:User:index }
@@ -97,6 +101,6 @@ link_modal:
     path: /modal/link
     defaults: { _controller: TopxiaWebBundle:Default:linkModal}
 
-user_favorite:
-    path: /user/{userId}/favorite
-    defaults: {_controller: TopxiaWebBundle:User:listFavorite}
+my_favorites:
+    path: /my/favorites
+    defaults: {_controller: TopxiaWebBundle:User:myFavorites}

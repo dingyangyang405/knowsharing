@@ -5,6 +5,9 @@
         <a href="{{path('knowledge_detail',{id:knowledge.id})}}" target="_blank" ><i class="{% if knowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}"></i>&nbsp&nbsp{{knowledge.title}}
         </a>
       </dt>
+      <span style="float:right">
+        <a class="delete-btn" data-url="{{path('my_knowledge_share_delete',{id: knowledge.id})}}"><span class="btn btn-default fa fa-trash"></span></a>
+      </span>
       <dd>
         <span class="name">
           <a href="{{ path('user_page',{id:knowledge.userId}) }}"  rel="author">创建者:{{user.name}}</a>
