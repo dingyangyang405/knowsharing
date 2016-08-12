@@ -152,8 +152,65 @@ class KnowledgeServiceTest extends BaseTestCase
         $this->assertEquals($knowledge['userId'], $result['userId']);
     }
 
+    public function testCreateComment()
+    {
+        $comment1 = array(
+            'value' => '评论测试',
+            'userId' => 1,
+            'knowledgeId' => 1
+        );
+        $comment1 = $this->getCommentDao()->create($comment1);
+        $result = $this->getCommentDao()->get(1);
+
+        $this->assertEquals($comment1['value'], $result['value']);
+    }
+
+    public function testGetCommentsCount()
+    {
+        $comment1 = array(
+            'value' => '评论测试1',
+            'userId' => 1,
+            'knowledgeId' => 1
+        );
+        $comment2 = array(
+            'value' => '评论测试2',
+            'userId' => 1,
+            'knowledgeId' => 2  
+        );
+        $this->getCommentDao()->create($comment1);
+        $this->getCommentDao()->create($comment2);
+        $condition = array('userId' => 1);
+        $count = $this->getKnowledgeService()->getCommentsCount($condition);
+        $this->assertEquals(2, $count);
+    }
+
+    public function testSearchComments()
+    {
+        $comment1 = array(
+            'value' => '评论测试1',
+            'userId' => 1,
+            'knowledgeId' => 1
+        );
+        $comment2 = array(
+            'value' => '评论测试2',
+            'userId' => 1,
+            'knowledgeId' => 2
+        );
+        $this->getCommentDao()->create($comment1);
+        $this->getCommentDao()->create($comment2);
+        $condition = array('userId' => 1); 
+        $result = $this->getKnowledgeService()->searchComments($condition,array('createdTime','DESC'),0,2);
+        $this->assertEquals($comment1['value'],$result[0]['value']);
+        $this->assertEquals($comment2['value'],$result[1]['value']);
+    }
+
     protected function getKnowledgeService()
     {
         return self::$kernel['knowledge_service'];
+    }
+
+    protected function getCommentDao()
+    {
+        return self::$kernel['comment_dao'];
     }
 }
