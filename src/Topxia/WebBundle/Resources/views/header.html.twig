@@ -2,7 +2,23 @@
     <nav class="navbar navbar-static-top">
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
+                <li style="margin-right: 20px;">
+                    <form class="navbar-form navbar-left" action="search.php" method="get" style="padding-top:0px;padding-left:20px">
+                        <div class="input-group">
+                            <input type="text" class="form-control" size="30" placeholder="搜索感兴趣的知识...">
+                                <span class="input-group-btn">
+                                  <button class="btn btn-default btn-search" type="submit"> <i class="fa fa-fw fa-search"></i>
+                                  </button>
+                                </span>
+                        </div>
+                    </form>
+                </li>
+                <li class="pull-right">
+                    <div class="navbar-header header-xs-logo">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-xs-menu" aria-expanded="false" aria-controls="navbar"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+                    </div>
+                </li>
+                <li class="dropdown pull-right">
                     <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <i class="fa fa-plus"></i>
                     </a>
@@ -12,7 +28,7 @@
                     </ul>
                 </li>
                 {% if app.user %}
-                    <li class="dropdown user user-menu">
+                    <li class="dropdown user user-menu pull-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{ app.user.username }}</span>
@@ -49,14 +65,14 @@
                         </ul>
                     </li>
                 {% else %}
-                    <li>
+                    <li class="pull-right">
                         <a href="{{ path('login') }}">
                         <span>
                             登陆
                         </span>
                         </a>
                     </li>
-                    <li>
+                    <li class="pull-right">
                         <a href="{{ path('register') }}">
                         <span>
                             注册
@@ -64,12 +80,16 @@
                         </a>
                     </li>
                 {% endif %}
-                <li>
-                    <div class="navbar-header header-xs-logo">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-xs-menu" aria-expanded="false" aria-controls="navbar"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
-                    </div>
-                </li>
             </ul>
         </div>
     </nav>
 </header>
+<div class="visible-xs header-xs">
+    <!--超小屏幕可见-->
+    <div id="header-xs-menu" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav header-xs-nav">
+            <li class="active"><a href="{{path('homepage')}}"><i class="fa fa-book"></i>&nbsp;&nbsp;</span>知识广场</a></li>
+            <li><a href="{{path('my_knowledge_share')}}"><i class="fa fa-child"></i>&nbsp;&nbsp;</span>我的知识库</a></li>
+        </ul>
+    </div>
+</div>
