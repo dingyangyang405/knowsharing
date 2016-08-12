@@ -1,3 +1,6 @@
 #linkModal, #docModal {
     color:black;
 }
+.js-data-example-ajax {
+    width :350px;
+}
