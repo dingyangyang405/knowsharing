@@ -29,6 +29,7 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
             'serializes' => array(),
             'conditions' => array(
                 'userId = :userId',
+                'title Like :title',
             ),
         );
     }

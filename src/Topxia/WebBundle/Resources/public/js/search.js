@@ -1,16 +1,17 @@
-$(document).ready(function(){
-    $('#search-my-knowledge').click(function(){
-        var keyword = $(this).val();
-        var url = $(this).data('data-url');
-        $.ajax({
-            url:url,
-            data:{ keyword:keyword },
-            success:function(data) {
-                consolo.log(data);
-            },
-            error:function(data) {
+// $(document).ready(function(){
+//     $('#search-my-knowledge').click(function(){
+//         var keyword = $('#input-keyword').val();
+//         var url = $(this).data('url');
+//         $.ajax({
+//             url:url,
+//             data:{ keyword:keyword },
+//             type:'GET',
+//             success:function(data) {
+                
+//             },
+//             error:function(data) {
 
-            }
-        });
-    });
-});
+//             }
+//         });
+//     });
+// });

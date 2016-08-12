@@ -13,12 +13,22 @@ class MyKnowledgeShareController extends BaseController
     {   
         // $userId = $this->getUserService()->getCurrentUser();
         $userId = 1;
-        $conditions = array('userId' => $userId);
+        $fields = $request->query->all();
+        $conditions = array(
+            'userId' => $userId,
+            'keyword' => '',
+        );
+
+        $conditions = array_merge($conditions, $fields);
+        if (isset($conditions['keyword'])) {
+            $conditions['title'] = "%{$conditions['keyword']}%";
+            unset($conditions['keyword']);
+        }
 
         $paginator = new Paginator(
             $this->get('request'),
             $this->getKnowledgeService()->getKnowledgesCount($conditions),
-            10
+            20
         );
 
         $knowledges = $this->getKnowledgeService()->searchKnowledges(
