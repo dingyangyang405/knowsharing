@@ -11,47 +11,64 @@
                         <li><a href="#" class="btn btn-lg" id="linkModal" data-url="{{path('link_modal')}}">链接</a></li>
                     </ul>
                 </li>
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" class="user-image" alt="User Image">
-                        <span class="hidden-xs">邢晋刚</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="user-header">
-                            <img src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" class="img-circle" alt="User Image">
-                            <p>
-                                邢晋刚
-                                <small>Member since Nov. 2012</small>
-                            </p>
-                        </li>
-                        <li class="user-body">
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <i class="fa fa-star-o"></i>
+                {% if app.user %}
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{ app.user.username }}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" class="img-circle" alt="User Image">
+                                <p>
+                                    {{ app.user.username }}
+                                    <small>Member since Nov. 2012</small>
+                                </p>
+                            </li>
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <i class="fa fa-thumbs-up"></i>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <i class="fa  fa-graduation-cap"></i>
+                                    </div>
                                 </div>
-                                <div class="col-xs-4 text-center">
-                                    <i class="fa fa-thumbs-up"></i>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">设置</a>
                                 </div>
-                                <div class="col-xs-4 text-center">
-                                    <i class="fa  fa-graduation-cap"></i>
+                                <div class="pull-right">
+                                    <a href="{{ path('logout') }}" class="btn btn-default btn-flat">退出</a>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">设置</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">退出</a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="navbar-header header-xs-logo">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-xs-menu" aria-expanded="false" aria-controls="navbar"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
-                    </div>
-                </li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="navbar-header header-xs-logo">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-xs-menu" aria-expanded="false" aria-controls="navbar"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+                        </div>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ path('login') }}">
+                        <span>
+                            登陆
+                        </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('register') }}">
+                        <span>
+                            注册
+                        </span>
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </nav>

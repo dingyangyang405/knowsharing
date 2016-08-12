@@ -19,7 +19,9 @@
 <body class="hold-transition skin-blue sidebar-mini">
 {% block body %}
     <section class="container user-select">
+        {% block top_header %}
         {% include 'TopxiaWebBundle::header.html.twig' %}
+        {% endblock %}
         <div id="uploadModal" class="modal"></div>
         <!--左边模块-->
         <header>
