@@ -48,11 +48,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <div class="navbar-header header-xs-logo">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-xs-menu" aria-expanded="false" aria-controls="navbar"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
-                        </div>
-                    </li>
                 {% else %}
                     <li>
                         <a href="{{ path('login') }}">
@@ -69,7 +64,21 @@
                         </a>
                     </li>
                 {% endif %}
+                <li>
+                    <div class="navbar-header header-xs-logo">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-xs-menu" aria-expanded="false" aria-controls="navbar"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
 </header>
+<div class="visible-xs header-xs">
+    <!--超小屏幕可见-->
+    <div id="header-xs-menu" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav header-xs-nav">
+            <li class="active"><a href="{{path('homepage')}}"><i class="fa fa-book"></i>&nbsp;&nbsp;</span>知识广场</a></li>
+            <li><a href="{{path('my_knowledge_share')}}"><i class="fa fa-child"></i>&nbsp;&nbsp;</span>我的知识库</a></li>
+        </ul>
+    </div>
+</div>
