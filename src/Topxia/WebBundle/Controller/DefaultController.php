@@ -31,16 +31,43 @@ class DefaultController extends BaseController
             $paginator->getPerPageCount()
         );
 
+        $type = 'like';
+
+        $topConditions = array();
+        $topOrderBy = array($type.'Num', 'DESC');
+        $topNum = 5;
+        $topKnowledges = $this->getKnowledgeService()->searchKnowledges(
+            $topConditions,
+            $topOrderBy,
+            0,
+            $topNum
+        );
+
         return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
             'knowledges' => $knowledges,
             'users' => $users,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'topKnowledges' => $topKnowledges,
+            'type' => $type
         ));
     }
 
-    public function listTopKnowledge(Request $request, $type)
+    public function listTopKnowledgesAction(Request $request)
     {
+        $conditions = array();
+        $orderBy = array($type.'Num', 'DESC');
+        $topNum = 5;
+        $knowledges = $this->getKnowledgeService()->searchKnowledges(
+            $conditions,
+            $orderBy,
+            0,
+            5
+        );
 
+        return $this->render('TopxiaWebBundle:TopList:top-knowledge.html.twig',array(
+            'knowledges' => $knowledges,
+            'type' => $type
+        ));
     }
     
     public function docModalAction(Request $request)

@@ -98,5 +98,5 @@ user_favorite:
     defaults: {_controller: TopxiaWebBundle:User:listFavorite}
 
 top_knowledge:
-    path: /like/knowledge/{type}
-    defaults: { _controller: TopxiaWebBundle:Default:listTopKnowledge }
+    path: /top/knowledge
+    defaults: { _controller: TopxiaWebBundle:Default:listTopKnowledges }

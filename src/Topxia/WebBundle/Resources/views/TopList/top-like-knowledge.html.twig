@@ -1,5 +1,7 @@
+{% for topKnowledge in topKnowledges %}
 <tr>
   <td>1.</td>
-  <td>知识名</td>
-  <td><span class="badge bg-red"><i class="fa fa-fw fa-heart"></i>22</span></td>
+  <td>{{topKnowledge.title}}</td>
+  <td><span class="badge bg-red"><i class="fa fa-fw fa-heart"></i>{{topKnowledge.likeNum}}</span></td>
 </tr>
+{% endfor %}
