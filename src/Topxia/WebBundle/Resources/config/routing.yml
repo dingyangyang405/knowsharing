@@ -96,3 +96,7 @@ link_modal:
 user_favorite:
     path: /user/{userId}/favorite
     defaults: {_controller: TopxiaWebBundle:User:listFavorite}
+
+top_knowledge:
+    path: /like/knowledge/{type}
+    defaults: { _controller: TopxiaWebBundle:Default:listTopKnowledge }

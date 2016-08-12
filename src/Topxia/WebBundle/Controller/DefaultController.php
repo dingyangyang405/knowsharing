@@ -37,6 +37,11 @@ class DefaultController extends BaseController
             'paginator' => $paginator
         ));
     }
+
+    public function listTopKnowledge(Request $request, $type)
+    {
+
+    }
     
     public function docModalAction(Request $request)
     {
