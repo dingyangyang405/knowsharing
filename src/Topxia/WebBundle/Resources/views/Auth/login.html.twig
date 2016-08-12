@@ -1,0 +1,44 @@
+{% extends 'TopxiaWebBundle::base.html.twig' %}
+{% block left_header %}
+    {% include 'TopxiaWebBundle::left-header.html.twig' %}
+{% endblock %}
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+            {% block navTabs %}
+                <ul class="nav nav-tabs">
+                    <li role="newknowledge" class="active"><a href="{{path('homepage')}}">最新知识</a></li>
+                    <li role="myconcern"><a href="#timeline">我的关注<span style="color:#f00">999+</span></a></li>
+                    <li role="topic"><a href="{{path('topic')}}">主题</a></li>
+                </ul>
+                <br>
+            {% endblock %}
+            <div class="row" id="knowledge-list">
+                {% if error %}
+                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                <form action="{{ path('login_check') }}" method="post">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="_password" />
+
+                    <input type="checkbox" id="remember_me" name="_remember_me" checked />
+                    <label for="remember_me">Keep me logged in</label>
+
+                    {#
+                        If you want to control the URL the user
+                        is redirected to on success (more details below)
+                        <input type="hidden" name="_target_path" value="/account" />
+                    #}
+
+                    <button type="submit">login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block aside %}
+    {% include 'TopxiaWebBundle::aside.html.twig' %}
+{% endblock %}

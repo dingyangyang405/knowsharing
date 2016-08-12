@@ -96,3 +96,19 @@ link_modal:
 user_favorite:
     path: /user/{userId}/favorite
     defaults: {_controller: TopxiaWebBundle:User:listFavorite}
+
+login:
+  path:      /login
+  defaults:  { _controller: TopxiaWebBundle:Auth:login }
+
+login_check:
+  path:      /login_check
+  defaults:  { _controller: TopxiaWebBundle:Auth:check }
+
+logout:
+  path:      /logout
+  defaults:  { _controller: TopxiaWebBundle:Auth:logout }
+
+register:
+  path:      /register
+  defaults:  { _controller: TopxiaWebBundle:Auth:register }
