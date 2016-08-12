@@ -15,11 +15,40 @@ class TopicServiceTest extends BaseTestCase
             'userId' => '1'
         );
         $topic = $this->getTopicService()->createTopic($topic);
-        $result = ArrayToolKit::index($this->getTopicService()->findAllTopics($topic['id']),'id');
+        $result = $this->getTopicService()->getTopicById('1');
 
-        $this->assertEquals($topic['name'], $result[1]['name']);
-        $this->assertEquals($topic['createdTime'], $result[1]['createdTime']);
-        $this->assertEquals($topic['userId'], $result[1]['userId']);
+        $this->assertEquals($topic['name'], $result['name']);
+        $this->assertEquals($topic['createdTime'], $result['createdTime']);
+        $this->assertEquals($topic['userId'], $result['userId']);
+    }
+
+    public function testGetTopicById()
+    {
+        $topic = array(
+            'name' => 'sql',
+            'createdTime' => time(),
+            'userId' => '1'
+        );
+        $topic = $this->getTopicService()->createTopic($topic);
+        $result = $this->getTopicService()->getTopicById('1');
+
+        $this->assertEquals($topic['name'], $result['name']);
+        $this->assertEquals($topic['createdTime'], $result['createdTime']);
+        $this->assertEquals($topic['userId'], $result['userId']);
+    }
+
+    public function testDeleteTopicById()
+    {
+        $topic = array(
+            'name' => 'sql',
+            'createdTime' => time(),
+            'userId' => '1'
+        );
+        $topic = $this->getTopicService()->createTopic($topic);
+        $this->getTopicService()->deleteTopicById('1');
+        $result = $this->getTopicService()->getTopicById('1');
+
+        $this->assertEquals(null,$result);
     }
 
     public function testFindAllTopics()
@@ -45,6 +74,56 @@ class TopicServiceTest extends BaseTestCase
         $result = ArrayToolKit::index($this->getTopicService()->findAllTopics($topic['id']),'id');
 
         $this->assertEquals(3, count($result));
+    }
+
+    public function testSearchTopics()
+    {
+        $topic = array(
+            'name' => 'sql',
+            'createdTime' => time(),
+            'userId' => '1'
+        );
+        $topic = $this->getTopicService()->createTopic($topic);
+        $result = ArrayToolKit::index($this->getTopicService()->findAllTopics($topic['id']),'id');
+
+        $user['id'] = 1;
+        $conditions = array(
+            'userId' => $user['id'],
+        );
+        $orderBy = array('createdTime', 'ASC');
+        $searchResult = ArrayToolKit::index($this->getTopicService()->searchTopics($conditions, $orderBy, 0, PHP_INT_MAX),'id');
+
+        $this->assertEquals($topic['name'], $searchResult[1]['name']);
+        $this->assertEquals($topic['createdTime'], $searchResult[1]['createdTime']);
+        $this->assertEquals($topic['userId'], $searchResult[1]['userId']);
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testDeleteTopicByIdWithException()
+    {
+        $topic = array(
+            'name' => 'sql',
+            'createdTime' => time(),
+            'userId' => '1'
+        );
+        $topic = $this->getTopicService()->createTopic($topic);
+        $this->getTopicService()->deleteTopicById('1');
+        $this->getTopicService()->deleteTopicById(null);
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testCreateTopicWithException()
+    {
+        $topic = array(
+            'name' => 'sql',
+            'createdTime' => time(),
+            'userId' => '1'
+        );
+        $topic = $this->getTopicService()->createTopic(null);
     }
 
     protected function getTopicService()
