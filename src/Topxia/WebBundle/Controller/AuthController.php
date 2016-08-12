@@ -37,7 +37,8 @@ class AuthController extends BaseController
 
     public function checkAction(Request $request)
     {
-
+      echo 1;
+        exit;
     }
 
     public function registerAction(Request $request)

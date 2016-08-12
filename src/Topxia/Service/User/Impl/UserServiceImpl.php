@@ -54,9 +54,9 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
         }  
     }
 
-    public function getUserByUsername($username)
+    public function getUserByUsername($name)
     {
-        return $this->getUserDao()->getByUsername($username);
+        return $this->getUserDao()->getByUsername($name);
     }
 
     public function register($user)

@@ -19,7 +19,7 @@ class AppInitCommand extends Command
     {
         $output->writeln("Init Application.");
         $user = array(
-            'username' => 'admin',
+            'name' => 'admin',
             'password' => 'kaifazhe',
             'roles' => array('ROLE_SUPER_ADMIN'),
         );
@@ -27,7 +27,7 @@ class AppInitCommand extends Command
         $this->getService('user_service')->register($user);
 
         $output->writeln([
-            "Admin Username: {$user['username']}",
+            "Admin name: {$user['name']}",
             "Admin Password: {$user['password']}"
         ]);
     }

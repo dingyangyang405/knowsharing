@@ -12,14 +12,14 @@ class KsUser extends Migration
         $container = $this->getContainer();
         $table = new Doctrine\DBAL\Schema\Table('user');
         $table->addColumn('id', 'integer', array('unsigned' => true, 'autoincrement'=> true));
-        $table->addColumn('username', 'string', array('length' => 64, 'null' => false, 'comment' => '用户名'));
+        $table->addColumn('name', 'string', array('length' => 64, 'null' => false, 'comment' => '用户名'));
         $table->addColumn('password', 'string', array('length' => 64, 'null' => false, 'comment' => '密码'));
         $table->addColumn('salt', 'string', array('length' => 64, 'null' => false, 'comment' => '密码加密Salt'));
         $table->addColumn('roles', 'string', array('length' => 512, 'null' => false, 'comment' => '角色'));
         $table->addColumn('updated', 'integer', array('default' => 0, 'signed' => true));
         $table->addColumn('created', 'integer', array('default' => 0, 'signed' => true));
         $table->setPrimaryKey(array('id'));
-        $table->addUniqueIndex(array('username'));
+        $table->addUniqueIndex(array('name'));
         $table->addColumn('followNum', 'integer', array('default' => 0, 'unsigned' => true, 'comment' => '被关注总数'));
 
         $container['db']->getSchemaManager()->createTable($table);
