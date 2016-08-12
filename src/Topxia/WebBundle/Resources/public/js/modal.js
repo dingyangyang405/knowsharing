@@ -55,6 +55,7 @@ $(document).ready(function(){
             $("#uploadModal").html(data).modal();
         });
     });
+
     //自动读取标题
     $('body').on('input', '#inputlink', function() {
         var link = $(this).val();
@@ -71,6 +72,7 @@ $(document).ready(function(){
             }
         })
     });
+
     //上传文件
     $('body').on('change', '#inputfile', function() {
         var fileInput = document.getElementById('inputfile');
@@ -90,6 +92,7 @@ $(document).ready(function(){
         }
         $("#title").val(fileName);
     });
+
     //检索主题
     $('body').on('input', '#topic', function() {
         var link = $(this).val();
@@ -106,5 +109,6 @@ $(document).ready(function(){
             }
         })
     });
+
 });
 
