@@ -12,18 +12,10 @@ class TopicController extends BaseController
 {
     public function indexAction()
     {
+        $userId = 1;
         $topics = $this->getTopicService()->findAllTopics();
-        $followedTopics = $this->getFollowTopicService()->findFollowedTopics();
-        $followedTopicIds = array();
-        foreach ($followedTopics as $value) {
-            $followedTopicIds[] = $value['objectId'];
-        }
-        foreach ($topics as $key => $topic) {
-            $topics[$key]['hasFollowed'] = false;
-            if (in_array($topic['id'], $followedTopicIds)) {
-                $topics[$key]['hasFollowed'] = true;
-            }
-        }
+        $followedTopics = $this->getFollowTopicService()->findFollowedTopicsByUserId($userId);
+        $topics = $this->getFollowTopicService()->hasFollowedTopics($topics,$userId);
 
         return $this->render('TopxiaWebBundle:Topic:index.html.twig', array(
             'topics' => $topics
