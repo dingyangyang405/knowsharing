@@ -38,6 +38,11 @@ class KnowledgeServiceImpl implements KnowledgeService
     {
         return $this->getKnowledgeDao()->findKnowledgesByUserId($id);
     }
+
+    public function findKnowledgesByKnowledgeIds($knowledgeIds)
+    {
+        return $this->getKnowledgeDao()->findKnowledgesByKnowledgeIds($knowledgeIds);
+    }
     
     public function createKnowledge($field)
     {

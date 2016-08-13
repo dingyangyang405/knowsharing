@@ -43,9 +43,8 @@ class UserController extends BaseController
         );
 
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($userId);
-        foreach ($favorites as $favorite) {
-            $knowledges[] = $this->getKnowledgeService()->getKnowledge($favorite['knowledgeId']);
-        }
+        $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
+        $knowledges = $this->getKnowledgeService()->findKnowledgesByKnowledgeIds($knowledgeIds);
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
@@ -68,9 +67,8 @@ class UserController extends BaseController
     {
         $userId = 1;
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($userId);
-        foreach ($favorites as $favorite) {
-            $knowledges[] = $this->getKnowledgeService()->getKnowledge($favorite['knowledgeId']);
-        }
+        $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
+        $knowledges = $this->getKnowledgeService()->findKnowledgesByKnowledgeIds($knowledgeIds);
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
