@@ -5,6 +5,9 @@
         <a href="{{path('knowledge_detail',{id:knowledge.id})}}" target="_blank" ><i class="{% if knowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}"></i>&nbsp;&nbsp;{{knowledge.title}}
         </a>
       </dt>
+      <span style="float:right">
+        <a class="btn delete-btn btn-default fa fa-trash delete-favorite" data-url="{{path('knowledge_unfavorite', {id:knowledge.id})}}"></a>
+      </span>
       <dd>
         <span class="name">
           <a href="{{ path('user_page',{id:knowledge.userId}) }}"  rel="author">创建者:{{user.username}}</a>
@@ -21,6 +24,11 @@
         <a href="javascript:;">技术贴</a>
         <a href="javascript:;">PHP</a>
       </span>
+    </div>
+      <div class="pull-right">
+        <span>
+          浏览量:{{knowledge.pageView}}
+        </span>
     </div>
   </div>
 </div>
