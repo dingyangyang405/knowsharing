@@ -3,15 +3,15 @@ homepage:
     defaults: { _controller: TopxiaWebBundle:Default:index }
 
 my_knowledge_share:
-    path: my/knowledge/share
+    path: /my/knowledge/share
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:index }
 
 my_knowledge_share_edit:
-    path: my/knowledge/share/{id}/edit
+    path: /my/knowledge/share/{id}/edit
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:edit }
 
 my_knowledge_share_delete:
-    path: my/knowledge/share/{id}/delete
+    path: /my/knowledge/share/{id}/delete
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:delete }
     methods: [POST]
 
@@ -25,7 +25,7 @@ knowledge_create_comment:
 
 user_favorites:
     path: /user/{userId}/favorites
-    defaults: {_controller: TopxiaWebBundle:User:listFavorites}
+    defaults: { _controller: TopxiaWebBundle:User:listFavorites }
 
 user_page:
     path:  /user/{id}
@@ -115,9 +115,17 @@ my_favorites:
     path: /my/favorites
     defaults: {_controller: TopxiaWebBundle:User:myFavorites}
 
+my_followeds:
+    path: /my/followeds/{type}
+    defaults: {_controller: TopxiaWebBundle:User:myFolloweds}
+
 user_favorite:
     path: /user/{userId}/favorite
     defaults: {_controller: TopxiaWebBundle:User:listFavorite}
+
+knowledge_finish_learn:
+    path: /knowledge/{id}/learn
+    defaults: {_controller: TopxiaWebBundle:Knowledge:finishLearn}
 
 login:
   path:      /login
@@ -134,3 +142,4 @@ logout:
 register:
   path:      /register
   defaults:  { _controller: TopxiaWebBundle:Auth:register }
+

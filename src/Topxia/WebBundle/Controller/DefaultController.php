@@ -27,7 +27,7 @@ class DefaultController extends BaseController
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
-        return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
+        return $this->render('TopxiaWebBundle:Default:index.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
             'paginator' => $paginator

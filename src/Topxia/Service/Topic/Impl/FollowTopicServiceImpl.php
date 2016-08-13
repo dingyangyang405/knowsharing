@@ -86,12 +86,10 @@ class FollowTopicServiceImpl implements FollowTopicService
         return $this->getFollowTopicDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
     }
 
-    public function findFollowedTopics()
+    public function findFollowedTopicsByUserId($userId)
     {
-        $user['id'] = 1;
-
         $conditions = array(
-            'userId' => $user['id'],
+            'userId' => $userId,
             'type' => 'topic',
         );
         $orderBy = array('objectId', 'ASC');
@@ -102,6 +100,22 @@ class FollowTopicServiceImpl implements FollowTopicService
     public function waveFollowNum($ids, $diffs)
     {
         return $this->getTopicDao()->wave($ids, $diffs);
+    }
+
+    public function hasFollowedTopics($topics,$userId)
+    {
+        $followedTopics = $this->findFollowedTopicsByUserId($userId);
+        $followedTopicIds = array();
+        foreach ($followedTopics as $value) {
+            $followedTopicIds[] = $value['objectId'];
+        }
+        foreach ($topics as $key => $topic) {
+            $topics[$key]['hasFollowed'] = false;
+            if (in_array($topic['id'], $followedTopicIds)) {
+                $topics[$key]['hasFollowed'] = true;
+            }
+        }
+        return $topics;
     }
 
     protected function getFollowTopicDao()

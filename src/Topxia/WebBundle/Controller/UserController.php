@@ -16,7 +16,7 @@ class UserController extends BaseController
         $user = $this->getUserService()->getUser($id);
         $hasfollowed = $this->getUserService()->getFollowUserByUserIdAndObjectUserId(1,$id);
         $conditions = array(
-            'userId' => $user['id'],
+            'userId' => $user['id']
         );
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
         $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
@@ -25,7 +25,7 @@ class UserController extends BaseController
         $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$id);
         $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$id);
 
-        return $this->render('TopxiaWebBundle:User:index.html.twig',array(
+        return $this->render('TopxiaWebBundle:User:index.html.twig', array(
             'user' => $user,
             'knowledgesCount' => $knowledgesCount,
             'favoritesCount' => $favoritesCount,
@@ -39,13 +39,12 @@ class UserController extends BaseController
         $userId = 1;
         $user = $this->getUserService()->getUser(1);
         $conditions = array(
-            'userId' => $user['id'],
+            'userId' => $user['id']
         );
 
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($userId);
-        foreach ($favorites as $key => $favorite) {
-            $knowledges[] = $this->getKnowledgeService()->getKnowledge($favorite['knowledgeId']);
-        }
+        $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
+        $knowledges = $this->getKnowledgeService()->findKnowledgesByKnowledgeIds($knowledgeIds);
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
@@ -54,7 +53,7 @@ class UserController extends BaseController
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
         $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
 
-        return $this->render('TopxiaWebBundle:User:favorite.html.twig',array(
+        return $this->render('TopxiaWebBundle:User:favorite.html.twig', array(
             'users' => $users,
             'user' => $user,
             'knowledgesCount' => $knowledgesCount,
@@ -68,16 +67,26 @@ class UserController extends BaseController
     {
         $userId = 1;
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($userId);
-        foreach ($favorites as $key => $favorite) {
-            $knowledges[] = $this->getKnowledgeService()->getKnowledge($favorite['knowledgeId']);
-        }
+        $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
+        $knowledges = $this->getKnowledgeService()->findKnowledgesByKnowledgeIds($knowledgeIds);
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
-        return $this->render('TopxiaWebBundle:User:my-favorites.html.twig',array(
+        return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users
+        ));
+    }
+
+    public function myFollowedsAction(Request $request, $type)
+    {
+        $userId = 1;
+        $myFolloweds = $this->getUserService()->searchMyFollowedsByUserIdAndType($userId, $type);
+        var_dump($type);
+        exit;
+        return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-followeds.html.twig', array(
+            'myFolloweds' => $myFolloweds
         ));
     }
 
