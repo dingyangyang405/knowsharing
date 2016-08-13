@@ -14,18 +14,18 @@ class TopicController extends BaseController
     {
         $topics = $this->getTopicService()->findAllTopics();
         $followedTopics = $this->getFollowTopicService()->findFollowedTopics();
-        $followedTopicsId = array();
+        $followedTopicIds = array();
         foreach ($followedTopics as $value) {
-            $followedTopicsId[] = $value['objectId'];
+            $followedTopicIds[] = $value['objectId'];
         }
         foreach ($topics as $key => $topic) {
             $topics[$key]['hasFollowed'] = false;
-            if (in_array($topic['id'], $followedTopicsId)) {
+            if (in_array($topic['id'], $followedTopicIds)) {
                 $topics[$key]['hasFollowed'] = true;
             }
         }
 
-        return $this->render('TopxiaWebBundle:Topic:topic.html.twig',array(
+        return $this->render('TopxiaWebBundle:Topic:index.html.twig', array(
             'topics' => $topics
         ));
     }

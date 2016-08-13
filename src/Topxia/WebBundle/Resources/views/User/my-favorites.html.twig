@@ -1,0 +1,42 @@
+{% extends 'TopxiaWebBundle::base.html.twig' %}
+{% block left_header %} 
+<ul class="nav hidden-xs-nav nav-pills nav-stacked">
+  <li>
+    <a href="{{path('homepage')}}">
+      <i class="fa fa-book"></i><span>知识广场</span>
+    </a>
+  </li>
+  <li class="active">
+    <a href="{{path('my_knowledge_share')}}">
+      <i class="fa fa-child"></i><span>我的知识库</span>
+    </a>
+  </li>
+</ul>
+{% endblock %}
+{% block aside %}
+  {% include 'TopxiaWebBundle::aside.html.twig' %}
+{% endblock %}
+{% block base_content %} 
+  <div class="content">
+    <div class="content-block new-content">
+      {% block navTabs %}
+        <ul class="nav nav-tabs">
+          <li role="share"><a href="{{path('my_knowledge_share')}}">我的分享</a></li>
+          <li role="myconcern" class="active"><a href="{{path('my_favorites')}}">我的收藏</a></li>
+          <li role="topic"><a href="{{path('my_knowledge_share')}}">我的关注</a></li>
+        </ul>
+      {% endblock %}
+      <div class="row" id="knowledge-list">
+        {% if knowledges is defined and knowledges %}
+          {% for knowledge in knowledges %}
+            {% set user = users[knowledge.userId]|default(null) %}
+              {% include "TopxiaWebBundle:User:single-favorite-list.html.twig" %}
+            {% endfor %}
+          {% else %}
+            <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>
+          {% endif %}
+      </div>
+    </div>
+{#   {{ web_macro.paginator(paginator) }} #}
+  </div>  
+{% endblock %}

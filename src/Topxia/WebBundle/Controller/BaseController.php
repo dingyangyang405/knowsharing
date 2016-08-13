@@ -4,16 +4,24 @@ namespace Topxia\WebBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Topxia\WebBundle\Security\CurrentUser;
 
 class BaseController extends Controller
 {
-//    public function getServiceKernel($service)
-//    {
-//        $container = $this->container->get('biz_kernel');
-//
-//        return $container[$service];
-//    }
     protected $biz;
+
+    public function login($user, $request)
+    {
+        $currentUser = new CurrentUser($user);
+
+        $token = new UsernamePasswordToken($currentUser, null, 'main', $currentUser->getRoles());
+        $this->get('security.token_storage')->setToken($token);
+
+        $event = new InteractiveLoginEvent($request, $token);
+        $this->get('event_dispatcher')->dispatch('security.interactive_login', $event);
+    }
 
     public function setContainer(ContainerInterface $container = null)
     {

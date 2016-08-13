@@ -11,18 +11,12 @@ class DefaultController extends BaseController
 {
     public function indexAction(Request $request)
     {
-        $userId = '1';
-        $knowledges = $this->getKnowledgeService()->findKnowledges();
-        
-        $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
-        $users = ArrayToolKit::index($users, 'id');
-
         $conditions = array();
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
             $this->get('request'),
-            count($knowledges),
-            8
+            $this->getKnowledgeService()->getKnowledgesCount($conditions),
+            20
         );
         $knowledges = $this->getKnowledgeService()->searchKnowledges(
             $conditions,
@@ -31,7 +25,9 @@ class DefaultController extends BaseController
             $paginator->getPerPageCount()
         );
 
-        return $this->render('TopxiaWebBundle:Default:index.html.twig',array(
+        $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
+        $users = ArrayToolKit::index($users, 'id');
+        return $this->render('TopxiaWebBundle:Default:index.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
             'paginator' => $paginator

@@ -12,6 +12,8 @@ interface KnowledgeService
 
     public function findKnowledgesByUserId($id);
 
+    public function findKnowledgesByKnowledgeIds($knowledgeIds);
+
     public function getKnowledge($id);
 
     public function createComment($conditions);

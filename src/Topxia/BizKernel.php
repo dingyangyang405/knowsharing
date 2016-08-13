@@ -20,8 +20,16 @@ use Topxia\Service\Favorite\Dao\Impl\FavoriteDaoImpl;
 use Topxia\Service\Learn\Impl\LearnServiceImpl;
 use Topxia\Service\Learn\Dao\Impl\LearnDaoImpl;
 
-class StarterKernel extends Kernel
+class BizKernel extends Kernel
 {
+    protected $extraContainer;
+
+    public function __construct($config, $extraContainer)
+    {
+        parent::__construct($config);
+        $this->extraContainer = $extraContainer;
+    }
+
     public function boot($options = array())
     {
         $this->registerService();
@@ -36,6 +44,12 @@ class StarterKernel extends Kernel
 
     protected function registerService()
     {
+        $this['password_encoder'] = function($container) {
+            $class = $this->extraContainer->getParameter('app.current_user.class');
+            $user = new $class(array());
+            return $this->extraContainer->get('security.encoder_factory')->getEncoder($user);
+        };
+
         $this['user_dao'] = $this->dao(function($container) {
             return new UserDaoImpl($container);
         });
