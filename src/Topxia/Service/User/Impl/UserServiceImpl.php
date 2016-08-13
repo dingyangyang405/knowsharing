@@ -66,6 +66,7 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
             'type' => $type
         );
         $orderBy = array('id', 'DESC');
+        
         $myFolloweds = $this->getFollowDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
 
         return $myFolloweds;

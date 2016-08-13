@@ -21,7 +21,10 @@ class FollowUserDaoImpl extends GeneralDaoImpl implements FollowUserDao
         return array(
             'timestamps' => array(),
             'serializes' => array(),
-            'conditions' => array(),
+            'conditions' => array(
+                'userId = :userId', 
+                'type = :type'
+            ),
         );
     }
 
