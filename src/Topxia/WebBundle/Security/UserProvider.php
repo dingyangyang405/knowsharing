@@ -28,7 +28,6 @@ class UserProvider implements UserProviderInterface
         $currentUser = new CurrentUser($user);
 
         $this->biz->setUser($currentUser);
-
         return new CurrentUser($user);
     }
 

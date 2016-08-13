@@ -103,6 +103,20 @@ class UserController extends BaseController
         return new JsonResponse(true);
     }
 
+    public function createToreadAction(Request $request, $id)
+    {
+        $this->getToreadService()->createToreadKnowledge($id);
+
+        return new JsonResponse(true);
+    }
+
+    public function deleteToreadAction(Request $request, $id)
+    {
+        $this->getToreadService()->deleteToreadKnowledge($id);
+
+        return new JsonResponse(true);
+    }
+
     protected function getKnowledgeService()
     {
         return $this->biz['knowledge_service'];
@@ -121,5 +135,10 @@ class UserController extends BaseController
     protected function getLikeService()
     {
         return $this->biz['like_service'];
+    }
+
+    protected function getToreadService()
+    {
+        return $this->biz['toread_service'];
     }
 }

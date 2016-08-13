@@ -27,9 +27,9 @@ class UserDaoImpl extends GeneralDaoImpl implements UserDao
         return $this->db()->fetchAll($sql,$ids);
     }
 
-    public function getByUsername($name)
+    public function getByUsername($username)
     {
-        return $this->getByFields(array('name' => $name));
+        return $this->getByFields(array('username' => $username));
     }
 
     public function declares()
@@ -38,7 +38,7 @@ class UserDaoImpl extends GeneralDaoImpl implements UserDao
             'timestamps' => array('created', 'updated'),
             'serializes' => array('roles' => 'delimiter'),
             'conditions' => array(
-                'name = :name'
+                'username = :username'
             ),
         );
     }
