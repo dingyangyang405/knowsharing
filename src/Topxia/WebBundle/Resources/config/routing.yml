@@ -123,3 +123,11 @@ logout:
 register:
   path:      /register
   defaults:  { _controller: TopxiaWebBundle:Auth:register }
+
+form_submit:
+  path:      /form_submit
+  defaults:  { _controller:  TopxiaWebBundle:Auth:formSubmit }
+
+ajax_form_submit:
+  path:      /ajax_form_submit
+  defaults:  { _controller:  TopxiaWebBundle:Auth:ajaxFormSubmit }

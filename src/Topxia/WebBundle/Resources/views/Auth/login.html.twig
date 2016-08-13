@@ -17,6 +17,7 @@
                     <input type="password" class="form-control" placeholder="密码" id="password" name="_password">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
+                {{ form_csrf_token() }}
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="checkbox">
