@@ -2,7 +2,7 @@
   <div class="news-info col-xs-12 col-sm-12 col-md-11">
     <dl>
       <dt>
-        <a href="{{path('knowledge_detail',{id:knowledge.id})}}" target="_blank" ><i class="{% if knowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}"></i>&nbsp&nbsp{{knowledge.title}}
+        <a href="{{path('knowledge_detail',{id:knowledge.id})}}" target="_blank" ><i class="{% if knowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}"></i>&nbsp;&nbsp;{{knowledge.title}}
         </a>
       </dt>
       <span style="float:right">
@@ -23,8 +23,6 @@
       <span class="tags visible-lg visible-md">
         <a href="javascript:;">技术贴</a>
         <a href="javascript:;">PHP</a>
-      </span>
-        </a>        
       </span>
     </div>
   </div>
