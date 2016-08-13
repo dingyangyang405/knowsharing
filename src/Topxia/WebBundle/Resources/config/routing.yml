@@ -3,15 +3,15 @@ homepage:
     defaults: { _controller: TopxiaWebBundle:Default:index }
 
 my_knowledge_share:
-    path: my/knowledge/share
+    path: /my/knowledge/share
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:index }
 
 my_knowledge_share_edit:
-    path: my/knowledge/share/{id}/edit
+    path: /my/knowledge/share/{id}/edit
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:edit }
 
 my_knowledge_share_delete:
-    path: my/knowledge/share/{id}/delete
+    path: /my/knowledge/share/{id}/delete
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:delete }
     methods: [POST]
 
@@ -25,7 +25,7 @@ knowledge_create_comment:
 
 user_favorites:
     path: /user/{userId}/favorites
-    defaults: {_controller: TopxiaWebBundle:User:listFavorites}
+    defaults: { _controller: TopxiaWebBundle:User:listFavorites }
 
 user_page:
     path:  /user/{id}

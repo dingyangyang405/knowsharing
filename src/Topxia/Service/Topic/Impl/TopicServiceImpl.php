@@ -18,6 +18,10 @@ class TopicServiceImpl implements TopicService
         if (empty($field)) {
             throw new \Exception('添加内容不能为空');
         }
+        $topic = $this->getTopicDao()->get($field['name']);
+        if (empty($topic)) {
+            return $topic;
+        }
         return $this->getTopicDao()->create($field);
     }
 
@@ -28,7 +32,8 @@ class TopicServiceImpl implements TopicService
 
     public function deleteTopicById($id)
     {
-        if (empty($id)) {
+        $topic = $this->getTopicDao()->get($id);
+        if (empty($topic)) {
             throw new \Exception('主题不存在,删除失败!');
         }
         return $this->getTopicDao()->delete($id);
