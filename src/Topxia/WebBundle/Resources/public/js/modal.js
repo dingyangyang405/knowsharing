@@ -110,5 +110,25 @@ $(document).ready(function(){
         })
     });
 
+    $('.row').on('click','.delete-btn',function() {
+        var url = $(this).data('url');
+        if (confirm('确定要删除吗？')) {    
+            $.post(url,function(){
+                window.location.reload();
+            });
+        }
+    });
+
+    $('#uploadModal').on('click','#knowledge-edit-btn', function(){
+        var modal = $('#knowledge-edit-form').parents('.modal');
+        var form = $('#knowledge-edit-form');
+        var url = form.attr('action');
+        $('#knowledge-edit-btn').button('submiting').addClass('disabled');
+        $.post(url,form.serialize(), function(){
+            modal.modal('hide');
+            window.location.reload();         
+        });
+    });
+
 });
 

@@ -3,6 +3,7 @@
 namespace Topxia\Service\Knowledge\Impl;
 
 use Topxia\Service\Knowledge\KnowledgeService;
+use Topxia\Common\ArrayToolKit;
 
 
 class KnowledgeServiceImpl implements KnowledgeService
@@ -16,6 +17,20 @@ class KnowledgeServiceImpl implements KnowledgeService
 
     public function updateKnowledge($id, $fields)
     {
+        $fields = ArrayToolkit::filter($fields, array(
+            'title'   => '',
+            'summary' => '',
+            'content' => ''
+        ));
+
+        if (empty($fields['title'])) {
+            throw new \RuntimeException('标题不能为空！');
+        }
+
+        if (empty($fields['summary'])) {
+            throw new \RuntimeException('摘要不能为空！');
+        }
+
         return $this->getKnowledgeDao()->update($id, $fields);
     }
 

@@ -46,14 +46,14 @@ class MyKnowledgeShareController extends BaseController
 
     public function editAction(Request $request, $id)
     {
-        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         if ($request->getMethod() == 'POST') {
             $knowledge = $request->request->all();
             $this->getKnowledgeService()->updateKnowledge($id, $knowledge);
 
-            return $this->redirect($this->generateUrl('
-                my_knowledge_share'));
+            return $this->redirect($this->generateUrl('my_knowledge_share'));
         }
+
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
 
         return $this->render('TopxiaWebBundle:MyKnowledgeShare:edit-knowledge.html.twig', array(
             'knowledge' => $knowledge
