@@ -33,7 +33,7 @@ class CurrentUser implements CurrentUserInterface, AdvancedUserInterface, Equata
 
     public function getUsername()
     {
-        return $this->fields['name'];
+        return $this->fields['username'];
     }
 
     public function eraseCredentials()
@@ -63,7 +63,7 @@ class CurrentUser implements CurrentUserInterface, AdvancedUserInterface, Equata
 
     public function isEqualTo(UserInterface $user)
     {
-        if ($this->name !== $user->getUsername()) {
+        if ($this->username !== $user->getUsername()) {
             return false;
         }
 

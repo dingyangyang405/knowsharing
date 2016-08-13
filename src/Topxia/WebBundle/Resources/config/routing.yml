@@ -115,7 +115,6 @@ login:
 
 login_check:
   path:      /login_check
-  defaults:  { _controller: TopxiaWebBundle:Auth:check }
 
 logout:
   path:      /logout
