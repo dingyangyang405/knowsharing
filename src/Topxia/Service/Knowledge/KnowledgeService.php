@@ -25,4 +25,5 @@ interface KnowledgeService
     public function updateKnowledge($id, $fields);
 
     public function deleteKnowledge($id);
+
 }

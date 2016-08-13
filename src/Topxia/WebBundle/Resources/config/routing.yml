@@ -100,3 +100,7 @@ link_modal:
 user_favorite:
     path: /user/{userId}/favorite
     defaults: {_controller: TopxiaWebBundle:User:listFavorite}
+
+knowledge_finish_learn:
+    path: /knowledge/{id}/learn
+    defaults: {_controller: TopxiaWebBundle:Knowledge:finishLearn}
