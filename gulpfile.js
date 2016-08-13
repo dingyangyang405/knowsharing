@@ -23,4 +23,7 @@ elixir(function(mix) {
         './node_modules/font-awesome/fonts',
         './app/Resources/public/fonts',
     ],'web/assets/fonts');
+
+    mix.copy('./app/Resources/public/js/global.js', 'web/assets/js/global.js');
+    mix.copy('./app/Resources/public/js/ajax-form-submit.js', 'web/assets/js/ajax-form-submit.js');
 });

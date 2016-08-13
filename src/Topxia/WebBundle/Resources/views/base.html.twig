@@ -1,10 +1,17 @@
 {% import "TopxiaWebBundle::macro.html.twig" as web_macro %}
 <!DOCTYPE html>
+{{ script(['js/vendor.js', 'js/global.js'])}}
+{{ css('css/vendor.css') }}
 <html>
 <head>
     <meta charset="UTF-8" />
+    <meta content="{{ csrf_token(default_csrf_token_id) }}" name="csrf-token" />
     <title>{% block title %}知识分享系统{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}
+        {% for path in css() %}
+            <link href="{{ asset('assets/' ~ path) }}" rel="stylesheet" />
+        {% endfor %}
+    {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.icon') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/vendor.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base.css') }}">
@@ -69,6 +76,13 @@
     </section>
 {% endblock %}
 {% block javascripts %}
+    {% for path in script()  %}
+    <script src="{{ asset( 'assets/' ~ path) }}"></script>
+    {% endfor %}
+    <script src="{{ asset('bundles/topxiaweb/js/modal.js') }}"></script>
+    <script src="{{ asset('bundles/topxiaweb/js/default.js') }}"></script>
+    <script src="{{ asset('bundles/topxiaweb/js/follow.js') }}"></script>
+    <script src="{{ asset('bundles/topxiaweb/js/knowledge/comment.js') }}"></script>
     <script src="{{ asset('bundles/topxiaweb/js/base.js') }}"></script>
 {% endblock %}
 </body>
