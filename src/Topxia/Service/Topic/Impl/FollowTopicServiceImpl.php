@@ -62,7 +62,7 @@ class FollowTopicServiceImpl implements FollowTopicService
         if (empty($followed)) {
             throw new \Exception('未被关注');
         }
-
+        
         $this->getFollowTopicDao()->delete($followed[0]['id']);
 
         $ids = array($topicId);
