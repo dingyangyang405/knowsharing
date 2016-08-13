@@ -14,6 +14,8 @@ class KnowledgeController extends BaseController
     {
         $userId = 1;
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $hasLearned = $this->getLearnService()->getLearnedByIdAndUserId($id, $userId);
+
         $user = $this->getUserService()->getUser($knowledge['userId']);
 
         $conditions = array('knowledgeId' => $knowledge['id']);
@@ -48,7 +50,8 @@ class KnowledgeController extends BaseController
             'user' => $user,
             'comments' => $comments,
             'users' => $users,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'hasLearned' => $hasLearned
         ));
     }
 
@@ -120,6 +123,15 @@ class KnowledgeController extends BaseController
         ));
     }
 
+    public function finishLearnAction(Request $request, $id)
+    {
+        $userId = '1';
+        $this->getLearnService()->finishKnowledgeLearn($id, $userId);
+        return new JsonResponse(array(
+            'status'=>'success'
+        ));
+    }
+
     protected function getLikeService()
     {
         return $this->biz['like_service'];
@@ -143,5 +155,10 @@ class KnowledgeController extends BaseController
     protected function getFollowTopicService()
     {
         return $this->biz['follow_topic_service'];
+    }
+
+    protected function getLearnService()
+    {
+        return $this->biz['learn_service'];
     }
 }
