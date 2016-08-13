@@ -27,7 +27,7 @@ class AppInitCommand extends Command
         $this->getService('user_service')->register($user);
 
         $output->writeln([
-            "Admin username: {$user['username']}",
+            "Admin name: {$user['username']}",
             "Admin Password: {$user['password']}"
         ]);
     }

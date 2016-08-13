@@ -5,10 +5,21 @@
                 <a href="javascript:;" target="_blank" >
                     {{ knowledge.title }}
                 </a>
+                <div class="pull-right">
+                  <button id="learn-btn" class="btn btn-primary finish-btn" {% if hasLearned %}style="display:none"{% endif %} data-url="{{path('knowledge_finish_learn',{id:knowledge.id})}}">
+                  <span class="glyphicon glyphicon-unchecked"></span>
+                  待学习
+                  </button>
+
+                  <button id="finish-btn" class="btn btn-primary finish-btn success" {% if not hasLearned %}style="display:none"{% endif %} disabled="disabled">
+                  <span class="glyphicon glyphicon-check"></span>
+                  学过了
+                  </button>
+                </div>
             </dt>
             <dd>
         <span class="name">
-          <a href="javascript:;"  rel="author">分享者:{{ user.name }}</a>
+          <a href="javascript:;"  rel="author">分享者:{{ user.username }}</a>
         </span>
                 <span class="identity"></span>
         <span class="time">
