@@ -73,9 +73,20 @@ class UserController extends BaseController
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
-        return $this->render('TopxiaWebBundle:User:my-favorites.html.twig', array(
+        return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users
+        ));
+    }
+
+    public function myFollowedsAction(Request $request, $type)
+    {
+        $userId = 1;
+        $myFolloweds = $this->getUserService()->searchMyFollowedsByUserIdAndType($userId, $type);
+        var_dump($type);
+        exit;
+        return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-followeds.html.twig', array(
+            'myFolloweds' => $myFolloweds
         ));
     }
 

@@ -105,6 +105,10 @@ my_favorites:
     path: /my/favorites
     defaults: {_controller: TopxiaWebBundle:User:myFavorites}
 
+my_followeds:
+    path: /my/followeds/{type}
+    defaults: {_controller: TopxiaWebBundle:User:myFolloweds}
+
 user_favorite:
     path: /user/{userId}/favorite
     defaults: {_controller: TopxiaWebBundle:User:listFavorite}
