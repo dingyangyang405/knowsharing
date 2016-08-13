@@ -1,4 +1,5 @@
 {% extends 'TopxiaWebBundle::base.html.twig' %}
+
 {% block base_content %}
     <div class="content">
         <div class="content-block new-content">
@@ -11,4 +12,7 @@
 {% endblock %}
 {% block aside %}
     {% include 'TopxiaWebBundle::aside.html.twig' %}
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/topxiaweb/js/knowledge.js') }}"></script>
 {% endblock %}

@@ -17,6 +17,8 @@ use Topxia\Service\Like\Impl\LikeServiceImpl;
 use Topxia\Service\Like\Dao\Impl\LikeDaoImpl;
 use Topxia\Service\Favorite\Impl\FavoriteServiceImpl;
 use Topxia\Service\Favorite\Dao\Impl\FavoriteDaoImpl;
+use Topxia\Service\Learn\Impl\LearnServiceImpl;
+use Topxia\Service\Learn\Dao\Impl\LearnDaoImpl;
 
 class BizKernel extends Kernel
 {
@@ -107,5 +109,13 @@ class BizKernel extends Kernel
         $this['like_service'] = function($container) {
             return new LikeServiceImpl($container);
         };
+
+        $this['learn_service'] = function($container) {
+            return new LearnServiceImpl($container);
+        };
+
+        $this['learn_dao'] = $this->dao(function($container) {
+            return new LearnDaoImpl($container);
+        });
     }
 }
