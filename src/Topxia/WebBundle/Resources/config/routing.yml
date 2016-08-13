@@ -109,6 +109,10 @@ user_favorite:
     path: /user/{userId}/favorite
     defaults: {_controller: TopxiaWebBundle:User:listFavorite}
 
+knowledge_finish_learn:
+    path: /knowledge/{id}/learn
+    defaults: {_controller: TopxiaWebBundle:Knowledge:finishLearn}
+
 login:
   path:      /login
   defaults:  { _controller: TopxiaWebBundle:Auth:login }
@@ -124,3 +128,4 @@ logout:
 register:
   path:      /register
   defaults:  { _controller: TopxiaWebBundle:Auth:register }
+
