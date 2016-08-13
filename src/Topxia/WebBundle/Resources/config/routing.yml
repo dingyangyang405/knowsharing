@@ -49,6 +49,16 @@ user_unfollow:
     defaults: { _controller: TopxiaWebBundle:User:unfollow }
     methods: [POST]
 
+user_create_toread:
+    path: /user/{id}/create/toread
+    defaults: { _controller: TopxiaWebBundle:User:createToread }
+    methods: [POST]
+
+user_delete_toread:
+    path: /user/{id}/delete/toread
+    defaults: { _controller: TopxiaWebBundle:User:deleteToread }
+    methods: [POST]
+
 knowledge_favorite:
     path: /knowledge/favorite/{id}
     defaults: {_controller: TopxiaWebBundle:Knowledge:favorite}
