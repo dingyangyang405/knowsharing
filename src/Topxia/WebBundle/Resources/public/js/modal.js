@@ -79,8 +79,8 @@ $(document).ready(function(){
         //检测是否选择文件
         if (!fileInput.value) {
             $("#title").val('请上传文件');
-                    return;
-                }
+            return;
+        }
         //获取文件相关信息
         var file = fileInput.files[0];
         var fileName = file.name;
