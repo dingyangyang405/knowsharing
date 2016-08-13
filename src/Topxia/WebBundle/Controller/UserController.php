@@ -83,8 +83,7 @@ class UserController extends BaseController
     {
         $userId = 1;
         $myFolloweds = $this->getUserService()->searchMyFollowedsByUserIdAndType($userId, $type);
-        var_dump($type);
-        exit;
+
         return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-followeds.html.twig', array(
             'myFolloweds' => $myFolloweds
         ));
