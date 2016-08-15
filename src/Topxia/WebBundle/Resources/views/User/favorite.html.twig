@@ -7,14 +7,15 @@
                 <ul class="nav nav-tabs">
                     <li role="newknowledge"><a href="{{path('user_page', {id:user.id})}}">他的分享</a></li>
                     <li role="myconcern"><a href="">他的关注</a></li>
-                    <li role="topic" class="active"><a href="{{path('user_favorite', {userId:user.id})}}">他的收藏</a></li>
+                    <li role="topic" class="active"><a href="{{path('user_favorites', {userId:user.id})}}">他的收藏</a></li>
                 </ul>
                 <br>
             {% endblock %}
             <div class="row" id="knowledge-list">
                 {% if knowledges is defined and knowledges %}
                     {% for knowledge in knowledges %}
-                        {% include "TopxiaWebBundle:User:single-favorite-list.html.twig" %}
+                        {% set user = users[knowledge.userId]|default(null) %}
+                            {% include "TopxiaWebBundle:Default:single-knowledge-list.html.twig" %}
                     {% endfor %}
                 {% else %}
                     <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>

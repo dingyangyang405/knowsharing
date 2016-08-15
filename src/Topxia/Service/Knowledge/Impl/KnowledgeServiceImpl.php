@@ -3,6 +3,7 @@
 namespace Topxia\Service\Knowledge\Impl;
 
 use Topxia\Service\Knowledge\KnowledgeService;
+use Topxia\Common\ArrayToolKit;
 
 
 class KnowledgeServiceImpl implements KnowledgeService
@@ -16,6 +17,20 @@ class KnowledgeServiceImpl implements KnowledgeService
 
     public function updateKnowledge($id, $fields)
     {
+        $fields = ArrayToolkit::filter($fields, array(
+            'title'   => '',
+            'summary' => '',
+            'content' => ''
+        ));
+
+        if (empty($fields['title'])) {
+            throw new \RuntimeException('标题不能为空！');
+        }
+
+        if (empty($fields['summary'])) {
+            throw new \RuntimeException('摘要不能为空！');
+        }
+
         return $this->getKnowledgeDao()->update($id, $fields);
     }
 
@@ -38,6 +53,11 @@ class KnowledgeServiceImpl implements KnowledgeService
     {
         return $this->getKnowledgeDao()->findKnowledgesByUserId($id);
     }
+
+    public function findKnowledgesByKnowledgeIds($knowledgeIds)
+    {
+        return $this->getKnowledgeDao()->findKnowledgesByKnowledgeIds($knowledgeIds);
+    }
     
     public function createKnowledge($field)
     {
@@ -48,7 +68,7 @@ class KnowledgeServiceImpl implements KnowledgeService
     {
         return $this->getKnowledgeDao()->get($id);
     }
-    //
+
     public function createComment($conditions)
     {
         if (empty($conditions['value'])) {
@@ -59,12 +79,12 @@ class KnowledgeServiceImpl implements KnowledgeService
 
         return $this->getCommentDao()->create($conditions);
     }
-    //
+
     public function getCommentsCount($conditions)
     {
         return $this->getCommentDao()->count($conditions);
     }
-    //
+
     public function searchComments($conditions, $orderBy, $start, $limit)
     {
         return $this->getCommentDao()->search($conditions, $orderBy, $start, $limit);

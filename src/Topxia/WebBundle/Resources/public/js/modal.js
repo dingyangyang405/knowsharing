@@ -55,6 +55,7 @@ $(document).ready(function(){
             $("#uploadModal").html(data).modal();
         });
     });
+
     //自动读取标题
     $('body').on('input', '#inputlink', function() {
         var link = $(this).val();
@@ -71,14 +72,15 @@ $(document).ready(function(){
             }
         })
     });
+
     //上传文件
     $('body').on('change', '#inputfile', function() {
         var fileInput = document.getElementById('inputfile');
         //检测是否选择文件
         if (!fileInput.value) {
             $("#title").val('请上传文件');
-                    return;
-                }
+            return;
+        }
         //获取文件相关信息
         var file = fileInput.files[0];
         var fileName = file.name;
@@ -90,6 +92,7 @@ $(document).ready(function(){
         }
         $("#title").val(fileName);
     });
+
     //检索主题
     $('body').on('input', '#topic', function() {
         var link = $(this).val();
@@ -106,5 +109,26 @@ $(document).ready(function(){
             }
         })
     });
+
+    $('.row').on('click','.delete-btn',function() {
+        var url = $(this).data('url');
+        if (confirm('确定要删除吗？')) {    
+            $.post(url,function(){
+                window.location.reload();
+            });
+        }
+    });
+
+    $('#uploadModal').on('click','#knowledge-edit-btn', function(){
+        var modal = $('#knowledge-edit-form').parents('.modal');
+        var form = $('#knowledge-edit-form');
+        var url = form.attr('action');
+        $('#knowledge-edit-btn').button('submiting').addClass('disabled');
+        $.post(url,form.serialize(), function(){
+            modal.modal('hide');
+            window.location.reload();         
+        });
+    });
+
 });
 

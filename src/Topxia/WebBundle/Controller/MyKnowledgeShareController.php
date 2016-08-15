@@ -13,12 +13,22 @@ class MyKnowledgeShareController extends BaseController
     {   
         // $userId = $this->getUserService()->getCurrentUser();
         $userId = 1;
-        $conditions = array('userId' => $userId);
+        $fields = $request->query->all();
+        $conditions = array(
+            'userId' => $userId,
+            'keyword' => '',
+        );
+
+        $conditions = array_merge($conditions, $fields);
+        if (isset($conditions['keyword'])) {
+            $conditions['title'] = "%{$conditions['keyword']}%";
+            unset($conditions['keyword']);
+        }
 
         $paginator = new Paginator(
             $this->get('request'),
             $this->getKnowledgeService()->getKnowledgesCount($conditions),
-            10
+            20
         );
 
         $knowledges = $this->getKnowledgeService()->searchKnowledges(
@@ -36,14 +46,14 @@ class MyKnowledgeShareController extends BaseController
 
     public function editAction(Request $request, $id)
     {
-        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         if ($request->getMethod() == 'POST') {
             $knowledge = $request->request->all();
             $this->getKnowledgeService()->updateKnowledge($id, $knowledge);
 
-            return $this->redirect($this->generateUrl('
-                my_knowledge_share'));
+            return $this->redirect($this->generateUrl('my_knowledge_share'));
         }
+
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
 
         return $this->render('TopxiaWebBundle:MyKnowledgeShare:edit-knowledge.html.twig', array(
             'knowledge' => $knowledge

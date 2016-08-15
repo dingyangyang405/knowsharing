@@ -27,13 +27,18 @@ class UserDaoImpl extends GeneralDaoImpl implements UserDao
         return $this->db()->fetchAll($sql,$ids);
     }
 
+    public function getByUsername($username)
+    {
+        return $this->getByFields(array('username' => $username));
+    }
+
     public function declares()
     {
         return array(
-            'timestamps' => array(),
-            'serializes' => array(),
+            'timestamps' => array('created', 'updated'),
+            'serializes' => array('roles' => 'delimiter'),
             'conditions' => array(
-                'id = :id'
+                'username = :username'
             ),
         );
     }

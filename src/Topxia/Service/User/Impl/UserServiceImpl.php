@@ -2,16 +2,10 @@
 namespace Topxia\Service\User\Impl;
 
 use Topxia\Service\User\UserService;
+use Codeages\Biz\Framework\Service\KernelAwareBaseService;
 
-class UserServiceImpl implements UserService
+class UserServiceImpl extends KernelAwareBaseService implements UserService
 {
-    protected  $container;
-
-    public  function __construct($container)
-    {
-        $this->container = $container;
-    }
-
     public function getUser($id)
     {
         return $this->getUserDao()->get($id);
@@ -58,6 +52,35 @@ class UserServiceImpl implements UserService
         } else {
             throw new \RuntimeException("取消关注该用户失败");
         }  
+    }
+
+    public function getUserByUsername($username)
+    {
+        return $this->getUserDao()->getByUsername($username);
+    }
+
+    public function searchMyFollowedsByUserIdAndType($userId, $type)
+    {
+        $conditions = array(
+            'userId' => $userId, 
+            'type' => $type
+        );
+        $orderBy = array('id', 'DESC');
+        
+        $myFolloweds = $this->getFollowDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
+
+        return $myFolloweds;
+    }
+
+    public function register($user)
+    {
+        $user['salt'] = md5(time().mt_rand(0, 1000));
+        $user['password'] = $this->container['password_encoder']->encodePassword($user['password'], $user['salt']);
+        if (empty($user['roles'])) {
+            $user['roles'] = array('ROLE_USER');
+        }
+
+        return $this->getUserDao()->create($user);
     }
 
     protected function getUserDao()

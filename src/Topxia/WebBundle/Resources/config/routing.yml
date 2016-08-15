@@ -3,21 +3,25 @@ homepage:
     defaults: { _controller: TopxiaWebBundle:Default:index }
 
 my_knowledge_share:
-    path: my/knowledge/share
+    path: /my/knowledge/share
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:index }
 
 my_knowledge_share_edit:
-    path: my/knowledge/share/{id}/edit
+    path: /my/knowledge/share/{id}/edit
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:edit }
 
 my_knowledge_share_delete:
-    path: my/knowledge/share/{id}/delete
+    path: /my/knowledge/share/{id}/delete
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:delete }
     methods: [POST]
 
 knowledge_create_comment:
     path:  /comment
     defaults: { _controller: TopxiaWebBundle:Knowledge:createComment }
+
+user_favorites:
+    path: /user/{userId}/favorites
+    defaults: { _controller: TopxiaWebBundle:User:listFavorites }
 
 user_page:
     path:  /user/{id}
@@ -43,6 +47,16 @@ user_follow:
 user_unfollow:
     path: /user/{id}/unfollow
     defaults: { _controller: TopxiaWebBundle:User:unfollow }
+    methods: [POST]
+
+user_create_toread:
+    path: /user/{id}/create/toread
+    defaults: { _controller: TopxiaWebBundle:User:createToread }
+    methods: [POST]
+
+user_delete_toread:
+    path: /user/{id}/delete/toread
+    defaults: { _controller: TopxiaWebBundle:User:deleteToread }
     methods: [POST]
 
 knowledge_favorite:
@@ -93,6 +107,14 @@ link_modal:
     path: /modal/link
     defaults: { _controller: TopxiaWebBundle:Default:linkModal}
 
+my_favorites:
+    path: /my/favorites
+    defaults: {_controller: TopxiaWebBundle:User:myFavorites}
+
+my_followeds:
+    path: /my/followeds/{type}
+    defaults: {_controller: TopxiaWebBundle:User:myFolloweds}
+
 user_favorite:
     path: /user/{userId}/favorite
     defaults: {_controller: TopxiaWebBundle:User:listFavorite}
@@ -100,3 +122,22 @@ user_favorite:
 top_knowledge:
     path: /top/knowledge
     defaults: { _controller: TopxiaWebBundle:Default:listTopKnowledges }
+
+knowledge_finish_learn:
+    path: /knowledge/{id}/learn
+    defaults: {_controller: TopxiaWebBundle:Knowledge:finishLearn}
+
+login:
+  path:      /login
+  defaults:  { _controller: TopxiaWebBundle:Auth:login }
+
+login_check:
+  path:      /login_check
+
+logout:
+  path:      /logout
+  defaults:  { _controller: TopxiaWebBundle:Auth:logout }
+
+register:
+  path:      /register
+  defaults:  { _controller: TopxiaWebBundle:Auth:register }

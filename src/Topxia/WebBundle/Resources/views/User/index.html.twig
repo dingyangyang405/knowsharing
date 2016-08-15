@@ -5,7 +5,7 @@
       <div class="box-body box-profile">
         <img class="profile-user-img img-responsive img-circle" src="/bundles/topxiaweb/img/user.jpg">
 
-        <h3 class="profile-username text-center">昵称：{{ user.name }}</h3>
+        <h3 class="profile-username text-center">昵称：{{ user.username }}</h3>
 
         <ul class="list-group list-group-unbordered" id="user">
           <li class="list-group-item">
@@ -32,7 +32,7 @@
                 <ul class="nav nav-tabs">
                     <li role="newknowledge" class="active"><a href="{{path('user_page', {id:user.id})}}">他的分享</a></li>
                     <li role="myconcern"><a href="">他的关注</a></li>
-                    <li role="topic"><a href="{{path('user_favorite', {userId:user.id})}}">他的收藏</a></li>
+                    <li role="topic"><a href="{{path('user_favorites', {userId:user.id})}}">他的收藏</a></li>
                 </ul>
                 <br>
             {% endblock %}
