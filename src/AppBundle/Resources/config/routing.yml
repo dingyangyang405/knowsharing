@@ -1,0 +1,140 @@
+homepage:
+    path:  /
+    defaults: { _controller: AppBundle:Default:index }
+
+my_knowledge_share:
+    path: /my/knowledge/share
+    defaults: { _controller: AppBundle:MyKnowledgeShare:index }
+
+my_knowledge_share_edit:
+    path: /my/knowledge/share/{id}/edit
+    defaults: { _controller: AppBundle:MyKnowledgeShare:edit }
+
+my_knowledge_share_delete:
+    path: /my/knowledge/share/{id}/delete
+    defaults: { _controller: AppBundle:MyKnowledgeShare:delete }
+    methods: [POST]
+
+knowledge_create_comment:
+    path:  /comment
+    defaults: { _controller: AppBundle:Knowledge:createComment }
+
+user_favorites:
+    path: /user/{userId}/favorites
+    defaults: { _controller: AppBundle:User:listFavorites }
+
+user_page:
+    path:  /user/{id}
+    defaults: { _controller: AppBundle:User:index }
+
+knowledge_create_knowledge:
+    path:  /create/knowledge
+    defaults: {_controller: AppBundle:Knowledge:createKnowledge }
+
+knowledge_detail:
+    path:  /knowledge/{id}
+    defaults: { _controller: AppBundle:Knowledge:index }
+
+topic:
+    path: /topic
+    defaults: { _controller: AppBundle:Topic:index }
+
+user_follow:
+    path: /user/{id}/follow
+    defaults: { _controller: AppBundle:User:follow }
+    methods: [POST]
+    
+user_unfollow:
+    path: /user/{id}/unfollow
+    defaults: { _controller: AppBundle:User:unfollow }
+    methods: [POST]
+
+user_create_toread:
+    path: /user/{id}/create/toread
+    defaults: { _controller: AppBundle:User:createToread }
+    methods: [POST]
+
+user_delete_toread:
+    path: /user/{id}/delete/toread
+    defaults: { _controller: AppBundle:User:deleteToread }
+    methods: [POST]
+
+knowledge_favorite:
+    path: /knowledge/favorite/{id}
+    defaults: {_controller: AppBundle:Knowledge:favorite}
+
+knowledge_unfavorite:
+    path: /knowledge/unfavorite/{id}
+    defaults: {_controller: AppBundle:Knowledge:unfavorite}
+
+knowledge_like:
+    path: /knowledge/like/{id}
+    defaults: {_controller: AppBundle:Knowledge:like}
+
+knowledge_dislike:
+    path: /knowledge/dislike/{id}
+    defaults: {_controller: AppBundle:Knowledge:dislike}
+
+topic_follow: 
+    path: /topic/{id}/follow
+    defaults: { _controller: AppBundle:Topic:follow }
+    methods: [POST]
+
+topic_unfollow: 
+    path: /topic/{id}/unfollow
+    defaults: { _controller: AppBundle:Topic:unfollow }
+    methods: [POST]
+
+test:
+    path: /test
+    defaults: { _controller: AppBundle:Test:index }
+
+ajax_link:
+    path: /link
+    defaults: { _controller: AppBundle:Ajax:link }
+    methods: [POST]
+
+ajax_topic:
+    path: /topic
+    defaults: { _controller: AppBundle:Ajax:topic }
+    methods: [POST]
+
+doc_modal: 
+    path: /modal/doc
+    defaults: { _controller: AppBundle:Default:docModal}
+
+link_modal: 
+    path: /modal/link
+    defaults: { _controller: AppBundle:Default:linkModal}
+
+my_favorites:
+    path: /my/favorites
+    defaults: {_controller: AppBundle:User:myFavorites}
+
+my_followeds:
+    path: /my/followeds/{type}
+    defaults: {_controller: AppBundle:User:myFolloweds}
+
+user_favorite:
+    path: /user/{userId}/favorite
+    defaults: {_controller: AppBundle:User:listFavorite}
+
+knowledge_finish_learn:
+    path: /knowledge/{id}/learn
+    defaults: {_controller: AppBundle:Knowledge:finishLearn}
+
+login:
+  path:      /login
+  defaults:  { _controller: AppBundle:Auth:login }
+
+login_check:
+  path:      /login_check
+
+logout:
+  path:      /logout
+  defaults:  { _controller: AppBundle:Auth:logout }
+
+register:
+  path:      /register
+  defaults:  { _controller: AppBundle:Auth:register }
+

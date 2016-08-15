@@ -1,0 +1,35 @@
+<!-- Modal -->
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="addFileForm">
+          <div class="form-group">
+            <label for="inputlink" class="col-sm-2 control-label">文件</label>
+            <div class="col-sm-10">
+              <input type="file" name="file" id="inputfile">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="title" class="col-sm-2 control-label">标题</label>
+            <div class="col-sm-10">
+              <input type="text" name="fileTitle" class="form-control" id="title" placeholder="标题">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="summary" class="col-sm-2 control-label">摘要</label>
+            <div class="col-sm-10">
+              <textarea rows="3" type="textarea" name="fileSummary" class="form-control" id="summary"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="addFile" data-url="{{path('knowledge_create_knowledge')}}" data-dismiss="modal">保存</button>
+      </div>
+    </div>
+  </div>
