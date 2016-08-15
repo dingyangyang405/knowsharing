@@ -16,6 +16,17 @@ class TopicDaoImpl extends GeneralDaoImpl implements TopicDao
         return $this->db()->fetchAll($sql);
     }
     
+    public function findTopicsByIds($ids)
+    {
+        if (empty($ids)) {
+            return array();
+        }
+        
+        $marks = str_repeat('?,', count($ids)-1).'?';
+        $sql = "SELECT * FROM {$this->table} WHERE id IN ({$marks})";
+        return $this->db()->fetchAll($sql,$ids);
+    }
+
     public function declares()
     {
         return array(

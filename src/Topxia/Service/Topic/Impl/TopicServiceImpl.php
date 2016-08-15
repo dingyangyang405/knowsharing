@@ -53,6 +53,11 @@ class TopicServiceImpl implements TopicService
         return $topics;
     }
 
+    public function findTopicsByIds($ids)
+    {
+        return $this->getTopicDao()->findTopicsByIds($ids);
+    }
+
     protected function getTopicDao()
     {
         return $this->container['topic_dao'];
