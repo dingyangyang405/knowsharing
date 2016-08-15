@@ -38,7 +38,7 @@ class MyKnowledgeShareController extends BaseController
             $paginator->getPerPageCount()
         );
         
-        return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-knowledge.html.twig',array(
+        return $this->render('AppBundle:MyKnowledgeShare:my-knowledge.html.twig',array(
             'knowledges' => $knowledges,
             'paginator' => $paginator
         ));
@@ -55,7 +55,7 @@ class MyKnowledgeShareController extends BaseController
 
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
 
-        return $this->render('TopxiaWebBundle:MyKnowledgeShare:edit-knowledge.html.twig', array(
+        return $this->render('AppBundle:MyKnowledgeShare:edit-knowledge.html.twig', array(
             'knowledge' => $knowledge
         ));
     }
