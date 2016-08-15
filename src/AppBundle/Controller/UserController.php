@@ -68,30 +68,75 @@ class UserController extends BaseController
         $userId = 1;
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($userId);
         $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
-        $knowledges = $this->getKnowledgeService()->findKnowledgesByKnowledgeIds($knowledgeIds);
+
+        $conditions = array('knowledgeIds' => $knowledgeIds);
+        $orderBy = array('createdTime', 'DESC');
+        $paginator = new Paginator(
+            $this->get('request'),
+            $this->getKnowledgeService()->getKnowledgesCount($conditions),
+            2
+        );
+        $knowledges = $this->getKnowledgeService()->searchKnowledges(
+            $conditions,
+            $orderBy,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
         return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
-            'users' => $users
+            'users' => $users,
+            'paginator' => $paginator
         ));
     }
 
-    public function myFollowedsAction(Request $request, $type)
+    public function listFollowsAction(Request $request, $userId, $type)
     {
-        $userId = 1;
-        $myFolloweds = $this->getUserService()->searchMyFollowedsByUserIdAndType($userId, $type);
-        $objectIds = ArrayToolKit::column($myFolloweds,'objectId');
+        $userId = 1;//传过来的用户
+        $myUserId = 2;//当前登录用户
+        $user = $this->getUserService()->getUser($userId);
+        $conditions = array(
+            'userId' => $user['id']
+        );
+        $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
+        $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
+        $hasfollowed = $this->getUserService()->getFollowUserByUserIdAndObjectUserId($myUserId,$userId);
+
+        $follows = $this->getUserService()->searchMyFollowsByUserIdAndType($userId, $type);
+        $objectIds = ArrayToolKit::column($follows,'objectId');
         if ($type == 'user') {
             $objects = $this->getUserService()->findUsersByIds($objectIds);
         } elseif ($type == 'topic') {
             $objects = $this->getTopicService()->findTopicsByIds($objectIds);
-            $objects = $this->getFollowTopicService()->hasFollowedTopics($objects,$userId);
+            $objects = $this->getFollowTopicService()->hasFollowTopics($objects,$myUserId);
         }
 
-        return $this->render('AppBundle:MyKnowledgeShare:my-followeds.html.twig', array(
+        return $this->render('AppBundle:User:follows.html.twig', array(
+            'objects' => $objects,
+            'type' => $type,
+            'knowledgesCount' => $knowledgesCount,
+            'favoritesCount' => $favoritesCount,
+            'hasfollowed' => $hasfollowed,
+            'user' => $user
+        ));
+    }
+
+    public function myFollowsAction(Request $request, $type)
+    {
+        $userId = 1;
+        $myFollows = $this->getUserService()->searchMyFollowsByUserIdAndType($userId, $type);
+        $objectIds = ArrayToolKit::column($myFollows,'objectId');
+        if ($type == 'user') {
+            $objects = $this->getUserService()->findUsersByIds($objectIds);
+        } elseif ($type == 'topic') {
+            $objects = $this->getTopicService()->findTopicsByIds($objectIds);
+            $objects = $this->getFollowTopicService()->hasFollowTopics($objects,$userId);
+        }
+
+        return $this->render('AppBundle:MyKnowledgeShare:my-follows.html.twig', array(
             'objects' => $objects,
             'type' => $type
         ));

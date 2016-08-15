@@ -12,7 +12,7 @@ interface FollowTopicService
 
     public function waveFollowNum($ids, $diffs);
 
-    public function findFollowedTopicsByUserId($userId);
+    public function findFollowTopicsByUserId($userId);
 
-    public function hasFollowedTopics($topics,$userId);
+    public function hasFollowTopics($topics,$userId);
 }

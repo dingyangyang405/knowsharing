@@ -1,4 +1,4 @@
-{% extends 'AppBundle::base.html.twig' %}
+{% extends 'TopxiaWebBundle::base.html.twig' %}
 {% block left_header %} 
 <ul class="nav hidden-xs-nav nav-pills nav-stacked">
   <li>
@@ -14,13 +14,20 @@
 </ul>
 {% endblock %}
 {% block aside %}
-  {% include 'AppBundle::aside.html.twig' %}
+  {% include 'TopxiaWebBundle::aside.html.twig' %}
 {% endblock %}
 {% block base_content %} 
   <div class="content">
     <div class="content-block new-content">
       {% block navTabs %}
-        {% include 'AppBundle::knowledge-library-nav.html.twig' %}
+        <ul class="nav nav-tabs">
+          <li role="share"><a href="{{path('my_knowledge_share')}}">我的分享</a></li>
+          <li role="myconcern"><a href="{{path('my_favorites')}}">我的收藏</a></li>
+          <li role="topic"><a href="{{path('my_followeds', {type:'topic'})}}">我的关注</a></li>
+          <li role="todolist" class="active">
+            <a href="{{path('my_knowledge_share_todolist')}}">待读列表</a>
+          </li>
+        </ul>
       {% endblock %}
       <div class="row">
         {% if knowledges %} 

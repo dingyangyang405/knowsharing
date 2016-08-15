@@ -86,7 +86,7 @@ class FollowTopicServiceImpl implements FollowTopicService
         return $this->getFollowTopicDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
     }
 
-    public function findFollowedTopicsByUserId($userId)
+    public function findFollowTopicsByUserId($userId)
     {
         $conditions = array(
             'userId' => $userId,
@@ -102,17 +102,17 @@ class FollowTopicServiceImpl implements FollowTopicService
         return $this->getTopicDao()->wave($ids, $diffs);
     }
 
-    public function hasFollowedTopics($topics,$userId)
+    public function hasFollowTopics($topics,$userId)
     {
-        $followedTopics = $this->findFollowedTopicsByUserId($userId);
+        $followedTopics = $this->findFollowTopicsByUserId($userId);
         $followedTopicIds = array();
         foreach ($followedTopics as $value) {
             $followedTopicIds[] = $value['objectId'];
         }
         foreach ($topics as $key => $topic) {
-            $topics[$key]['hasFollowed'] = false;
+            $topics[$key]['hasFollow'] = false;
             if (in_array($topic['id'], $followedTopicIds)) {
-                $topics[$key]['hasFollowed'] = true;
+                $topics[$key]['hasFollow'] = true;
             }
         }
         return $topics;

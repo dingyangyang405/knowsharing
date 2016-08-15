@@ -12,4 +12,5 @@ interface KnowledgeDao extends GeneralDaoInterface
 
     public function findKnowledgesByKnowledgeIds($knowledgeIds);
 
+    public function searchKnowledgesByIds($ids, $start, $limit);
 }
