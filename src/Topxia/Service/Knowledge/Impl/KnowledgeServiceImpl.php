@@ -15,6 +15,21 @@ class KnowledgeServiceImpl implements KnowledgeService
         $this->container = $container;
     }
 
+    public function findTopKnowledges($type)
+    {
+        $topConditions = array();
+        $topOrderBy = array($type.'Num', 'DESC');
+        $topNum = 5;
+        $topKnowledges = $this->getKnowledgeDao()->search(
+            $topConditions,
+            $topOrderBy,
+            0,
+            $topNum
+        );
+
+        return $topKnowledges;
+    }
+
     public function updateKnowledge($id, $fields)
     {
         $fields = ArrayToolkit::filter($fields, array(

@@ -13,7 +13,7 @@ $(document).ready(function(){
         $.ajax({
             url:$(this).data('url'),
             data:{type:$(this).data('type')},
-            type:"GET",
+            type:"POST",
         })
     });
 });

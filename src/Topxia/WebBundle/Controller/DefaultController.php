@@ -26,16 +26,7 @@ class DefaultController extends BaseController
         );
 
         $type = 'like';
-
-        $topConditions = array();
-        $topOrderBy = array($type.'Num', 'DESC');
-        $topNum = 5;
-        $topKnowledges = $this->getKnowledgeService()->searchKnowledges(
-            $topConditions,
-            $topOrderBy,
-            0,
-            $topNum
-        );
+        $topKnowledges = $this->getKnowledgeService()->findTopKnowledges($type);
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
@@ -49,23 +40,23 @@ class DefaultController extends BaseController
         ));
     }
 
-    public function listTopKnowledgesAction(Request $request)
-    {
-        $conditions = array();
-        $orderBy = array($type.'Num', 'DESC');
-        $topNum = 5;
-        $knowledges = $this->getKnowledgeService()->searchKnowledges(
-            $conditions,
-            $orderBy,
-            0,
-            5
-        );
+    // public function listTopKnowledgesAction(Request $request)
+    // {
+    //     $conditions = array();
+    //     $orderBy = array($type.'Num', 'DESC');
+    //     $topNum = 5;
+    //     $knowledges = $this->getKnowledgeService()->searchKnowledges(
+    //         $conditions,
+    //         $orderBy,
+    //         0,
+    //         5
+    //     );
 
-        return $this->render('TopxiaWebBundle:TopList:top-knowledge.html.twig',array(
-            'knowledges' => $knowledges,
-            'type' => $type
-        ));
-    }
+    //     return $this->render('TopxiaWebBundle:TopList:top-knowledge.html.twig',array(
+    //         'knowledges' => $knowledges,
+    //         'type' => $type
+    //     ));
+    // }
     
     public function docModalAction(Request $request)
     {

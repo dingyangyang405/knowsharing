@@ -28,4 +28,6 @@ interface KnowledgeService
 
     public function deleteKnowledge($id);
 
+    public function findTopKnowledges($type);
+
 }

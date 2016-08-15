@@ -41,6 +41,9 @@ class KnowledgeController extends BaseController
             }
         }
 
+        $type = 'like';
+        $topKnowledges = $this->getKnowledgeService()->findTopKnowledges($type);
+
         $knowledge = array($knowledge);
         $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$userId);
         $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$userId);
@@ -51,7 +54,8 @@ class KnowledgeController extends BaseController
             'comments' => $comments,
             'users' => $users,
             'paginator' => $paginator,
-            'hasLearned' => $hasLearned
+            'hasLearned' => $hasLearned,
+            'topKnowledges' => $topKnowledges
         ));
     }
 
