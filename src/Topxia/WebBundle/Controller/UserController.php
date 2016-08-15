@@ -25,7 +25,7 @@ class UserController extends BaseController
         $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$id);
         $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$id);
 
-        return $this->render('TopxiaWebBundle:User:index.html.twig', array(
+        return $this->render('AppBundle:User:index.html.twig', array(
             'user' => $user,
             'knowledgesCount' => $knowledgesCount,
             'favoritesCount' => $favoritesCount,
@@ -53,7 +53,7 @@ class UserController extends BaseController
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
         $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
 
-        return $this->render('TopxiaWebBundle:User:favorite.html.twig', array(
+        return $this->render('AppBundle:User:favorite.html.twig', array(
             'users' => $users,
             'user' => $user,
             'knowledgesCount' => $knowledgesCount,
@@ -73,7 +73,7 @@ class UserController extends BaseController
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
-        return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-favorites.html.twig', array(
+        return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users
         ));
@@ -84,7 +84,7 @@ class UserController extends BaseController
         $userId = 1;
         $myFolloweds = $this->getUserService()->searchMyFollowedsByUserIdAndType($userId, $type);
 
-        return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-followeds.html.twig', array(
+        return $this->render('AppBundle:MyKnowledgeShare:my-followeds.html.twig', array(
             'myFolloweds' => $myFolloweds
         ));
     }

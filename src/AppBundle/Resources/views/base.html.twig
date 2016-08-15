@@ -1,0 +1,83 @@
+{% import "AppBundle::macro.html.twig" as web_macro %}
+<!DOCTYPE html>
+{{ script(['js/vendor.js', 'js/global.js'])}}
+{{ css('css/vendor.css') }}
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta content="{{ csrf_token(default_csrf_token_id) }}" name="csrf-token" />
+    <title>{% block title %}知识分享系统{% endblock %}</title>
+    {% block stylesheets %}
+        {% for path in css() %}
+            <link href="{{ asset('assets/' ~ path) }}" rel="stylesheet" />
+        {% endfor %}
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.icon') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/topxiaweb/css/base-header.css') }}">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+{% block body %}
+    <section class="container user-select">
+        {% block top_header %}
+        {% include 'AppBundle::header.html.twig' %}
+        {% endblock %}
+        <div id="uploadModal" class="modal"></div>
+        <!--左边模块-->
+        <div>
+            <div class="hidden-xs header">
+                <div class="main-header">
+                    <a href="{{path('homepage')}}" class="logo">
+                        <span class="logo-lg"><b>知识分享系统</b></span>
+                    </a>
+                </div>
+                {% block left_header %}
+                    {% include 'AppBundle::left-header.html.twig' %}
+                {% endblock %}
+            </div>
+        </div>
+        <!--/左边模块-->
+        <div class="content-wrap">
+            <!--内容-->
+            {% block base_content %}
+            <div class="content">
+                <div class="content-block new-content">
+                    {% block navTabs %}
+
+                    {% endblock %}
+                </div>
+            </div>
+            {% endblock %}
+            <!--/内容-->      
+        </div>
+        <!--右边模块-->
+        {% block aside %}
+
+        {% endblock %}
+        <!--/右边模块-->
+        {% block base_footer %}
+            <footer class="footer">POWERED BY &copy;
+                <a href="http://www.ylsat.com">www.edusoho.com</a>
+                ALL RIGHTS RESERVED &nbsp;&nbsp;&nbsp;
+                <span>
+                    <a href="http://www.miitbeian.gov.cn/" target="_blank">豫ICP备15026802号-1</a>
+                </span>
+                <span style="display:none"><a href="index.html">网站统计</a></span>
+            </footer>
+        {% endblock %}
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {% for path in script()  %}
+    <script src="{{ asset( 'assets/' ~ path) }}"></script>
+    {% endfor %}
+    <script src="{{ asset('bundles/topxiaweb/js/modal.js') }}"></script>
+    <script src="{{ asset('bundles/topxiaweb/js/default.js') }}"></script>
+    <script src="{{ asset('bundles/topxiaweb/js/follow.js') }}"></script>
+    <script src="{{ asset('bundles/topxiaweb/js/knowledge/comment.js') }}"></script>
+    <script src="{{ asset('bundles/topxiaweb/js/base.js') }}"></script>
+    <script src="{{ asset('bundles/topxiaweb/js/knowledge.js') }}"></script>
+{% endblock %}
+</body>
+</html>

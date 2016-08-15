@@ -1,4 +1,4 @@
-{% import "TopxiaWebBundle::macro.html.twig" as web_macro %}
+{% import "AppBundle::macro.html.twig" as web_macro %}
 <!DOCTYPE html>
 {{ script(['js/vendor.js', 'js/global.js'])}}
 {{ css('css/vendor.css') }}
@@ -21,7 +21,7 @@
 {% block body %}
     <section class="container user-select">
         {% block top_header %}
-        {% include 'TopxiaWebBundle::header.html.twig' %}
+        {% include 'AppBundle::header.html.twig' %}
         {% endblock %}
         <div id="uploadModal" class="modal"></div>
         <!--左边模块-->
@@ -33,7 +33,7 @@
                     </a>
                 </div>
                 {% block left_header %}
-                    {% include 'TopxiaWebBundle::left-header.html.twig' %}
+                    {% include 'AppBundle::left-header.html.twig' %}
                 {% endblock %}
             </div>
         </div>
