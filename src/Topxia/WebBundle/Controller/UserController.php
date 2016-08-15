@@ -30,7 +30,7 @@ class UserController extends BaseController
             'knowledgesCount' => $knowledgesCount,
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
-            'knowledges' => $knowledges
+            'knowledges' => $knowledges,
         ));
     }
 

@@ -11,4 +11,6 @@ interface UserService
     public function getUserByUsername($username);
 
     public function register($user);
+    
+    public function findTopUsers($type);
 }

@@ -35,6 +35,54 @@ class DefaultController extends BaseController
             'paginator' => $paginator
         ));
     }
+
+    public function listTopKnowledgesAction(Request $request)
+    {
+        $post = $request->request->all();
+        if (empty($post['type'])) {
+            $type = 'like';
+        } else {
+            $type = $post['type'];
+        }
+        $topKnowledges = $this->getKnowledgeService()->findTopKnowledges($type);
+
+        return $this->render('AppBundle:TopList:top-knowledge.html.twig',array(
+            'topKnowledges' => $topKnowledges,
+            'type' => $type
+        ));
+    }
+
+    public function listTopTopicsAction(Request $request)
+    {
+        $post = $request->request->all();
+        if (empty($post['type'])) {
+            $type = 'follow';
+        } else {
+            $type = $post['type'];
+        }
+        $topTopics = $this->getTopicService()->findTopTopics($type);
+
+        return $this->render('AppBundle:TopList:top-topic.html.twig',array(
+            'topTopics' => $topTopics,
+            'type' => $type
+        ));
+    }
+
+    public function listTopUsersAction(Request $request)
+    {
+        $post = $request->request->all();
+        if (empty($post['type'])) {
+            $type = 'score';
+        } else {
+            $type = $post['type'];
+        }
+        $topUsers = $this->getUserService()->findTopUsers($type);
+
+        return $this->render('AppBundle:TopList:top-user.html.twig',array(
+            'topUsers' => $topUsers,
+            'type' => $type
+        ));
+    }
     
     public function docModalAction(Request $request)
     {
@@ -64,5 +112,10 @@ class DefaultController extends BaseController
     protected function getLikeService()
     {
         return $this->biz['like_service'];
+    }
+
+    protected function getTopicService()
+    {
+        return $this->biz['topic_service'];
     }
 }

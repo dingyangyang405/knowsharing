@@ -4,7 +4,7 @@ namespace Topxia\Service\User\Dao\Tests;
 
 use Codeages\Biz\Framework\UnitTests\BaseTestCase;
 
-class UserDaoTest extends BaseTestCase
+class FollowUserDaoTest extends BaseTestCase
 {
 
     public function testGetFollowUserByUserIdAndObjectUserId()

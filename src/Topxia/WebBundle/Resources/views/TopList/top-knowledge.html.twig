@@ -1,0 +1,23 @@
+<html>
+<div class="box">
+<div class="box-header">
+  <h3 class="box-title">热门知识</h3>
+
+  <div class="box-tools">
+    <ul class="pagination pagination-sm no-margin pull-right">
+      <li class="active" id="like-knowledge" data-url="{{path('top_knowledge')}}" data-type="like"><a href="#">赞</a></li>
+      <li id="favorite-knowledge" data-url="{{path('top_knowledge')}}" data-type="favorite"><a href="#">藏</a></li>
+      <li id="view-knowledge" data-url="{{path('top_knowledge')}}" data-type="view"><a href="#">阅</a></li>
+    </ul>
+  </div>
+</div>
+<!-- /.box-header -->
+<div class="box-body no-padding">
+  <table class="table">
+    {% include "TopxiaWebBundle:TopList:top-knowledge-list.html.twig" %}
+  </table>
+</div>
+<!-- /.box-body -->
+</div>
+<script src="{{ asset('bundles/topxiaweb/js/toplist/toplist.js') }}"></script>
+</html>
