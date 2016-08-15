@@ -202,6 +202,35 @@ class KnowledgeServiceTest extends BaseTestCase
         $this->assertEquals($comment2['value'],$result[1]['value']);
     }
 
+    public function testSearchKnowledgesByIds()
+    {
+        $data1 = array(
+            'title' => 'title',
+            'summary' => 'summary',
+            'content' => 'content',
+            'type' => 'file',
+            'userId' => 1,
+        );
+
+        $data2 = array(
+            'title' => 'title1',
+            'summary' => 'summary1',
+            'content' => 'content1',
+            'type' => 'file1',
+            'userId' => 1,
+        );
+
+        $knowledge1 = $this->getKnowledgeService()->createKnowledge($data1);
+        $knowledge2 = $this->getKnowledgeService()->createKnowledge($data2);
+
+        $ids = array($knowledge1['id'],$knowledge2['id']);
+        $results = $this->getKnowledgeService()->searchKnowledgesByIds($ids, 0, PHP_INT_MAX);
+
+        $this->assertEquals(2, count($results));
+
+
+    }
+
     protected function getKnowledgeService()
     {
         return self::$kernel['knowledge_service'];

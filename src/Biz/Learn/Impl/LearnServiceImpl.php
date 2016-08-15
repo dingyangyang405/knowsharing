@@ -25,6 +25,12 @@ class LearnServiceImpl implements LearnService
             'knowledgeId' => $id
         );
 
+        $isToDoList = $this->getToDoListDao()->getToDoListByFields($fields);
+
+        if (!empty($isToDoList)) {
+            $this->getToDoListDao()->delete($isToDoList['id']);
+        }
+
         $this->getLearnDao()->create($fields);
         $knowledge = $this->getKnowledgeDao()->get($id);
         $knowledge['pageView'] += 1; 
@@ -40,5 +46,10 @@ class LearnServiceImpl implements LearnService
     protected function getKnowledgeDao()
     {
         return $this->container['knowledge_dao'];
+    }
+
+    protected function getToDoListDao()
+    {
+        return $this->container['todolist_dao'];
     }
 }

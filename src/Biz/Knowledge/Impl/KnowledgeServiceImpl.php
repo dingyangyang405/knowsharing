@@ -95,6 +95,11 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $this->getKnowledgeDao()->search($conditions, $orderBy, $start, $limit);
     }
 
+    public function searchKnowledgesByIds($ids, $start, $limit)
+    {
+        return $this->getKnowledgeDao()->searchKnowledgesByIds($ids, $start, $limit);
+    }
+
     protected function getKnowledgeDao()
     {
         return $this->container['knowledge_dao'];

@@ -6,6 +6,7 @@ use AppBundle\Common\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use AppBundle\Common\ArrayToolKit;
 
 class MyKnowledgeShareController extends BaseController
 {
@@ -60,6 +61,35 @@ class MyKnowledgeShareController extends BaseController
         ));
     }
 
+    public function toDoListAction(Request $request)
+    {
+        $userId = '1';
+        $toDoList = $this->getToDoListService()->findToDoListByUserId($userId);
+
+        $paginator = new Paginator(
+            $request,
+            count($toDoList),
+            20
+        );
+
+        $ids = ArrayToolKit::column($toDoList, 'knowledgeId');
+
+        $knowledges = $this->getKnowledgeService()->searchKnowledgesByIds(
+            $ids,
+            $paginator->getOffsetCount(), 
+            $paginator->getPerPageCount()
+        );
+
+        $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
+        $users = ArrayToolKit::index($users, 'id');
+
+        return $this->render('AppBundle:MyKnowledgeShare:knowledge-todolist.html.twig', array(
+            'knowledges' => $knowledges,
+            'users' => $users,
+            'paginator' => $paginator
+        ));
+    }
+
     public function deleteAction(Request $request, $id)
     {
         $this->getKnowledgeService()->deleteKnowledge($id);
@@ -70,5 +100,15 @@ class MyKnowledgeShareController extends BaseController
     protected function getKnowledgeService()
     {
         return $this->biz['knowledge_service'];
+    }
+
+    protected function getToDoListService()
+    {
+        return $this->biz['todolist_service'];
+    }
+
+    protected function getUserService()
+    {
+        return $this->biz['user_service'];
     }
 }

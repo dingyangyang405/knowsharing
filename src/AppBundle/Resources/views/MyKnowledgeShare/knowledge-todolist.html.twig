@@ -23,22 +23,21 @@
         <ul class="nav nav-tabs">
           <li role="share"><a href="{{path('my_knowledge_share')}}">我的分享</a></li>
           <li role="myconcern"><a href="{{path('my_favorites')}}">我的收藏</a></li>
-          <li role="topic" class="active"><a href="{{path('my_followeds', {type:'topic'})}}">我的关注</a></li>
-          <li role="todolist">
+          <li role="topic"><a href="{{path('my_followeds', {type:'topic'})}}">我的关注</a></li>
+          <li role="todolist" class="active">
             <a href="{{path('my_knowledge_share_todolist')}}">待读列表</a>
           </li>
         </ul>
       {% endblock %}
-      <div class="row">
-        {% if myFolloweds is defined %}
-          {% for myFollowed in myFolloweds %}
-            id:{{ myFollowed.id }}
-          {% endfor %}
-        {% else %}
-          <div class="panel-title">
-            <h4 align="center">---暂无分享记录---</h4>
-          </div>
-        {% endif %}
+      <div class="row" id="knowledge-list">
+        {% if knowledges is defined and knowledges %}
+          {% for knowledge in knowledges %}
+            {% set user = users[knowledge.userId]|default(null) %}
+              {% include "AppBundle:MyKnowledgeShare:single-knowledge-todolist.html.twig" %}
+            {% endfor %}
+          {% else %}
+            <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>
+          {% endif %}
       </div>
     </div>
 {#   {{ web_macro.paginator(paginator) }} #}

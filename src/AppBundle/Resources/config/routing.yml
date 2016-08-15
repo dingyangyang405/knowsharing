@@ -138,3 +138,6 @@ register:
   path:      /register
   defaults:  { _controller: AppBundle:Auth:register }
 
+my_knowledge_share_todolist: 
+    path: /my/knowledge/todolist
+    defaults: { _controller: AppBundle:MyKnowledgeShare:toDoList}
