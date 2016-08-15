@@ -39,7 +39,9 @@
             <div class="row" id="knowledge-list">
                 {% if knowledges is defined and knowledges %}
                     {% for knowledge in knowledges %}
+                      {% if knowledge.toread is not defined %}
                         {% include "TopxiaWebBundle:Default:single-knowledge-list.html.twig" %}
+                      {% endif %}
                     {% endfor %}
                 {% else %}
                     <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>

@@ -14,6 +14,13 @@ class ToreadDaoImpl extends GeneralDaoImpl implements ToreadDao
         return $this->getByFields($fields);
     }
 
+    public function findToreadIds($userId)
+    {
+        $sql = "SELECT knowledgeId FROM {$this->table} WHERE userId = ?";
+
+        return $this->db()->fetchAll($sql, array($userId));
+    }
+
     public function declares()
     {
         return array(
