@@ -68,14 +68,28 @@ class UserController extends BaseController
         $userId = 1;
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($userId);
         $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
-        $knowledges = $this->getKnowledgeService()->findKnowledgesByKnowledgeIds($knowledgeIds);
+
+        $conditions = array('knowledgeIds' => $knowledgeIds);
+        $orderBy = array('createdTime', 'DESC');
+        $paginator = new Paginator(
+            $this->get('request'),
+            $this->getKnowledgeService()->getKnowledgesCount($conditions),
+            2
+        );
+        $knowledges = $this->getKnowledgeService()->searchKnowledges(
+            $conditions,
+            $orderBy,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
         return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
-            'users' => $users
+            'users' => $users,
+            'paginator' => $paginator
         ));
     }
 
