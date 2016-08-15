@@ -1,4 +1,52 @@
 <ul class="nav hidden-xs-nav nav-pills nav-stacked">
-    <li class="active"><a href="{{path('homepage')}}"><i class="fa fa-book"></i>&nbsp;&nbsp;</span>知识广场</a></li>
-    <li><a href="{{path('my_knowledge_share')}}"><i class="fa fa-child"></i>&nbsp;&nbsp;</span>我的知识库</a></li>
+  <li class="active">
+    <ul class="list-group">
+      <li class="list-group-heading" style="padding: 10px 15px;"> <i class="fa fa-book">&nbsp;&nbsp;
+        知识广场</i> 
+      </li>
+      <li class="list-group-item" style="border:none;">
+        <span style="padding-left:30px;"><a href="{{path('homepage')}}">最新知识</a></span>
+      </li>
+      <li class="list-group-item" style="border:none;">
+        <span style="padding-left:30px;"><a href="#timeline">我的关注</a></span>
+      </li>
+      <li class="list-group-item" style="border:none;">
+        <span style="padding-left:30px;"><a href="{{path('topic')}}">主题</a></span>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <ul class="list-group">
+      <li class="list-group-heading" style="padding: 10px 15px;"> <i class="fa fa-book">&nbsp;&nbsp;
+        我的知识库</i> 
+      </li>
+      <li class="list-group-item" style="border:none;">
+        <span style="padding-left:30px;">我的分享</span>
+      </li>
+      <li class="list-group-item" style="border:none;">
+        <span style="padding-left:30px;">我的收藏</span>
+      </li>
+      <li class="list-group-item" style="border:none;">
+        <span style="padding-left:30px;">我的关注</span>
+      </li>
+    </ul>
+  </li>
 </ul>
+{#
+<ul class="nav hidden-xs-nav nav-pills nav-stacked">
+  <li class="active">
+    <a href="{{path('homepage')}}">
+      <i class="fa fa-book"></i>
+      &nbsp;&nbsp;
+  知识广场
+    </a>
+  </li>
+  <li>
+    <a href="{{path('my_knowledge_share')}}">
+      <i class="fa fa-child"></i>
+      &nbsp;&nbsp;
+我的知识库
+    </a>
+  </li>
+</ul>
+#}
