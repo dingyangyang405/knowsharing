@@ -58,10 +58,12 @@ class KnowledgeController extends BaseController
     public function createKnowledgeAction(Request $request)
     {
         $post = $request->request->all();
+        $topic = $this->getTopicService()->getTopicById($post['topic']);
         $data = array(
             'title' => $post['title'],
             'summary' => $post['summary'],
             'content' => $post['content'],
+            'topicId' => $topic['id'],
             'type' => $post['type'],
             'userId' => 1,
         );
@@ -145,6 +147,11 @@ class KnowledgeController extends BaseController
     protected function getUserService()
     {
         return $this->biz['user_service'];
+    }
+
+    protected function getTopicService()
+    {
+        return $this->biz['topic_service'];
     }
 
     protected function getFavoriteService()

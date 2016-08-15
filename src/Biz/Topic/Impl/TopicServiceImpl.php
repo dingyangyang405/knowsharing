@@ -18,16 +18,35 @@ class TopicServiceImpl implements TopicService
         if (empty($field)) {
             throw new \Exception('添加内容不能为空');
         }
-        // $topic = $this->getTopicDao()->get($field['name']);
-        // if (empty($topic)) {
-        //     return $topic;
-        // }
+        $topic = $this->getTopicDao()->get($field['name']);
+        if (!empty($topic)) {
+            return $topic;
+        }
         return $this->getTopicDao()->create($field);
     }
 
     public function getTopicById($id)
     {
-        return $this->getTopicDao()->get($id);
+        $field['id'] = $id;
+        if (gettype($id) == 'string') {
+            return $this->getTopicDao()->get($id);
+        } else {
+            return $this->getTopicDao()->create($field);
+        }
+    }
+
+    public function getTopicByName($name)
+    {
+        if (empty($name)) {
+            return $topic['id'] = null;
+        }
+        $result = $this->getTopicDao()->getTopicByName($name);
+        if ($result) {
+            return $result;
+        } else {
+            $field['name'] = $name;
+            return $this->getTopicDao()->create($field);
+        }
     }
 
     public function deleteTopicById($id)
