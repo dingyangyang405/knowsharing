@@ -16,7 +16,7 @@ class KsTopic extends Migration
         $table->addColumn('createdTime', 'integer', array('null' => false, 'comment' => '创建日期'));
         $table->addColumn('userId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '创建者id'));
         $table->addColumn('followNum', 'integer', array('unsigned' => true, 'comment' => '被关注总数'));
-
+        $table->addColumn('knowledgeNum', 'integer', array('unsigned' => true, 'comment' => '资料数'));
         $table->setPrimaryKey(array('id'));
 
         $container['db']->getSchemaManager()->createTable($table);

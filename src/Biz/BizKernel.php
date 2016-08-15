@@ -4,11 +4,11 @@ namespace Biz;
 use Codeages\Biz\Framework\Context\Kernel;
 use Biz\User\Impl\UserServiceImpl;
 use Biz\User\Dao\Impl\UserDaoImpl;
-use Biz\User\Dao\Impl\FollowUserDaoImpl;
+// use Biz\User\Dao\Impl\FollowUserDaoImpl;
 use Biz\Topic\Impl\TopicServiceImpl;
-use Biz\Topic\Impl\FollowTopicServiceImpl;
+use Biz\Follow\Impl\FollowServiceImpl;
 use Biz\Topic\Dao\Impl\TopicDaoImpl;
-use Biz\Topic\Dao\Impl\FollowTopicDaoImpl;
+use Biz\Follow\Dao\Impl\FollowDaoImpl;
 use Biz\Knowledge\Impl\KnowledgeServiceImpl;
 use Biz\Knowledge\Impl\KnowledgeShareServiceImpl;
 use Biz\Knowledge\Dao\Impl\KnowledgeDaoImpl;
@@ -93,16 +93,12 @@ class BizKernel extends Kernel
             return new CommentDaoImpl($container);
         });
 
-        $this['follow_topic_service'] = function($container) {
-            return new FollowTopicServiceImpl($container);
+        $this['follow_service'] = function($container) {
+            return new FollowServiceImpl($container);
         };
 
-        $this['follow_topic_dao'] = $this->dao(function($container) {
-            return new FollowTopicDaoImpl($container);
-        });
-
-        $this['follow_user_dao'] = $this->dao(function($container) {
-            return new FollowUserDaoImpl($container);
+        $this['follow_dao'] = $this->dao(function($container) {
+            return new FollowDaoImpl($container);
         });
 
         $this['like_dao'] = $this->dao(function($container) {

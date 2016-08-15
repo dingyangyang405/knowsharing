@@ -1,17 +1,44 @@
-<?php
+<?php 
 
-namespace Biz\Topic\Impl;
+namespace Biz\Follow\Impl;
 
-use Biz\Topic\Dao\Impl\TopicDaoImpl;
-use Biz\Topic\FollowTopicService;
+use Biz\Follow\FollowService;
 
-class FollowTopicServiceImpl implements FollowTopicService
+class FollowServiceImpl implements FollowService
 {
     protected  $container;
 
     public  function __construct($container)
     {
         $this->container = $container;
+    }
+
+    public function followUser($id)
+    {   
+        // $user = $this->getCurrentUser();
+        $user['id'] = 1;
+        $followUser = $this->getFollowDao()->create(array(
+            'userId'=> $user['id'],
+            'type'=>'user',
+            'objectId'=>$id
+        ));
+        if ($user['id'] ==1 && $followUser['objectId'] ==$id) {
+            return true;
+        } else {
+            throw new \RuntimeException("关注该用户失败");
+        }    
+    }
+
+    public function unfollowUser($id)
+    {
+        $user['id'] = 1;
+        $followUser = $this->getFollowDao()->getFollowUserByUserIdAndObjectUserId($user['id'], $id);
+        $status = $this->getFollowDao()->delete($followUser['id']);
+        if ($status == 1) {
+            return true;
+        } else {
+            throw new \RuntimeException("取消关注该用户失败");
+        }  
     }
 
     public function followTopic($topicId)
@@ -21,7 +48,6 @@ class FollowTopicServiceImpl implements FollowTopicService
         if (empty($user['id'])) {
             throw new \Exception('用户不存在');
         }
-
         $topic = $this->getTopicDao()->get($topicId);
         if (empty($topic)) {
             throw new \Exception('主题不存在');
@@ -32,7 +58,7 @@ class FollowTopicServiceImpl implements FollowTopicService
             throw new \Exception('已经被关注');
         }
 
-        $this->getFollowTopicDao()->create(array(
+        $this->getFollowDao()->create(array(
             'objectId' => $topicId,
             'userId' => $user['id'],
             'type' => 'topic',
@@ -63,7 +89,7 @@ class FollowTopicServiceImpl implements FollowTopicService
             throw new \Exception('未被关注');
         }
         
-        $this->getFollowTopicDao()->delete($followed[0]['id']);
+        $this->getFollowDao()->delete($followed[0]['id']);
 
         $ids = array($topicId);
         $diffs = array('followNum' => -1);
@@ -83,7 +109,30 @@ class FollowTopicServiceImpl implements FollowTopicService
 
         $orderBy = array('objectId', 'ASC');
 
-        return $this->getFollowTopicDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
+        return $this->getFollowDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
+    }
+
+    public function getFollowUserByUserIdAndObjectUserId($userId,$objectId)
+    {
+        $objectUser = $this->getFollowDao()->getFollowUserByUserIdAndObjectUserId($userId,$objectId);
+        if (isset($objectUser)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function searchMyFollowedsByUserIdAndType($userId, $type)
+    {
+        $conditions = array(
+            'userId' => $userId, 
+            'type' => $type
+        );
+        $orderBy = array('id', 'DESC');
+        
+        $myFolloweds = $this->getFollowDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
+
+        return $myFolloweds;
     }
 
     public function findFollowedTopicsByUserId($userId)
@@ -94,7 +143,7 @@ class FollowTopicServiceImpl implements FollowTopicService
         );
         $orderBy = array('objectId', 'ASC');
         
-        return $this->getFollowTopicDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
+        return $this->getFollowDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
     }
 
     public function waveFollowNum($ids, $diffs)
@@ -118,9 +167,9 @@ class FollowTopicServiceImpl implements FollowTopicService
         return $topics;
     }
 
-    protected function getFollowTopicDao()
+    protected function getFollowDao()
     {
-        return $this->container['follow_topic_dao'];
+        return $this->container['follow_dao'];
     }
 
     protected function getTopicDao()

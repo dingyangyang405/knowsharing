@@ -18,10 +18,10 @@ class TopicServiceImpl implements TopicService
         if (empty($field)) {
             throw new \Exception('添加内容不能为空');
         }
-        $topic = $this->getTopicDao()->get($field['name']);
-        if (empty($topic)) {
-            return $topic;
-        }
+        // $topic = $this->getTopicDao()->get($field['name']);
+        // if (empty($topic)) {
+        //     return $topic;
+        // }
         return $this->getTopicDao()->create($field);
     }
 

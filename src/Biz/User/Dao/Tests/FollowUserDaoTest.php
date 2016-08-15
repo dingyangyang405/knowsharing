@@ -24,6 +24,6 @@ class UserDaoTest extends BaseTestCase
 
     protected function getFollowDao()
     {
-        return self::$kernel['follow_user_dao'];
+        return self::$kernel['follow_dao'];
     }
 }

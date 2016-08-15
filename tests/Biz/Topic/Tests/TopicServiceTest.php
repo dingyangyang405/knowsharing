@@ -10,10 +10,10 @@ class TopicServiceTest extends BaseTestCase
         $topic = array(
             'name' => 'sql',
             'createdTime' => time(),
-            'userId' => '1'
+            'userId' => 1
         );
         $topic = $this->getTopicService()->createTopic($topic);
-        $result = $this->getTopicService()->getTopicById('1');
+        $result = $this->getTopicService()->getTopicById(1);
 
         $this->assertEquals($topic['name'], $result['name']);
         $this->assertEquals($topic['createdTime'], $result['createdTime']);

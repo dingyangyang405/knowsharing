@@ -21,7 +21,9 @@ class KsUser extends Migration
         $table->setPrimaryKey(array('id'));
         $table->addUniqueIndex(array('username'));
         $table->addColumn('followNum', 'integer', array('default' => 0, 'unsigned' => true, 'comment' => '被关注总数'));
-
+        $table->addColumn('score', 'integer', array('default' => 0, 'unsigned' => true, 'comment' => '积分数'));
+        $table->addColumn('knowledgeNum', 'integer', array('default' => 0, 'unsigned' => true, 'comment' => '知识分享数'));
+        $table->addColumn('browseNum', 'integer', array('default' => 0, 'unsigned' => true, 'comment' => '学习数量'));
         $container['db']->getSchemaManager()->createTable($table);
     }
 

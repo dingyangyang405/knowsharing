@@ -14,8 +14,8 @@ class TopicController extends BaseController
     {
         $userId = 1;
         $topics = $this->getTopicService()->findAllTopics();
-        $followedTopics = $this->getFollowTopicService()->findFollowedTopicsByUserId($userId);
-        $topics = $this->getFollowTopicService()->hasFollowedTopics($topics,$userId);
+        $followedTopics = $this->getFollowService()->findFollowedTopicsByUserId($userId);
+        $topics = $this->getFollowService()->hasFollowedTopics($topics,$userId);
 
         return $this->render('AppBundle:Topic:index.html.twig', array(
             'topics' => $topics
@@ -24,14 +24,14 @@ class TopicController extends BaseController
 
     public function followAction(Request $request, $id)
     {
-        $this->getFollowTopicService()->followTopic($id);
+        $this->getFollowService()->followTopic($id);
 
         return new JsonResponse(true);
     }
 
     public function unFollowAction(Request $request, $id)
     {
-        $this->getFollowTopicService()->unFollowTopic($id);
+        $this->getFollowService()->unFollowTopic($id);
 
         return new JsonResponse(true);
     }
@@ -41,8 +41,8 @@ class TopicController extends BaseController
         return $this->biz['topic_service'];
     }
 
-    protected function getFollowTopicService()
+    protected function getFollowService()
     {
-        return $this->biz['follow_topic_service'];
+        return $this->biz['follow_service'];
     }
 }
