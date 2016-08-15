@@ -25,5 +25,4 @@ elixir(function(mix) {
     ],'web/assets/fonts');
 
     mix.copy('./app/Resources/public/js/global.js', 'web/assets/js/global.js');
-    mix.copy('./app/Resources/public/js/ajax-form-submit.js', 'web/assets/js/ajax-form-submit.js');
 });
