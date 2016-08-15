@@ -37,6 +37,9 @@ function formatState(state) {
 function template(data) {
     return data.name;
 }
+
 $(".linke-select").select2("data", $(".linke-select").select2('data')[0]['id']);
-
-
+$('body').on('keyup','.select2-search__field',function() {
+    $(".linke-select option ").val($(".select2-search__field").val());
+    $(".select2-selection__rendered").html($(".select2-search__field").val());
+});
