@@ -23,6 +23,10 @@ user_favorites:
     path: /user/{userId}/favorites
     defaults: { _controller: AppBundle:User:listFavorites }
 
+user_follows:
+    path: /user/{userId}/follows/{type}
+    defaults: { _controller: AppBundle:User:listFollows }
+
 user_page:
     path:  /user/{id}
     defaults: { _controller: AppBundle:User:index }
@@ -111,9 +115,9 @@ my_favorites:
     path: /my/favorites
     defaults: {_controller: AppBundle:User:myFavorites}
 
-my_followeds:
-    path: /my/followeds/{type}
-    defaults: {_controller: AppBundle:User:myFolloweds}
+my_follows:
+    path: /my/follows/{type}
+    defaults: {_controller: AppBundle:User:myFollows}
 
 user_favorite:
     path: /user/{userId}/favorite

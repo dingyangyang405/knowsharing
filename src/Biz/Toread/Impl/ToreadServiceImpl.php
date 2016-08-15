@@ -39,6 +39,7 @@ class ToreadServiceImpl implements ToreadService
             'knowledgeId' => $id,
         ));
 
+        return true;
     }
 
     public function deleteToreadKnowledge($id)

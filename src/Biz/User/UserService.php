@@ -18,5 +18,5 @@ interface UserService
 
     public function register($user);
 
-    public function searchMyFollowedsByUserIdAndType($userId, $type);
+    public function searchMyFollowsByUserIdAndType($userId, $type);
 }
