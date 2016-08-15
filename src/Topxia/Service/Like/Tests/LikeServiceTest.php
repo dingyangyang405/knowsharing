@@ -69,7 +69,7 @@ class LikeServiceTest extends BaseTestCase
                 'title' => '知识分享',
                 'summary' => '这是测试',
                 'type' => 'link',
-                'themeId' => '1',
+                'topicId' => '1',
                 'userId' => '1',
                 'createdTime' => '1464591741',
                 'updatedTime' => '1470837949',
@@ -82,7 +82,7 @@ class LikeServiceTest extends BaseTestCase
                 'title' => '知识分享1',
                 'summary' => '这是测试1',
                 'type' => 'link',
-                'themeId' => '1',
+                'topicId' => '1',
                 'userId' => '1',
                 'createdTime' => '1464591742',
                 'updatedTime' => '1470837949',
@@ -115,7 +115,7 @@ class LikeServiceTest extends BaseTestCase
                 'title' => '知识分享',
                 'summary' => '这是测试',
                 'type' => 'link',
-                'themeId' => '1',
+                'topicId' => '1',
                 'userId' => '1',
                 'createdTime' => '1464591741',
                 'updatedTime' => '1470837949',
@@ -125,7 +125,7 @@ class LikeServiceTest extends BaseTestCase
             )
         );
 
-        $this->getKnowledgeService()->add($knowledge['singleKnowledge1']);
+        $this->getKnowledgeService()->createKnowledge($knowledge['singleKnowledge1']);
 
         $result = $this->getLikeService()->likeKnowledge('1','1');
 
@@ -141,7 +141,7 @@ class LikeServiceTest extends BaseTestCase
                 'title' => '知识分享',
                 'summary' => '这是测试',
                 'type' => 'link',
-                'themeId' => '1',
+                'topicId' => '1',
                 'userId' => '1',
                 'createdTime' => '1464591741',
                 'updatedTime' => '1470837949',
@@ -151,7 +151,7 @@ class LikeServiceTest extends BaseTestCase
             )
         );
 
-        $this->getKnowledgeService()->add($knowledge['singleKnowledge1']);
+        $this->getKnowledgeService()->createKnowledge($knowledge['singleKnowledge1']);
 
         $result = $this->getLikeService()->likeKnowledge('1','1');  
 
