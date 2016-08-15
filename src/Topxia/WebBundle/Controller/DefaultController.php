@@ -27,8 +27,7 @@ class DefaultController extends BaseController
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
-        
-        return $this->render('TopxiaWebBundle:Default:index.html.twig', array(
+        return $this->render('AppBundle:Default:index.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
             'paginator' => $paginator,
@@ -45,7 +44,7 @@ class DefaultController extends BaseController
         }
         $topKnowledges = $this->getKnowledgeService()->findTopKnowledges($type);
 
-        return $this->render('TopxiaWebBundle:TopList:top-knowledge.html.twig',array(
+        return $this->render('appBundle:TopList:top-knowledge.html.twig',array(
             'topKnowledges' => $topKnowledges,
             'type' => $type
         ));
@@ -85,12 +84,12 @@ class DefaultController extends BaseController
 
     public function docModalAction(Request $request)
     {
-        return $this->render('TopxiaWebBundle::add-file.html.twig');
+        return $this->render('AppBundle::add-file.html.twig');
     }
 
     public function linkModalAction(Request $request)
     {
-        return $this->render('TopxiaWebBundle::add-link.html.twig');
+        return $this->render('AppBundle::add-link.html.twig');
     }
 
     protected function getKnowledgeService()

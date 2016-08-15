@@ -1,0 +1,52 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block left_header %} 
+<ul class="nav hidden-xs-nav nav-pills nav-stacked">
+    <li><a href="{{path('homepage')}}"><i class="fa fa-book"></i>&nbsp;&nbsp;</span>知识广场</a></li>
+    <li class="active"><a href="{{path('my_knowledge_share')}}"><i class="fa fa-child"></i>&nbsp;&nbsp;</span>我的知识库</a></li>
+</ul>
+{% endblock %}
+{% block base_content %} 
+  <div class="content">
+    <div class="content-block new-content">
+      {% block navTabs %}
+        {% include 'AppBundle::knowledge-library-nav.html.twig' %}
+      {% endblock %}
+      <div class="row">
+        {% if knowledges %} 
+          {% for knowledge in knowledges %}                
+            <div class="news-list">
+              <div class="news-info col-xs-12 col-sm-12 col-md-11">
+                <dl>
+                  <dt>
+                    <a href="{{path('knowledge_detail',{id:knowledge.id})}}">{% if knowledge.type == 'file' %}
+                    <i class="fa fa-sticky-note-o"></i>{% elseif knowledge.type == 'link' %}<i class="fa fa-link"></i>{% endif %}&nbsp&nbsp&nbsp{{knowledge.title}}
+                    </a>
+                    <span style="float:right">
+                      <button type="button" class="btn btn-primary fa fa-edit"></button>
+                      <button type="button" class="btn btn-default fa fa-trash"></button>
+                    </span>
+                  </dt>
+                </dl>
+              </div>
+            </div>  
+          {% endfor %}
+        {% else %}
+            <div class="panel-title">
+              <h4 align="center">---暂无分享记录---</h4>
+            </div>
+        {% endif %}
+      </div>
+      <div class="quotes" style="margin-top:15px">
+        <span class="disabled">首页</span>
+        <span class="disabled">上一页</span>
+        <span class="current">1</span>
+        <a href="index.html">2</a>
+        <a href="index.html">下一页</a>
+        <a href="index.html">尾页</a></div>
+      </div>
+    </div>
+  </div>  
+{% endblock %}
+{% block aside %}
+  {% include 'AppBundle::aside.html.twig' %}
+{% endblock %}

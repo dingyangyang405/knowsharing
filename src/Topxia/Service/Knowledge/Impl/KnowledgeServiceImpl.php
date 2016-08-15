@@ -66,7 +66,10 @@ class KnowledgeServiceImpl implements KnowledgeService
 
     public function findKnowledgesByUserId($id)
     {
-        return $this->getKnowledgeDao()->findKnowledgesByUserId($id);
+        $knowledges = $this->getKnowledgeDao()->findKnowledgesByUserId($id);
+        $knowledges = $this->setToreadMark($knowledges);
+
+        return $knowledges;
     }
 
     public function findKnowledgesByKnowledgeIds($knowledgeIds)
@@ -107,7 +110,27 @@ class KnowledgeServiceImpl implements KnowledgeService
 
     public function searchKnowledges($conditions, $orderBy, $start, $limit)
     {
-        return $this->getKnowledgeDao()->search($conditions, $orderBy, $start, $limit);
+        $knowledges = $this->getKnowledgeDao()->search($conditions, $orderBy, $start, $limit);
+
+        $knowledges = $this->setToreadMark($knowledges);
+
+        return $knowledges;
+    }
+
+    protected function setToreadMark($knowledges)
+    {
+        $user['id'] = 1;
+        if (!empty($user['id'])) {
+            $toreadKnowledgeIds =  $this->getToreadDao()->findToreadIds($user['id']);
+            $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledgeIds, 'knowledgeId');
+            foreach ($knowledges as $key => $value) {
+                if (isset($toreadKnowledgeIds[$value['id']])) {
+                    $knowledges[$key]['toread'] = true;
+                }
+            }
+        }
+
+        return $knowledges;
     }
 
     protected function getKnowledgeDao()
@@ -118,5 +141,10 @@ class KnowledgeServiceImpl implements KnowledgeService
     protected function getCommentDao()
     {
         return $this->container['comment_dao'];
+    }
+
+    protected function getToreadDao()
+    {
+        return $this->container['toread_dao'];
     }
 }

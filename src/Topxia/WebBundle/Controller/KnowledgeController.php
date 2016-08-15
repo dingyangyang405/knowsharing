@@ -45,7 +45,7 @@ class KnowledgeController extends BaseController
         $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$userId);
         $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$userId);
 
-        return $this->render('TopxiaWebBundle:Knowledge:index.html.twig',array(
+        return $this->render('AppBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge[0],
             'user' => $user,
             'comments' => $comments,
@@ -107,7 +107,7 @@ class KnowledgeController extends BaseController
     public function dislikeAction(Request $request, $id)
     {
         $userId = '1';
-        $this->getLikeService()->likeKnowledge($id, $userId);
+        $this->getLikeService()->dislikeKnowledge($id, $userId);
         return new JsonResponse(array(
             'status' => 'success'
         ));

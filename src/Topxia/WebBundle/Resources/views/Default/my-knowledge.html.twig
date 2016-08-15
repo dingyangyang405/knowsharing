@@ -1,4 +1,4 @@
-{% extends 'TopxiaWebBundle::base.html.twig' %}
+{% extends 'AppBundle::base.html.twig' %}
 {% block left_header %} 
 <ul class="nav hidden-xs-nav nav-pills nav-stacked">
     <li><a href="{{path('homepage')}}"><i class="fa fa-book"></i>&nbsp;&nbsp;</span>知识广场</a></li>
@@ -9,7 +9,7 @@
   <div class="content">
     <div class="content-block new-content">
       {% block navTabs %}
-        {% include 'TopxiaWebBundle::knowledge-library-nav.html.twig' %}
+        {% include 'AppBundle::knowledge-library-nav.html.twig' %}
       {% endblock %}
       <div class="row">
         {% if knowledges %} 
@@ -19,7 +19,7 @@
                 <dl>
                   <dt>
                     <a href="{{path('knowledge_detail',{id:knowledge.id})}}">{% if knowledge.type == 'file' %}
-                    <i class="fa fa-sticky-note-o"></i>{% elseif knowledge.type == 'link' %}<i class="fa fa-link"></i>{% endif %}&nbsp&nbsp&nbsp{{knowledge.title}}
+                    <i class="fa fa-sticky-note-o"></i>{% elseif knowledge.type == 'link' %}<i class="fa fa-link"></i>{% endif %}&nbsp;&nbsp;&nbsp;{{knowledge.title}}
                     </a>
                     <span style="float:right">
                       <button type="button" class="btn btn-primary fa fa-edit"></button>
@@ -48,5 +48,5 @@
   </div>  
 {% endblock %}
 {% block aside %}
-  {% include 'TopxiaWebBundle::aside.html.twig' %}
+  {% include 'AppBundle::aside.html.twig' %}
 {% endblock %}

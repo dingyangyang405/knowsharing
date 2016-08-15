@@ -1,6 +1,7 @@
 <form method="post">
 	<div class="input-group margin">
 		<input type="text" class="form-control" name="comment">
+        {{ form_csrf_token() }}
 	    <span class="input-group-btn">
 	      <button type="botton" class="btn btn-info btn-flat" id="comment" data-url="{{ path('knowledge_create_comment') }}" data-id="{{ knowledge.id }}">评论</button>
 	    </span>
@@ -12,7 +13,7 @@
    <div class="box-footer box-comments">
     <div class="box-comment">
       <!-- User image -->
-      <img class="img-circle img-sm" src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" alt="User Image">
+      <img class="img-circle img-sm" src="{{ asset('bundles/app/img/user.jpg') }}" alt="User Image">
       <div class="comment-text">
             <span class="username">
               {{ users[comment.userId].username }}

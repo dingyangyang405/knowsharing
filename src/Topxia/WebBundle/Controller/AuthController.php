@@ -20,7 +20,7 @@ class AuthController extends BaseController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render(
-            'TopxiaWebBundle:Auth:login.html.twig',
+            'AppBundle:Auth:login.html.twig',
             array(
                 // last username entered by the user
                 'last_username' => $lastUsername,
@@ -49,7 +49,7 @@ class AuthController extends BaseController
             return $this->redirect($this->generateUrl('homepage'));
         }
 
-        return $this->render('TopxiaWebBundle:Auth:register.html.twig');
+        return $this->render('AppBundle:Auth:register.html.twig');
     }
 
     public function formSubmitAction(Request $request)
@@ -58,7 +58,7 @@ class AuthController extends BaseController
             $fields = $request->request->all();
         }
 
-        return $this->render('TopxiaWebBundle:Auth:form-submit.html.twig', array(
+        return $this->render('AppBundle:Auth:form-submit.html.twig', array(
             'fields' => isset($fields) ? $fields : null,
         ));
     }
@@ -70,7 +70,7 @@ class AuthController extends BaseController
             return $this->json($fields);
         }
 
-        return $this->render('TopxiaWebBundle:Auth:ajax-form-submit.html.twig');
+        return $this->render('AppBundle:Auth:ajax-form-submit.html.twig');
     }
 
     protected function getUserService()

@@ -25,7 +25,7 @@ class UserController extends BaseController
         $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$id);
         $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$id);
 
-        return $this->render('TopxiaWebBundle:User:index.html.twig', array(
+        return $this->render('AppBundle:User:index.html.twig', array(
             'user' => $user,
             'knowledgesCount' => $knowledgesCount,
             'favoritesCount' => $favoritesCount,
@@ -53,7 +53,7 @@ class UserController extends BaseController
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
         $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
 
-        return $this->render('TopxiaWebBundle:User:favorite.html.twig', array(
+        return $this->render('AppBundle:User:favorite.html.twig', array(
             'users' => $users,
             'user' => $user,
             'knowledgesCount' => $knowledgesCount,
@@ -73,7 +73,7 @@ class UserController extends BaseController
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
-        return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-favorites.html.twig', array(
+        return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users
         ));
@@ -83,9 +83,17 @@ class UserController extends BaseController
     {
         $userId = 1;
         $myFolloweds = $this->getUserService()->searchMyFollowedsByUserIdAndType($userId, $type);
+        $objectIds = ArrayToolKit::column($myFolloweds,'objectId');
+        if ($type == 'user') {
+            $objects = $this->getUserService()->findUsersByIds($objectIds);
+        } elseif ($type == 'topic') {
+            $objects = $this->getTopicService()->findTopicsByIds($objectIds);
+            $objects = $this->getFollowTopicService()->hasFollowedTopics($objects,$userId);
+        }
 
-        return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-followeds.html.twig', array(
-            'myFolloweds' => $myFolloweds
+        return $this->render('AppBundle:MyKnowledgeShare:my-followeds.html.twig', array(
+            'objects' => $objects,
+            'type' => $type
         ));
     }
 
@@ -122,6 +130,11 @@ class UserController extends BaseController
         return $this->biz['knowledge_service'];
     }
 
+    protected function getTopicService()
+    {
+        return $this->biz['topic_service'];
+    }
+
     protected function getFavoriteService()
     {
         return $this->biz['favorite_service'];
@@ -140,5 +153,10 @@ class UserController extends BaseController
     protected function getToreadService()
     {
         return $this->biz['toread_service'];
+    }
+
+    protected function getFollowTopicService()
+    {
+        return $this->biz['follow_topic_service'];
     }
 }

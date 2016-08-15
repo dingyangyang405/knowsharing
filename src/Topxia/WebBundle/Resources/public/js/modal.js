@@ -126,7 +126,7 @@ $(document).ready(function(){
         $('#knowledge-edit-btn').button('submiting').addClass('disabled');
         $.post(url,form.serialize(), function(){
             modal.modal('hide');
-            window.location.reload();         
+            window.location.reload();
         });
     });
 
