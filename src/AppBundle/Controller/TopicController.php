@@ -14,8 +14,8 @@ class TopicController extends BaseController
     {
         $userId = 1;
         $topics = $this->getTopicService()->findAllTopics();
-        $followedTopics = $this->getFollowService()->findFollowedTopicsByUserId($userId);
-        $topics = $this->getFollowService()->hasFollowedTopics($topics,$userId);
+        $followedTopics = $this->getFollowService()->findFollowTopicsByUserId($userId);
+        $topics = $this->getFollowService()->hasFollowTopics($topics,$userId);
 
         return $this->render('AppBundle:Topic:index.html.twig', array(
             'topics' => $topics

@@ -21,12 +21,12 @@
                 {% if app.user %}
                     <li class="dropdown user user-menu pull-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" class="user-image" alt="User Image">
+                            <img src="{{ asset('bundles/app/img/user.jpg') }}" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{ app.user.username }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                                <img src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" class="img-circle" alt="User Image">
+                                <img src="{{ asset('bundles/app/img/user.jpg') }}" class="img-circle" alt="User Image">
                                 <p>
                                     {{ app.user.username }}
                                     <small>{{ app.user.created |date('Y年m月d日') }}</small>
