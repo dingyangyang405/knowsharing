@@ -1,9 +1,9 @@
-{% extends 'TopxiaWebBundle::base.html.twig' %}
+{% extends 'AppBundle::base.html.twig' %}
 
 {% block left_header %}
     <div class="box box-primary">
       <div class="box-body box-profile">
-        <img class="profile-user-img img-responsive img-circle" src="/bundles/topxiaweb/img/user.jpg">
+        <img class="profile-user-img img-responsive img-circle" src="/bundles/app/img/user.jpg">
 
         <h3 class="profile-username text-center">昵称：{{ user.username }}</h3>
 
@@ -39,7 +39,9 @@
             <div class="row" id="knowledge-list">
                 {% if knowledges is defined and knowledges %}
                     {% for knowledge in knowledges %}
+                      {% if knowledge.toread is not defined %}
                         {% include "TopxiaWebBundle:Default:single-knowledge-list.html.twig" %}
+                      {% endif %}
                     {% endfor %}
                 {% else %}
                     <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>

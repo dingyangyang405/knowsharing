@@ -4,6 +4,6 @@ namespace Topxia\WebBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class TopxiaWebBundle extends Bundle
+class appBundle extends Bundle
 {
 }

@@ -1,6 +1,6 @@
-{% extends 'TopxiaWebBundle::base.html.twig' %}
+{% extends 'AppBundle::base.html.twig' %}
 {% block left_header %}
-    {% include 'TopxiaWebBundle::left-header.html.twig' %}
+    {% include 'AppBundle::left-header.html.twig' %}
 {% endblock %}
 {% block base_content %}
     <div class="content">
@@ -16,8 +16,10 @@
             <div class="row" id="knowledge-list">
                 {% if knowledges is defined and knowledges %}
                     {% for knowledge in knowledges %}
-                        {% set user = users[knowledge.userId]|default(null) %}
-                        {% include "TopxiaWebBundle:Default:single-knowledge-list.html.twig" %}
+                        {% if knowledge.toread is not defined %}
+                            {% set user = users[knowledge.userId]|default(null) %}
+                            {% include "TopxiaWebBundle:Default:single-knowledge-list.html.twig" %}
+                        {% endif %}
                     {% endfor %}
                 {% else %}
                     <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>
@@ -28,5 +30,5 @@
     </div>
 {% endblock %}
 {% block aside %}
-    {% include 'TopxiaWebBundle::aside.html.twig' %}
+    {% include 'AppBundle::aside.html.twig' %}
 {% endblock %}
