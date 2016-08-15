@@ -1,15 +1,61 @@
 $(document).ready(function(){
+    $("#like-knowledge").click(function(){
+        $.ajax({
+            url:$(this).data('url'),
+            data:{type:$(this).data('type')},
+            type:"POST",
+        })
+    });
 
-	// $.get($btn.data('url'),function(data){
- //        if (data.status == 'success') {
- //            $collectNum = parseInt($collectNum)+parseInt(1);
- //            $btn.hide();
- //            $btn.parent().find(".uncollect-btn").show();
- //            $btn.parent().find(".uncollect-btn").find(".uncollect-num").html($collectNum);
- //        } 
- //    })
+    $("#favorite-knowledge").click(function(){
+        $.ajax({
+            url:$(this).data('url'),
+            data:{type:$(this).data('type')},
+            type:"POST",
+        })
+    });
 
-    $("#like").click(function(){
+    $("#view-knowledge").click(function(){
+        $.ajax({
+            url:$(this).data('url'),
+            data:{type:$(this).data('type')},
+            type:"POST",
+        })
+    });
+
+    $("#follow-topic").click(function(){
+        $.ajax({
+            url:$(this).data('url'),
+            data:{type:$(this).data('type')},
+            type:"POST",
+        })
+    });
+
+    $("#knowledge-topic").click(function(){
+        $.ajax({
+            url:$(this).data('url'),
+            data:{type:$(this).data('type')},
+            type:"POST",
+        })
+    });
+
+    $("#score-user").click(function(){
+        $.ajax({
+            url:$(this).data('url'),
+            data:{type:$(this).data('type')},
+            type:"POST",
+        })
+    });
+
+    $("#knowledge-user").click(function(){
+        $.ajax({
+            url:$(this).data('url'),
+            data:{type:$(this).data('type')},
+            type:"POST",
+        })
+    });
+
+    $("#browse-user").click(function(){
         $.ajax({
             url:$(this).data('url'),
             data:{type:$(this).data('type')},

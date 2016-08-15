@@ -22,25 +22,7 @@
         </form>
     </div>
     <br> #}
-    {% include 'TopxiaWebBundle:TopList:top-knowledge.html.twig' %}
-    <div class="sidebar-block recommend">
-        <h2 class="title"><strong>热门主题</strong></h2>
-        <ul>
-            <li><a target="_blank" href="index.html"><span class="text">热门主题</span><span class="text-muted">阅读(2165)</span></a></li>
-            <li><a target="_blank" href="index.html"><span class="text">热门主题</span><span class="text-muted">阅读(2165)</span></a></li>
-            <li><a target="_blank" href="index.html"><span class="text">热门主题</span><span class="text-muted">阅读(2165)</span></a></li>
-            <li><a target="_blank" href="index.html"><span class="text">热门主题</span><span class="text-muted">阅读(2165)</span></a></li>
-            <li><a target="_blank" href="index.html"><span class="text">热门主题</span><span class="text-muted">阅读(2165)</span></a></li>
-        </ul>
-    </div>
-    <div class="sidebar-block recommend">
-        <h2 class="title"><strong>榜单</strong></h2>
-        <ul>
-            <li><a target="_blank" href="index.html"><span class="text">榜单</span> <span class="text-muted">阅读(2165)</span></a></li>
-            <li><a target="_blank" href="index.html"><span class="text">榜单</span> <span class="text-muted">阅读(2165)</span></a></li>
-            <li><a target="_blank" href="index.html"><span class="text">榜单</span> <span class="text-muted">阅读(2165)</span></a></li>
-            <li><a target="_blank" href="index.html"><span class="text">榜单</span> <span class="text-muted">阅读(2165)</span></a></li>
-            <li><a target="_blank" href="index.html"><span class="text">榜单</span> <span class="text-muted">阅读(2165)</span></a></li>
-        </ul>
-    </div>
+    {{ render(controller('TopxiaWebBundle:Default:listTopKnowledges')) }}
+    {{ render(controller('TopxiaWebBundle:Default:listTopTopics')) }}
+    {{ render(controller('TopxiaWebBundle:Default:listTopUsers')) }}
 </aside>

@@ -25,9 +25,6 @@ class DefaultController extends BaseController
             $paginator->getPerPageCount()
         );
 
-        $type = 'like';
-        $topKnowledges = $this->getKnowledgeService()->findTopKnowledges($type);
-
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
         
@@ -35,29 +32,57 @@ class DefaultController extends BaseController
             'knowledges' => $knowledges,
             'users' => $users,
             'paginator' => $paginator,
+        ));
+    }
+
+    public function listTopKnowledgesAction(Request $request)
+    {
+        $post = $request->request->all();
+        if (empty($post['type'])) {
+            $type = 'like';
+        } else {
+            $type = $post['type'];
+        }
+        $topKnowledges = $this->getKnowledgeService()->findTopKnowledges($type);
+
+        return $this->render('TopxiaWebBundle:TopList:top-knowledge.html.twig',array(
             'topKnowledges' => $topKnowledges,
             'type' => $type
         ));
     }
 
-    // public function listTopKnowledgesAction(Request $request)
-    // {
-    //     $conditions = array();
-    //     $orderBy = array($type.'Num', 'DESC');
-    //     $topNum = 5;
-    //     $knowledges = $this->getKnowledgeService()->searchKnowledges(
-    //         $conditions,
-    //         $orderBy,
-    //         0,
-    //         5
-    //     );
+    public function listTopTopicsAction(Request $request)
+    {
+        $post = $request->request->all();
+        if (empty($post['type'])) {
+            $type = 'follow';
+        } else {
+            $type = $post['type'];
+        }
+        $topTopics = $this->getTopicService()->findTopTopics($type);
 
-    //     return $this->render('TopxiaWebBundle:TopList:top-knowledge.html.twig',array(
-    //         'knowledges' => $knowledges,
-    //         'type' => $type
-    //     ));
-    // }
-    
+        return $this->render('TopxiaWebBundle:TopList:top-topic.html.twig',array(
+            'topTopics' => $topTopics,
+            'type' => $type
+        ));
+    }
+
+    public function listTopUsersAction(Request $request)
+    {
+        $post = $request->request->all();
+        if (empty($post['type'])) {
+            $type = 'score';
+        } else {
+            $type = $post['type'];
+        }
+        $topUsers = $this->getUserService()->findTopUsers($type);
+
+        return $this->render('TopxiaWebBundle:TopList:top-user.html.twig',array(
+            'topUsers' => $topUsers,
+            'type' => $type
+        ));
+    }
+
     public function docModalAction(Request $request)
     {
         return $this->render('TopxiaWebBundle::add-file.html.twig');
@@ -86,5 +111,10 @@ class DefaultController extends BaseController
     protected function getLikeService()
     {
         return $this->biz['like_service'];
+    }
+
+    protected function getTopicService()
+    {
+        return $this->biz['topic_service'];
     }
 }

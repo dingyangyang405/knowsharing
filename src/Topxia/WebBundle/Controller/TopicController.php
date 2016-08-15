@@ -17,12 +17,8 @@ class TopicController extends BaseController
         $followedTopics = $this->getFollowTopicService()->findFollowedTopicsByUserId($userId);
         $topics = $this->getFollowTopicService()->hasFollowedTopics($topics,$userId);
 
-        $type = 'like';
-        $topKnowledges = $this->getKnowledgeService()->findTopKnowledges($type);
-
         return $this->render('TopxiaWebBundle:Topic:index.html.twig', array(
             'topics' => $topics,
-            'topKnowledges' => $topKnowledges
         ));
     }
 

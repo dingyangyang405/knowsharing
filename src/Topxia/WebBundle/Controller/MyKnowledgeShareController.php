@@ -37,14 +37,10 @@ class MyKnowledgeShareController extends BaseController
             $paginator->getOffsetCount(), 
             $paginator->getPerPageCount()
         );
-
-        $type = 'like';
-        $topKnowledges = $this->getKnowledgeService()->findTopKnowledges($type);
         
         return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-knowledge.html.twig',array(
             'knowledges' => $knowledges,
             'paginator' => $paginator,
-            'topKnowledges' => $topKnowledges
         ));
     }
 

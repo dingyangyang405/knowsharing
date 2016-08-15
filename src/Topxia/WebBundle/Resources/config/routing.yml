@@ -119,9 +119,17 @@ user_favorite:
     path: /user/{userId}/favorite
     defaults: {_controller: TopxiaWebBundle:User:listFavorite}
 
-# top_knowledge:
-#     path: /top/knowledge
-#     defaults: { _controller: TopxiaWebBundle:Default:listTopKnowledges }
+top_knowledge:
+    path: /top/knowledge
+    defaults: { _controller: TopxiaWebBundle:Default:listTopKnowledges }
+
+top_topic:
+    path: /top/topic
+    defaults: { _controller: TopxiaWebBundle:Default:listTopTopics }
+
+top_user:
+    path: /top/user
+    defaults: { _controller: TopxiaWebBundle:Default:listTopUsers }
 
 knowledge_finish_learn:
     path: /knowledge/{id}/learn
