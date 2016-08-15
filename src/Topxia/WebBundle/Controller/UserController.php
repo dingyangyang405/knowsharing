@@ -83,9 +83,17 @@ class UserController extends BaseController
     {
         $userId = 1;
         $myFolloweds = $this->getUserService()->searchMyFollowedsByUserIdAndType($userId, $type);
+        $objectIds = ArrayToolKit::column($myFolloweds,'objectId');
+        if ($type == 'user') {
+            $objects = $this->getUserService()->findUsersByIds($objectIds);
+        } elseif ($type == 'topic') {
+            $objects = $this->getTopicService()->findTopicsByIds($objectIds);
+            $objects = $this->getFollowTopicService()->hasFollowedTopics($objects,$userId);
+        }
 
         return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-followeds.html.twig', array(
-            'myFolloweds' => $myFolloweds
+            'objects' => $objects,
+            'type' => $type
         ));
     }
 
@@ -122,6 +130,11 @@ class UserController extends BaseController
         return $this->biz['knowledge_service'];
     }
 
+    protected function getTopicService()
+    {
+        return $this->biz['topic_service'];
+    }
+
     protected function getFavoriteService()
     {
         return $this->biz['favorite_service'];
@@ -140,5 +153,10 @@ class UserController extends BaseController
     protected function getToreadService()
     {
         return $this->biz['toread_service'];
+    }
+
+    protected function getFollowTopicService()
+    {
+        return $this->biz['follow_topic_service'];
     }
 }
