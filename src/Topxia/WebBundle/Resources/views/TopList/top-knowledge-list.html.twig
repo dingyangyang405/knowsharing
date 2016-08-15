@@ -1,0 +1,7 @@
+{% for topKnowledge in topKnowledges %}
+<tr>
+  <td>{{loop.index}}</td>
+  <td>{{topKnowledge.title}}</td>
+  <td>{% if type == 'like' %}<span class="badge bg-blue"><i class="fa fa-fw fa-thumbs-o-up"></i>{{topKnowledge.likeNum}}{% elseif type == 'favorite' %}<span class="badge bg-yellow"><i class="fa fa-fw fa-star-o"></i>{{topKnowledge.favoriteNum}}{% else %}<span class="badge bg-green"><i class="fa fa-fw fa-eye"></i>{{topKnowledge.viewNum}}{% endif %}</span></td>
+</tr>
+{% endfor %}

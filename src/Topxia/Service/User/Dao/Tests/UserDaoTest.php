@@ -28,7 +28,7 @@ class UserDaoTest extends BaseTestCase
             );
         $userTest1 = $this->getUserDao()->create($userTest1);
         $userTest2 = $this->getUserDao()->create($userTest2);
-        $users = $this->getUserDao()->findByIds(array($userTest1['id'],$userTest2['id']));
+        $users = $this->getUserDao()->findUsersByIds(array($userTest1['id'],$userTest2['id']));
         $this->assertEquals(count($users),2);
     }
     

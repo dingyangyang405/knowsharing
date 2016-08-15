@@ -145,3 +145,15 @@ register:
 my_knowledge_share_todolist: 
     path: /my/knowledge/todolist
     defaults: { _controller: AppBundle:MyKnowledgeShare:toDoList}
+
+top_knowledge:
+    path: /top/knowledge
+    defaults: { _controller: AppBundle:Default:listTopKnowledges }
+
+top_topic:
+    path: /top/topic
+    defaults: { _controller: AppBundle:Default:listTopTopics }
+
+top_user:
+    path: /top/user
+    defaults: { _controller: AppBundle:Default:listTopUsers }
