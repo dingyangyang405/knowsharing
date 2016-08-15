@@ -1,33 +1,42 @@
-$(".js-data-example-ajax").select2({
+$('.linke-select').select2({
     ajax: {
-        url: "https://api.github.com/search/repositories",
-        dataType: 'json',
+        url: $('.linke-select').data('url'),
         delay: 250,
+        type: 'POST',
+        dataType: 'json',
         data: function (params) {
-            return {
-                q: params.term, // search term
-                page: params.page
-            };
+            var query = {
+                name: params.term,
+            }
+            return query;
         },
-        processResults: function (data, params) {
-            // parse the results into the format expected by Select2
-            // since we are using custom formatting functions we do not need to
-            // alter the remote JSON data, except to indicate that infinite
-            // scrolling can be used
-            params.page = params.page || 1;
-
+        processResults: function (data) {
             return {
-                results: data.items,
-                pagination: {
-                    more: (params.page * 30) < data.total_count
-                }
+                results: data.topics
             };
-        },
-        cache: true
+        }
     },
-    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+    templateResult: formatState,
+    templateSelection: template,
     minimumInputLength: 1,
-    //templateResult: formatRepo, // omitted for brevity, see the source of this page
-    //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+    escapeMarkup: function (markup) {
+        return markup;
+    },
 });
+
+function formatState(state) {
+    if (!state.id) {
+        return state.name;
+    }
+    var $state = $(
+        '<span>' + state.name + '</span>'
+    );
+    return $state;
+};
+
+function template(data) {
+    return data.name;
+}
+$(".linke-select").select2("data", $(".linke-select").select2('data')[0]['id']);
+
 

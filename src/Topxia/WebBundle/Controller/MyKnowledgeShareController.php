@@ -13,11 +13,13 @@ class MyKnowledgeShareController extends BaseController
     {   
         // $userId = $this->getUserService()->getCurrentUser();
         $userId = 1;
-        $fields = $request->query->all();
+
         $conditions = array(
             'userId' => $userId,
             'keyword' => '',
         );
+
+        $fields = $request->query->all();
 
         $conditions = array_merge($conditions, $fields);
         if (isset($conditions['keyword'])) {
@@ -37,7 +39,7 @@ class MyKnowledgeShareController extends BaseController
             $paginator->getOffsetCount(), 
             $paginator->getPerPageCount()
         );
-        
+   
         return $this->render('AppBundle:MyKnowledgeShare:my-knowledge.html.twig',array(
             'knowledges' => $knowledges,
             'paginator' => $paginator
@@ -65,6 +67,43 @@ class MyKnowledgeShareController extends BaseController
         $this->getKnowledgeService()->deleteKnowledge($id);
 
         return new JsonResponse(true);
+    }
+
+    public function toDoListAction(Request $request)
+    {
+        $userId = '1';
+        $fields = $request->query->all();
+        $conditions = array(
+            'userId' => $userId,
+            'keyword' => '',
+        );
+
+        $conditions = array_merge($conditions, $fields);
+        if (isset($conditions['keyword'])) {
+            $conditions['title'] = "%{$conditions['keyword']}%";
+            unset($conditions['keyword']);
+        }
+   
+
+        $paginator = new Paginator(
+            $this->get('request'),
+            $this->getKnowledgeService()->getKnowledgesCount($conditions),
+            20
+        );
+
+        $knowledges = $this->getKnowledgeService()->searchKnowledges(
+            $conditions,
+            array('createdTime', 'DESC'),
+            $paginator->getOffsetCount(), 
+            $paginator->getPerPageCount()
+        );
+
+
+
+        return $this->render('TopxiaWebBundle:MyKnowledgeShare:todolist.html.twig', array(
+            'knowledges' => $knowledges,
+            'paginator' => $paginator
+        ));
     }
 
     protected function getKnowledgeService()
