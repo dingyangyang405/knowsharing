@@ -1,8 +1,8 @@
 {% extends 'TopxiaWebBundle::modal-base.html.twig'%}
-{% block title　%}
+{% block title %}
   编辑知识
 {% endblock %}
-{% block body　%}
+{% block body %}
   <form id="knowledge-edit-form" action="{{path('my_knowledge_share_edit',{id:knowledge.id})}}" method="post" class="form-horizontal">
     <div class="form-group">
       <label for="title" class="col-sm-3 control-label">标题</label>
@@ -18,7 +18,7 @@
     </div>
   </form>
 {% endblock %}
-{% block footer　%}
+{% block footer %}
   <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
   <button type="submit" id="knowledge-edit-btn" class="btn btn-primary pull-right" data-toggle="form-submit" data-target="#knowledge-edit-form" data-submiting-text="正在提交">保存</button>
 {% endblock %}  
