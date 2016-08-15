@@ -9717,7 +9717,7 @@ table.text-center th {
     background: rgba(0, 0, 0, 0.3);
 }
 .modal-content {
-    border-radius: 0;
+    border-radius: 15px;
     -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
     border: 0;
@@ -12685,7 +12685,7 @@ textarea::-webkit-scrollbar-thumb {
 }
 .form-control {
 	padding: 5px 5px 5px 10px;
-	border-radius: 0px;
+	border-radius: 4px;
 }
 .hidden-xs .nav {
 	margin-top: 70px;
