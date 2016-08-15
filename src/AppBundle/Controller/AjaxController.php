@@ -20,12 +20,13 @@ class AjaxController  extends BaseController
 
     public function topicAction(Request $request)
     {
-        $conditions= $request->request->all();
+        $conditions = $request->request->all();
         $topics = $this->getTopicService()->searchTopics(
             $conditions,
-            array('createdTime', 'DES')
+            array('createdTime', 'DESC'),
+            0,
+            PHP_INT_MAX
         );
-
         return new JsonResponse(array(
             'topics' => $topics
         ));

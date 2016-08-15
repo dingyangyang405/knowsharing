@@ -95,7 +95,7 @@ ajax_link:
     methods: [POST]
 
 ajax_topic:
-    path: /topic
+    path: /topic/find
     defaults: { _controller: AppBundle:Ajax:topic }
     methods: [POST]
 
