@@ -14,7 +14,7 @@ class UserController extends BaseController
     public function indexAction(Request $request,$id)
     {
         $user = $this->getUserService()->getUser($id);
-        $hasfollowed = $this->getUserService()->getFollowUserByUserIdAndObjectUserId(1,$id);
+        $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId(1,$id);
         $conditions = array(
             'userId' => $user['id']
         );
@@ -49,7 +49,7 @@ class UserController extends BaseController
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
-        $hasfollowed = $this->getUserService()->getFollowUserByUserIdAndObjectUserId(1,$userId);
+        $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId(1,$userId);
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
         $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
 
@@ -103,15 +103,15 @@ class UserController extends BaseController
         );
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
         $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
-        $hasfollowed = $this->getUserService()->getFollowUserByUserIdAndObjectUserId($myUserId,$userId);
+        $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($myUserId,$userId);
 
-        $follows = $this->getUserService()->searchMyFollowsByUserIdAndType($userId, $type);
+        $follows = $this->getFollowService()->searchMyFollowsByUserIdAndType($userId, $type);
         $objectIds = ArrayToolKit::column($follows,'objectId');
         if ($type == 'user') {
             $objects = $this->getUserService()->findUsersByIds($objectIds);
         } elseif ($type == 'topic') {
             $objects = $this->getTopicService()->findTopicsByIds($objectIds);
-            $objects = $this->getFollowTopicService()->hasFollowTopics($objects,$myUserId);
+            $objects = $this->getFollowService()->hasFollowTopics($objects,$myUserId);
         }
 
         return $this->render('AppBundle:User:follows.html.twig', array(
@@ -127,13 +127,13 @@ class UserController extends BaseController
     public function myFollowsAction(Request $request, $type)
     {
         $userId = 1;
-        $myFollows = $this->getUserService()->searchMyFollowsByUserIdAndType($userId, $type);
+        $myFollows = $this->getFollowService()->searchMyFollowsByUserIdAndType($userId, $type);
         $objectIds = ArrayToolKit::column($myFollows,'objectId');
         if ($type == 'user') {
             $objects = $this->getUserService()->findUsersByIds($objectIds);
         } elseif ($type == 'topic') {
             $objects = $this->getTopicService()->findTopicsByIds($objectIds);
-            $objects = $this->getFollowTopicService()->hasFollowTopics($objects,$userId);
+            $objects = $this->getFollowService()->hasFollowTopics($objects,$userId);
         }
 
         return $this->render('AppBundle:MyKnowledgeShare:my-follows.html.twig', array(
@@ -144,14 +144,14 @@ class UserController extends BaseController
 
     public function followAction(Request $request, $id)
     {
-        $this->getUserService()->followUser($id);
+        $this->getFollowService()->followUser($id);
 
         return new JsonResponse(true);
     }
 
     public function unfollowAction(Request $request, $id)
     {
-        $this->getUserService()->unfollowUser($id);
+        $this->getFollowService()->unfollowUser($id);
 
         return new JsonResponse(true);
     }
@@ -195,13 +195,18 @@ class UserController extends BaseController
         return $this->biz['like_service'];
     }
 
+    protected function getFollowService()
+    {
+        return $this->biz['follow_service'];
+    }
+
     protected function getToreadService()
     {
         return $this->biz['toread_service'];
     }
 
-    protected function getFollowTopicService()
-    {
-        return $this->biz['follow_topic_service'];
-    }
+    // protected function getFollowService()
+    // {
+    //     return $this->biz['follow_service'];
+    // }
 }

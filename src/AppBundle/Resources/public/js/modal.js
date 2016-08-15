@@ -1,12 +1,9 @@
 $(document).ready(function(){
     $("body").on('click', '#addLink', function() {
         var $url = $(this).data('url');
-        var $linkUrl = $('[name = linkUrl]').val();
-        var $title = $('[name = linkUrlTitle]').val();
-        var $summary = $('[name = linkUrlSummary]').val();
         $.ajax({
             url:$url,
-            data:{content:$linkUrl,title:$title,summary:$summary,type:'link'},
+            data:$('form').serialize(),
             type:"POST",
             success:function(data){
                 location.href = '/';
@@ -19,12 +16,9 @@ $(document).ready(function(){
 
     $("body").on('click', '#addFile', function() {
         var $url = $(this).data('url');
-        var $file = $('[name = file]').val();
-        var $title = $('[name = fileTitle]').val();
-        var $summary = $('[name = fileSummary]').val();
         $.ajax({
             url:$url,
-            data:{content:$file,title:$title,summary:$summary,type:'file'},
+            data:$('form').serialize(),
             type:"POST",
             success:function(data){
                 location.href = '/';

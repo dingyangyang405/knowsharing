@@ -1,11 +1,11 @@
-<?php
+<?php 
 
-namespace Biz\User\Dao\Impl;
+namespace Biz\Follow\Dao\Impl;
 
-use Biz\User\Dao\FollowUserDao;
+use Biz\Follow\Dao\FollowDao;
 use Codeages\Biz\Framework\Dao\GeneralDaoImpl;
 
-class FollowUserDaoImpl extends GeneralDaoImpl implements FollowUserDao
+class FollowDaoImpl extends GeneralDaoImpl implements FollowDao
 {
     protected $table = "follow";
 
@@ -23,9 +23,9 @@ class FollowUserDaoImpl extends GeneralDaoImpl implements FollowUserDao
             'serializes' => array(),
             'conditions' => array(
                 'userId = :userId', 
+                'objectId = :objectId',
                 'type = :type'
             ),
         );
     }
-
 }

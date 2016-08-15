@@ -34,7 +34,7 @@ class LearnServiceTest extends BaseTestCase
                 'title' => '知识分享',
                 'summary' => '这是测试',
                 'type' => 'link',
-                'themeId' => '1',
+                'topicId' => '1',
                 'userId' => '1',
                 'createdTime' => '1464591741',
                 'updatedTime' => '1470837949',
