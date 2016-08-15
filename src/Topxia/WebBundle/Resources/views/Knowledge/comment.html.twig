@@ -4,6 +4,7 @@
 	    <span class="input-group-btn">
 	      <button type="botton" class="btn btn-info btn-flat" id="comment" data-url="{{ path('knowledge_create_comment') }}" data-id="{{ knowledge.id }}">评论</button>
 	    </span>
+      {{form_csrf_token()}}
 	</div>
 </form>
 {% if comments %}
@@ -14,7 +15,7 @@
       <img class="img-circle img-sm" src="{{ asset('bundles/topxiaweb/img/user.jpg') }}" alt="User Image">
       <div class="comment-text">
             <span class="username">
-              {{ users[comment.userId].name }}
+              {{ users[comment.userId].username }}
               <span class="text-muted pull-right">{{ comment.createdTime|date('Y年m月d日') }}</span>
             </span><!-- /.username -->
         {{ comment.value }}
