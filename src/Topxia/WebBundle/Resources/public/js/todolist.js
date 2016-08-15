@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $('div.news-list #create-todo-btn').click(function(){
-        var btn = $(this);
+        var btn = $(this); 
         $.post(btn.data('url'), function(data){
             var parent = btn.parents('.news-list');
             parent.fadeTo('slow', 0.01, function(){
