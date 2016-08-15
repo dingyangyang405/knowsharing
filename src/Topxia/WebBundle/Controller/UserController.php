@@ -83,8 +83,7 @@ class UserController extends BaseController
     {
         $userId = 1;
         $myFolloweds = $this->getUserService()->searchMyFollowedsByUserIdAndType($userId, $type);
-        var_dump($type);
-        exit;
+
         return $this->render('TopxiaWebBundle:MyKnowledgeShare:my-followeds.html.twig', array(
             'myFolloweds' => $myFolloweds
         ));
@@ -100,6 +99,20 @@ class UserController extends BaseController
     public function unfollowAction(Request $request, $id)
     {
         $this->getUserService()->unfollowUser($id);
+
+        return new JsonResponse(true);
+    }
+
+    public function createToreadAction(Request $request, $id)
+    {
+        $this->getToreadService()->createToreadKnowledge($id);
+
+        return new JsonResponse(true);
+    }
+
+    public function deleteToreadAction(Request $request, $id)
+    {
+        $this->getToreadService()->deleteToreadKnowledge($id);
 
         return new JsonResponse(true);
     }
@@ -122,5 +135,10 @@ class UserController extends BaseController
     protected function getLikeService()
     {
         return $this->biz['like_service'];
+    }
+
+    protected function getToreadService()
+    {
+        return $this->biz['toread_service'];
     }
 }

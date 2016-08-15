@@ -28,7 +28,9 @@
       {% endblock %}
       <div class="row">
         {% if myFolloweds is defined %}
-          {{ myFolloweds[0]}}
+          {% for myFollowed in myFolloweds %}
+            id:{{ myFollowed.id }}
+          {% endfor %}
         {% else %}
           <div class="panel-title">
             <h4 align="center">---暂无分享记录---</h4>
