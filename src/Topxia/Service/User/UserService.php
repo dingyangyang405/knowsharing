@@ -19,4 +19,6 @@ interface UserService
     public function register($user);
 
     public function searchMyFollowedsByUserIdAndType($userId, $type);
+
+    public function findTopUsers($type);
 }

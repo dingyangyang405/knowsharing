@@ -43,7 +43,7 @@ user_follow:
     path: /user/{id}/follow
     defaults: { _controller: appBundle:User:follow }
     methods: [POST]
-    
+
 user_unfollow:
     path: /user/{id}/unfollow
     defaults: { _controller: appBundle:User:unfollow }
@@ -119,6 +119,18 @@ user_favorite:
     path: /user/{userId}/favorite
     defaults: {_controller: appBundle:User:listFavorite}
 
+top_knowledge:
+    path: /top/knowledge
+    defaults: { _controller: appBundle:Default:listTopKnowledges }
+
+top_topic:
+    path: /top/topic
+    defaults: { _controller: appBundle:Default:listTopTopics }
+
+top_user:
+    path: /top/user
+    defaults: { _controller: appBundle:Default:listTopUsers }
+
 knowledge_finish_learn:
     path: /knowledge/{id}/learn
     defaults: {_controller: appBundle:Knowledge:finishLearn}
@@ -141,4 +153,3 @@ register:
 my_knowledge_share_todolist: 
     path: /my/knowledge/todolist
     defaults: { _controller: TopxiaWebBundle:MyKnowledgeShare:toDoList}
-

@@ -42,7 +42,7 @@ class MyKnowledgeShareController extends BaseController
    
         return $this->render('AppBundle:MyKnowledgeShare:my-knowledge.html.twig',array(
             'knowledges' => $knowledges,
-            'paginator' => $paginator
+            'paginator' => $paginator,
         ));
     }
 

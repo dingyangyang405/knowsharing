@@ -49,6 +49,21 @@ class TopicServiceImpl implements TopicService
         }
     }
 
+    public function findTopTopics($type)
+    {
+        $topConditions = array();
+        $topOrderBy = array($type.'Num', 'DESC');
+        $topNum = 5;
+        $topTopics = $this->getTopicDao()->search(
+            $topConditions,
+            $topOrderBy,
+            0,
+            $topNum
+        );
+
+        return $topTopics;
+    }
+
     public function deleteTopicById($id)
     {
         $topic = $this->getTopicDao()->get($id);

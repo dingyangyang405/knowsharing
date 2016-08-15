@@ -25,6 +25,21 @@ class TopicServiceImpl implements TopicService
         return $this->getTopicDao()->create($field);
     }
 
+    public function findTopTopics($type)
+    {
+        $topConditions = array();
+        $topOrderBy = array($type.'Num', 'DESC');
+        $topNum = 5;
+        $topTopics = $this->getTopicDao()->search(
+            $topConditions,
+            $topOrderBy,
+            0,
+            $topNum
+        );
+
+        return $topTopics;
+    }
+
     public function getTopicById($id)
     {
         return $this->getTopicDao()->get($id);

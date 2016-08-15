@@ -51,7 +51,7 @@ class KnowledgeController extends BaseController
             'comments' => $comments,
             'users' => $users,
             'paginator' => $paginator,
-            'hasLearned' => $hasLearned
+            'hasLearned' => $hasLearned,
         ));
     }
 

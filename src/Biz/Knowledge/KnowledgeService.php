@@ -30,4 +30,6 @@ interface KnowledgeService
 
     public function searchKnowledgesByIds($ids, $start, $limit);
 
+    public function findTopKnowledges($type);
+
 }

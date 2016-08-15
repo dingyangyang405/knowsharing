@@ -1,18 +1,4 @@
 {% extends 'AppBundle::base.html.twig' %}
-{% block left_header %} 
-<ul class="nav hidden-xs-nav nav-pills nav-stacked">
-  <li>
-    <a href="{{path('homepage')}}">
-      <i class="fa fa-book"></i><span>知识广场</span>
-    </a>
-  </li>
-  <li class="active">
-    <a href="{{path('my_knowledge_share')}}">
-      <i class="fa fa-child"></i><span>我的知识库</span>
-    </a>
-  </li>
-</ul>
-{% endblock %}
 {% block aside %}
   {% include 'AppBundle::aside.html.twig' %}
 {% endblock %}

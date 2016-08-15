@@ -45,4 +45,9 @@ class TopicController extends BaseController
     {
         return $this->biz['follow_topic_service'];
     }
+
+    protected function getKnowledgeService()
+    {
+        return $this->biz['knowledge_service'];
+    }
 }

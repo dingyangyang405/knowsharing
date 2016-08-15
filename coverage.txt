@@ -1,0 +1,38 @@
+
+
+Code Coverage Report 
+  2016-08-12 20:05:54
+
+ Summary: 
+  Classes: 42.86% (6/14)
+  Methods: 81.94% (59/72)
+  Lines:   89.41% (211/236)
+
+\Topxia\Service\Favorite\Dao\Impl::FavoriteDaoImpl
+  Methods: 100.00% ( 3/ 3)   Lines: 100.00% ( 13/ 13)
+\Topxia\Service\Favorite\Impl::FavoriteServiceImpl
+  Methods: 100.00% (10/10)   Lines:  93.94% ( 31/ 33)
+\Topxia\Service\Knowledge\Dao\Impl::CommentDaoImpl
+  Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  6/  6)
+\Topxia\Service\Knowledge\Dao\Impl::KnowledgeDaoImpl
+  Methods:  33.33% ( 1/ 3)   Lines:  55.56% (  5/  9)
+\Topxia\Service\Knowledge\Impl::KnowledgeServiceImpl
+  Methods:  78.57% (11/14)   Lines:  63.16% ( 12/ 19)
+\Topxia\Service\Like\Dao\Impl::LikeDaoImpl
+  Methods: 100.00% ( 3/ 3)   Lines: 100.00% ( 13/ 13)
+\Topxia\Service\Like\Impl::LikeServiceImpl
+  Methods: 100.00% ( 9/ 9)   Lines:  93.75% ( 30/ 32)
+\Topxia\Service\Topic\Dao\Impl::FollowTopicDaoImpl
+  Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  6/  6)
+\Topxia\Service\Topic\Dao\Impl::TopicDaoImpl
+  Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  7/  7)
+\Topxia\Service\Topic\Impl::FollowTopicServiceImpl
+  Methods: 100.00% ( 8/ 8)   Lines:  89.80% ( 44/ 49)
+\Topxia\Service\Topic\Impl::TopicServiceImpl
+  Methods:  80.00% ( 4/ 5)   Lines:  75.00% (  6/  8)
+\Topxia\Service\User\Dao\Impl::FollowUserDaoImpl
+  Methods: 100.00% ( 2/ 2)   Lines: 100.00% (  6/  6)
+\Topxia\Service\User\Dao\Impl::UserDaoImpl
+  Methods: 100.00% ( 3/ 3)   Lines:  90.91% ( 10/ 11)
+\Topxia\Service\User\Impl::UserServiceImpl
+  Methods: 100.00% ( 8/ 8)   Lines:  91.67% ( 22/ 24)
