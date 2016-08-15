@@ -33,6 +33,21 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
         return $this->db()->fetchAll($sql,$knowledgeIds);
     }
 
+    public function searchKnowledgesByIds($ids, $start, $limit)
+    {
+        if (empty($ids)) {
+            return array();
+        }
+
+        $marks = str_repeat('?,', count($ids)-1).'?';
+        $start = (int) $start;
+        $limit = (int) $limit;
+
+        $sql = "SELECT * FROM {$this->table} WHERE id IN ({$marks}) ORDER BY createdTime DESC LIMIT {$start}, {$limit}";
+
+        return $this->db()->fetchAll($sql,$ids);
+    }
+
     public function declares()
     {
         return array(
@@ -41,6 +56,7 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
             'conditions' => array(
                 'userId = :userId',
                 'title Like :title',
+                'id IN (:ids)'
             ),
         );
     }

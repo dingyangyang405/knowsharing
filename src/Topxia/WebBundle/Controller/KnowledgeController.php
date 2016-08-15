@@ -107,7 +107,7 @@ class KnowledgeController extends BaseController
     public function dislikeAction(Request $request, $id)
     {
         $userId = '1';
-        $this->getLikeService()->likeKnowledge($id, $userId);
+        $this->getLikeService()->dislikeKnowledge($id, $userId);
         return new JsonResponse(array(
             'status' => 'success'
         ));

@@ -16,7 +16,7 @@ class LikeDaoImpl extends GeneralDaoImpl implements LikeDao
         $fields = array(
             'userId' => $userId,
             'knowledgeId' => $id
-            );
+        );
         $stmt->execute($fields);        
     }
 

@@ -28,7 +28,19 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
 
     public function followUser($id)
     {   
-        // $user = $this->getCurrentUser();
+        $user['id'] = 1;//当前用户,传过来的$id是要查看的用户
+        if (empty($user['id'])) {
+            throw new \Exception('用户不存在');
+        }
+
+        $user = $this->getUserDao()->get($id);
+        if (empty($user)) {
+            throw new \Exception('被关注的用户不存在');
+        }
+        $user = $this->getFollowUserByUserIdAndObjectUserId($user['id'], $id);
+        if ($user) {
+            throw new \Exception('已经被关注');
+        }
         $user['id'] = 1;
         $followUser = $this->getFollowDao()->create(array(
             'userId'=> $user['id'],
@@ -59,7 +71,7 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
         return $this->getUserDao()->getByUsername($username);
     }
 
-    public function searchMyFollowedsByUserIdAndType($userId, $type)
+    public function searchMyFollowsByUserIdAndType($userId, $type)
     {
         $conditions = array(
             'userId' => $userId, 
@@ -67,9 +79,9 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
         );
         $orderBy = array('id', 'DESC');
         
-        $myFolloweds = $this->getFollowDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
+        $myFollows = $this->getFollowDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
 
-        return $myFolloweds;
+        return $myFollows;
     }
 
     public function register($user)

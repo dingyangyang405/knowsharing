@@ -26,7 +26,9 @@ class DefaultController extends BaseController
         );
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
+
         $users = ArrayToolKit::index($users, 'id');
+
         return $this->render('AppBundle:Default:index.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
