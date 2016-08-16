@@ -49,6 +49,12 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $topKnowledges;
     }
 
+    public function getPath($file)
+    {
+        
+        $file->move();
+    }
+
     public function deleteKnowledge($id)
     {
         return $this->getKnowledgeDao()->delete($id);
