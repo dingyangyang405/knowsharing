@@ -11,10 +11,10 @@ use AppBundle\Common\ArrayToolKit;
 class MyKnowledgeShareController extends BaseController
 {
     public function indexAction(Request $request)
-    {   
-        $user = $this->biz->getUser();
-        if (empty($user)) {
-            throw new \Exception("请先登陆用户");           
+    {
+        $user = $this->getCurrentUser();
+        if (!$user->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
         }
         $fields = $request->query->all();
         $conditions = array(
