@@ -101,6 +101,16 @@ class DefaultController extends BaseController
         return $this->render('AppBundle::notice-todolist.html.twig', array());
     }
 
+    public function searchRelatedInAction(Request $request)
+    {
+        $contions = $request->query->all();
+
+        return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
+            'type' => $contions['type'],
+            'query' => $contions['qurey']
+        ));
+    }
+
     public function docModalAction(Request $request)
     {
         return $this->render('AppBundle::add-file.html.twig');

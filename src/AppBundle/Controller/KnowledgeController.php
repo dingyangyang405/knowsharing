@@ -14,11 +14,19 @@ class KnowledgeController extends BaseController
     public function indexAction($id)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+            return $this->redirect($this->generateUrl("login"));
+        }
+        if ($currentUser['roles'][0] == 'ROLE_SUPER_ADMIN') {
+            $userRole = array(
+                'roles' => 'admin'
+            );
+        }
+
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $hasLearned = $this->getLearnService()->getLearnedByIdAndUserId($id, $currentUser['id']);
 
         $user = $this->getUserService()->getUser($knowledge['userId']);
-
         $conditions = array('knowledgeId' => $knowledge['id']);
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
@@ -44,11 +52,13 @@ class KnowledgeController extends BaseController
 
         $knowledge = array($knowledge);
         $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$currentUser['id']);
+
         $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$currentUser['id']);
 
         return $this->render('AppBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge[0],
             'user' => $user,
+            'userRole' => $userRole,
             'comments' => $comments,
             'users' => $users,
             'paginator' => $paginator,
@@ -80,6 +90,18 @@ class KnowledgeController extends BaseController
         $this->getUserService()->addScore($user['id'], 3);
 
         return new JsonResponse($data);
+    }
+
+    public function adminEditAction()
+    {
+
+    }
+
+    public function adminDeleteAction(Request $request, $id)
+    {   
+        $this->getKnowledgeService()->deleteKnowledge($id);
+        
+        return new JsonResponse(true); 
     }
 
     public function createCommentAction(Request $request)
