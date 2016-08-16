@@ -15,9 +15,9 @@ class ToreadServiceImpl implements ToreadService
 
     public function createToreadKnowledge($id)
     {
-        $user['id'] = 1;
+        $user = $this->container->getUser();
 
-        if (empty($user['id'])) {
+        if (empty($user)) {
             throw new \Exception('用户不存在');
         }
 
@@ -34,6 +34,11 @@ class ToreadServiceImpl implements ToreadService
             throw new \Exception('待读列表中已经有该知识');
         }
 
+        $browsedKnowledge = $this->getLearnDao()->getByIdAndUserId($id, $user['id']);
+        if (!empty($browsedKnowledge)) {
+            throw new \Exception('已经学过的知识就不要加入待读列表啦');
+        }
+
         $this->getToreadDao()->create(array(
             'userId' => $user['id'],
             'knowledgeId' => $id,
@@ -44,9 +49,9 @@ class ToreadServiceImpl implements ToreadService
 
     public function deleteToreadKnowledge($id)
     {
-        $user['id'] = 1;
+        $user = $this->container->getUser();
 
-        if (empty($user['id'])) {
+        if (empty($user)) {
             throw new \Exception('用户不存在');
         }
 
@@ -74,5 +79,10 @@ class ToreadServiceImpl implements ToreadService
     protected function getKnowledgeDao()
     {
         return $this->container['knowledge_dao'];
+    }
+
+    protected function getLearnDao()
+    {
+        return $this->container['learn_dao'];
     }
 }
