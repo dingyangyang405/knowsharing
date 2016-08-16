@@ -30,6 +30,22 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
         return $topUsers;
     }
 
+    public function addScore($userId, $score)
+    {
+        $ids = array($userId);
+        $diffs = array('score' => $score);
+
+        return $this->getUserDao()->wave($ids, $diffs);
+    }
+
+    public function minusScore($userId, $score)
+    {
+        $ids = array($userId);
+        $diffs = array('score' => $score);
+
+        return $this->getUserDao()->wave($ids, $diffs);
+    }
+
     public function findUsersByIds($ids)
     {
         return $this->getUserDao()->findUsersByIds($ids);
