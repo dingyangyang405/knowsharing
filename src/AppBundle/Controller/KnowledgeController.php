@@ -13,7 +13,7 @@ class KnowledgeController extends BaseController
 {
     public function indexAction($id)
     {
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $hasLearned = $this->getLearnService()->getLearnedByIdAndUserId($id, $currentUser['id']);
 
@@ -58,7 +58,7 @@ class KnowledgeController extends BaseController
 
     public function createKnowledgeAction(Request $request)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
         $post = $request->request->all();
         if ($post['type'] == 'file') {
             $file = $request->files->get('content');
@@ -67,7 +67,7 @@ class KnowledgeController extends BaseController
             $content = $request->request->get('content');        
         }
 
-        $topic = $this->getTopicService()->getTopicById($post['topic'] ,$user);
+        $topic = $this->getTopicService()->getTopicById($post['topic']);
         $data = array(
             'title' => $post['title'],
             'summary' => $post['summary'],
