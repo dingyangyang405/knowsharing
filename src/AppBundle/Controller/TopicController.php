@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
-use Topxia\Service\User\Impl\UserServiceImpl;
+use Biz\User\Impl\UserServiceImpl;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TopicController extends BaseController
@@ -35,6 +35,11 @@ class TopicController extends BaseController
         $this->getFollowService()->unFollowTopic($id);
 
         return new JsonResponse(true);
+    }
+
+    public function topicKnowledgeAction($id)
+    {
+
     }
 
     protected function getTopicService()

@@ -1,6 +1,6 @@
 <?php
 
-namespace Topxia\Service\Favorite\Tests;
+namespace AppBundle\Service\Favorite\Tests;
 
 use Codeages\Biz\Framework\UnitTests\BaseTestCase;
 

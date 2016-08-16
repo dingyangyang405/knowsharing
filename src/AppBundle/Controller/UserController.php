@@ -86,7 +86,7 @@ class UserController extends BaseController
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
-
+        // var_dump($knowledges);exit();
         return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
