@@ -65,7 +65,7 @@ class MyKnowledgeShareController extends BaseController
 
     public function toDoListAction(Request $request)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
         $toDoList = $this->getToDoListService()->findToDoListByUserId($user['id']);
 
         $paginator = new Paginator(

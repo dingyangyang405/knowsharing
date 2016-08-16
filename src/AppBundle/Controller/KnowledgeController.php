@@ -13,10 +13,9 @@ class KnowledgeController extends BaseController
 {
     public function indexAction($id)
     {
-        $currentUser = $this->biz->getUser();
-
-        if (empty($currentUser['roles'])) {
-            throw new \Exception("该用户暂不存在");    
+        $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+            return $this->redirect($this->generateUrl("login"));
         }
         if ($currentUser['roles'][0] == 'ROLE_SUPER_ADMIN') {
             $userRole = array(
@@ -69,7 +68,7 @@ class KnowledgeController extends BaseController
 
     public function createKnowledgeAction(Request $request)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
         $post = $request->request->all();
         if ($post['type'] == 'file') {
             $file = $request->files->get('content');
@@ -100,18 +99,9 @@ class KnowledgeController extends BaseController
 
     public function adminDeleteAction(Request $request, $id)
     {   
-        $currentUser = $this->biz->getUser();
-        if (empty($currentUser)) {
-            throw new \Exception("用户不存在");            
-        } 
-        $result = $this->getKnowledgeService()->deleteKnowledge($id);
-        if ($result == true) {
-
-            return new JsonResponse(array('status' => 'success')); 
-        } else {
-
-            return new JsonResponse(array('status' => 'false'));
-        }       
+        $this->getKnowledgeService()->deleteKnowledge($id);
+        
+        return new JsonResponse(true); 
     }
 
     public function createCommentAction(Request $request)
