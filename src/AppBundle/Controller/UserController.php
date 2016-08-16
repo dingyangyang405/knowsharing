@@ -86,7 +86,6 @@ class UserController extends BaseController
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
-        // var_dump($knowledges);exit();
         return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
@@ -97,8 +96,6 @@ class UserController extends BaseController
     public function listFollowsAction(Request $request, $userId, $type)
     {   
         $currentUser = $this->biz->getUser();
-        // $userId = 1;//传过来的用户
-        // $myUserId = 2;//当前登录用户
         $user = $this->getUserService()->getUser($userId);
         $conditions = array(
             'userId' => $user['id']
@@ -128,7 +125,6 @@ class UserController extends BaseController
 
     public function myFollowsAction(Request $request, $type)
     {
-        // $userId = 1;
         $user = $this->biz->getUser();
         $myFollows = $this->getFollowService()->searchMyFollowsByUserIdAndType($user['id'], $type);
         $objectIds = ArrayToolKit::column($myFollows,'objectId');
