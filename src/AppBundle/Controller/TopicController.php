@@ -37,7 +37,11 @@ class TopicController extends BaseController
 
     public function topicKnowledgeAction($id)
     {
+       $knowledge = $this->getTopicService()->findKnowledgesByTopicId($id);
 
+        return $this->render('AppBundle:Topic:knowledge.html.twig', array(
+            'knowledge' => $knowledge
+        ));
     }
 
     protected function getTopicService()

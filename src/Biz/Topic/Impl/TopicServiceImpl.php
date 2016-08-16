@@ -91,9 +91,19 @@ class TopicServiceImpl implements TopicService
     {
         return $this->getTopicDao()->findTopicsByIds($ids);
     }
-    
+
+    public function findKnowledgesByTopicId($id)
+    {
+        return $this->getKnowledgeDao()->findByTopicId($id);
+    }
+
     protected function getTopicDao()
     {
         return $this->container['topic_dao'];
+    }
+
+    protected function getKnowledgeDao()
+    {
+        return $this->container['knowledge_dao'];
     }
 }
