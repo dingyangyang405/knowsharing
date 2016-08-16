@@ -3,16 +3,10 @@
 namespace Biz\Toread\Impl;
 
 use Biz\Toread\ToreadService;
+use Codeages\Biz\Framework\Service\KernelAwareBaseService;
 
-class ToreadServiceImpl implements ToreadService
+class ToreadServiceImpl extends KernelAwareBaseService implements ToreadService
 {
-    protected $container;
-
-    public function __construct($container)
-    {
-        $this->container = $container;
-    }
-
     public function createToreadKnowledge($id, $userId)
     {
         $knowledge = $this->getKnowledgeDao()->get($id);
@@ -66,16 +60,16 @@ class ToreadServiceImpl implements ToreadService
 
     protected function getToreadDao()
     {
-        return $this->container['toread_dao'];
+        return $this->biz['toread_dao'];
     }
 
     protected function getKnowledgeDao()
     {
-        return $this->container['knowledge_dao'];
+        return $this->biz['knowledge_dao'];
     }
 
     protected function getLearnDao()
     {
-        return $this->container['learn_dao'];
+        return $this->biz['learn_dao'];
     }
 }

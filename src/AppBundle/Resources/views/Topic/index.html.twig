@@ -41,14 +41,6 @@
 {% block base_content %}
     <div class="content">
         <div class="content-block new-content">
-            {% block navTabs %}
-           {#      <ul class="nav nav-tabs">
-                    <li role="newknowledge" ><a href="{{path('homepage')}}">最新知识</a></li>
-                    <li role="myconcern"><a href="#timeline">我的关注<span style="color:#f00">999+</span></a></li>
-                    <li role="topic" class="active"><a href="{{path('topic')}}">主题</a></li>
-                </ul> #}
-                <br>
-            {% endblock %}
             <div class="row" id="topic-tables">
                 {% if topics is defined and topics %}
                     {% for topic in topics %}
@@ -59,7 +51,12 @@
                     <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>
                 {% endif %}
             </div>
-            <div class="quotes" style="margin-top:15px"><span class="disabled">首页</span><span class="disabled">上一页</span><span class="current">1</span><a href="index.html">2</a><a href="index.html">下一页</a><a href="index.html">尾页</a></div>
+            </div>
+              {{ web_macro.paginator(paginator) }}
+            </div>  
         </div>
     </div>
+{% endblock %}
+{% block aside %}
+    {% include 'AppBundle::aside.html.twig' %}
 {% endblock %}

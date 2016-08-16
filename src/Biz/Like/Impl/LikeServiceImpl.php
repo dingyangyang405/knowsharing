@@ -4,16 +4,10 @@ namespace Biz\Like\Impl;
 
 use Biz\Like\LikeService;
 use AppBundle\Common\ArrayToolKit;
+use Codeages\Biz\Framework\Service\KernelAwareBaseService;
 
-class LikeServiceImpl implements LikeService
+class LikeServiceImpl extends KernelAwareBaseService implements LikeService
 {
-    protected $container;
-
-    public function __construct($container)
-    {
-        $this->container = $container;
-    }
-
     public function createLike($fields)
     {
         return $this->getLikeDao()->create($fields);
@@ -74,11 +68,11 @@ class LikeServiceImpl implements LikeService
 
     protected function getLikeDao()
     {
-        return $this->container['like_dao'];
+        return $this->biz['like_dao'];
     }
 
     protected function getKnowledgeDao()
     {
-        return $this->container['knowledge_dao'];
+        return $this->biz['knowledge_dao'];
     }
 }

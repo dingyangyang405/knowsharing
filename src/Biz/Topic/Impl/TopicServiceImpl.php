@@ -3,16 +3,10 @@ namespace Biz\Topic\Impl;
 
 use Biz\Topic\Dao\Impl\TopicDaoImpl;
 use Biz\Topic\TopicService;
+use Codeages\Biz\Framework\Service\KernelAwareBaseService;
 
-class TopicServiceImpl implements TopicService
+class TopicServiceImpl extends KernelAwareBaseService implements TopicService
 {
-    protected  $container;
-
-    public  function __construct($container)
-    {
-        $this->container = $container;
-    }
-
     public function createTopic($field)
     {
         if (empty($field)) {
@@ -25,12 +19,26 @@ class TopicServiceImpl implements TopicService
         return $this->getTopicDao()->create($field);
     }
 
-    public function getTopicById($id ,$user)
+    public function getTopicById($id)
     {
-        if (is_numeric($id)) {
+        $field['id'] = $id;
+        if (gettype($id) == 'string') {
             return $this->getTopicDao()->get($id);
         } else {
-            $field = array('name' => $id, 'userId' => $user['id']);
+            return $this->getTopicDao()->create($field);
+        }
+    }
+
+    public function getTopicByName($name)
+    {
+        if (empty($name)) {
+            return $topic['id'] = null;
+        }
+        $result = $this->getTopicDao()->getTopicByName($name);
+        if ($result) {
+            return $result;
+        } else {
+            $field['name'] = $name;
             return $this->getTopicDao()->create($field);
         }
     }
@@ -77,9 +85,14 @@ class TopicServiceImpl implements TopicService
     {
         return $this->getTopicDao()->findTopicsByIds($ids);
     }
-    
+
+    public function getTopicsCount($conditions)
+    {
+        return $this->getTopicDao()->count($conditions);
+    }
+
     protected function getTopicDao()
     {
-        return $this->container['topic_dao'];
+        return $this->biz['topic_dao'];
     }
 }

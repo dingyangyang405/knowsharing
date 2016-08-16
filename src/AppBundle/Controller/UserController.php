@@ -14,24 +14,35 @@ class UserController extends BaseController
     public function indexAction(Request $request,$id)
     {
         $currentUser = $this->biz->getUser();
-        $user = $this->getUserService()->getUser($id);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$id);
-        $conditions = array(
-            'userId' => $user['id']
-        );
-        $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
-        $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
 
-        $knowledges = $this->getKnowledgeService()->findKnowledgesByUserId($user['id']);
+        $conditions = array('userId' => $id);
+        $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
+        $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
+
+        $orderBy = array('createdTime', 'DESC');
+        $paginator = new Paginator(
+            $this->get('request'),
+            $knowledgesCount,
+            20
+        );
+        $knowledges = $this->getKnowledgeService()->searchKnowledges(
+            $conditions,
+            $orderBy,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
+
         $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$id);
         $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$id);
 
         return $this->render('AppBundle:User:index.html.twig', array(
-            'user' => $user,
+            'user' => $currentUser,
             'knowledgesCount' => $knowledgesCount,
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
-            'knowledges' => $knowledges
+            'knowledges' => $knowledges,
+            'paginator' => $paginator
         ));
     }
 
@@ -75,7 +86,7 @@ class UserController extends BaseController
         $paginator = new Paginator(
             $this->get('request'),
             $this->getKnowledgeService()->getKnowledgesCount($conditions),
-            2
+            20
         );
         $knowledges = $this->getKnowledgeService()->searchKnowledges(
             $conditions,
@@ -86,7 +97,6 @@ class UserController extends BaseController
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
-        // var_dump($knowledges);exit();
         return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
@@ -97,8 +107,6 @@ class UserController extends BaseController
     public function listFollowsAction(Request $request, $userId, $type)
     {   
         $currentUser = $this->biz->getUser();
-        // $userId = 1;//传过来的用户
-        // $myUserId = 2;//当前登录用户
         $user = $this->getUserService()->getUser($userId);
         $conditions = array(
             'userId' => $user['id']
@@ -128,7 +136,6 @@ class UserController extends BaseController
 
     public function myFollowsAction(Request $request, $type)
     {
-        // $userId = 1;
         $user = $this->biz->getUser();
         $myFollows = $this->getFollowService()->searchMyFollowsByUserIdAndType($user['id'], $type);
         $objectIds = ArrayToolKit::column($myFollows,'objectId');
