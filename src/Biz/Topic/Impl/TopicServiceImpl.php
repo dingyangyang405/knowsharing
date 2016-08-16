@@ -25,26 +25,12 @@ class TopicServiceImpl implements TopicService
         return $this->getTopicDao()->create($field);
     }
 
-    public function getTopicById($id)
+    public function getTopicById($id ,$user)
     {
-        $field['id'] = $id;
-        if (gettype($id) == 'string') {
+        if (is_numeric($id)) {
             return $this->getTopicDao()->get($id);
         } else {
-            return $this->getTopicDao()->create($field);
-        }
-    }
-
-    public function getTopicByName($name)
-    {
-        if (empty($name)) {
-            return $topic['id'] = null;
-        }
-        $result = $this->getTopicDao()->getTopicByName($name);
-        if ($result) {
-            return $result;
-        } else {
-            $field['name'] = $name;
+            $field = array('name' => $id, 'userId' => $user['id']);
             return $this->getTopicDao()->create($field);
         }
     }

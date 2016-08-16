@@ -26,12 +26,6 @@ class TopicDaoImpl extends GeneralDaoImpl implements TopicDao
         $sql = "SELECT * FROM {$this->table} WHERE id IN ({$marks})";
         return $this->db()->fetchAll($sql,$ids);
     }
-
-    public function getTopicByName($name)
-    {
-        $sql = "SELECT * FROM {$this->table} WHERE name = ?";
-        return $this->db()->fetchAssoc($sql,array($name));
-    }
     
     public function declares()
     {
@@ -39,7 +33,8 @@ class TopicDaoImpl extends GeneralDaoImpl implements TopicDao
             'timestamps' => array('createdTime'),
             'serializes' => array(),
             'conditions' => array(
-                'name = :name'
+                'name = :name',
+                'topicId = :topicId'
             ),
         );
     }
