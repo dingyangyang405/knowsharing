@@ -13,3 +13,4 @@
 /app/config/biz.yml
 /composer.phar
 .idea
+/web/files/
