@@ -14,6 +14,9 @@
           <li class="list-group-item">
             <b>收藏数</b> <a class="pull-right">{{ favoritesCount }}</a>
           </li>
+          <li class="list-group-item">
+            <b>积分</b> <a class="pull-right">{{ user.score }}</a>
+          </li>
           <li class="list-group-item" id="follow-user-btn" data-url="{{path('user_follow',{id:user.id})}}"　{% if hasfollowed is defined and hasfollowed == true %} style="display:none"{% endif %}>
           <b>关注</b> <a class="pull-right"><i class="fa fa-fw fa-heart-o"></i></a>
           </li>

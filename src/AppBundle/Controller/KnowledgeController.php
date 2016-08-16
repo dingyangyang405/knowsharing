@@ -69,21 +69,24 @@ class KnowledgeController extends BaseController
             'userId' => $user['id'],
         );
         $this->getKnowledgeService()->createKnowledge($data);
+        $this->getUserService()->addScore($user['id'], 3);
 
         return new JsonResponse($data);
     }
 
     public function createCommentAction(Request $request)
     {
-        // $user = 
+        $currentUser = $this->biz->getUser(); 
         $data = $request->request->all();
         $params = array(
             'value' => $data['comment'],
-            'userId' => 1,
-            // 'userId' => $user['id'],
+            'userId' => $currentUser['id'],
             'knowledgeId' => $data['knowledgeId']
         );
         $this->getKnowledgeService()->createComment($params);
+        $knowledge = $this->getKnowledgeService()->getKnowledge($data['knowledgeId']);
+        $this->getUserService()->addScore($currentUser['id'], 2);
+        $this->getUserService()->addScore($knowledge['userId'], 3);
 
         return new JsonResponse(ture);
     }
@@ -92,6 +95,10 @@ class KnowledgeController extends BaseController
     {
         $userId = '1';
         $this->getFavoriteService()->favoriteKnowledge($id, $userId);
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $this->getUserService()->addScore($userId, 1);
+        $this->getUserService()->addScore($knowledge['userId'], 5);
+
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -101,6 +108,10 @@ class KnowledgeController extends BaseController
     {
         $userId = '1';
         $this->getFavoriteService()->unfavoriteKnowledge($id, $userId);
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $this->getUserService()->minusScore($userId, -1);
+        $this->getUserService()->minusScore($knowledge['userId'], -5);
+
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -111,6 +122,10 @@ class KnowledgeController extends BaseController
     {
         $userId = '1';
         $this->getLikeService()->dislikeKnowledge($id, $userId);
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $this->getUserService()->minusScore($userId, -1);
+        $this->getUserService()->minusScore($knowledge['userId'], -2);
+
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -121,6 +136,10 @@ class KnowledgeController extends BaseController
     {
         $userId = '1';
         $this->getLikeService()->likeKnowledge($id, $userId);
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $this->getUserService()->addScore($userId, 1);
+        $this->getUserService()->addScore($knowledge['userId'], 2);
+
         return new JsonResponse(array(
             'status' => 'success'
         ));
@@ -128,8 +147,12 @@ class KnowledgeController extends BaseController
 
     public function finishLearnAction(Request $request, $id)
     {
-        $userId = '2';
-        $this->getLearnService()->finishKnowledgeLearn($id, $userId);
+        $currentUser = $this->biz->getUser();
+        $this->getLearnService()->finishKnowledgeLearn($id, $currentUser['id']);
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $this->getUserService()->addScore($currentUser['id'], 1);
+        $this->getUserService()->addScore($knowledge['userId'], 1);
+
         return new JsonResponse(array(
             'status'=>'success'
         ));

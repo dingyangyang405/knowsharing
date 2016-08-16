@@ -13,4 +13,8 @@ interface UserService
     public function register($user);
     
     public function findTopUsers($type);
+
+    public function addScore($userId, $score);
+
+    public function minusScore($userId, $score);
 }
