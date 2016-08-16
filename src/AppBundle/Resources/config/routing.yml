@@ -157,3 +157,7 @@ top_topic:
 top_user:
     path: /top/user
     defaults: { _controller: AppBundle:Default:listTopUsers }
+
+topic_knowledge:
+    path: /topic/{id}/knowldeges
+    defaults: { _controller: AppBundle:Topic:topicKnowledges }
