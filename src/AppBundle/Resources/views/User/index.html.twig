@@ -50,7 +50,9 @@
                     <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>
                 {% endif %}
             </div>
-            <div class="quotes" style="margin-top:15px"><span class="disabled">首页</span><span class="disabled">上一页</span><span class="current">1</span><a href="index.html">2</a><a href="index.html">下一页</a><a href="index.html">尾页</a></div>
+            </div>
+              {{ web_macro.paginator(paginator) }}
+            </div> 
         </div>
     </div>
 {% endblock %}
