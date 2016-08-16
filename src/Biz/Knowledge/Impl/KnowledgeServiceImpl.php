@@ -45,6 +45,11 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
 
     public function moveToPath($file,$user,$title)
     {
+        if (empty($file)) {
+            throw new \Exception("上传文档不能为空!");
+        } elseif (empty($title)) {
+            throw new \Exception("标题不能为空!");
+        }
         $upLoad = new UpLoad($file);
         $path = $upLoad->moveToPath($user,$title);
 

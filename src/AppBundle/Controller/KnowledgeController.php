@@ -202,7 +202,7 @@ class KnowledgeController extends BaseController
         $fopen = fopen($filePath,"r+");
 
         if (!file_exists($filePath)) {
-            throw new Exception("文件不存在");
+            throw new \Exception("文件不存在");
         }
 
         $content = fread($fopen, filesize($filePath));
