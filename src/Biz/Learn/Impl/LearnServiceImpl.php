@@ -3,16 +3,10 @@
 namespace Biz\Learn\Impl;
 
 use Biz\Learn\LearnService;
+use Codeages\Biz\Framework\Service\KernelAwareBaseService;
 
-class LearnServiceImpl implements LearnService
+class LearnServiceImpl extends KernelAwareBaseService implements LearnService
 {
-    protected $container;
-
-    public function __construct($container)
-    {
-        $this->container = $container;
-    }
-
     public function getLearnedByIdAndUserId($id, $userId)
     {
         return $this->getLearnDao()->getByIdAndUserId($id, $userId);
@@ -40,16 +34,16 @@ class LearnServiceImpl implements LearnService
 
     protected function getLearnDao()
     {
-        return $this->container['learn_dao'];
+        return $this->biz['learn_dao'];
     }
 
     protected function getKnowledgeDao()
     {
-        return $this->container['knowledge_dao'];
+        return $this->biz['knowledge_dao'];
     }
 
     protected function getToDoListDao()
     {
-        return $this->container['todolist_dao'];
+        return $this->biz['todolist_dao'];
     }
 }

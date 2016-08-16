@@ -37,6 +37,8 @@
           {% endif %}
           链接:
           <a href="http://{{ knowledge.content }}">{{ knowledge.content  }}</a>
+          传送门:
+          <a href="{% if knowledge.type == 'link' %}http://{{ knowledge.content  }} {% else %} {{path('knowledge_download_file',{id:knowledge.id})}} {% endif %}">{{ knowledge.content  }}</a>
         </p>
         <div class="news_bot col-sm-7 col-md-8">
       <span class="tags visible-lg visible-md">

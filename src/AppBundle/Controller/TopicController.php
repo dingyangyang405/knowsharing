@@ -7,19 +7,34 @@ use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Biz\User\Impl\UserServiceImpl;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use AppBundle\Common\Paginator;
+use AppBundle\Common\ArrayToolKit;
 
 class TopicController extends BaseController
 {
     public function indexAction()
     {
-        $userId = 1;
-        $topics = $this->getTopicService()->findAllTopics();
+        $currentUser = $this->biz->getUser();
 
-        $followedTopics = $this->getFollowService()->findFollowTopicsByUserId($userId);
-        $topics = $this->getFollowService()->hasFollowTopics($topics,$userId);
+        $conditions = array();
+        $orderBy = array('createdTime', 'DESC');
+        $paginator = new Paginator(
+            $this->get('request'),
+            $this->getTopicService()->getTopicsCount($conditions),
+            20
+        );
+        $topics = $this->getTopicService()->searchTopics(
+            $conditions,
+            $orderBy,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
+
+        $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
 
         return $this->render('AppBundle:Topic:index.html.twig', array(
-            'topics' => $topics
+            'topics' => $topics,
+            'paginator' => $paginator
         ));
     }
 
@@ -37,9 +52,30 @@ class TopicController extends BaseController
         return new JsonResponse(true);
     }
 
-    public function topicKnowledgeAction($id)
+    public function topicKnowledgesAction(Request $request, $id)
     {
+        $conditions = array('topicId' => $id);
+        $orderBy = array('createdTime', 'DESC');
+        $paginator = new Paginator(
+            $request,
+            $this->getKnowledgeService()->getKnowledgesCount($conditions),
+            20
+        );
 
+        $knowledges = $this->getKnowledgeService()->searchKnowledges(
+            $conditions,
+            $orderBy,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
+
+        $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
+        $users = ArrayToolKit::index($users, 'id');
+        return $this->render('AppBundle:Topic:knowledge.html.twig', array(
+            'knowledges' => $knowledges,
+            'paginator' => $paginator,
+            'users' => $users
+        ));
     }
 
     protected function getTopicService()
@@ -50,5 +86,15 @@ class TopicController extends BaseController
     protected function getFollowService()
     {
         return $this->biz['follow_service'];
+    }
+
+    protected function getUserService()
+    {
+        return $this->biz['user_service'];
+    }
+
+    protected function getKnowledgeService()
+    {
+        return $this->biz['knowledge_service'];
     }
 }

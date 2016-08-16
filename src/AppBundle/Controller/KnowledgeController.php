@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Common\ArrayToolKit;
 use AppBundle\Common\Paginator;
 
@@ -13,6 +14,7 @@ class KnowledgeController extends BaseController
     public function indexAction($id)
     {
         $currentUser = $this->biz->getUser();
+
         if (empty($currentUser['roles'])) {
             throw new \Exception("该用户暂不存在");    
         }
@@ -21,6 +23,7 @@ class KnowledgeController extends BaseController
                 'roles' => 'admin'
             );
         }
+
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $hasLearned = $this->getLearnService()->getLearnedByIdAndUserId($id, $currentUser['id']);
 
@@ -30,7 +33,7 @@ class KnowledgeController extends BaseController
         $paginator = new Paginator(
             $this->get('request'),
             $this->getKnowledgeService()->getCommentsCount($conditions),
-            10
+            20
         );
         $comments = $this->getKnowledgeService()->searchComments(
             $conditions,
@@ -69,11 +72,12 @@ class KnowledgeController extends BaseController
         $user = $this->biz->getUser();
         $post = $request->request->all();
         if ($post['type'] == 'file') {
-            $content = $request->files->get('content');
-        } else {
-            $content = $request->request->get('content');            
+            $file = $request->files->get('content');
+            $content = $this->getKnowledgeService()->moveToPath($file,$user,$post['title']);   
+        } elseif ($post['type'] == 'link') {
+            $content = $request->request->get('content');        
         }
-        // $path = $this->getKnowledgeService()->getPath($file);
+
         $topic = $this->getTopicService()->getTopicById($post['topic'] ,$user);
         $data = array(
             'title' => $post['title'],
@@ -193,6 +197,32 @@ class KnowledgeController extends BaseController
         return new JsonResponse(array(
             'status'=>'success'
         ));
+    }
+
+    public function downloadFileAction(Request $request, $id)
+    {
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $auth = $this->getUserService()->getUser($knowledge['userId']);
+
+        $firstpath = strrpos($knowledge['content'], '/');
+        $fileName = substr($knowledge['content'],$firstpath+1);
+
+        $filePath = $_SERVER['DOCUMENT_ROOT'].'/files/'.$auth['username'].'/'.$fileName;
+
+        $fopen = fopen($filePath,"r+");
+
+        if (!file_exists($filePath)) {
+            throw new Exception("文件不存在");
+        }
+
+        $content = fread($fopen, filesize($filePath));
+
+        $response = new Response();
+        $response->headers->set('Content-type', 'application/octet-stream');
+        $response->headers->set('Content-Disposition', 'attachment; filename="'.$fileName.'"');
+        $response->setContent($content);
+        fclose($fopen);
+        return $response;
     }
 
     protected function getLikeService()

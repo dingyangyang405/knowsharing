@@ -4,7 +4,9 @@ namespace Biz\Toread;
 
 interface ToreadService
 {
-    public function createToreadKnowledge($id);
+    public function createToreadKnowledge($id, $userId);
 
-    public function deleteToreadKnowledge($id);
+    public function deleteToreadKnowledge($id, $userId);
+
+    public function getToreadlistCount($conditons);
 }
