@@ -179,14 +179,26 @@ class UserController extends BaseController
 
     public function createToreadAction(Request $request, $id)
     {
-        $this->getToreadService()->createToreadKnowledge($id);
+        $user = $this->biz->getUser();
+
+        if (empty($user)) {
+            throw new \Exception('用户不存在');
+        }
+
+        $this->getToreadService()->createToreadKnowledge($id ,$user['id']);
 
         return new JsonResponse(true);
     }
 
     public function deleteToreadAction(Request $request, $id)
     {
-        $this->getToreadService()->deleteToreadKnowledge($id);
+        $user = $this->biz->getUser();
+
+        if (empty($user)) {
+            throw new \Exception('用户不存在');
+        }
+
+        $this->getToreadService()->deleteToreadKnowledge($id, $user['id']);
 
         return new JsonResponse(true);
     }
