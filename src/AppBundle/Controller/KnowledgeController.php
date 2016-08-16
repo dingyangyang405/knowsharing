@@ -13,7 +13,6 @@ class KnowledgeController extends BaseController
     public function indexAction($id)
     {
         $currentUser = $this->biz->getUser();
-        // $userId = $user['id'];
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $hasLearned = $this->getLearnService()->getLearnedByIdAndUserId($id, $currentUser['id']);
 
@@ -24,7 +23,7 @@ class KnowledgeController extends BaseController
         $paginator = new Paginator(
             $this->get('request'),
             $this->getKnowledgeService()->getCommentsCount($conditions),
-            10
+            20
         );
         $comments = $this->getKnowledgeService()->searchComments(
             $conditions,
