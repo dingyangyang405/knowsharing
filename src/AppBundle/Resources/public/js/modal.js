@@ -6,7 +6,7 @@ $(document).ready(function(){
             data:$('form').serialize(),
             type:"POST",
             success:function(data){
-                /*location.href = '/';*/
+                location.href = '/';
             },
             error:function(jqXHR){
                 alert("添加失败！");
