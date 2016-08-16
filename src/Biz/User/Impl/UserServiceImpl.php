@@ -69,6 +69,6 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
 
     protected function getUserDao()
     {
-        return $this->container['user_dao'];
+        return $this->biz['user_dao'];
     }
 }

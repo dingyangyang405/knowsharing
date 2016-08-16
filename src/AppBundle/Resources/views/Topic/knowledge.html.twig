@@ -1,0 +1,34 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block left_header %}
+    {% include 'AppBundle::left-header.html.twig' %}
+{% endblock %}
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+            {% block navTabs %}
+                <ul class="nav nav-tabs">
+                    <li role="newknowledge" class="active"><a href="{{path('homepage')}}">最新知识</a></li>
+                    <li role="myconcern"><a href="#timeline">我的关注<span style="color:#f00">999+</span></a></li>
+                    <li role="topic"><a href="{{path('topic')}}">主题</a></li>
+                </ul>
+                <br>
+            {% endblock %}
+            <div class="row" id="knowledge-list">
+                {% if knowledges is defined and knowledges %}
+                    {% for knowledge in knowledges %}
+                        {% if knowledge.toread is not defined %}
+                            {% set user = users[knowledge.userId]|default(null) %}
+                            {% include "AppBundle:Default:single-knowledge-list.html.twig" %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>
+                {% endif %}
+            </div>
+            {{ web_macro.paginator(paginator) }}
+        </div>
+    </div>
+{% endblock %}
+{% block aside %}
+    {% include 'AppBundle::aside.html.twig' %}
+{% endblock %}

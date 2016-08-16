@@ -3,16 +3,10 @@
 namespace Biz\Follow\Impl;
 
 use Biz\Follow\FollowService;
+use Codeages\Biz\Framework\Service\KernelAwareBaseService;
 
-class FollowServiceImpl implements FollowService
+class FollowServiceImpl extends KernelAwareBaseService implements FollowService
 {
-    protected  $container;
-
-    public  function __construct($container)
-    {
-        $this->container = $container;
-    }
-
     public function followUser($userId, $id)
     {        
         if (empty($userId)) {
@@ -180,16 +174,16 @@ class FollowServiceImpl implements FollowService
 
     protected function getFollowDao()
     {
-        return $this->container['follow_dao'];
+        return $this->biz['follow_dao'];
     }
 
     protected function getTopicDao()
     {
-        return $this->container['topic_dao'];
+        return $this->biz['topic_dao'];
     }
 
     protected function getUserDao()
     {
-        return $this->container['user_dao'];
+        return $this->biz['user_dao'];
     }
 }

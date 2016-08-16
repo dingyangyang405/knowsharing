@@ -3,16 +3,10 @@
 namespace Biz\ToDoList\Impl;
 
 use Biz\ToDoList\ToDoListService;
+use Codeages\Biz\Framework\Service\KernelAwareBaseService;
 
-class ToDoListServiceImpl implements ToDoListService
+class ToDoListServiceImpl extends KernelAwareBaseService implements ToDoListService
 {
-    protected $container;
-
-    public function __construct($container)
-    {
-        $this->container = $container;
-    }
-
     public function findToDoListByUserId($userId)
     {
         return $this->getToDoListDao()->findByUserId(array($userId));
@@ -20,6 +14,6 @@ class ToDoListServiceImpl implements ToDoListService
 
     protected function getToDoListDao()
     {
-        return $this->container['todolist_dao'];
+        return $this->biz['todolist_dao'];
     }
 }

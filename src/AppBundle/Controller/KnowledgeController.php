@@ -13,7 +13,6 @@ class KnowledgeController extends BaseController
     public function indexAction($id)
     {
         $currentUser = $this->biz->getUser();
-        // $userId = $user['id'];
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $hasLearned = $this->getLearnService()->getLearnedByIdAndUserId($id, $currentUser['id']);
 
@@ -24,7 +23,7 @@ class KnowledgeController extends BaseController
         $paginator = new Paginator(
             $this->get('request'),
             $this->getKnowledgeService()->getCommentsCount($conditions),
-            10
+            20
         );
         $comments = $this->getKnowledgeService()->searchComments(
             $conditions,
@@ -61,11 +60,12 @@ class KnowledgeController extends BaseController
         $user = $this->biz->getUser();
         $post = $request->request->all();
         if ($post['type'] == 'file') {
-            $content = $request->files->get('content');
+            $file = $request->files->get('content');
+            $content = $this->getKnowledgeService()->moveToPath($file,$user,$post['title']);   
         } else {
-            $content = $request->request->get('content');            
+            $content = $request->request->get('content');        
         }
-        // $path = $this->getKnowledgeService()->getPath($file);
+
         $topic = $this->getTopicService()->getTopicById($post['topic'] ,$user);
         $data = array(
             'title' => $post['title'],

@@ -4,14 +4,14 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use AppBundle\Common\CurlGet;
+use AppBundle\Common\Curl;
 
 class AjaxController  extends BaseController
 {
     public function linkAction(Request $request)
     {
         $requestData = $request->request->all();
-        $title = CurlGet::get($requestData['link']);
+        $title = Curl::getTitle($requestData['link']);
 
         return new JsonResponse(array(
             'title' => $title
