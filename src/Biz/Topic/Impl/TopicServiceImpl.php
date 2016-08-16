@@ -3,16 +3,10 @@ namespace Biz\Topic\Impl;
 
 use Biz\Topic\Dao\Impl\TopicDaoImpl;
 use Biz\Topic\TopicService;
+use Codeages\Biz\Framework\Service\KernelAwareBaseService;
 
-class TopicServiceImpl implements TopicService
+class TopicServiceImpl extends KernelAwareBaseService implements TopicService
 {
-    protected  $container;
-
-    public  function __construct($container)
-    {
-        $this->container = $container;
-    }
-
     public function createTopic($field)
     {
         if (empty($field)) {
@@ -94,6 +88,6 @@ class TopicServiceImpl implements TopicService
 
     protected function getTopicDao()
     {
-        return $this->container['topic_dao'];
+        return $this->biz['topic_dao'];
     }
 }

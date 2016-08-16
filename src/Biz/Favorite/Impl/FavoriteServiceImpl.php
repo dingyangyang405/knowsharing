@@ -4,16 +4,10 @@ namespace Biz\Favorite\Impl;
 
 use Biz\Favorite\FavoriteService;
 use AppBundle\Common\ArrayToolKit;
+use Codeages\Biz\Framework\Service\KernelAwareBaseService;
 
-class FavoriteServiceImpl implements FavoriteService
+class FavoriteServiceImpl extends KernelAwareBaseService implements FavoriteService
 {
-    protected $container;
-
-    public function __construct($container)
-    {
-        $this->container = $container;
-    }
-
     public function getFavoritesCount($conditions)
     {
         return $this->getFavoriteDao()->count($conditions);
@@ -80,11 +74,11 @@ class FavoriteServiceImpl implements FavoriteService
 
     protected function getFavoriteDao()
     {
-        return $this->container['favorite_dao'];
+        return $this->biz['favorite_dao'];
     }
 
     protected function getKnowledgeDao()
     {
-        return $this->container['knowledge_dao'];
+        return $this->biz['knowledge_dao'];
     }
 }
