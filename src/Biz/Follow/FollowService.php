@@ -4,9 +4,9 @@ namespace Biz\Follow;
 
 interface FollowService
 {
-    public function followUser($id);
+    public function followUser($userId, $id);
 
-    public function unfollowUser($id);
+    public function unfollowUser($userId, $id);
 
     public function followTopic($topicId);
 

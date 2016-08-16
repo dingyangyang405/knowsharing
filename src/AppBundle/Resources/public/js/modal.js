@@ -107,8 +107,13 @@ $(document).ready(function(){
     $('.row').on('click','.delete-btn',function() {
         var url = $(this).data('url');
         if (confirm('确定要删除吗？')) {    
-            $.post(url,function(){
-                window.location.reload();
+            $.post(url,function(data){  
+                if (data.status == 'success') {
+                    window.location.reload();
+                } else {
+                    alert('删除失败');
+                }
+                
             });
         }
     });
