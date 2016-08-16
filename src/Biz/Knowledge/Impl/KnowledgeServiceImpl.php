@@ -5,6 +5,7 @@ namespace Biz\Knowledge\Impl;
 use Biz\Knowledge\KnowledgeService;
 use AppBundle\Common\ArrayToolKit;
 use Codeages\Biz\Framework\Service\KernelAwareBaseService;
+use AppBundle\Common\UpLoad;
 
 class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeService
 {
@@ -42,10 +43,12 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $topKnowledges;
     }
 
-    public function getPath($file)
+    public function moveToPath($file,$user,$title)
     {
-        
-        $file->move();
+        $upLoad = new UpLoad($file);
+        $path = $upLoad->moveToPath($user,$title);
+
+        return $path;
     }
 
     public function deleteKnowledge($id)
