@@ -1,7 +1,6 @@
 <?php
 namespace AppBundle\Listener;
 
-use Service\Common\ServiceKernel;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Csrf\CsrfToken;
