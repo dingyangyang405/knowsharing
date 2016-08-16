@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Common\ArrayToolKit;
 use AppBundle\Common\Paginator;
 
@@ -164,6 +165,32 @@ class KnowledgeController extends BaseController
         return new JsonResponse(array(
             'status'=>'success'
         ));
+    }
+
+    public function downloadFileAction(Request $request, $id)
+    {
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $auth = $this->getUserService()->getUser($knowledge['userId']);
+
+        $firstpath = strrpos($knowledge['content'], '/');
+        $fileName = substr($knowledge['content'],$firstpath+1);
+
+        $filePath = $_SERVER['DOCUMENT_ROOT'].'/files/'.$auth['username'].'/'.$fileName;
+
+        $fopen = fopen($filePath,"r+");
+
+        if (!file_exists($filePath)) {
+            throw new Exception("文件不存在");
+        }
+
+        $content = fread($fopen, filesize($filePath));
+
+        $response = new Response();
+        $response->headers->set('Content-type', 'application/octet-stream');
+        $response->headers->set('Content-Disposition', 'attachment; filename="'.$fileName.'"');
+        $response->setContent($content);
+        fclose($fopen);
+        return $response;
     }
 
     protected function getLikeService()
