@@ -43,8 +43,8 @@ class KnowledgeController extends BaseController
         }
 
         $knowledge = array($knowledge);
-        $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$userId);
-        $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$userId);
+        $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$currentUser['id']);
+        $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$currentUser['id']);
 
         return $this->render('AppBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge[0],
