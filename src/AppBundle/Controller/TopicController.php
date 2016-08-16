@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
-use Topxia\Service\User\Impl\UserServiceImpl;
+use Biz\User\Impl\UserServiceImpl;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TopicController extends BaseController
@@ -14,7 +14,6 @@ class TopicController extends BaseController
     {
         $userId = 1;
         $topics = $this->getTopicService()->findAllTopics();
-        $followedTopics = $this->getFollowService()->findFollowTopicsByUserId($userId);
         $topics = $this->getFollowService()->hasFollowTopics($topics,$userId);
 
         return $this->render('AppBundle:Topic:index.html.twig', array(
@@ -22,18 +21,23 @@ class TopicController extends BaseController
         ));
     }
 
-    public function followAction(Request $request, $id)
+    public function followAction($id)
     {
         $this->getFollowService()->followTopic($id);
 
         return new JsonResponse(true);
     }
 
-    public function unFollowAction(Request $request, $id)
+    public function unFollowAction($id)
     {
         $this->getFollowService()->unFollowTopic($id);
 
         return new JsonResponse(true);
+    }
+
+    public function topicKnowledgeAction($id)
+    {
+
     }
 
     protected function getTopicService()

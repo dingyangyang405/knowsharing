@@ -1,0 +1,7 @@
+{% for topUser in topUsers %}
+<tr>
+  <td>{{loop.index}}</td>
+  <td>{{topUser.username}}</td>
+  <td>{% if type == 'score' %}<span class="badge bg-yellow"><i class="fa fa-fw fa-usd"></i>{{topUser.score}}{% elseif type == 'browse' %}<span class="badge bg-blue"><i class="fa fa-fw fa-eye"></i>{{topUser.browseNum}}{% else %}<span class="badge bg-green"><i class="fa fa-fw fa-file-o"></i>{{topUser.knowledgeNum}}{% endif %}</span></td>
+</tr>
+{% endfor %}

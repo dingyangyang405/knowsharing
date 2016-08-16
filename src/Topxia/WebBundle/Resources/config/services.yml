@@ -1,4 +1,0 @@
-services:
-#    Topxia_web.example:
-#        class: Topxia\WebBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
