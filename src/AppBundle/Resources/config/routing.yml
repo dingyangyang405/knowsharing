@@ -28,7 +28,7 @@ user_follows:
     defaults: { _controller: AppBundle:User:listFollows }
 
 user_page:
-    path:  /user/{id}
+    path:  /user/{userId}
     defaults: { _controller: AppBundle:User:index }
 
 knowledge_create_knowledge:

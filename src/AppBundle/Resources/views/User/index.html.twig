@@ -33,7 +33,7 @@
         <div class="content-block new-content">
             {% block navTabs %}
                 <ul class="nav nav-tabs">
-                    <li role="newknowledge" class="active"><a href="{{path('user_page', {id:user.id})}}">他的分享</a></li>
+                    <li role="newknowledge" class="active"><a href="{{path('user_page', {userId:user.id})}}">他的分享</a></li>
                     <li role="myconcern"><a href="{{path('user_follows', {userId:user.id ,type:'topic'})}}">他的关注</a></li>
                     <li role="topic"><a href="{{path('user_favorites', {userId:user.id})}}">他的收藏</a></li>
                 </ul>
