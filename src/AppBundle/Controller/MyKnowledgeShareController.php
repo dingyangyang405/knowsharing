@@ -96,9 +96,7 @@ class MyKnowledgeShareController extends BaseController
     {
         $this->getKnowledgeService()->deleteKnowledge($id);
 
-        return new JsonResponse(array(
-            'status' => 'success'
-        ));
+        return new JsonResponse(true);
     }
 
     protected function getKnowledgeService()

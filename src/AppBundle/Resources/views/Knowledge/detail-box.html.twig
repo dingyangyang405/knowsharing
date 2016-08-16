@@ -29,8 +29,14 @@
             <dd class="text">{{ knowledge.summary }}</dd>
         </dl>
         <p>
-            链接:
-            <a href="http://{{ knowledge.content  }}">{{ knowledge.content  }}</a>
+          {% if userRole.roles == 'admin' %}
+            <span style="float:right">
+              <a class="btn btn-primary fa fa-edit admin-edit-btn" data-url="{{path('admin_knowledge_edit',{id:knowledge.id})}}"></a>
+              <a class="btn btn-default fa fa-trash admin-delete-btn" data-url="{{path('admin_knowledge_delete',{id: knowledge.id})}}"></a>
+            </span>
+          {% endif %}
+          链接:
+          <a href="http://{{ knowledge.content }}">{{ knowledge.content  }}</a>
         </p>
         <div class="news_bot col-sm-7 col-md-8">
       <span class="tags visible-lg visible-md">

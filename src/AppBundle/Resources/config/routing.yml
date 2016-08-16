@@ -157,3 +157,11 @@ top_topic:
 top_user:
     path: /top/user
     defaults: { _controller: AppBundle:Default:listTopUsers }
+
+admin_knowledge_edit:
+    path: /admin/knowledge/{id}/edit
+    defaults: { _controller: AppBundle:Knowledge:adminEdit }
+
+admin_knowledge_delete:
+    path: /admin/knowledge/{id}/delete
+    defaults: { _controller: AppBundle:Knowledge:adminDelete }
