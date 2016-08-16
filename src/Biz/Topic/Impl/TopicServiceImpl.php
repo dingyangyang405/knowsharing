@@ -25,12 +25,26 @@ class TopicServiceImpl implements TopicService
         return $this->getTopicDao()->create($field);
     }
 
-    public function getTopicById($id ,$user)
+    public function getTopicById($id)
     {
-        if (is_numeric($id)) {
+        $field['id'] = $id;
+        if (gettype($id) == 'string') {
             return $this->getTopicDao()->get($id);
         } else {
-            $field = array('name' => $id, 'userId' => $user['id']);
+            return $this->getTopicDao()->create($field);
+        }
+    }
+
+    public function getTopicByName($name)
+    {
+        if (empty($name)) {
+            return $topic['id'] = null;
+        }
+        $result = $this->getTopicDao()->getTopicByName($name);
+        if ($result) {
+            return $result;
+        } else {
+            $field['name'] = $name;
             return $this->getTopicDao()->create($field);
         }
     }
@@ -78,18 +92,8 @@ class TopicServiceImpl implements TopicService
         return $this->getTopicDao()->findTopicsByIds($ids);
     }
 
-    public function findKnowledgesByTopicId($id)
-    {
-        return $this->getKnowledgeDao()->findByTopicId($id);
-    }
-
     protected function getTopicDao()
     {
         return $this->container['topic_dao'];
-    }
-
-    protected function getKnowledgeDao()
-    {
-        return $this->container['knowledge_dao'];
     }
 }
