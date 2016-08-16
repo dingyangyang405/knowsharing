@@ -248,7 +248,7 @@ class ServiceKernel
             return $this->classMaps[$type];
         }
 
-        $key = ($type == 'dao') ? 'topxia_daos' : 'topxia_services';
+        $key = ($type == 'dao') ? 'AppBundle_daos' : 'AppBundle_services';
         if (!$this->hasParameter($key)) {
             $this->classMaps[$type] = array();
         } else {

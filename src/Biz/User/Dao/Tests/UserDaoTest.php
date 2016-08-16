@@ -1,6 +1,6 @@
 <?php
 
-namespace Topxia\Service\User\Dao\Tests;
+namespace AppBundle\Service\User\Dao\Tests;
 
 use Codeages\Biz\Framework\UnitTests\BaseTestCase;
 

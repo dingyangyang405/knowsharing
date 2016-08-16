@@ -44,6 +44,6 @@ class UserProvider implements UserProviderInterface
 
     public function supportsClass($class)
     {
-        return $class === 'Topxia\WebBundle\Security\CurrentUser';
+        return $class === 'AppBundle\Security\CurrentUser';
     }
 }
