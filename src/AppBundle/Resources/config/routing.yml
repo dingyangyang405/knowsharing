@@ -28,7 +28,7 @@ user_follows:
     defaults: { _controller: AppBundle:User:listFollows }
 
 user_page:
-    path:  /user/{id}
+    path:  /user/{userId}
     defaults: { _controller: AppBundle:User:index }
 
 knowledge_create_knowledge:
@@ -158,6 +158,14 @@ top_user:
     path: /top/user
     defaults: { _controller: AppBundle:Default:listTopUsers }
 
+admin_knowledge_edit:
+    path: /admin/knowledge/{id}/edit
+    defaults: { _controller: AppBundle:Knowledge:adminEdit }
+
+admin_knowledge_delete:
+    path: /admin/knowledge/{id}/delete
+    defaults: { _controller: AppBundle:Knowledge:adminDelete }
+
 topic_knowledge:
     path: /topic/{id}/knowldeges
     defaults: { _controller: AppBundle:Topic:topicKnowledges }
@@ -169,3 +177,4 @@ knowledge_download_file:
 search_info:
     path: /search
     defaults: { _controller: AppBundle:Default:searchRelatedIn }
+

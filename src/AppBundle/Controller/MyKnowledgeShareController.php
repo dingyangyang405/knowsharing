@@ -65,7 +65,7 @@ class MyKnowledgeShareController extends BaseController
 
     public function toDoListAction(Request $request)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
         $toDoList = $this->getToDoListService()->findToDoListByUserId($user['id']);
 
         $paginator = new Paginator(
@@ -96,9 +96,7 @@ class MyKnowledgeShareController extends BaseController
     {
         $this->getKnowledgeService()->deleteKnowledge($id);
 
-        return new JsonResponse(array(
-            'status' => 'success'
-        ));
+        return new JsonResponse(true);
     }
 
     protected function getKnowledgeService()
