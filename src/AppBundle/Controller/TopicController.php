@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Biz\User\Impl\UserServiceImpl;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Common\Paginator;
+use AppBundle\Common\ArrayToolKit;
 
 class TopicController extends BaseController
 {
@@ -56,7 +57,7 @@ class TopicController extends BaseController
         );
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
-
+        $users = ArrayToolKit::index($users, 'id');
         return $this->render('AppBundle:Topic:knowledge.html.twig', array(
             'knowledges' => $knowledges,
             'paginator' => $paginator,
@@ -77,5 +78,10 @@ class TopicController extends BaseController
     protected function getUserService()
     {
         return $this->biz['user_service'];
+    }
+
+    protected function getKnowledgeService()
+    {
+        return $this->biz['knowledge_service'];
     }
 }

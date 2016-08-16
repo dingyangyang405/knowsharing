@@ -24,10 +24,7 @@ class DefaultController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-        echo "<pre>";
-        print_r($knowledges);
-        echo "<pre>";
-        exit();
+
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
 
         $users = ArrayToolKit::index($users, 'id');
