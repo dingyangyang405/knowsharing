@@ -57,15 +57,16 @@ class KnowledgeController extends BaseController
 
     public function createKnowledgeAction(Request $request)
     {
+        $user = $this->biz->getUser();
         $post = $request->request->all();
-        $topic = $this->getTopicService()->getTopicById($post['topic']);
+        $topic = $this->getTopicService()->getTopicById($post['topic'] ,$user);
         $data = array(
             'title' => $post['title'],
             'summary' => $post['summary'],
             'content' => $post['content'],
             'topicId' => $topic['id'],
             'type' => $post['type'],
-            'userId' => 1,
+            'userId' => $user['id'],
         );
         $this->getKnowledgeService()->createKnowledge($data);
 
