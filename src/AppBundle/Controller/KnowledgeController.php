@@ -60,11 +60,12 @@ class KnowledgeController extends BaseController
     {
         $user = $this->biz->getUser();
         $post = $request->request->all();
+        $file = $request->files->get('content');
         $topic = $this->getTopicService()->getTopicById($post['topic'] ,$user);
         $data = array(
             'title' => $post['title'],
             'summary' => $post['summary'],
-            'content' => $post['content'],
+            'content' => $file,
             'topicId' => $topic['id'],
             'type' => $post['type'],
             'userId' => $user['id'],

@@ -18,8 +18,12 @@ $(document).ready(function(){
         var $url = $(this).data('url');
         $.ajax({
             url:$url,
-            data:$('form').serialize(),
+            cache:false,
+            data:new FormData($('#addFileForm')[0]),
             type:"POST",
+            async:false,
+            processData:false,
+            contentType:false,
             success:function(data){
                 location.href = '/';
             },
