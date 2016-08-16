@@ -13,66 +13,37 @@ class FollowServiceImpl implements FollowService
         $this->container = $container;
     }
 
-    // public function followUser($id)
-    // {   
-    //     // $user = $this->getCurrentUser();
-    //     $user['id'] = 1;
-    //     $followUser = $this->getFollowDao()->create(array(
-    //         'userId'=> $user['id'],
-    //         'type'=>'user',
-    //         'objectId'=>$id
-    //     ));
-    //     if ($user['id'] ==1 && $followUser['objectId'] ==$id) {
-    //         return true;
-    //     } else {
-    //         throw new \RuntimeException("关注该用户失败");
-    //     }    
-    // }
-
-    // public function unfollowUser($id)
-    // {
-    //     $user['id'] = 1;
-    //     $followUser = $this->getFollowDao()->getFollowUserByUserIdAndObjectUserId($user['id'], $id);
-    //     $status = $this->getFollowDao()->delete($followUser['id']);
-    //     if ($status == 1) {
-    //         return true;
-    //     } else {
-    //         throw new \RuntimeException("取消关注该用户失败");
-    //     }  
-    // }
-
-    public function followUser($id)
-    {   
-        $user['id'] = 1;//当前用户,传过来的$id是要查看的用户
-        if (empty($user['id'])) {
+    public function followUser($userId, $id)
+    {        
+        if (empty($userId)) {
             throw new \Exception('用户不存在');
         }
-
-        $user = $this->getUserDao()->get($id);
-        if (empty($user)) {
+        $followUser = $this->getUserDao()->get($id);
+        if (empty($followUser)) {
             throw new \Exception('被关注的用户不存在');
         }
-        $user = $this->getFollowUserByUserIdAndObjectUserId($user['id'], $id);
-        if ($user) {
-            throw new \Exception('已经被关注');
-        }
-        $user['id'] = 1;
         $followUser = $this->getFollowDao()->create(array(
-            'userId'=> $user['id'],
+            'userId'=> $userId,
             'type'=>'user',
             'objectId'=>$id
         ));
-        if ($user['id'] ==1 && $followUser['objectId'] ==$id) {
+        if ($userId == $followUser['userId'] && $followUser['objectId'] == $id) {
             return true;
         } else {
             throw new \RuntimeException("关注该用户失败");
         }    
     }
 
-    public function unfollowUser($id)
-    {
-        $user['id'] = 1;
-        $followUser = $this->getFollowDao()->getFollowUserByUserIdAndObjectUserId($user['id'], $id);
+    public function unfollowUser($userId, $id)
+    {   
+        if (empty($userId)) {
+            throw new \Exception('用户不存在');
+        }
+        $followUser = $this->getUserDao()->get($id);
+        if (empty($followUser)) {
+            throw new \Exception('被关注的用户不存在');
+        }
+        $followUser = $this->getFollowDao()->getFollowUserByUserIdAndObjectUserId($userId, $id);
         $status = $this->getFollowDao()->delete($followUser['id']);
         if ($status == 1) {
             return true;

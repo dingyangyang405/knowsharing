@@ -12,11 +12,10 @@ class MyKnowledgeShareController extends BaseController
 {
     public function indexAction(Request $request)
     {   
-        // $userId = $this->getUserService()->getCurrentUser();
-        $userId = 1;
+        $user = $this->biz->getUser();
         $fields = $request->query->all();
         $conditions = array(
-            'userId' => $userId,
+            'userId' => $user['id'],
             'keyword' => '',
         );
 
@@ -63,8 +62,8 @@ class MyKnowledgeShareController extends BaseController
 
     public function toDoListAction(Request $request)
     {
-        $userId = '1';
-        $toDoList = $this->getToDoListService()->findToDoListByUserId($userId);
+        $user = $this->biz->getUser();
+        $toDoList = $this->getToDoListService()->findToDoListByUserId($user['id']);
 
         $paginator = new Paginator(
             $request,
@@ -94,7 +93,9 @@ class MyKnowledgeShareController extends BaseController
     {
         $this->getKnowledgeService()->deleteKnowledge($id);
 
-        return new JsonResponse(true);
+        return new JsonResponse(array(
+            'status' => 'success'
+        ));
     }
 
     protected function getKnowledgeService()

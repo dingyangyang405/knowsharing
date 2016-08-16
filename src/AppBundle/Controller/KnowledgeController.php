@@ -59,11 +59,17 @@ class KnowledgeController extends BaseController
     {
         $user = $this->biz->getUser();
         $post = $request->request->all();
+        if ($post['type'] == 'file') {
+            $content = $request->files->get('content');
+        } else {
+            $content = $request->request->get('content');            
+        }
+        // $path = $this->getKnowledgeService()->getPath($file);
         $topic = $this->getTopicService()->getTopicById($post['topic'] ,$user);
         $data = array(
             'title' => $post['title'],
             'summary' => $post['summary'],
-            'content' => $post['content'],
+            'content' => $content,
             'topicId' => $topic['id'],
             'type' => $post['type'],
             'userId' => $user['id'],
@@ -77,6 +83,7 @@ class KnowledgeController extends BaseController
     public function createCommentAction(Request $request)
     {
         $currentUser = $this->biz->getUser(); 
+
         $data = $request->request->all();
         $params = array(
             'value' => $data['comment'],

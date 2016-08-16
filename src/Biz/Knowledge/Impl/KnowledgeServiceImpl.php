@@ -49,6 +49,12 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $topKnowledges;
     }
 
+    public function getPath($file)
+    {
+        
+        $file->move();
+    }
+
     public function deleteKnowledge($id)
     {
         return $this->getKnowledgeDao()->delete($id);
@@ -119,8 +125,8 @@ class KnowledgeServiceImpl implements KnowledgeService
 
     protected function setToreadMark($knowledges)
     {
-        $user['id'] = 1;
-        if (!empty($user['id'])) {
+        $user = $this->container->getUser();
+        if (!empty($user)) {
             $toreadKnowledgeIds =  $this->getToreadDao()->findToreadIds($user['id']);
             $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledgeIds, 'knowledgeId');
             foreach ($knowledges as $key => $value) {

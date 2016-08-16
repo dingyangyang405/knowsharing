@@ -2,9 +2,9 @@
 
 namespace AppBundle\Common;
 
-class CurlGet
+class Curl
 {
-    public static function get($url)
+    public static function getTitle($url)
     {
         $c = curl_init();
         curl_setopt($c, CURLOPT_URL, $url);
