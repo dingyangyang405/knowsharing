@@ -75,7 +75,7 @@ class UserController extends BaseController
         $paginator = new Paginator(
             $this->get('request'),
             $this->getKnowledgeService()->getKnowledgesCount($conditions),
-            2
+            20
         );
         $knowledges = $this->getKnowledgeService()->searchKnowledges(
             $conditions,
