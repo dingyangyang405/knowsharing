@@ -6,7 +6,7 @@ use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Biz\User\Impl\UserServiceImpl;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Topxia\Common\ArrayToolKit;
+use AppBundle\Common\ArrayToolKit;
 use AppBundle\Common\Paginator;
 
 class UserController extends BaseController
