@@ -3,9 +3,10 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <li style="margin-right: 20px;">
-                    <form class="navbar-form navbar-left" action="search.php" method="get" style="padding-top:0px;padding-left:20px">
+                    <form class="navbar-form navbar-left" action="{{ path('search_info') }}" method="get" style="padding-top:0px;padding-left:20px">
                         <div class="input-group">
-                            <input type="text" class="form-control" size="30" placeholder="搜索感兴趣的知识...">
+                            <input type="hidden" name="type" value="knowledge">
+                            <input type="text" class="form-control" name="qurey" size="30" placeholder="搜索感兴趣的知识...">
                                 <span class="input-group-btn">
                                   <button class="btn btn-default btn-search" type="submit"> <i class="fa fa-fw fa-search"></i>
                                   </button>

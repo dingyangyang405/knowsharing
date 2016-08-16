@@ -65,19 +65,19 @@ user_delete_toread:
 
 knowledge_favorite:
     path: /knowledge/favorite/{id}
-    defaults: {_controller: AppBundle:Knowledge:favorite}
+    defaults: {_controller: AppBundle:Knowledge:favorite }
 
 knowledge_unfavorite:
     path: /knowledge/unfavorite/{id}
-    defaults: {_controller: AppBundle:Knowledge:unfavorite}
+    defaults: {_controller: AppBundle:Knowledge:unfavorite }
 
 knowledge_like:
     path: /knowledge/like/{id}
-    defaults: {_controller: AppBundle:Knowledge:like}
+    defaults: {_controller: AppBundle:Knowledge:like }
 
 knowledge_dislike:
     path: /knowledge/dislike/{id}
-    defaults: {_controller: AppBundle:Knowledge:dislike}
+    defaults: {_controller: AppBundle:Knowledge:dislike }
 
 topic_follow: 
     path: /topic/{id}/follow
@@ -105,27 +105,27 @@ ajax_topic:
 
 doc_modal: 
     path: /modal/doc
-    defaults: { _controller: AppBundle:Default:docModal}
+    defaults: { _controller: AppBundle:Default:docModal }
 
 link_modal: 
     path: /modal/link
-    defaults: { _controller: AppBundle:Default:linkModal}
+    defaults: { _controller: AppBundle:Default:linkModal }
 
 my_favorites:
     path: /my/favorites
-    defaults: {_controller: AppBundle:User:myFavorites}
+    defaults: {_controller: AppBundle:User:myFavorites }
 
 my_follows:
     path: /my/follows/{type}
-    defaults: {_controller: AppBundle:User:myFollows}
+    defaults: {_controller: AppBundle:User:myFollows }
 
 user_favorite:
     path: /user/{userId}/favorite
-    defaults: {_controller: AppBundle:User:listFavorite}
+    defaults: {_controller: AppBundle:User:listFavorite }
 
 knowledge_finish_learn:
     path: /knowledge/{id}/learn
-    defaults: {_controller: AppBundle:Knowledge:finishLearn}
+    defaults: {_controller: AppBundle:Knowledge:finishLearn }
 
 login:
   path:      /login
@@ -144,7 +144,7 @@ register:
 
 my_knowledge_share_todolist: 
     path: /my/knowledge/todolist
-    defaults: { _controller: AppBundle:MyKnowledgeShare:toDoList}
+    defaults: { _controller: AppBundle:MyKnowledgeShare:toDoList }
 
 top_knowledge:
     path: /top/knowledge
@@ -164,4 +164,8 @@ topic_knowledge:
 
 knowledge_download_file:
     path: /knowledge/{id}/download
-    defaults: { _controller: AppBundle:Knowledge:downloadFile}
+    defaults: { _controller: AppBundle:Knowledge:downloadFile }
+
+search_info:
+    path: /search
+    defaults: { _controller: AppBundle:Default:searchRelatedIn }
