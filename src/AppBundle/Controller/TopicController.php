@@ -15,13 +15,26 @@ class TopicController extends BaseController
     public function indexAction()
     {
         $currentUser = $this->biz->getUser();
-        $topics = $this->getTopicService()->findAllTopics();
 
-        $followedTopics = $this->getFollowService()->findFollowTopicsByUserId($currentUser['id']);
+        $conditions = array();
+        $orderBy = array('createdTime', 'DESC');
+        $paginator = new Paginator(
+            $this->get('request'),
+            $this->getTopicService()->getTopicsCount($conditions),
+            20
+        );
+        $topics = $this->getTopicService()->searchTopics(
+            $conditions,
+            $orderBy,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
+
         $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
 
         return $this->render('AppBundle:Topic:index.html.twig', array(
-            'topics' => $topics
+            'topics' => $topics,
+            'paginator' => $paginator
         ));
     }
 
