@@ -13,13 +13,16 @@ class MyKnowledgeShareController extends BaseController
     public function indexAction(Request $request)
     {   
         $user = $this->biz->getUser();
+        if (empty($user)) {
+            throw new \Exception("请先登陆用户");           
+        }
         $fields = $request->query->all();
         $conditions = array(
             'userId' => $user['id'],
             'keyword' => '',
         );
 
-        $conditions = array_merge($conditions, $fields);
+        $conditions = array_merge($conditions, $fields);  
         if (isset($conditions['keyword'])) {
             $conditions['title'] = "%{$conditions['keyword']}%";
             unset($conditions['keyword']);
