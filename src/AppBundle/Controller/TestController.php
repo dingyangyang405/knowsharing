@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Topxia\Common\CurlGet;
+use AppBundle\Common\CurlGet;
 
 class TestController extends BaseController
 {
