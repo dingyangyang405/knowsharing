@@ -11,12 +11,13 @@ use AppBundle\Common\Paginator;
 
 class UserController extends BaseController
 {
-    public function indexAction(Request $request,$id)
+    public function indexAction(Request $request,$userId)
     {
         $currentUser = $this->biz->getUser();
-        $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$id);
+        $user = $this->getUserService()->getUser($userId);
+        $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
 
-        $conditions = array('userId' => $id);
+        $conditions = array('userId' => $userId);
         $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
 
@@ -33,11 +34,11 @@ class UserController extends BaseController
             $paginator->getPerPageCount()
         );
 
-        $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$id);
-        $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$id);
+        $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$userId);
+        $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$userId);
 
         return $this->render('AppBundle:User:index.html.twig', array(
-            'user' => $currentUser,
+            'user' => $user,
             'knowledgesCount' => $knowledgesCount,
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
@@ -49,21 +50,28 @@ class UserController extends BaseController
     public function listFavoritesAction(Request $request, $userId)
     {
         $currentUser = $this->biz->getUser();
-        $user = $this->getUserService()->getUser($currentUser['id']);
-        $conditions = array(
-            'userId' => $user['id']
-        );
-
+        $user = $this->getUserService()->getUser($userId);
+        $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
+        
+        $conditions = array('userId' => $userId);
+        $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
+        $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($userId);
         $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
-        $knowledges = $this->getKnowledgeService()->findKnowledgesByKnowledgeIds($knowledgeIds);
+
+        $paginator = new Paginator(
+            $this->get('request'),
+            $favoritesCount,
+            20
+        );
+        $knowledges = $this->getKnowledgeService()->searchKnowledgesByIds(
+            $knowledgeIds,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
-
-        $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
-        $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
-        $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
 
         return $this->render('AppBundle:User:favorite.html.twig', array(
             'users' => $users,
@@ -71,7 +79,8 @@ class UserController extends BaseController
             'knowledgesCount' => $knowledgesCount,
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
-            'knowledges' => $knowledges
+            'knowledges' => $knowledges,
+            'paginator' => $paginator
         ));
     }
 
