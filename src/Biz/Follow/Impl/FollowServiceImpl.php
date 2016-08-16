@@ -178,6 +178,16 @@ class FollowServiceImpl implements FollowService
         return $myFollows;
     }
 
+    public function findFollowsByUserId($userId)
+    {
+        return $this->getFollowDao()->search(
+            array('userId' => $userId),
+            array('id', 'DESC'),
+            0,
+            PHP_INT_MAX
+        );
+    }
+
     protected function getFollowDao()
     {
         return $this->container['follow_dao'];

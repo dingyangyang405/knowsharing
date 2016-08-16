@@ -1,0 +1,39 @@
+<div class="news-list">
+  <div class="news-info col-xs-12 col-sm-12 col-md-11">
+    <dl>
+      <dt>
+        <a href="{{path('knowledge_detail',{id:followKnowledge.id})}}" target="_blank" ><i class="{% if followKnowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}"></i>&nbsp;&nbsp;{{followKnowledge.title}}
+        </a>
+      </dt>
+      <span style="float:right">
+        <a class="btn  pull-center" id="create-todo-btn" data-url="{{ path('user_create_toread', {id:followKnowledge.id}) }}" ><i class="glyphicon glyphicon-pushpin"></i><span>加入待读列表</span></a>
+        <a class="btn pull-right" id="delete-todo-btn" data-url="{{ path('user_delete_toread', {id:followKnowledge.id}) }}" style="display:none"><i class="fa fa-fw fa-thumb-tack"></i><span></span></a>
+      </span>
+      <dd>
+        <span class="name">
+          <a href="{{ path('user_page',{id:followKnowledge.userId}) }}"  rel="author">创建者:{{user.username}}</a>
+        </span>
+        {% if followKnowledge.topicId != 0 %}
+        <span class="name">
+          <a href="#"  rel="author">主题:{{topics[followKnowledge.topicId].name}}</a>
+        </span>
+        {% endif %}
+        <span class="identity"></span>
+        <span class="time">创建日期:{{followKnowledge.createdTime |date('Y年m月d日') }}</span>
+      </dd>
+      <dd class="text">{{followKnowledge.summary}}</dd>
+    </dl>
+    <div class="news_bot col-sm-7 col-md-8">
+      <span class="tags visible-lg visible-md">
+        <a href="javascript:;">技术贴</a>
+        <a href="javascript:;">PHP</a>
+      </span>
+    </div>
+    <div class="pull-right">
+      <span>
+        浏览量:{{followKnowledge.viewNum}}
+      </span>
+    </div>
+  </div>
+</div>
+

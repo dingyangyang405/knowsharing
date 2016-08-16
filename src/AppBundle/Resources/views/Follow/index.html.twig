@@ -1,13 +1,15 @@
-<ul class="nav hidden-xs-nav nav-pills nav-stacked" id="left-side-bar">
+{% extends 'AppBundle::base.html.twig' %}
+{% block left_header %}
+    <ul class="nav hidden-xs-nav nav-pills nav-stacked" id="left-side-bar">
   <li class="">
     <ul class="list-group">
       <li class="list-group-heading" style="padding: 10px 15px;"> <i class="fa fa-book">&nbsp;&nbsp;
         知识广场</i> 
       </li>
-      <li class=" list-group-item{% if tpye == 'nweu'  act%}" style="border:none;border-left:solid 4px #46c37b;color:#46c37b;">
+      <li class=" list-group-item" style="border:none;">
         <span style="padding-left:21px;"><a href="{{path('homepage')}}">最新知识</a></span>
       </li>
-      <li class="list-group-item" style="border:none;">
+      <li class="list-group-item" style="border:none;border-left:solid 4px #46c37b;color:#46c37b;">
         <span style="padding-left:21px;"><a href="{{path('follow_knowledge')}}">我的关注</a><span class="badge">14</span></span>
       </li>
       <li class="list-group-item" style="border:none;">
@@ -35,3 +37,29 @@
     </ul>
   </li>
 </ul>
+{% endblock %}
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+            {% block navTabs %}
+            <br>
+            {% endblock %}
+            <div class="row" id="follow-knowledge-list">
+                {% if followKnowledges is defined and followKnowledges %}
+                    {% for followKnowledge in followKnowledges %}
+                        {% if followKnowledge.toread is not defined %}
+                            {% set user = users[followKnowledge.userId]|default(null) %}
+                            {% include "AppBundle:Follow:single-follow-knowledge.html.twig" %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>
+                {% endif %}
+            </div>
+            {# {{ web_macro.paginator(paginator) }} #}
+        </div>
+    </div>
+{% endblock %}
+{% block aside %}
+    {% include 'AppBundle::aside.html.twig' %}
+{% endblock %}

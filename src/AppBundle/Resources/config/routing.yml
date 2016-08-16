@@ -161,3 +161,7 @@ top_user:
 topic_knowledge:
     path: /topic/{id}/knowldeges
     defaults: { _controller: AppBundle:Topic:topicKnowledges }
+
+follow_knowledge:
+    path: /follow/knowledge
+    defaults: { _controller: AppBundle:Follow:index }
