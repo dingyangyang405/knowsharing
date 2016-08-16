@@ -14,11 +14,11 @@ class TopicController extends BaseController
 {
     public function indexAction()
     {
-        $userId = 1;
+        $currentUser = $this->biz->getUser();
         $topics = $this->getTopicService()->findAllTopics();
 
-        $followedTopics = $this->getFollowService()->findFollowTopicsByUserId($userId);
-        $topics = $this->getFollowService()->hasFollowTopics($topics,$userId);
+        $followedTopics = $this->getFollowService()->findFollowTopicsByUserId($currentUser['id']);
+        $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
 
         return $this->render('AppBundle:Topic:index.html.twig', array(
             'topics' => $topics
