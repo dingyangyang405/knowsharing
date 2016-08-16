@@ -4,6 +4,7 @@ namespace Biz\Knowledge\Impl;
 
 use Biz\Knowledge\KnowledgeService;
 use AppBundle\Common\ArrayToolKit;
+use AppBundle\Common\UpLoad;
 
 
 class KnowledgeServiceImpl implements KnowledgeService
@@ -51,8 +52,10 @@ class KnowledgeServiceImpl implements KnowledgeService
 
     public function getPath($file)
     {
-        
+        $upLoad = UpLoad
         $file->move();
+
+        return $path;
     }
 
     public function deleteKnowledge($id)

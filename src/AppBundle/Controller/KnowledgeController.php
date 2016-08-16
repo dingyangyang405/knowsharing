@@ -61,11 +61,12 @@ class KnowledgeController extends BaseController
         $user = $this->biz->getUser();
         $post = $request->request->all();
         if ($post['type'] == 'file') {
-            $content = $request->files->get('content');
+            $file = $request->files->get('content');
+            $content = $this->getKnowledgeService()->moveToPath($file);   
         } else {
-            $content = $request->request->get('content');            
+            $content = $request->request->get('content');        
         }
-        // $path = $this->getKnowledgeService()->getPath($file);
+
         $topic = $this->getTopicService()->getTopicById($post['topic'] ,$user);
         $data = array(
             'title' => $post['title'],

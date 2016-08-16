@@ -13,7 +13,7 @@ class UpLoad
         $this->file = $file;
     }
 
-    public function moveToDirectory($userId, $oldPath = null)
+    public static function moveToDirectory($userId, $oldPath = null)
     {   
         $fileSystem = new Filesystem();
 
