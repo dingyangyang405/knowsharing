@@ -69,6 +69,7 @@ class KnowledgeController extends BaseController
             'userId' => $user['id'],
         );
         $this->getKnowledgeService()->createKnowledge($data);
+        $this->getUserService()->addScore($user['id'], 3);
 
         return new JsonResponse($data);
     }
@@ -146,10 +147,10 @@ class KnowledgeController extends BaseController
 
     public function finishLearnAction(Request $request, $id)
     {
-        $userId = '2';
-        $this->getLearnService()->finishKnowledgeLearn($id, $userId);
+        $currentUser = $this->biz->getUser();
+        $this->getLearnService()->finishKnowledgeLearn($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        $this->getUserService()->addScore($userId, 1);
+        $this->getUserService()->addScore($currentUser['id'], 1);
         $this->getUserService()->addScore($knowledge['userId'], 1);
 
         return new JsonResponse(array(

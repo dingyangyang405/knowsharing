@@ -33,7 +33,7 @@ class LearnServiceImpl implements LearnService
 
         $this->getLearnDao()->create($fields);
         $knowledge = $this->getKnowledgeDao()->get($id);
-        $knowledge['pageView'] += 1; 
+        $knowledge['viewNum'] += 1; 
 
         return $this->getKnowledgeDao()->update($id, $knowledge);
     }
