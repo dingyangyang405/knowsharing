@@ -4,18 +4,11 @@ namespace Biz\Knowledge\Impl;
 
 use Biz\Knowledge\KnowledgeService;
 use AppBundle\Common\ArrayToolKit;
+use Codeages\Biz\Framework\Service\KernelAwareBaseService;
 use AppBundle\Common\UpLoad;
 
-
-class KnowledgeServiceImpl implements KnowledgeService
+class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeService
 {
-    protected $container;
-
-    public function __construct($container)
-    {
-        $this->container = $container;
-    }
-
     public function updateKnowledge($id, $fields)
     {
         $fields = ArrayToolkit::filter($fields, array(
@@ -128,7 +121,7 @@ class KnowledgeServiceImpl implements KnowledgeService
 
     protected function setToreadMark($knowledges)
     {
-        $user = $this->container->getUser();
+        $user = $this->biz->getUser();
         if (!empty($user)) {
             $toreadKnowledgeIds =  $this->getToreadDao()->findToreadIds($user['id']);
             $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledgeIds, 'knowledgeId');
@@ -149,16 +142,16 @@ class KnowledgeServiceImpl implements KnowledgeService
 
     protected function getKnowledgeDao()
     {
-        return $this->container['knowledge_dao'];
+        return $this->biz['knowledge_dao'];
     }
 
     protected function getCommentDao()
     {
-        return $this->container['comment_dao'];
+        return $this->biz['comment_dao'];
     }
 
     protected function getToreadDao()
     {
-        return $this->container['toread_dao'];
+        return $this->biz['toread_dao'];
     }
 }
