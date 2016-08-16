@@ -50,10 +50,10 @@ class KnowledgeServiceImpl implements KnowledgeService
         return $topKnowledges;
     }
 
-    public function getPath($file)
+    public function moveToPath($file,$user,$title)
     {
-        $upLoad = UpLoad
-        $file->move();
+        $upLoad = new UpLoad($file);
+        $path = $upLoad->moveToPath($user,$title);
 
         return $path;
     }
