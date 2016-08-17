@@ -137,10 +137,10 @@ class KnowledgeController extends BaseController
 
     public function favoriteAction(Request $request, $id)
     {
-        $userId = '1';
-        $this->getFavoriteService()->favoriteKnowledge($id, $userId);
+        $currentUser = $this->getCurrentUser();
+        $this->getFavoriteService()->favoriteKnowledge($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        $this->getUserService()->addScore($userId, 1);
+        $this->getUserService()->addScore($currentUser['id'], 1);
         $this->getUserService()->addScore($knowledge['userId'], 5);
 
         return new JsonResponse(array(
@@ -150,10 +150,10 @@ class KnowledgeController extends BaseController
 
     public function unfavoriteAction(Request $request, $id)
     {
-        $userId = '1';
-        $this->getFavoriteService()->unfavoriteKnowledge($id, $userId);
+        $currentUser = $this->getCurrentUser();
+        $this->getFavoriteService()->unfavoriteKnowledge($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        $this->getUserService()->minusScore($userId, -1);
+        $this->getUserService()->minusScore($currentUser['id'], -1);
         $this->getUserService()->minusScore($knowledge['userId'], -5);
 
         return new JsonResponse(array(
@@ -164,10 +164,10 @@ class KnowledgeController extends BaseController
 
     public function dislikeAction(Request $request, $id)
     {
-        $userId = '1';
-        $this->getLikeService()->dislikeKnowledge($id, $userId);
+        $currentUser = $this->getCurrentUser();
+        $this->getLikeService()->dislikeKnowledge($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        $this->getUserService()->minusScore($userId, -1);
+        $this->getUserService()->minusScore($currentUser['id'], -1);
         $this->getUserService()->minusScore($knowledge['userId'], -2);
 
         return new JsonResponse(array(
@@ -178,10 +178,10 @@ class KnowledgeController extends BaseController
 
     public function likeAction(Request $request, $id)
     {
-        $userId = '1';
-        $this->getLikeService()->likeKnowledge($id, $userId);
+        $currentUser = $this->getCurrentUser();
+        $this->getLikeService()->likeKnowledge($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        $this->getUserService()->addScore($userId, 1);
+        $this->getUserService()->addScore($currentUser['id'], 1);
         $this->getUserService()->addScore($knowledge['userId'], 2);
 
         return new JsonResponse(array(
@@ -191,7 +191,7 @@ class KnowledgeController extends BaseController
 
     public function finishLearnAction(Request $request, $id)
     {
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
         $this->getLearnService()->finishKnowledgeLearn($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $this->getUserService()->addScore($currentUser['id'], 1);
