@@ -119,7 +119,7 @@ class DefaultController extends BaseController
     private function topicSearch($request, $conditions)
     {
         $currentUser = $this->getCurrentUser();
-        $condition = array('name' => $conditions['query']);
+        $condition = array('name' => "%{$conditions['query']}%");
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
             $request,
@@ -144,7 +144,7 @@ class DefaultController extends BaseController
 
     private function knowledgeSearch($request, $conditions)
     {
-        $condition = array('title' => $conditions['query']);
+        $condition = array('title' => "%{$conditions['query']}%");
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
             $request,
@@ -173,7 +173,7 @@ class DefaultController extends BaseController
     private function userSearch($request, $conditions)
     {
         $orderBy = array('created', 'DESC');
-        $condition = array('username' => $conditions['query']);
+        $condition = array('username' => "%{$conditions['query']}%");
         $paginator = new Paginator(
             $request,
             $this->getUserService()->getUsersCount($condition),
