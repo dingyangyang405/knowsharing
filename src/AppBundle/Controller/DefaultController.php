@@ -106,21 +106,21 @@ class DefaultController extends BaseController
     public function searchRelatedInAction(Request $request)
     {
         $conditions = $request->query->all();
-        $orderBy = array('createdTime', 'DESC');
-        if ($conditions['SearchType'] == 'topic') {
-            return $this->topicSearch($request, $conditions, $orderBy);
-        } else if ($conditions['SearchType'] == 'user') {
-           return  $this->userSearch($request, $conditions, $orderBy);
+        if ($conditions['searchType'] == 'topic') {
+            return $this->topicSearch($request, $conditions);
+        } else if ($conditions['searchType'] == 'user') {
+            return  $this->userSearch($request, $conditions);
         } else {
-           return  $this->knowledgeSearch($request, $conditions, $orderBy);
+            return  $this->knowledgeSearch($request, $conditions);
         }
 
     }
 
-    private function topicSearch($request, $conditions, $orderBy)
+    private function topicSearch($request, $conditions)
     {
         $currentUser = $this->getCurrentUser();
         $condition = array('name' => $conditions['query']);
+        $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
             $request,
             $this->getTopicService()->getTopicsCount($condition),
@@ -135,16 +135,17 @@ class DefaultController extends BaseController
 
         $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
         return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
-            'SearchType' => $conditions['SearchType'],
+            'searchType' => $conditions['searchType'],
             'query' => $conditions['query'],
             'paginator'=> $paginator,
             'topics' => $topics,
         ));
     }
 
-    private function knowledgeSearch($request, $conditions, $orderBy)
+    private function knowledgeSearch($request, $conditions)
     {
         $condition = array('title' => $conditions['query']);
+        $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
             $request,
             $this->getKnowledgeService()->getKnowledgesCount($condition),
@@ -161,7 +162,7 @@ class DefaultController extends BaseController
         $users = ArrayToolKit::index($users, 'id');
 
         return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
-            'SearchType' => $conditions['SearchType'],
+            'searchType' => $conditions['searchType'],
             'query' => $conditions['query'],
             'paginator'=> $paginator,
             'knowledges' => $knowledges,
@@ -169,7 +170,7 @@ class DefaultController extends BaseController
         ));
     }
 
-    private function userSearch($request, $conditions, $orderBy)
+    private function userSearch($request, $conditions)
     {
         $orderBy = array('created', 'DESC');
         $condition = array('username' => $conditions['query']);
@@ -185,8 +186,9 @@ class DefaultController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
+
         return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
-            'SearchType' => $conditions['SearchType'],
+            'searchType' => $conditions['searchType'],
             'query' => $conditions['query'],
             'paginator'=> $paginator,
             'users' => $users
