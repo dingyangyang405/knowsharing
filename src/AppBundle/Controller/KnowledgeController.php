@@ -106,7 +106,7 @@ class KnowledgeController extends BaseController
 
     public function createCommentAction(Request $request)
     {
-        $currentUser = $this->biz->getUser(); 
+        $currentUser = $this->getCurrentUser(); 
 
         $data = $request->request->all();
         $params = array(
