@@ -19,12 +19,12 @@ class TopicServiceImpl extends KernelAwareBaseService implements TopicService
         return $this->getTopicDao()->create($field);
     }
 
-    public function getTopicById($id)
+    public function getTopicById($id,$user)
     {
         if (empty($id)) {
             return array('id' => 0);
         }
-        $field['name'] = $id;
+        $field = array('name' => $id,'userId' => $user['id']);
         if (is_numeric($id)) {
             $result = $this->getTopicDao()->get($id);
             return $this->getTopicDao()->get($id) ? : $this->getTopicDao()->create($field);

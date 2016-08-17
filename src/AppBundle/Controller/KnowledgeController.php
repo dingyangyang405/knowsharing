@@ -79,7 +79,7 @@ class KnowledgeController extends BaseController
             $content = $request->request->get('content');        
         }
 
-        $topic = $this->getTopicService()->getTopicById($post['topic']);
+        $topic = $this->getTopicService()->getTopicById($post['topic'],$user);
         $data = array(
             'title' => $post['title'],
             'summary' => $post['summary'],
