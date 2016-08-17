@@ -39,7 +39,7 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
             return array();
         }
 
-        $user = str_repeat('?,', count($ids)-1).'?';
+        $marks = str_repeat('?,', count($ids)-1).'?';
         $start = (int) $start;
         $limit = (int) $limit;
 

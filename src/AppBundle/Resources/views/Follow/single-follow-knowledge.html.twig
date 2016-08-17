@@ -11,7 +11,7 @@
       </span>
       <dd>
         <span class="name">
-          <a href="{{ path('user_page',{id:followKnowledge.userId}) }}"  rel="author">创建者:{{user.username}}</a>
+          <a href="{{ path('user_page',{userId:followKnowledge.userId}) }}"  rel="author">创建者:{{user.username}}</a>
         </span>
         {% if followKnowledge.topicId != 0 %}
         <span class="name">
