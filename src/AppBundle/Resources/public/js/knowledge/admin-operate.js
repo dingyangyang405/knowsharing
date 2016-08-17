@@ -15,4 +15,8 @@ $(document).ready(function(){
             $('#uploadModal').html(data).modal();
         })
     })
+
+    $('#admin-edit-btn').click(function(){
+        alert(1111);
+    })
 })

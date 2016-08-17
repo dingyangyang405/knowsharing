@@ -13,7 +13,7 @@ class UserController extends BaseController
 {
     public function indexAction(Request $request,$userId)
     {
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
         $user = $this->getUserService()->getUser($userId);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
 
@@ -163,15 +163,23 @@ class UserController extends BaseController
 
     public function followAction(Request $request, $id)
     {   
-        $user = $this->biz->getUser();   
-        $this->getFollowService()->followUser($user['id'],$id);
+        $user = $this->getCurrentUser(); 
+        if (empty($user)) {
+            throw new \Exception('用户不存在');
+        }
+
+        $this->getFollowService()->followUser($user['id'], $id);
 
         return new JsonResponse(true);
     }
 
     public function unfollowAction(Request $request, $id)
     {   
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser(); 
+        if (empty($user)) {
+            throw new \Exception('用户不存在');
+        }
+
         $this->getFollowService()->unfollowUser($user['id'], $id);
 
         return new JsonResponse(true);

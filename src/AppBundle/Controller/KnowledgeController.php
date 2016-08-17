@@ -106,7 +106,7 @@ class KnowledgeController extends BaseController
         }
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
 
-        return $this->render('AppBundle:Default:admin-edit.html.twig', array('knowledge' => $knowledge
+        return $this->render('AppBundle:Knowledge:admin-edit.html.twig', array('knowledge' => $knowledge
         ));
     }
 
