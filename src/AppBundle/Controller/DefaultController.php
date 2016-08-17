@@ -134,7 +134,7 @@ class DefaultController extends BaseController
         );
 
         $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
-        return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
+        return $this->render('AppBundle:Default:search-related-in.html.twig',array(
             'searchType' => $conditions['searchType'],
             'query' => $conditions['query'],
             'paginator'=> $paginator,
@@ -161,7 +161,7 @@ class DefaultController extends BaseController
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
-        return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
+        return $this->render('AppBundle:Default:search-related-in.html.twig',array(
             'searchType' => $conditions['searchType'],
             'query' => $conditions['query'],
             'paginator'=> $paginator,
@@ -187,7 +187,7 @@ class DefaultController extends BaseController
             $paginator->getPerPageCount()
         );
 
-        return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
+        return $this->render('AppBundle:Default:search-related-in.html.twig',array(
             'searchType' => $conditions['searchType'],
             'query' => $conditions['query'],
             'paginator'=> $paginator,

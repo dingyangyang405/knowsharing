@@ -212,11 +212,8 @@ class KnowledgeController extends BaseController
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $auth = $this->getUserService()->getUser($knowledge['userId']);
 
-        $firstpath = strrpos($knowledge['content'], '/');
-        $fileName = substr($knowledge['content'],$firstpath+1);
-
+        $fileName = substr($knowledge['content'],0);
         $filePath = $_SERVER['DOCUMENT_ROOT'].'/files/'.$auth['username'].'/'.$fileName;
-
         $fopen = fopen($filePath,"r+");
 
         if (!file_exists($filePath)) {
