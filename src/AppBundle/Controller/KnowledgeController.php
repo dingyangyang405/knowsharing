@@ -21,6 +21,10 @@ class KnowledgeController extends BaseController
             $userRole = array(
                 'roles' => 'admin'
             );
+        } else {
+            $userRole = array(
+                'roles' => 'user'
+            );
         }
 
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
@@ -92,9 +96,18 @@ class KnowledgeController extends BaseController
         return new JsonResponse($data);
     }
 
-    public function adminEditAction()
+    public function adminEditAction(Request $request, $id)
     {
+        if ($request->getMethod() == "POST") {
+            $knowledge = $request->request->all();
+            $this->getKnowledgeService->updateKnowledge($id, $knowledge);
 
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+
+        return $this->render('AppBundle:Default:admin-edit.html.twig', array('knowledge' => $knowledge
+        ));
     }
 
     public function adminDeleteAction(Request $request, $id)

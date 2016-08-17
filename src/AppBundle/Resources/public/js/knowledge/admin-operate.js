@@ -8,4 +8,11 @@ $(document).ready(function(){
             location.reload();
         }
     });
+
+    $('span').on('click','.admin-edit-btn',function(){
+        var url = $(this).data('url');
+        $.get(url,function(data){
+            $('#uploadModal').html(data).modal();
+        })
+    })
 })
