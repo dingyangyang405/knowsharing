@@ -13,3 +13,4 @@
 /composer.phar
 .idea
 /web/files/
+/vendor/
