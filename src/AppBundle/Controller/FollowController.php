@@ -11,8 +11,8 @@ class FollowController extends BaseController
 {
 	public function indexAction(Request $request)
 	{
-		$user = $this->biz->getUser();
-		$follows = $this->getFollowService()->findFollowsByUserId($user['id']);
+		$currentUser = $this->getCurrentUser();
+		$follows = $this->getFollowService()->findFollowsByUserId($currentUser['id']);
 		foreach ($follows as $follow) {
 			if ($follow['type'] == 'user') {
 				$followUsers[] = $follow;
