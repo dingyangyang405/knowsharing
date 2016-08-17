@@ -33,6 +33,11 @@ class TopicServiceImpl extends KernelAwareBaseService implements TopicService
         }
     }
 
+    public function getTopicByKnowledgeId($id)
+    {
+        return $this->getTopicDao()->get($id);
+    }
+
     public function getTopicByName($name)
     {
         if (empty($name)) {

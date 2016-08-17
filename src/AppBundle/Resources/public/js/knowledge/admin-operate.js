@@ -11,10 +11,11 @@ $(document).ready(function(){
 
     $('span').on('click','.admin-edit-btn',function(){
         var url = $(this).data('url');
-        $.get(url,function(data){
+        $.post(url,function(data){
+            console.log(data);
             $('#uploadModal').html(data).modal();
-        })
-    })
+        });
+    });
 
     $('#uploadModal').on('click','#admin-edit-btn',function(){
         var modal = $('#admin-edit-form').parent('.modal');
@@ -26,6 +27,6 @@ $(document).ready(function(){
         $.post(url,form.serialize(),function(data){
             modal.modal('hide');
             location.reload();
-        })
+        });
     });
-})
+});

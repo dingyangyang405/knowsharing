@@ -95,7 +95,7 @@ class KnowledgeController extends BaseController
     }
 
     public function adminEditAction(Request $request, $id)
-    {
+    {   
         if ($request->getMethod() == "POST") {
             $knowledge = $request->request->all();
             $this->getKnowledgeService()->updateKnowledge($id, $knowledge);
@@ -104,7 +104,7 @@ class KnowledgeController extends BaseController
         $tags = $this->getTagService()->findTagsByKnowledgeId($knowledge['id']);
         $tagIds = ArrayToolKit::column($tags,'tagId');
         $tags = $this->getTagService()->findTagsByIds($tagIds);
-        $topic = $this->getTopicService()->getTopicById($knowledge['topicId']);
+        $topic = $this->getTopicService()->getTopicByKnowledgeId($knowledge['topicId']);
 
         return $this->render('AppBundle:Knowledge:admin-edit.html.twig', array(
             'knowledge' => $knowledge,
