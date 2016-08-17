@@ -13,7 +13,7 @@ class UserController extends BaseController
 {
     public function indexAction(Request $request,$userId)
     {
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
         $user = $this->getUserService()->getUser($userId);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
 
@@ -86,7 +86,7 @@ class UserController extends BaseController
 
     public function myFavoritesAction(Request $request)
     {
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($currentUser['id']);
         $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
 
@@ -116,7 +116,7 @@ class UserController extends BaseController
 
     public function listFollowsAction(Request $request, $userId, $type)
     {   
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
         $user = $this->getUserService()->getUser($userId);
         $conditions = array(
             'userId' => $user['id']
@@ -129,9 +129,11 @@ class UserController extends BaseController
         $objectIds = ArrayToolKit::column($follows,'objectId');
         if ($type == 'user') {
             $objects = $this->getUserService()->findUsersByIds($objectIds);
+            $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
             $objects = $this->getTopicService()->findTopicsByIds($objectIds);
             $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
+            // var_dump($objects);exit;
         }
 
         return $this->render('AppBundle:User:follows.html.twig', array(
@@ -146,14 +148,16 @@ class UserController extends BaseController
 
     public function myFollowsAction(Request $request, $type)
     {
-        $user = $this->biz->getUser();
-        $myFollows = $this->getFollowService()->searchMyFollowsByUserIdAndType($user['id'], $type);
+        $currentUser = $this->getCurrentUser();
+        $myFollows = $this->getFollowService()->searchMyFollowsByUserIdAndType($currentUser['id'], $type);
         $objectIds = ArrayToolKit::column($myFollows,'objectId');
         if ($type == 'user') {
             $objects = $this->getUserService()->findUsersByIds($objectIds);
+            $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
             $objects = $this->getTopicService()->findTopicsByIds($objectIds);
-            $objects = $this->getFollowService()->hasFollowTopics($objects,$user['id']);
+            $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
+                        // var_dump($objects);exit;
         }
 
         return $this->render('AppBundle:MyKnowledgeShare:my-follows.html.twig', array(
@@ -163,24 +167,24 @@ class UserController extends BaseController
     }
 
     public function followAction(Request $request, $id)
-    {   
-        $user = $this->biz->getUser();   
-        $this->getFollowService()->followUser($user['id'],$id);
+    {
+        $currentUser = $this->getCurrentUser();   
+        $this->getFollowService()->followUser($currentUser['id'],$id);
 
         return new JsonResponse(true);
     }
 
     public function unfollowAction(Request $request, $id)
-    {   
-        $user = $this->biz->getUser();
-        $this->getFollowService()->unfollowUser($user['id'], $id);
+    {
+        $currentUser = $this->getCurrentUser();
+        $this->getFollowService()->unfollowUser($currentUser['id'], $id);
 
         return new JsonResponse(true);
     }
 
     public function createToreadAction(Request $request, $id)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
 
         if (empty($user)) {
             throw new \Exception('用户不存在');
@@ -193,7 +197,7 @@ class UserController extends BaseController
 
     public function deleteToreadAction(Request $request, $id)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
 
         if (empty($user)) {
             throw new \Exception('用户不存在');

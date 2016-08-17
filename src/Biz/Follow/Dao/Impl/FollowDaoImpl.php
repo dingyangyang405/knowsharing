@@ -24,7 +24,7 @@ class FollowDaoImpl extends GeneralDaoImpl implements FollowDao
             'conditions' => array(
                 'userId = :userId', 
                 'objectId = :objectId',
-                'type = :type'
+                'type = :type',
             ),
         );
     }

@@ -28,6 +28,16 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $this->getKnowledgeDao()->update($id, $fields);
     }
 
+    public function searchFollowKnowledges($conditions, $start, $limit)
+    {
+        return $this->getKnowledgeDao()->searchFollowKnowledges($conditions, $start, $limit);
+    }
+
+    public function getFollowKnowledgesCount($conditions)
+    {
+        return $this->getKnowledgeDao()->getFollowKnowledgesCount($conditions);
+    }
+
     public function findTopKnowledges($type)
     {
         $topConditions = array();
