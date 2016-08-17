@@ -143,7 +143,6 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('server_version')->end()
                 ->scalarNode('driver_class')->end()
                 ->scalarNode('wrapper_class')->end()
-                ->scalarNode('shard_manager_class')->end()
                 ->scalarNode('shard_choser')->end()
                 ->scalarNode('shard_choser_service')->end()
                 ->booleanNode('keep_slave')->end()

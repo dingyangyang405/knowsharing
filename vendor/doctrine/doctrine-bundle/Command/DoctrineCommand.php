@@ -14,11 +14,8 @@
 
 namespace Doctrine\Bundle\DoctrineBundle\Command;
 
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Sharding\PoolingShardConnection;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\EntityGenerator;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Doctrine\ORM\Tools\EntityGenerator;
 
 /**
  * Base class for Doctrine console commands to extend from.
@@ -48,24 +45,13 @@ abstract class DoctrineCommand extends ContainerAwareCommand
     /**
      * Get a doctrine entity manager by symfony name.
      *
-     * @param string       $name
-     * @param null|integer $shardId
+     * @param string $name
      *
-     * @return EntityManager
+     * @return \Doctrine\ORM\EntityManager
      */
-    protected function getEntityManager($name, $shardId = null)
+    protected function getEntityManager($name)
     {
-        $manager = $this->getContainer()->get('doctrine')->getManager($name);
-
-        if ($shardId) {
-            if (!$manager->getConnection() instanceof PoolingShardConnection) {
-                throw new \LogicException(sprintf("Connection of EntityManager '%s' must implement shards configuration.", $name));
-            }
-
-            $manager->getConnection()->connect($shardId);
-        }
-
-        return $manager;
+        return $this->getContainer()->get('doctrine')->getManager($name);
     }
 
     /**
@@ -73,7 +59,7 @@ abstract class DoctrineCommand extends ContainerAwareCommand
      *
      * @param string $name
      *
-     * @return Connection
+     * @return \Doctrine\DBAL\Connection
      */
     protected function getDoctrineConnection($name)
     {
