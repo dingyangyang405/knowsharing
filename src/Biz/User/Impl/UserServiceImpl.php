@@ -67,6 +67,16 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
         return $this->getUserDao()->create($user);
     }
 
+    public function findUsers($conditions, $orderBy, $start, $limit)
+    {
+        return $this->getUserDao()->search($conditions, $orderBy, $start, $limit);
+    }
+
+    public function getUsersCount($conditions)
+    {
+        return $this->getUserDao()->count($conditions);
+    }
+
     protected function getUserDao()
     {
         return $this->biz['user_dao'];
