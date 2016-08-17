@@ -147,15 +147,15 @@ class UserController extends BaseController
 
     public function myFollowsAction(Request $request, $type)
     {
-        $user = $this->getCurrentUser();
-        $myFollows = $this->getFollowService()->searchMyFollowsByUserIdAndType($user['id'], $type);
+        $currentUser = $this->getCurrentUser();
+        $myFollows = $this->getFollowService()->searchMyFollowsByUserIdAndType($currentUser['id'], $type);
         $objectIds = ArrayToolKit::column($myFollows,'objectId');
         if ($type == 'user') {
             $objects = $this->getUserService()->findUsersByIds($objectIds);
-            $objects = $this->getFollowService()->hasFollowUsers($objects,$user['id']);
+            $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
             $objects = $this->getTopicService()->findTopicsByIds($objectIds);
-            $objects = $this->getFollowService()->hasFollowTopics($objects,$user['id']);
+            $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
                         // var_dump($objects);exit;
         }
 
@@ -166,17 +166,17 @@ class UserController extends BaseController
     }
 
     public function followAction(Request $request, $id)
-    {   
-        $user = $this->getCurrentUser();   
-        $this->getFollowService()->followUser($user['id'],$id);
+    {
+        $currentUser = $this->getCurrentUser();   
+        $this->getFollowService()->followUser($currentUser['id'],$id);
 
         return new JsonResponse(true);
     }
 
     public function unfollowAction(Request $request, $id)
-    {   
-        $user = $this->getCurrentUser();
-        $this->getFollowService()->unfollowUser($user['id'], $id);
+    {
+        $currentUser = $this->getCurrentUser();
+        $this->getFollowService()->unfollowUser($currentUser['id'], $id);
 
         return new JsonResponse(true);
     }
