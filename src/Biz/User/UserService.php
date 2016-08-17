@@ -18,5 +18,10 @@ interface UserService
 
     public function minusScore($userId, $score);
 
+    public function findUsers($conditions, $orderBy, $start, $limit);
+
+    public function getUsersCount($conditions);
+
     public function searchUsers($objectIds, $start, $limit);
+
 }

@@ -84,9 +84,9 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
             'conditions' => array(
                 'userId = :userId',
                 'title Like :title',
-                'id IN (:ids)',
-                'userId IN ( :userIds )',
-                'topicId IN ( :topicIds )'
+                'topicId = :topicId',
+                'id IN (:ids)'
+
             ),
         );
     }

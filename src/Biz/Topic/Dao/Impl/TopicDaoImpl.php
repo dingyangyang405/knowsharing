@@ -33,7 +33,7 @@ class TopicDaoImpl extends GeneralDaoImpl implements TopicDao
             'timestamps' => array('createdTime'),
             'serializes' => array(),
             'conditions' => array(
-                'name = :name',
+                'name Like :name',
                 'topicId = :topicId',
                 'userId = :userId',
                 'id IN ( :ids )'

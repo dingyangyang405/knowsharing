@@ -6,6 +6,7 @@ use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Common\ArrayToolKit;
 use AppBundle\Common\Paginator;
+use AppBundle\Common\Setting;
 
 class DefaultController extends BaseController
 {
@@ -104,12 +105,76 @@ class DefaultController extends BaseController
 
     public function searchRelatedInAction(Request $request)
     {
-        $contions = $request->query->all();
+        $conditions = $request->query->all();
+        $orderBy = array('createdTime', 'DESC');
+        if ($conditions['SearchType'] == 'topic') {
+            $currentUser = $this->getCurrentUser();
+            $condition = array('name' => $conditions['query']);
+            $paginator = new Paginator(
+                $request,
+                $this->getTopicService()->getTopicsCount($condition),
+                20
+            );
+            $topics = $this->getTopicService()->searchTopics(
+                $condition,
+                $orderBy,
+                $paginator->getOffsetCount(),
+                $paginator->getPerPageCount()
+            );
 
-        return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
-            'type' => $contions['type'],
-            'query' => $contions['qurey']
-        ));
+            $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
+            return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
+                'SearchType' => $conditions['SearchType'],
+                'query' => $conditions['query'],
+                'paginator'=> $paginator,
+                'topics' => $topics,
+            ));
+        } else if ($conditions['SearchType'] == 'user') {
+            $condition = array('username' => $conditions['query']);
+            $paginator = new Paginator(
+                $request,
+                $this->getUserService()->getUsersCount($condition),
+                20
+            );
+
+            $users = $this->getUserService()->findUsers(
+                $condition,
+                array('created', 'DESC'),
+                $paginator->getOffsetCount(),
+                $paginator->getPerPageCount()
+            );
+            return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
+                'SearchType' => $conditions['SearchType'],
+                'query' => $conditions['query'],
+                'paginator'=> $paginator,
+                'users' => $users
+            ));
+        } else {
+            $condition = array('title' => $conditions['query']);
+            $paginator = new Paginator(
+                $request,
+                $this->getKnowledgeService()->getKnowledgesCount($condition),
+                20
+            );
+            $knowledges = $this->getKnowledgeService()->searchKnowledges(
+                $condition,
+                $orderBy,
+                $paginator->getOffsetCount(),
+                $paginator->getPerPageCount()
+            );
+
+            $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
+            $users = ArrayToolKit::index($users, 'id');
+
+            return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
+                'SearchType' => $conditions['SearchType'],
+                'query' => $conditions['query'],
+                'paginator'=> $paginator,
+                'knowledges' => $knowledges,
+                'users' => $users
+            ));
+        }
+
     }
 
     public function docModalAction(Request $request)
@@ -151,4 +216,15 @@ class DefaultController extends BaseController
     {
         return $this->biz['toread_service'];
     }
+
+    protected function getKnowledgeSearchService()
+    {
+        return $this->biz['knowledge_search'];
+    }
+
+    protected function getFollowService()
+    {
+        return $this->biz['follow_service'];
+    }
+
 }

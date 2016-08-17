@@ -15,7 +15,9 @@ class TopicController extends BaseController
     public function indexAction()
     {
         $currentUser = $this->getCurrentUser();
-
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $conditions = array();
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
@@ -76,7 +78,6 @@ class TopicController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
         return $this->render('AppBundle:Topic:knowledge.html.twig', array(
