@@ -132,7 +132,7 @@ class UserController extends BaseController
         } elseif ($type == 'topic') {
             $objects = $this->getTopicService()->findTopicsByIds($objectIds);
             $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
-            var_dump($objects);exit;
+            // var_dump($objects);exit;
         }
 
         return $this->render('AppBundle:User:follows.html.twig', array(
