@@ -33,7 +33,8 @@ class DefaultController extends BaseController
         return $this->render('AppBundle:Default:index.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'type' => 'newKnowledge'
         ));
     }
 

@@ -35,7 +35,8 @@ class TopicDaoImpl extends GeneralDaoImpl implements TopicDao
             'conditions' => array(
                 'name Like :name',
                 'topicId = :topicId',
-                'userId = :userId'
+                'userId = :userId',
+                'id IN ( :ids )'
             ),
         );
     }

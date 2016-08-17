@@ -34,20 +34,23 @@ class TopicController extends BaseController
 
         return $this->render('AppBundle:Topic:index.html.twig', array(
             'topics' => $topics,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'type' => 'allTopics'
         ));
     }
 
     public function followAction(Request $request, $id)
     {
-        $this->getFollowService()->followTopic($id);
+        $user = $this->getCurrentUser();
+        $this->getFollowService()->followTopic($user['id'], $id);
 
         return new JsonResponse(true);
     }
 
     public function unFollowAction(Request $request, $id)
     {
-        $this->getFollowService()->unFollowTopic($id);
+        $user = $this->getCurrentUser();
+        $this->getFollowService()->unFollowTopic($user['id'], $id);
 
         return new JsonResponse(true);
     }

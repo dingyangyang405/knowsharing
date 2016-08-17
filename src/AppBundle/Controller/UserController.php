@@ -13,7 +13,7 @@ class UserController extends BaseController
 {
     public function indexAction(Request $request,$userId)
     {
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
         $user = $this->getUserService()->getUser($userId);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
 
@@ -49,7 +49,7 @@ class UserController extends BaseController
 
     public function listFavoritesAction(Request $request, $userId)
     {
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
         $user = $this->getUserService()->getUser($userId);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
         
@@ -86,7 +86,7 @@ class UserController extends BaseController
 
     public function myFavoritesAction(Request $request)
     {
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($currentUser['id']);
         $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
 
@@ -109,17 +109,16 @@ class UserController extends BaseController
         return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'type' => 'myFavorite'
         ));
     }
 
     public function listFollowsAction(Request $request, $userId, $type)
     {   
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
         $user = $this->getUserService()->getUser($userId);
-        $conditions = array(
-            'userId' => $user['id']
-        );
+        $conditions = array('userId' => $user['id']);
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
         $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
@@ -127,9 +126,34 @@ class UserController extends BaseController
         $follows = $this->getFollowService()->searchMyFollowsByUserIdAndType($userId, $type);
         $objectIds = ArrayToolKit::column($follows,'objectId');
         if ($type == 'user') {
-            $objects = $this->getUserService()->findUsersByIds($objectIds);
+            $paginator = new Paginator(
+                $this->get('request'),
+                count($objectIds),
+                20
+            );
+            $objects = $this->getUserService()->searchUsers(
+                $objectIds,
+                $paginator->getOffsetCount(),
+                $paginator->getPerPageCount()
+            );
+
+            $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
-            $objects = $this->getTopicService()->findTopicsByIds($objectIds);
+            $conditions = array('ids' => $objectIds);
+            $orderBy = array('createdTime', 'DESC');
+
+            $paginator = new Paginator(
+                $this->get('request'),
+                count($objectIds),
+                20
+            );
+            $objects = $this->getTopicService()->searchTopics(
+                $conditions,
+                $orderBy,
+                $paginator->getOffsetCount(),
+                $paginator->getPerPageCount()
+            );
+
             $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
         }
 
@@ -139,47 +163,78 @@ class UserController extends BaseController
             'knowledgesCount' => $knowledgesCount,
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
-            'user' => $user
+            'user' => $user,
+            'paginator' => $paginator
         ));
     }
 
     public function myFollowsAction(Request $request, $type)
     {
-        $user = $this->biz->getUser();
-        $myFollows = $this->getFollowService()->searchMyFollowsByUserIdAndType($user['id'], $type);
+        $currentUser = $this->getCurrentUser();
+        $myFollows = $this->getFollowService()->searchMyFollowsByUserIdAndType($currentUser['id'], $type);
         $objectIds = ArrayToolKit::column($myFollows,'objectId');
         if ($type == 'user') {
-            $objects = $this->getUserService()->findUsersByIds($objectIds);
+            $paginator = new Paginator(
+                $this->get('request'),
+                count($objectIds),
+                20
+            );
+            $objects = $this->getUserService()->searchUsers(
+                $objectIds,
+                $paginator->getOffsetCount(),
+                $paginator->getPerPageCount()
+            );
+            $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
-            $objects = $this->getTopicService()->findTopicsByIds($objectIds);
-            $objects = $this->getFollowService()->hasFollowTopics($objects,$user['id']);
+            $conditions = array('ids' => $objectIds);
+            $orderBy = array('createdTime', 'DESC');
+
+            $paginator = new Paginator(
+                $this->get('request'),
+                count($objectIds),
+                20
+            );
+            $objects = $this->getTopicService()->searchTopics(
+                $conditions,
+                $orderBy,
+                $paginator->getOffsetCount(),
+                $paginator->getPerPageCount()
+            );
+            $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
         }
 
         return $this->render('AppBundle:MyKnowledgeShare:my-follows.html.twig', array(
             'objects' => $objects,
-            'type' => $type
+            'type' => $type,
+            'paginator' => $paginator
         ));
     }
 
     public function followAction(Request $request, $id)
     {   
-        $user = $this->biz->getUser();   
-        $this->getFollowService()->followUser($user['id'],$id);
+        $currentUser = $this->getCurrentUser(); 
+        if (empty($currentUser)) {
+            throw new \Exception('用户不存在');
+        }
+        $this->getFollowService()->followUser($currentUser['id'], $id);
 
         return new JsonResponse(true);
     }
 
     public function unfollowAction(Request $request, $id)
     {   
-        $user = $this->biz->getUser();
-        $this->getFollowService()->unfollowUser($user['id'], $id);
+        $currentUser = $this->getCurrentUser(); 
+        if (empty($currentUser)) {
+            throw new \Exception('用户不存在');
+        }
+        $this->getFollowService()->unfollowUser($currentUser['id'], $id);
 
         return new JsonResponse(true);
     }
 
     public function createToreadAction(Request $request, $id)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
 
         if (empty($user)) {
             throw new \Exception('用户不存在');
@@ -192,7 +247,7 @@ class UserController extends BaseController
 
     public function deleteToreadAction(Request $request, $id)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
 
         if (empty($user)) {
             throw new \Exception('用户不存在');

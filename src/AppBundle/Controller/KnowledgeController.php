@@ -21,6 +21,10 @@ class KnowledgeController extends BaseController
             $userRole = array(
                 'roles' => 'admin'
             );
+        } else {
+            $userRole = array(
+                'roles' => 'user'
+            );
         }
 
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
@@ -77,7 +81,7 @@ class KnowledgeController extends BaseController
             $content = $request->request->get('content');        
         }
 
-        $topic = $this->getTopicService()->getTopicById($post['topic'] ,$user);
+        $topic = $this->getTopicService()->getTopicById($post['topic']);
         $data = array(
             'title' => $post['title'],
             'summary' => $post['summary'],
@@ -92,9 +96,18 @@ class KnowledgeController extends BaseController
         return new JsonResponse($data);
     }
 
-    public function adminEditAction()
+    public function adminEditAction(Request $request, $id)
     {
+        if ($request->getMethod() == "POST") {
+            $knowledge = $request->request->all();
+            $this->getKnowledgeService->updateKnowledge($id, $knowledge);
 
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+
+        return $this->render('AppBundle:Knowledge:admin-edit.html.twig', array('knowledge' => $knowledge
+        ));
     }
 
     public function adminDeleteAction(Request $request, $id)
@@ -106,7 +119,7 @@ class KnowledgeController extends BaseController
 
     public function createCommentAction(Request $request)
     {
-        $currentUser = $this->biz->getUser(); 
+        $currentUser = $this->getCurrentUser(); 
 
         $data = $request->request->all();
         $params = array(
@@ -202,7 +215,7 @@ class KnowledgeController extends BaseController
         $fopen = fopen($filePath,"r+");
 
         if (!file_exists($filePath)) {
-            throw new Exception("文件不存在");
+            throw new \Exception("文件不存在");
         }
 
         $content = fread($fopen, filesize($filePath));
