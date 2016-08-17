@@ -118,9 +118,7 @@ class UserController extends BaseController
     {   
         $currentUser = $this->getCurrentUser();
         $user = $this->getUserService()->getUser($userId);
-        $conditions = array(
-            'userId' => $user['id']
-        );
+        $conditions = array('userId' => $user['id']);
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
         $favoritesCount = $this->getFavoriteService()->getFavoritesCount($conditions);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
@@ -128,12 +126,35 @@ class UserController extends BaseController
         $follows = $this->getFollowService()->searchMyFollowsByUserIdAndType($userId, $type);
         $objectIds = ArrayToolKit::column($follows,'objectId');
         if ($type == 'user') {
-            $objects = $this->getUserService()->findUsersByIds($objectIds);
+            $paginator = new Paginator(
+                $this->get('request'),
+                count($objectIds),
+                20
+            );
+            $objects = $this->getUserService()->searchUsers(
+                $objectIds,
+                $paginator->getOffsetCount(),
+                $paginator->getPerPageCount()
+            );
+
             $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
-            $objects = $this->getTopicService()->findTopicsByIds($objectIds);
+            $conditions = array('ids' => $objectIds);
+            $orderBy = array('createdTime', 'DESC');
+
+            $paginator = new Paginator(
+                $this->get('request'),
+                count($objectIds),
+                20
+            );
+            $objects = $this->getTopicService()->searchTopics(
+                $conditions,
+                $orderBy,
+                $paginator->getOffsetCount(),
+                $paginator->getPerPageCount()
+            );
+
             $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
-            // var_dump($objects);exit;
         }
 
         return $this->render('AppBundle:User:follows.html.twig', array(
@@ -142,7 +163,8 @@ class UserController extends BaseController
             'knowledgesCount' => $knowledgesCount,
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
-            'user' => $user
+            'user' => $user,
+            'paginator' => $paginator
         ));
     }
 
@@ -152,17 +174,39 @@ class UserController extends BaseController
         $myFollows = $this->getFollowService()->searchMyFollowsByUserIdAndType($currentUser['id'], $type);
         $objectIds = ArrayToolKit::column($myFollows,'objectId');
         if ($type == 'user') {
-            $objects = $this->getUserService()->findUsersByIds($objectIds);
+            $paginator = new Paginator(
+                $this->get('request'),
+                count($objectIds),
+                20
+            );
+            $objects = $this->getUserService()->searchUsers(
+                $objectIds,
+                $paginator->getOffsetCount(),
+                $paginator->getPerPageCount()
+            );
             $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
-            $objects = $this->getTopicService()->findTopicsByIds($objectIds);
+            $conditions = array('ids' => $objectIds);
+            $orderBy = array('createdTime', 'DESC');
+
+            $paginator = new Paginator(
+                $this->get('request'),
+                count($objectIds),
+                20
+            );
+            $objects = $this->getTopicService()->searchTopics(
+                $conditions,
+                $orderBy,
+                $paginator->getOffsetCount(),
+                $paginator->getPerPageCount()
+            );
             $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
-                        // var_dump($objects);exit;
         }
 
         return $this->render('AppBundle:MyKnowledgeShare:my-follows.html.twig', array(
             'objects' => $objects,
-            'type' => $type
+            'type' => $type,
+            'paginator' => $paginator
         ));
     }
 
