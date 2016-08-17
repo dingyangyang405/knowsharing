@@ -9,9 +9,6 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
 {
     public function followUser($userId, $id)
     {        
-        if (empty($userId)) {
-            throw new \Exception('用户不存在');
-        }
         $followUser = $this->getUserDao()->get($id);
         if (empty($followUser)) {
             throw new \Exception('被关注的用户不存在');
@@ -30,14 +27,13 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
 
     public function unfollowUser($userId, $id)
     {   
-        if (empty($userId)) {
-            throw new \Exception('用户不存在');
-        }
         $followUser = $this->getUserDao()->get($id);
         if (empty($followUser)) {
             throw new \Exception('被关注的用户不存在');
         }
+
         $followUser = $this->getFollowDao()->getFollowUserByUserIdAndObjectUserId($userId, $id);
+        
         $status = $this->getFollowDao()->delete($followUser['id']);
         if ($status == 1) {
             return true;

@@ -166,17 +166,23 @@ class UserController extends BaseController
     }
 
     public function followAction(Request $request, $id)
-    {
-        $currentUser = $this->getCurrentUser();   
-        $this->getFollowService()->followUser($currentUser['id'],$id);
+    {   
+        $user = $this->getCurrentUser(); 
+        if (empty($user)) {
+            throw new \Exception('用户不存在');
+        }
+        $this->getFollowService()->followUser($user['id'], $id);
 
         return new JsonResponse(true);
     }
 
     public function unfollowAction(Request $request, $id)
-    {
-        $currentUser = $this->getCurrentUser();
-        $this->getFollowService()->unfollowUser($currentUser['id'], $id);
+    {   
+        $user = $this->getCurrentUser(); 
+        if (empty($user)) {
+            throw new \Exception('用户不存在');
+        }
+        $this->getFollowService()->unfollowUser($user['id'], $id);
 
         return new JsonResponse(true);
     }
