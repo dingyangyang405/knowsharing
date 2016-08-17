@@ -88,10 +88,10 @@ class DefaultController extends BaseController
     
     public function noticeToDoListAction(Request $request)
     {
-        $user = $this->biz->getUser();
-        if (!empty($user)) {
+        $currentUser = $this->getCurrentUser();
+        if ($currentUser->isLogin()) {
             $conditions = array(
-                'userId' => $user['id'],
+                'userId' => $currentUser['id'],
             );
             $toReadListNum = $this->getToreadService()->getToreadlistCount($conditions);
             
