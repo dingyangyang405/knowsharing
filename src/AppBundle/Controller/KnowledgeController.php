@@ -192,6 +192,11 @@ class KnowledgeController extends BaseController
     public function finishLearnAction(Request $request, $id)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return new JsonResponse(array(
+            'status'=>'false'
+        ));
+        }
         $this->getLearnService()->finishKnowledgeLearn($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $this->getUserService()->addScore($currentUser['id'], 1);
@@ -204,6 +209,10 @@ class KnowledgeController extends BaseController
 
     public function downloadFileAction(Request $request, $id)
     {
+        $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));;
+        }
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $auth = $this->getUserService()->getUser($knowledge['userId']);
 
