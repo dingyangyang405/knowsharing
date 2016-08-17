@@ -251,8 +251,8 @@ class UserController extends BaseController
     {
         $user = $this->getCurrentUser();
 
-        if (empty($user)) {
-            throw new \Exception('用户不存在');
+        if (!$user->isLogin()) {
+           return new JsonResponse(false);
         }
 
         $this->getToreadService()->createToreadKnowledge($id ,$user['id']);
