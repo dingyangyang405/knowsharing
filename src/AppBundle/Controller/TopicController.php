@@ -14,8 +14,10 @@ class TopicController extends BaseController
 {
     public function indexAction()
     {
-        $currentUser = $this->biz->getUser();
-
+        $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $conditions = array();
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
@@ -29,7 +31,6 @@ class TopicController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-
         $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
 
         return $this->render('AppBundle:Topic:index.html.twig', array(
@@ -42,6 +43,9 @@ class TopicController extends BaseController
     public function followAction(Request $request, $id)
     {
         $user = $this->getCurrentUser();
+        if (!$user->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $this->getFollowService()->followTopic($user['id'], $id);
 
         return new JsonResponse(true);
@@ -50,6 +54,9 @@ class TopicController extends BaseController
     public function unFollowAction(Request $request, $id)
     {
         $user = $this->getCurrentUser();
+        if (!$user->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $this->getFollowService()->unFollowTopic($user['id'], $id);
 
         return new JsonResponse(true);
