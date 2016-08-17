@@ -35,8 +35,6 @@
             <dd class="text">{{ knowledge.summary }}</dd>
         </dl>
         <p>
-          链接:
-          <a href="http://{{ knowledge.content }}">{{ knowledge.content  }}</a>
           传送门:
           <a href="{% if knowledge.type == 'link' %}http://{{ knowledge.content  }} {% else %} {{path('knowledge_download_file',{id:knowledge.id})}} {% endif %}">{{ knowledge.content  }}</a>
         </p>
