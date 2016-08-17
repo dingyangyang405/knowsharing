@@ -18,23 +18,23 @@
                 </div>
             </dt>
             <dd>
-        <span class="name">
-          <a href="javascript:;"  rel="author">分享者:{{ user.username }}</a>
-        </span>
-                <span class="identity"></span>
-        <span class="time">
-          分享日期:{{ knowledge.createdTime |date('Y年m月d日') }}
-        </span>
+              <span class="name">
+                <a href="javascript:;"  rel="author">分享者:{{ user.username }}</a>
+              </span>
+                      <span class="identity"></span>
+              <span class="time">
+                分享日期:{{ knowledge.createdTime |date('Y年m月d日') }}
+              </span>
+              {% if userRole.roles == 'admin' %}
+                <span style="float:right">
+                  <a class="btn btn-primary fa fa-edit admin-edit-btn" data-url="{{path('admin_knowledge_edit',{id:knowledge.id})}}"></a>
+                  <a class="btn btn-default fa fa-trash admin-delete-btn" data-url="{{path('admin_knowledge_delete',{id: knowledge.id})}}"></a>
+                </span>
+              {% endif %}
             </dd>
             <dd class="text">{{ knowledge.summary }}</dd>
         </dl>
         <p>
-          {% if userRole.roles == 'admin' %}
-            <span style="float:right">
-              <a class="btn btn-primary fa fa-edit admin-edit-btn" data-url="{{path('admin_knowledge_edit',{id:knowledge.id})}}"></a>
-              <a class="btn btn-default fa fa-trash admin-delete-btn" data-url="{{path('admin_knowledge_delete',{id: knowledge.id})}}"></a>
-            </span>
-          {% endif %}
           链接:
           <a href="http://{{ knowledge.content }}">{{ knowledge.content  }}</a>
           传送门:

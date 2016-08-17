@@ -13,6 +13,8 @@ class FollowController extends BaseController
 	{
 		$currentUser = $this->getCurrentUser();
 		$follows = $this->getFollowService()->findFollowsByUserId($currentUser['id']);
+        $followUsers = array();
+        $followTopics = array();
 		foreach ($follows as $follow) {
 			if ($follow['type'] == 'user') {
 				$followUsers[] = $follow;
@@ -50,7 +52,8 @@ class FollowController extends BaseController
 			'followKnowledges' => $followKnowledges,
             'users' => $users,
             'paginator' => $paginator,
-            'topics' => $topics
+            'topics' => $topics,
+            'type' => 'followNotify'
         ));
 	}
 

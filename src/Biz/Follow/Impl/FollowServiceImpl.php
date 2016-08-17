@@ -9,9 +9,6 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
 {
     public function followUser($userId, $id)
     {        
-        if (empty($userId)) {
-            throw new \Exception('用户不存在');
-        }
         $followUser = $this->getUserDao()->get($id);
         if (empty($followUser)) {
             throw new \Exception('被关注的用户不存在');
@@ -30,14 +27,13 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
 
     public function unfollowUser($userId, $id)
     {   
-        if (empty($userId)) {
-            throw new \Exception('用户不存在');
-        }
         $followUser = $this->getUserDao()->get($id);
         if (empty($followUser)) {
             throw new \Exception('被关注的用户不存在');
         }
+
         $followUser = $this->getFollowDao()->getFollowUserByUserIdAndObjectUserId($userId, $id);
+        
         $status = $this->getFollowDao()->delete($followUser['id']);
         if ($status == 1) {
             return true;
@@ -46,11 +42,9 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
         }  
     }
 
-    public function followTopic($topicId)
+    public function followTopic($userId, $topicId)
     {
-        $user['id'] = 1;
-
-        if (empty($user['id'])) {
+        if (empty($userId)) {
             throw new \Exception('用户不存在');
         }
         $topic = $this->getTopicDao()->get($topicId);
@@ -58,14 +52,14 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
             throw new \Exception('主题不存在');
         }
 
-        $followed = $this->getFollowTopicByUserIdAndTopicId($user['id'], $topicId);
+        $followed = $this->getFollowTopicByUserIdAndTopicId($userId, $topicId);
         if ($followed) {
             throw new \Exception('已经被关注');
         }
 
         $this->getFollowDao()->create(array(
             'objectId' => $topicId,
-            'userId' => $user['id'],
+            'userId' => $userId,
             'type' => 'topic',
         ));
 
@@ -76,11 +70,9 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
         return true;
     }
 
-    public function unFollowTopic($topicId)
+    public function unFollowTopic($userId, $topicId)
     {
-        $user['id'] = 1;
-
-        if (empty($user['id'])) {
+        if (empty($userId)) {
             throw new \Exception('用户不存在');
         }
 
@@ -89,7 +81,7 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
             throw new \Exception('主题不存在');
         }
 
-        $followed = $this->getFollowTopicByUserIdAndTopicId($user['id'], $topicId);
+        $followed = $this->getFollowTopicByUserIdAndTopicId($userId, $topicId);
         if (empty($followed)) {
             throw new \Exception('未被关注');
         }
@@ -138,6 +130,17 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
         return $this->getFollowDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
     }
 
+    public function findFollowUsersByUserId($userId)
+    {
+        $conditions = array(
+            'userId' => $userId,
+            'type' => 'user',
+        );
+        $orderBy = array('objectId', 'ASC');
+        
+        return $this->getFollowDao()->search($conditions, $orderBy, 0, PHP_INT_MAX);
+    }
+
     public function waveFollowNum($ids, $diffs)
     {
         return $this->getTopicDao()->wave($ids, $diffs);
@@ -157,6 +160,22 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
             }
         }
         return $topics;
+    }
+
+    public function hasFollowUsers($users,$userId)
+    {
+        $followedUsers = $this->findFollowUsersByUserId($userId);
+        $followedUserIds = array();
+        foreach ($followedUsers as $value) {
+            $followedUserIds[] = $value['objectId'];
+        }
+        foreach ($users as $key => $user) {
+            $users[$key]['hasFollow'] = false;
+            if (in_array($user['id'], $followedUserIds)) {
+                $users[$key]['hasFollow'] = true;
+            }
+        }
+        return $users;
     }
 
     public function searchMyFollowsByUserIdAndType($userId, $type)

@@ -109,7 +109,8 @@ class UserController extends BaseController
         return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'type' => 'myFavorite'
         ));
     }
 
@@ -128,9 +129,11 @@ class UserController extends BaseController
         $objectIds = ArrayToolKit::column($follows,'objectId');
         if ($type == 'user') {
             $objects = $this->getUserService()->findUsersByIds($objectIds);
+            $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
             $objects = $this->getTopicService()->findTopicsByIds($objectIds);
             $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
+            // var_dump($objects);exit;
         }
 
         return $this->render('AppBundle:User:follows.html.twig', array(
@@ -150,9 +153,11 @@ class UserController extends BaseController
         $objectIds = ArrayToolKit::column($myFollows,'objectId');
         if ($type == 'user') {
             $objects = $this->getUserService()->findUsersByIds($objectIds);
+            $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
             $objects = $this->getTopicService()->findTopicsByIds($objectIds);
-            $objects = $this->getFollowService()->hasFollowTopics($objects,$user['id']);
+            $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
+                        // var_dump($objects);exit;
         }
 
         return $this->render('AppBundle:MyKnowledgeShare:my-follows.html.twig', array(
@@ -163,15 +168,21 @@ class UserController extends BaseController
 
     public function followAction(Request $request, $id)
     {   
-        $currentUser = $this->getCurrentUser();   
-        $this->getFollowService()->followUser($currentUser['id'],$id);
+        $currentUser = $this->getCurrentUser(); 
+        if (empty($currentUser)) {
+            throw new \Exception('用户不存在');
+        }
+        $this->getFollowService()->followUser($currentUser['id'], $id);
 
         return new JsonResponse(true);
     }
 
     public function unfollowAction(Request $request, $id)
     {   
-        $currentUser = $this->getCurrentUser();
+        $currentUser = $this->getCurrentUser(); 
+        if (empty($currentUser)) {
+            throw new \Exception('用户不存在');
+        }
         $this->getFollowService()->unfollowUser($currentUser['id'], $id);
 
         return new JsonResponse(true);
@@ -179,7 +190,7 @@ class UserController extends BaseController
 
     public function createToreadAction(Request $request, $id)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
 
         if (empty($user)) {
             throw new \Exception('用户不存在');
@@ -192,7 +203,7 @@ class UserController extends BaseController
 
     public function deleteToreadAction(Request $request, $id)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
 
         if (empty($user)) {
             throw new \Exception('用户不存在');

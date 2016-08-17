@@ -10,9 +10,9 @@ interface FollowService
 
     public function unfollowUser($userId, $id);
 
-    public function followTopic($topicId);
+    public function followTopic($userId, $topicId);
 
-    public function unFollowTopic($topicId);
+    public function unFollowTopic($userId, $topicId);
 
     public function waveFollowNum($ids, $diffs);
 
