@@ -84,6 +84,33 @@ class DefaultController extends BaseController
         ));
     }
     
+    public function noticeToDoListAction(Request $request)
+    {
+        $user = $this->biz->getUser();
+        if (!empty($user)) {
+            $conditions = array(
+                'userId' => $user['id'],
+            );
+            $toReadListNum = $this->getToreadService()->getToreadlistCount($conditions);
+            
+            return $this->render('AppBundle::notice-todolist.html.twig', array(
+                'toReadListNum' => $toReadListNum,
+            ));
+        }
+        
+        return $this->render('AppBundle::notice-todolist.html.twig', array());
+    }
+
+    public function searchRelatedInAction(Request $request)
+    {
+        $contions = $request->query->all();
+
+        return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
+            'type' => $contions['type'],
+            'query' => $contions['qurey']
+        ));
+    }
+
     public function docModalAction(Request $request)
     {
         return $this->render('AppBundle::add-file.html.twig');
@@ -117,5 +144,10 @@ class DefaultController extends BaseController
     protected function getTopicService()
     {
         return $this->biz['topic_service'];
+    }
+
+    protected function getToreadService()
+    {
+        return $this->biz['toread_service'];
     }
 }

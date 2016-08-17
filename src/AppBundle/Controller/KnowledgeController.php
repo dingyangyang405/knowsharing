@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Common\ArrayToolKit;
 use AppBundle\Common\Paginator;
 
@@ -12,12 +13,20 @@ class KnowledgeController extends BaseController
 {
     public function indexAction($id)
     {
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+            return $this->redirect($this->generateUrl("login"));
+        }
+        if ($currentUser['roles'][0] == 'ROLE_SUPER_ADMIN') {
+            $userRole = array(
+                'roles' => 'admin'
+            );
+        }
+
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $hasLearned = $this->getLearnService()->getLearnedByIdAndUserId($id, $currentUser['id']);
 
         $user = $this->getUserService()->getUser($knowledge['userId']);
-
         $conditions = array('knowledgeId' => $knowledge['id']);
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
@@ -43,11 +52,13 @@ class KnowledgeController extends BaseController
 
         $knowledge = array($knowledge);
         $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$currentUser['id']);
+
         $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$currentUser['id']);
 
         return $this->render('AppBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge[0],
             'user' => $user,
+            'userRole' => $userRole,
             'comments' => $comments,
             'users' => $users,
             'paginator' => $paginator,
@@ -57,15 +68,16 @@ class KnowledgeController extends BaseController
 
     public function createKnowledgeAction(Request $request)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
         $post = $request->request->all();
         if ($post['type'] == 'file') {
-            $content = $request->files->get('content');
-        } else {
-            $content = $request->request->get('content');            
+            $file = $request->files->get('content');
+            $content = $this->getKnowledgeService()->moveToPath($file,$user,$post['title']);   
+        } elseif ($post['type'] == 'link') {
+            $content = $request->request->get('content');        
         }
-        // $path = $this->getKnowledgeService()->getPath($file);
-        $topic = $this->getTopicService()->getTopicById($post['topic'] ,$user);
+
+        $topic = $this->getTopicService()->getTopicById($post['topic']);
         $data = array(
             'title' => $post['title'],
             'summary' => $post['summary'],
@@ -78,6 +90,18 @@ class KnowledgeController extends BaseController
         $this->getUserService()->addScore($user['id'], 3);
 
         return new JsonResponse($data);
+    }
+
+    public function adminEditAction()
+    {
+
+    }
+
+    public function adminDeleteAction(Request $request, $id)
+    {   
+        $this->getKnowledgeService()->deleteKnowledge($id);
+        
+        return new JsonResponse(true); 
     }
 
     public function createCommentAction(Request $request)
@@ -163,6 +187,32 @@ class KnowledgeController extends BaseController
         return new JsonResponse(array(
             'status'=>'success'
         ));
+    }
+
+    public function downloadFileAction(Request $request, $id)
+    {
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $auth = $this->getUserService()->getUser($knowledge['userId']);
+
+        $firstpath = strrpos($knowledge['content'], '/');
+        $fileName = substr($knowledge['content'],$firstpath+1);
+
+        $filePath = $_SERVER['DOCUMENT_ROOT'].'/files/'.$auth['username'].'/'.$fileName;
+
+        $fopen = fopen($filePath,"r+");
+
+        if (!file_exists($filePath)) {
+            throw new \Exception("文件不存在");
+        }
+
+        $content = fread($fopen, filesize($filePath));
+
+        $response = new Response();
+        $response->headers->set('Content-type', 'application/octet-stream');
+        $response->headers->set('Content-Disposition', 'attachment; filename="'.$fileName.'"');
+        $response->setContent($content);
+        fclose($fopen);
+        return $response;
     }
 
     protected function getLikeService()

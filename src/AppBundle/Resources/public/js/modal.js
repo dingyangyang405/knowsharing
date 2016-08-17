@@ -112,12 +112,7 @@ $(document).ready(function(){
         var url = $(this).data('url');
         if (confirm('确定要删除吗？')) {    
             $.post(url,function(data){  
-                if (data.status == 'success') {
-                    window.location.reload();
-                } else {
-                    alert('删除失败');
-                }
-                
+                window.location.reload();  
             });
         }
     });

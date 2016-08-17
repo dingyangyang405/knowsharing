@@ -59,7 +59,7 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
     public function register($user)
     {
         $user['salt'] = md5(time().mt_rand(0, 1000));
-        $user['password'] = $this->container['password_encoder']->encodePassword($user['password'], $user['salt']);
+        $user['password'] = $this->biz['password_encoder']->encodePassword($user['password'], $user['salt']);
         if (empty($user['roles'])) {
             $user['roles'] = array('ROLE_USER');
         }
@@ -69,6 +69,6 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
 
     protected function getUserDao()
     {
-        return $this->container['user_dao'];
+        return $this->biz['user_dao'];
     }
 }

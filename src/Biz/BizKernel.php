@@ -28,6 +28,7 @@ use Biz\ToDoList\Dao\Impl\ToDoListDaoImpl;
 class BizKernel extends Kernel
 {
     protected $extraContainer;
+    protected $currentUser;
 
     public function __construct($config, $extraContainer)
     {
@@ -45,6 +46,21 @@ class BizKernel extends Kernel
     public function registerProviders()
     {
         return [];
+
+    }
+
+    public function setCurrentUser($currentUser)
+    {
+        $this->currentUser = $currentUser;
+        return $this;
+    }
+
+    public function getCurrentUser()
+    {
+        if (is_null($this->currentUser)) {
+            throw new \RuntimeException('尚未初始化CurrentUser');
+        }
+        return $this->currentUser;
     }
 
     protected function registerService()

@@ -34,7 +34,8 @@ class TopicDaoImpl extends GeneralDaoImpl implements TopicDao
             'serializes' => array(),
             'conditions' => array(
                 'name = :name',
-                'topicId = :topicId'
+                'topicId = :topicId',
+                'userId = :userId'
             ),
         );
     }

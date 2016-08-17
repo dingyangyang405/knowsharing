@@ -2,6 +2,7 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
+use AppBundle\Security\CurrentUser;
 // If you don't want to setup permissions the proper way, just uncomment the following PHP line
 // read http://symfony.com/doc/current/book/installation.html#checking-symfony-application-configuration-and-setup
 // for more information
@@ -26,6 +27,16 @@ Debug::enable();
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
 $kernel->boot();
+
+//创建游客
+$biz = $kernel->getContainer()->get('biz');
+$user = array(
+    'id' => 0,
+    'username' => '游客',
+    'roles' => array(),
+);
+$currentUser = new CurrentUser($user);
+$biz->setCurrentUser($currentUser);
 
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);

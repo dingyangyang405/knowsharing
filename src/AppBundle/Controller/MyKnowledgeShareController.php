@@ -11,15 +11,18 @@ use AppBundle\Common\ArrayToolKit;
 class MyKnowledgeShareController extends BaseController
 {
     public function indexAction(Request $request)
-    {   
-        $user = $this->biz->getUser();
+    {
+        $user = $this->getCurrentUser();
+        if (!$user->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $fields = $request->query->all();
         $conditions = array(
             'userId' => $user['id'],
             'keyword' => '',
         );
 
-        $conditions = array_merge($conditions, $fields);
+        $conditions = array_merge($conditions, $fields);  
         if (isset($conditions['keyword'])) {
             $conditions['title'] = "%{$conditions['keyword']}%";
             unset($conditions['keyword']);
@@ -62,7 +65,7 @@ class MyKnowledgeShareController extends BaseController
 
     public function toDoListAction(Request $request)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
         $toDoList = $this->getToDoListService()->findToDoListByUserId($user['id']);
 
         $paginator = new Paginator(
@@ -93,9 +96,7 @@ class MyKnowledgeShareController extends BaseController
     {
         $this->getKnowledgeService()->deleteKnowledge($id);
 
-        return new JsonResponse(array(
-            'status' => 'success'
-        ));
+        return new JsonResponse(true);
     }
 
     protected function getKnowledgeService()
