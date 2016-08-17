@@ -54,8 +54,7 @@
         </ul>
           {% for object in objects %}
             {% if (type == 'user') %}
-              {% set user = object %}
-              {% set hasfollowed = true %}
+              {% set user = object %} 
               {% include "AppBundle:MyKnowledgeShare:single-follow-users-list.html.twig" %}
             {% elseif (type == 'topic') %}
               {% set topic = object %}
