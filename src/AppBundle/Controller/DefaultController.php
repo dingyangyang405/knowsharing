@@ -107,7 +107,7 @@ class DefaultController extends BaseController
     {
         $conditions = $request->query->all();
         $orderBy = array('createdTime', 'DESC');
-        if ($conditions['type'] == 'topic') {
+        if ($conditions['SearchType'] == 'topic') {
             $currentUser = $this->getCurrentUser();
             $condition = array('name' => $conditions['query']);
             $paginator = new Paginator(
@@ -124,12 +124,12 @@ class DefaultController extends BaseController
 
             $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
             return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
-                'type' => $conditions['type'],
+                'SearchType' => $conditions['SearchType'],
                 'query' => $conditions['query'],
                 'paginator'=> $paginator,
                 'topics' => $topics,
             ));
-        } else if ($conditions['type'] == 'user') {
+        } else if ($conditions['SearchType'] == 'user') {
             $condition = array('username' => $conditions['query']);
             $paginator = new Paginator(
                 $request,
@@ -144,7 +144,7 @@ class DefaultController extends BaseController
                 $paginator->getPerPageCount()
             );
             return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
-                'type' => $conditions['type'],
+                'SearchType' => $conditions['SearchType'],
                 'query' => $conditions['query'],
                 'paginator'=> $paginator,
                 'users' => $users
@@ -167,7 +167,7 @@ class DefaultController extends BaseController
             $users = ArrayToolKit::index($users, 'id');
 
             return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
-                'type' => $conditions['type'],
+                'SearchType' => $conditions['SearchType'],
                 'query' => $conditions['query'],
                 'paginator'=> $paginator,
                 'knowledges' => $knowledges,
