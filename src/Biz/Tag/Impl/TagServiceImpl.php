@@ -14,6 +14,6 @@ class TagServiceImpl extends KernelAwareBaseService implements TagService
 
     protected function getTagDao()
     {
-        $this->container['tag_dao'];
+        return $this->biz['tag_dao'];
     }
 }

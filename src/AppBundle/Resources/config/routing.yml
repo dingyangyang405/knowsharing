@@ -165,3 +165,8 @@ topic_knowledge:
 knowledge_download_file:
     path: /knowledge/{id}/download
     defaults: { _controller: AppBundle:Knowledge:downloadFile}
+
+ajax_tag:
+    path: /tag/search
+    defaults: { _controller: AppBundle:Ajax:tag }
+    methods: [POST]
