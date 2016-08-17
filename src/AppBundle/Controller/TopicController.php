@@ -34,7 +34,8 @@ class TopicController extends BaseController
 
         return $this->render('AppBundle:Topic:index.html.twig', array(
             'topics' => $topics,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'type' => 'allTopics'
         ));
     }
 

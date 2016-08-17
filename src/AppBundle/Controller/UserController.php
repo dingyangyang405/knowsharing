@@ -109,7 +109,8 @@ class UserController extends BaseController
         return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'type' => 'myFavorite'
         ));
     }
 
