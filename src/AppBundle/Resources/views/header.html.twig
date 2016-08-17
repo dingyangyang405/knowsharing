@@ -5,7 +5,7 @@
                 <li style="margin-right: 20px;">
                     <form class="navbar-form navbar-left" action="{{ path('search_info') }}" method="get" style="padding-top:0px;padding-left:20px">
                         <div class="input-group">
-                            <input type="hidden" name="SearchType" {% if SearchType is defined and SearchType %} value="{{ SearchType }}" {% else %} value="knowledge"{% endif %}>
+                            <input type="hidden" name="searchType" {% if searchType is defined and searchType %} value="{{ searchType }}" {% else %} value="knowledge"{% endif %}>
                             <input type="text" class="form-control" name="query" size="30" placeholder="搜索感兴趣的知识...">
                                 <span class="input-group-btn">
                                   <button class="btn btn-default btn-search" type="submit"> <i class="fa fa-fw fa-search"></i>
