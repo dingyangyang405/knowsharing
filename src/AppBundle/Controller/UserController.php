@@ -109,7 +109,8 @@ class UserController extends BaseController
         return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'type' => 'myFavorite'
         ));
     }
 
@@ -166,16 +167,22 @@ class UserController extends BaseController
     }
 
     public function followAction(Request $request, $id)
-    {
-        $currentUser = $this->getCurrentUser();   
-        $this->getFollowService()->followUser($currentUser['id'],$id);
+    {   
+        $currentUser = $this->getCurrentUser(); 
+        if (empty($currentUser)) {
+            throw new \Exception('用户不存在');
+        }
+        $this->getFollowService()->followUser($currentUser['id'], $id);
 
         return new JsonResponse(true);
     }
 
     public function unfollowAction(Request $request, $id)
-    {
-        $currentUser = $this->getCurrentUser();
+    {   
+        $currentUser = $this->getCurrentUser(); 
+        if (empty($currentUser)) {
+            throw new \Exception('用户不存在');
+        }
         $this->getFollowService()->unfollowUser($currentUser['id'], $id);
 
         return new JsonResponse(true);
