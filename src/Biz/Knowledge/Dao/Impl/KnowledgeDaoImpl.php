@@ -47,6 +47,30 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
 
         return $this->db()->fetchAll($sql,$ids);
     }
+
+    public function getFollowKnowledgesCount($conditions)
+    {
+        $sql = "SELECT COUNT(*) FROM {$this->table} WHERE userId IN (:userIds) OR topicId IN (:topicIds)";
+
+        return $this->db()->fetchColumn($sql, array(
+            'userIds' => implode(",", $conditions['userIds']),
+            'topicIds' => implode(",", $conditions['topicIds']),
+        ));
+    }
+
+    public function searchFollowKnowledges($conditions, $start, $limit)
+    {
+        $start = (int) $start;
+        $limit = (int) $limit;
+
+        $sql = "SELECT * FROM {$this->table} WHERE userId IN (:userIds) OR topicId IN (:topicIds) ORDER BY createdTime DESC LIMIT {$start}, {$limit}";
+
+        return $this->db()->fetchAll($sql, array(
+            'userIds' => implode(",", $conditions['userIds']),
+            'topicIds' => implode(",", $conditions['topicIds']),
+        ));
+    }
+
     public function findByTopicId($id)
     {
         return $this->findInField('topicId',array($id));
@@ -60,7 +84,9 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
             'conditions' => array(
                 'userId = :userId',
                 'title Like :title',
+                'topicId = :topicId',
                 'id IN (:ids)'
+
             ),
         );
     }

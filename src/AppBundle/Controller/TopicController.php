@@ -14,8 +14,10 @@ class TopicController extends BaseController
 {
     public function indexAction()
     {
-        $currentUser = $this->biz->getUser();
-
+        $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $conditions = array();
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
@@ -29,25 +31,33 @@ class TopicController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-
         $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
 
         return $this->render('AppBundle:Topic:index.html.twig', array(
             'topics' => $topics,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'type' => 'allTopics'
         ));
     }
 
     public function followAction(Request $request, $id)
     {
-        $this->getFollowService()->followTopic($id);
+        $user = $this->getCurrentUser();
+        if (!$user->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
+        $this->getFollowService()->followTopic($user['id'], $id);
 
         return new JsonResponse(true);
     }
 
     public function unFollowAction(Request $request, $id)
     {
-        $this->getFollowService()->unFollowTopic($id);
+        $user = $this->getCurrentUser();
+        if (!$user->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
+        $this->getFollowService()->unFollowTopic($user['id'], $id);
 
         return new JsonResponse(true);
     }
@@ -68,7 +78,6 @@ class TopicController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
         return $this->render('AppBundle:Topic:knowledge.html.twig', array(

@@ -29,6 +29,21 @@ class UserDaoImpl extends GeneralDaoImpl implements UserDao
         return $this->db()->fetchAll($sql,$ids);
     }
 
+    public function searchUsers($objectIds, $start, $limit)
+    {
+        if (empty($objectIds)) {
+            return array();
+        }
+
+        $marks = str_repeat('?,', count($objectIds)-1).'?';
+        $start = (int) $start;
+        $limit = (int) $limit;
+
+        $sql = "SELECT * FROM {$this->table} WHERE id IN ({$marks}) LIMIT {$start}, {$limit}";
+
+        return $this->db()->fetchAll($sql,$objectIds);
+    }
+
     public function getByUsername($username)
     {
         return $this->getByFields(array('username' => $username));

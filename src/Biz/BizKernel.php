@@ -4,7 +4,6 @@ namespace Biz;
 use Codeages\Biz\Framework\Context\Kernel;
 use Biz\User\Impl\UserServiceImpl;
 use Biz\User\Dao\Impl\UserDaoImpl;
-// use Biz\User\Dao\Impl\FollowUserDaoImpl;
 use Biz\Topic\Impl\TopicServiceImpl;
 use Biz\Follow\Impl\FollowServiceImpl;
 use Biz\Topic\Dao\Impl\TopicDaoImpl;
@@ -25,6 +24,7 @@ use Biz\ToDoList\Impl\ToDoListServiceImpl;
 use Biz\ToDoList\Dao\Impl\ToDoListDaoImpl;
 use Biz\Tag\Impl\TagServiceImpl;
 use Biz\Tag\Dao\Impl\TagDaoImpl;
+use Biz\Tag\Dao\Impl\TagKnowledgeDaoImpl;
 
 class BizKernel extends Kernel
 {
@@ -158,6 +158,10 @@ class BizKernel extends Kernel
 
         $this['tag_dao'] = $this->dao(function($container) {
             return new TagDaoImpl($container);
+        });
+
+        $this['tag_knowledge_dao'] = $this->dao(function($container) {
+            return new TagKnowledgeDaoImpl($container);
         });
     }
 }

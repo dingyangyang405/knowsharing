@@ -51,6 +51,11 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
         return $this->getUserDao()->findUsersByIds($ids);
     }
 
+    public function searchUsers($objectIds, $start, $limit)
+    {
+        return $this->getUserDao()->searchUsers($objectIds, $start, $limit);
+    }
+
     public function getUserByUsername($username)
     {
         return $this->getUserDao()->getByUsername($username);
@@ -59,12 +64,22 @@ class UserServiceImpl extends KernelAwareBaseService implements UserService
     public function register($user)
     {
         $user['salt'] = md5(time().mt_rand(0, 1000));
-        $user['password'] = $this->container['password_encoder']->encodePassword($user['password'], $user['salt']);
+        $user['password'] = $this->biz['password_encoder']->encodePassword($user['password'], $user['salt']);
         if (empty($user['roles'])) {
             $user['roles'] = array('ROLE_USER');
         }
 
         return $this->getUserDao()->create($user);
+    }
+
+    public function findUsers($conditions, $orderBy, $start, $limit)
+    {
+        return $this->getUserDao()->search($conditions, $orderBy, $start, $limit);
+    }
+
+    public function getUsersCount($conditions)
+    {
+        return $this->getUserDao()->count($conditions);
     }
 
     protected function getUserDao()

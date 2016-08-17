@@ -43,7 +43,8 @@ class MyKnowledgeShareController extends BaseController
         
         return $this->render('AppBundle:MyKnowledgeShare:my-knowledge.html.twig',array(
             'knowledges' => $knowledges,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'type' => 'myKnowledge'
         ));
     }
 
@@ -65,8 +66,11 @@ class MyKnowledgeShareController extends BaseController
 
     public function toDoListAction(Request $request)
     {
-        $user = $this->biz->getUser();
-        $toDoList = $this->getToDoListService()->findToDoListByUserId($user['id']);
+        $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
+        $toDoList = $this->getToDoListService()->findToDoListByUserId($currentUser['id']);
 
         $paginator = new Paginator(
             $request,
@@ -88,7 +92,8 @@ class MyKnowledgeShareController extends BaseController
         return $this->render('AppBundle:MyKnowledgeShare:knowledge-todolist.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'type' => 'toDoList'
         ));
     }
 
@@ -96,9 +101,7 @@ class MyKnowledgeShareController extends BaseController
     {
         $this->getKnowledgeService()->deleteKnowledge($id);
 
-        return new JsonResponse(array(
-            'status' => 'success'
-        ));
+        return new JsonResponse(true);
     }
 
     protected function getKnowledgeService()

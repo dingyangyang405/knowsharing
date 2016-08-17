@@ -13,12 +13,22 @@ class KnowledgeController extends BaseController
 {
     public function indexAction($id)
     {
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
+
+        if (in_array('ROLE_SUPER_ADMIN', $currentUser['roles'])) {
+            $userRole = array(
+                'roles' => 'admin'
+            );
+        } else {
+            $userRole = array(
+                'roles' => 'user'
+            );
+        }
+
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $hasLearned = $this->getLearnService()->getLearnedByIdAndUserId($id, $currentUser['id']);
 
         $user = $this->getUserService()->getUser($knowledge['userId']);
-
         $conditions = array('knowledgeId' => $knowledge['id']);
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
@@ -44,11 +54,13 @@ class KnowledgeController extends BaseController
 
         $knowledge = array($knowledge);
         $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$currentUser['id']);
+
         $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$currentUser['id']);
 
         return $this->render('AppBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge[0],
             'user' => $user,
+            'userRole' => $userRole,
             'comments' => $comments,
             'users' => $users,
             'paginator' => $paginator,
@@ -58,7 +70,7 @@ class KnowledgeController extends BaseController
 
     public function createKnowledgeAction(Request $request)
     {
-        $user = $this->biz->getUser();
+        $user = $this->getCurrentUser();
         $post = $request->request->all();
         if ($post['type'] == 'file') {
             $file = $request->files->get('content');
@@ -67,7 +79,7 @@ class KnowledgeController extends BaseController
             $content = $request->request->get('content');        
         }
 
-        $topic = $this->getTopicService()->getTopicById($post['topic'] ,$user);
+        $topic = $this->getTopicService()->getTopicById($post['topic'],$user);
         $data = array(
             'title' => $post['title'],
             'summary' => $post['summary'],
@@ -82,10 +94,38 @@ class KnowledgeController extends BaseController
         return new JsonResponse($data);
     }
 
+    public function adminEditAction(Request $request, $id)
+    {   
+        if ($request->getMethod() == "POST") {
+            $knowledge = $request->request->all();
+            $this->getKnowledgeService()->updateKnowledge($id, $knowledge);
+        }
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $tags = $this->getTagService()->findTagsByKnowledgeId($knowledge['id']);
+        $tagIds = ArrayToolKit::column($tags,'tagId');
+        $tags = $this->getTagService()->findTagsByIds($tagIds);
+        $topic = $this->getTopicService()->getTopicByKnowledgeId($knowledge['topicId']);
+
+        return $this->render('AppBundle:Knowledge:admin-edit.html.twig', array(
+            'knowledge' => $knowledge,
+            'topic' => $topic,
+            'tags' => $tags
+        ));
+    }
+
+    public function adminDeleteAction(Request $request, $id)
+    {   
+        $this->getKnowledgeService()->deleteKnowledge($id);
+        
+        return new JsonResponse(true); 
+    }
+
     public function createCommentAction(Request $request)
     {
-        $currentUser = $this->biz->getUser(); 
-
+        $currentUser = $this->getCurrentUser(); 
+        if (!$currentUser->isLogin()) {
+           return new JsonResponse(false);
+        }
         $data = $request->request->all();
         $params = array(
             'value' => $data['comment'],
@@ -102,10 +142,10 @@ class KnowledgeController extends BaseController
 
     public function favoriteAction(Request $request, $id)
     {
-        $userId = '1';
-        $this->getFavoriteService()->favoriteKnowledge($id, $userId);
+        $currentUser = $this->getCurrentUser();
+        $this->getFavoriteService()->favoriteKnowledge($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        $this->getUserService()->addScore($userId, 1);
+        $this->getUserService()->addScore($currentUser['id'], 1);
         $this->getUserService()->addScore($knowledge['userId'], 5);
 
         return new JsonResponse(array(
@@ -115,10 +155,10 @@ class KnowledgeController extends BaseController
 
     public function unfavoriteAction(Request $request, $id)
     {
-        $userId = '1';
-        $this->getFavoriteService()->unfavoriteKnowledge($id, $userId);
+        $currentUser = $this->getCurrentUser();
+        $this->getFavoriteService()->unfavoriteKnowledge($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        $this->getUserService()->minusScore($userId, -1);
+        $this->getUserService()->minusScore($currentUser['id'], -1);
         $this->getUserService()->minusScore($knowledge['userId'], -5);
 
         return new JsonResponse(array(
@@ -129,10 +169,10 @@ class KnowledgeController extends BaseController
 
     public function dislikeAction(Request $request, $id)
     {
-        $userId = '1';
-        $this->getLikeService()->dislikeKnowledge($id, $userId);
+        $currentUser = $this->getCurrentUser();
+        $this->getLikeService()->dislikeKnowledge($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        $this->getUserService()->minusScore($userId, -1);
+        $this->getUserService()->minusScore($currentUser['id'], -1);
         $this->getUserService()->minusScore($knowledge['userId'], -2);
 
         return new JsonResponse(array(
@@ -143,10 +183,10 @@ class KnowledgeController extends BaseController
 
     public function likeAction(Request $request, $id)
     {
-        $userId = '1';
-        $this->getLikeService()->likeKnowledge($id, $userId);
+        $currentUser = $this->getCurrentUser();
+        $this->getLikeService()->likeKnowledge($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        $this->getUserService()->addScore($userId, 1);
+        $this->getUserService()->addScore($currentUser['id'], 1);
         $this->getUserService()->addScore($knowledge['userId'], 2);
 
         return new JsonResponse(array(
@@ -156,7 +196,7 @@ class KnowledgeController extends BaseController
 
     public function finishLearnAction(Request $request, $id)
     {
-        $currentUser = $this->biz->getUser();
+        $currentUser = $this->getCurrentUser();
         $this->getLearnService()->finishKnowledgeLearn($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $this->getUserService()->addScore($currentUser['id'], 1);
@@ -172,15 +212,12 @@ class KnowledgeController extends BaseController
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $auth = $this->getUserService()->getUser($knowledge['userId']);
 
-        $firstpath = strrpos($knowledge['content'], '/');
-        $fileName = substr($knowledge['content'],$firstpath+1);
-
+        $fileName = substr($knowledge['content'],0);
         $filePath = $_SERVER['DOCUMENT_ROOT'].'/files/'.$auth['username'].'/'.$fileName;
-
         $fopen = fopen($filePath,"r+");
 
         if (!file_exists($filePath)) {
-            throw new Exception("文件不存在");
+            throw new \Exception("文件不存在");
         }
 
         $content = fread($fopen, filesize($filePath));
@@ -226,5 +263,10 @@ class KnowledgeController extends BaseController
     protected function getLearnService()
     {
         return $this->biz['learn_service'];
+    }
+
+    protected function getTagService()
+    {
+        return $this->biz['tag_service'];
     }
 }

@@ -21,6 +21,7 @@ class AjaxController  extends BaseController
     public function topicAction(Request $request)
     {
         $conditions = $request->request->all();
+        $conditions['name'] = "%{$conditions['name']}%";
         $topics = $this->getTopicService()->searchTopics(
             $conditions,
             array('createdTime', 'DESC'),
