@@ -87,6 +87,9 @@ class UserController extends BaseController
     public function myFavoritesAction(Request $request)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($currentUser['id']);
         $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
 
@@ -171,6 +174,9 @@ class UserController extends BaseController
     public function myFollowsAction(Request $request, $type)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $myFollows = $this->getFollowService()->searchMyFollowsByUserIdAndType($currentUser['id'], $type);
         $objectIds = ArrayToolKit::column($myFollows,'objectId');
         if ($type == 'user') {

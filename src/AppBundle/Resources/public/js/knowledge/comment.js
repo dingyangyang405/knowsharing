@@ -7,6 +7,13 @@ $(document).ready(function(){
             url:$(this).data('url'),
             data:{comment:value,knowledgeId:id},
             type:"POST",
+            success:function(data){
+                if (data) {
+                    location.href = '/';
+                } else {
+                    location.href = '/login';
+                }
+            }
         })
     });
 });

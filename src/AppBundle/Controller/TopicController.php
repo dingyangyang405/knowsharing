@@ -14,8 +14,10 @@ class TopicController extends BaseController
 {
     public function indexAction()
     {
-        $currentUser = $this->biz->getUser();
-
+        $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $conditions = array();
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(

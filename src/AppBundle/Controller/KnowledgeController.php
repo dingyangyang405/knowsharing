@@ -14,10 +14,8 @@ class KnowledgeController extends BaseController
     public function indexAction($id)
     {
         $currentUser = $this->getCurrentUser();
-        if (!$currentUser->isLogin()) {
-            return $this->redirect($this->generateUrl("login"));
-        }
-        if ($currentUser['roles'][0] == 'ROLE_SUPER_ADMIN') {
+
+        if (in_array('ROLE_SUPER_ADMIN', $currentUser['roles'])) {
             $userRole = array(
                 'roles' => 'admin'
             );
@@ -120,7 +118,9 @@ class KnowledgeController extends BaseController
     public function createCommentAction(Request $request)
     {
         $currentUser = $this->getCurrentUser(); 
-
+        if (!$currentUser->isLogin()) {
+           return new JsonResponse(false);
+        }
         $data = $request->request->all();
         $params = array(
             'value' => $data['comment'],
