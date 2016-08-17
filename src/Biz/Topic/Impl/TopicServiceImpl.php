@@ -21,7 +21,7 @@ class TopicServiceImpl extends KernelAwareBaseService implements TopicService
 
     public function getTopicById($id,$user)
     {
-        if (empty($id)) {
+        if ($id == '请输入搜索主题') {
             return array('id' => 0);
         }
         $field = array('name' => $id,'userId' => $user['id']);

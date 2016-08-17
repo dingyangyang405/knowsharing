@@ -138,6 +138,11 @@ class KnowledgeController extends BaseController
     public function favoriteAction(Request $request, $id)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+            return new JsonResponse(array(
+                'status' => 'false'
+            ));
+        }
         $this->getFavoriteService()->favoriteKnowledge($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $this->getUserService()->addScore($currentUser['id'], 1);
@@ -151,6 +156,11 @@ class KnowledgeController extends BaseController
     public function unfavoriteAction(Request $request, $id)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+            return new JsonResponse(array(
+                'status' => 'false'
+            ));
+        }
         $this->getFavoriteService()->unfavoriteKnowledge($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $this->getUserService()->minusScore($currentUser['id'], -1);
@@ -165,6 +175,11 @@ class KnowledgeController extends BaseController
     public function dislikeAction(Request $request, $id)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+            return new JsonResponse(array(
+                'status' => 'false'
+            ));
+        }
         $this->getLikeService()->dislikeKnowledge($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $this->getUserService()->minusScore($currentUser['id'], -1);
@@ -179,6 +194,11 @@ class KnowledgeController extends BaseController
     public function likeAction(Request $request, $id)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+            return new JsonResponse(array(
+                'status' => 'false'
+            ));
+        }
         $this->getLikeService()->likeKnowledge($id, $currentUser['id']);
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $this->getUserService()->addScore($currentUser['id'], 1);
