@@ -95,16 +95,21 @@ class KnowledgeController extends BaseController
     }
 
     public function adminEditAction(Request $request, $id)
-    {
+    {   
         if ($request->getMethod() == "POST") {
             $knowledge = $request->request->all();
-            $this->getKnowledgeService->updateKnowledge($id, $knowledge);
-
-            return $this->redirect($this->generateUrl('homepage'));
+            $this->getKnowledgeService()->updateKnowledge($id, $knowledge);
         }
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $tags = $this->getTagService()->findTagsByKnowledgeId($knowledge['id']);
+        $tagIds = ArrayToolKit::column($tags,'tagId');
+        $tags = $this->getTagService()->findTagsByIds($tagIds);
+        $topic = $this->getTopicService()->getTopicByKnowledgeId($knowledge['topicId']);
 
-        return $this->render('AppBundle:Knowledge:admin-edit.html.twig', array('knowledge' => $knowledge
+        return $this->render('AppBundle:Knowledge:admin-edit.html.twig', array(
+            'knowledge' => $knowledge,
+            'topic' => $topic,
+            'tags' => $tags
         ));
     }
 
@@ -287,5 +292,10 @@ class KnowledgeController extends BaseController
     protected function getLearnService()
     {
         return $this->biz['learn_service'];
+    }
+
+    protected function getTagService()
+    {
+        return $this->biz['tag_service'];
     }
 }

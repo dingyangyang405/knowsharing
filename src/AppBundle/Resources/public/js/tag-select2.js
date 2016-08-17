@@ -1,6 +1,6 @@
-$('.link-select').select2({
+$('.tag-select').select2({
     ajax: {
-        url: $('.link-select').data('url'),
+        url: $('.tag-select').data('url'),
         delay: 250,
         type: 'POST',
         dataType: 'json',
@@ -10,21 +10,23 @@ $('.link-select').select2({
             }
             return query;
         },
+
         processResults: function (data) {
             return {
-                results: data.topics
+                results: data.tags
             };
         }
     },
-    templateResult: formatState,
-    templateSelection: template,
+    templateResult: tagFormatState,
+    templateSelection: tagTemplate,
     minimumInputLength: 1,
     escapeMarkup: function (markup) {
         return markup;
     },
 });
 
-function formatState(state) {
+
+function tagFormatState(state) {
     if (!state.id) {
         return state.name;
     }
@@ -34,12 +36,6 @@ function formatState(state) {
     return $state;
 };
 
-function template(data) {
+function tagTemplate(data) {
     return data.name;
 }
-
-$(".link-select").select2("data", $(".link-select").select2('data')[0]['id']);
-$('body').on('keyup','.select2-search__field',function() {
-    $(".link-select option ").val($(".select2-search__field").val());
-    $('.link-select').next().find(".select2-selection__rendered").html($(".select2-search__field").val());
-});
