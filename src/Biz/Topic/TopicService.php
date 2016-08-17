@@ -12,7 +12,7 @@ interface TopicService
 
     public function getTopicsCount($conditions);
 
-    public function getTopicById($id);
+    public function getTopicById($id, $user);
 
     public function createTopic($field);
 
