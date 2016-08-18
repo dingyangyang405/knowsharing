@@ -40,6 +40,6 @@ function template(data) {
 
 $(".link-select").select2("data", $(".link-select").select2('data')[0]['id']);
 $('body').on('keyup','.select2-search__field',function() {
-    $(".link-select option ").val($(this).val());
+    $(this).parent().parent().parent().parent().find(".link-select option ").val($(this).val());
     $(this).parent().parent().parent().parent().find(".link-select").next().find('.selection').find('.select2-selection').find(".select2-selection__rendered").html($(this).val());
 });
