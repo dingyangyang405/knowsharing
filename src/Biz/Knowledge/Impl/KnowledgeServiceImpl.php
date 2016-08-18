@@ -96,12 +96,24 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     
     public function createKnowledge($field)
     {
+        $this->updateFollow($field);
         return $this->getKnowledgeDao()->create($field);
     }
     
     public function getKnowledge($id)
     {
         return $this->getKnowledgeDao()->get($id);
+    }
+
+    public function updateFollow($filed)
+    {
+        $currentUser = $this->getCurrentUser();
+        $topicId = $filed['topicId'];
+        $userId = $currentUser['id'];
+        $addNumber = 1;
+        $this->getFollowDao()->updateFollowByTopicId($topicId, $addNumber, $type = 'topic');
+        $this->getFollowDao()->updateFollowByUserId($userId, $addNumber, $type = 'user');
+        return true;
     }
 
     public function createComment($conditions)
@@ -168,5 +180,10 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     protected function getToreadDao()
     {
         return $this->biz['toread_dao'];
+    }
+
+    public function getFollowDao()
+    {
+        return $this->biz['follow_dao'];
     }
 }
