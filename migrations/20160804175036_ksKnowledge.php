@@ -23,6 +23,7 @@ class KsKnowledge extends Migration
         $table->addColumn('favoriteNum', 'integer', array('default' => 0, 'unsigned' => true, 'comment' => '被收藏总数'));
         $table->addColumn('likeNum', 'integer', array('default' => 0, 'unsigned' => true, 'comment' => '被点赞总数'));
         $table->addColumn('viewNum', 'integer', array('default' => 0, 'unsigned' => true, 'comment' => '浏览量'));
+        $table->addColumn('tagId', 'string', array('default' => 0, 'unsigned' => true, 'comment' => '标签id'));
         $table->setPrimaryKey(array('id'));
 
         $container['db']->getSchemaManager()->createTable($table);

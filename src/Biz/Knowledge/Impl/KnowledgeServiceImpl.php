@@ -53,6 +53,30 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $topKnowledges;
     }
 
+    public function getTagIds($tags)
+    {
+        if (empty($tags[0])) {
+            return array('id' => 0);
+        }
+        $allTags = $this->findAllTags(array(),array('createdTime','DESC'),0,PHP_INT_MAX);
+        $allTagIds = ArrayToolKit::column($allTags,'id');
+        $result = array();
+        foreach ($tags as $key => $tag) {
+            if (in_array($tag, $allTagIds)) {
+                $result[] = $tag;
+            } else {
+                $result[] = $this->getTagDao()->create(array('text' => $tag))['id'];
+            }
+        }
+
+        return $result;
+    }
+
+    public function findAllTags($conditions,$orderBy,$start,$limit)
+    {
+        return $this->getTagDao()->search($conditions,$orderBy,$start,$limit);
+    }
+
     public function moveToPath($file,$user,$knowledge)
     {
         if (empty($file)) {
@@ -101,6 +125,10 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     public function createKnowledge($field)
     {
         $this->updateFollow($field);
+        $tagId = $field['tagId'];
+        $string = implode('|', $tagId);
+        $field['tagId'] = $string;
+
         return $this->getKnowledgeDao()->create($field);
     }
     
@@ -185,6 +213,11 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     protected function getKnowledgeDao()
     {
         return $this->biz['knowledge_dao'];
+    }
+
+    protected function getTagDao()
+    {
+        return $this->biz['tag_dao'];
     }
 
     protected function getCommentDao()
