@@ -1,7 +1,27 @@
-{% for topKnowledge in topKnowledges %}
+<div id="like-knowledge-list" style="">
+	{% for likeKnowledge in likeKnowledges %}
+	<tr>
+	  <td>{{loop.index}}</td>
+	  <td>{{likeKnowledge.title}}</td>
+	  <td><span class="badge bg-blue"><i class="fa fa-fw fa-thumbs-o-up"></i>{{likeKnowledge.likeNum}}</span></td>
+	</tr>
+	{% endfor %}
+</div>
+<span {# id="favorite-knowledge-list"  #}style="display:none">
+{% for favoriteKnowledge in favoriteKnowledges %}
 <tr>
   <td>{{loop.index}}</td>
-  <td>{{topKnowledge.title}}</td>
-  <td>{% if type == 'like' %}<span class="badge bg-blue"><i class="fa fa-fw fa-thumbs-o-up"></i>{{topKnowledge.likeNum}}{% elseif type == 'favorite' %}<span class="badge bg-yellow"><i class="fa fa-fw fa-star-o"></i>{{topKnowledge.favoriteNum}}{% else %}<span class="badge bg-green"><i class="fa fa-fw fa-eye"></i>{{topKnowledge.viewNum}}{% endif %}</span></td>
+  <td>{{favoriteKnowledge.title}}</td>
+  <td><span class="badge bg-yellow"><i class="fa fa-fw fa-star-o"></i>{{favoriteKnowledge.favoriteNum}}</span></td>
 </tr>
 {% endfor %}
+<span>
+<div id="like-knowledge-list" style="display:none">
+{% for viewKnowledge in viewKnowledges %}
+<tr>
+  <td>{{loop.index}}</td>
+  <td>{{viewKnowledge.title}}</td>
+  <td><span class="badge bg-green"><i class="fa fa-fw fa-eye"></i>{{viewKnowledge.viewNum}}</span></td>
+</tr>
+{% endfor %}
+</div>
