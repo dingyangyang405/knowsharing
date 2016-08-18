@@ -5,8 +5,8 @@
 
   <div class="box-tools">
     <ul class="pagination pagination-sm no-margin pull-right">
-      <li class="active" id="follow-topic"><span class="badge bg-red"><i class="fa fa-fw fa-heart"></i></span></li>
-      <li id="knowledge-topic"><span class="badge bg-green"><i class="fa fa-fw fa-file-o"></i></span></li>
+      <li class="active" id="follow-topic"><a><i class="fa fa-fw fa-heart-o"></i></a></li>
+      <li id="knowledge-topic"><a><i class="fa fa-fw fa-file-o"></i></a></li>
     </ul>
   </div>
 </div>
@@ -17,7 +17,7 @@
     <tr>
       <td>{{loop.index}}</td>
       <td><a href="{{ path('topic_knowledge', {id:followTopic.id}) }}">{{followTopic.name}}</a></td>
-      <td><span class="badge bg-red"><i class="fa fa-fw fa-heart"></i>{{followTopic.followNum}}</span></td>
+      <td><i class="fa fa-fw fa-heart-o"></i>{{followTopic.followNum}}</td>
     </tr>
     {% endfor %}
   </table>
@@ -26,7 +26,7 @@
     <tr>
       <td>{{loop.index}}</td>
       <td><a href="{{ path('topic_knowledge', {id:knowledgeTopic.id}) }}">{{knowledgeTopic.name}}</a></td>
-      <td><span class="badge bg-green"><i class="fa fa-fw fa-file-o"></i>{{knowledgeTopic.knowledgeNum}}</span></td>
+      <td><i class="fa fa-fw fa-file-o"></i>{{knowledgeTopic.knowledgeNum}}</td>
     </tr>
     {% endfor %}
   </table>

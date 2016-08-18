@@ -5,9 +5,9 @@
 
   <div class="box-tools">
     <ul class="pagination pagination-sm no-margin pull-right">
-      <li class="active" id="like-knowledge"><span class="badge bg-blue"><i class="fa fa-fw fa-thumbs-o-up"></i></span></li>
-      <li id="favorite-knowledge"><span class="badge bg-yellow"><i class="fa fa-fw fa-star-o"></i></span></li>
-      <li id="view-knowledge"><span class="badge bg-green"><i class="fa fa-fw fa-eye"></i></span></li>
+      <li class="active" id="like-knowledge"><a><i class="fa fa-fw fa-thumbs-o-up"></i></a></li>
+      <li id="favorite-knowledge"><a><i class="fa fa-fw fa-star-o"></i></a></li>
+      <li id="view-knowledge"><a><i class="fa fa-fw fa-eye"></i></a></li>
     </ul>
   </div>
 </div>
@@ -18,7 +18,7 @@
       <tr>
         <td>{{loop.index}}</td>
         <td><a href="{{path('knowledge_detail',{id:likeKnowledge.id})}}">{{likeKnowledge.title}}</a></td>
-        <td><span class="badge bg-blue"><i class="fa fa-fw fa-thumbs-o-up"></i>{{likeKnowledge.likeNum}}</span></td>
+        <td><i class="fa fa-fw fa-thumbs-o-up"></i>{{likeKnowledge.likeNum}}</td>
       </tr>
     {% endfor %}
   </table>
@@ -27,7 +27,7 @@
       <tr>
         <td>{{loop.index}}</td>
         <td><a href="{{path('knowledge_detail',{id:favoriteKnowledge.id})}}">{{favoriteKnowledge.title}}</a></td>
-        <td><span class="badge bg-yellow"><i class="fa fa-fw fa-star-o"></i>{{favoriteKnowledge.favoriteNum}}</span></td>
+        <td><i class="fa fa-fw fa-star-o"></i>{{favoriteKnowledge.favoriteNum}}</td>
       </tr>
     {% endfor %}
   </table>
@@ -36,7 +36,7 @@
       <tr>
         <td>{{loop.index}}</td>
         <td><a href="{{path('knowledge_detail',{id:viewKnowledge.id})}}">{{viewKnowledge.title}}</a></td>
-        <td><span class="badge bg-green"><i class="fa fa-fw fa-eye"></i>{{viewKnowledge.viewNum}}</span></td>
+        <td><i class="fa fa-fw fa-eye"></i>{{viewKnowledge.viewNum}}</td>
       </tr>
     {% endfor %}
   </table>

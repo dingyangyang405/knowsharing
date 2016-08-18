@@ -12,9 +12,6 @@
       <li class=" list-group-item" {% if type is defined and type == 'newKnowledge' %} style="border:none;border-left:solid 4px #46c37b;color:#46c37b;" {% endif %} >
         <span style="padding-left:21px;"><a href="{{path('homepage')}}">最新知识</a></span>
       </li>
-      <li class="list-group-item" {% if type is defined and type == 'followNotify' %} style="border:none;border-left:solid 4px #46c37b;color:#46c37b;" {% endif %}>
-        <span style="padding-left:21px;"><a href="{{path('follow_knowledge')}}">我的关注</a><span class="badge">14</span></span>
-      </li>
       <li class="list-group-item" {% if type is defined and type == 'allTopics' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
         <span style="padding-left:21px;"><a href="{{path('topic')}}">主题</a></span>
       </li>
