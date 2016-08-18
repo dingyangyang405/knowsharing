@@ -10,7 +10,7 @@ $(document).ready(function(){
                     });
                 });                
             } else {
-                location.href="http://www.know.com/login";
+                location.href="/login";
             }
         })
     });

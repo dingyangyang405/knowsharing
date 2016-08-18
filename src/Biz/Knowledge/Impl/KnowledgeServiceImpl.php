@@ -53,15 +53,22 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $topKnowledges;
     }
 
-    public function moveToPath($file,$user,$title)
+    public function moveToPath($file,$user,$knowledge)
     {
         if (empty($file)) {
             throw new \Exception("上传文档不能为空!");
-        } elseif (empty($title)) {
+        } elseif (abs(filesize($file)) > 20971520) {
+            throw new \Exception("文件不能大于20M!");
+        } elseif (empty($knowledge['title'])) {
             throw new \Exception("标题不能为空!");
+        } elseif (strlen($knowledge['title']) > 60) {
+            throw new \Exception("标题不能超过20个汉字!");
+        } elseif (strlen($knowledge['topic']) > 60) {
+            throw new \Exception("主题名不能超过20个汉字!");
         }
+        
         $upLoad = new UpLoad($file);
-        $path = $upLoad->moveToPath($user,$title);
+        $path = $upLoad->moveToPath($user,$knowledge['title']);
 
         return $path;
     }
@@ -83,10 +90,7 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
 
     public function findKnowledgesByUserId($id)
     {
-        $knowledges = $this->getKnowledgeDao()->findKnowledgesByUserId($id);
-        $knowledges = $this->setToreadMark($knowledges);
-
-        return $knowledges;
+        return $this->getKnowledgeDao()->findKnowledgesByUserId($id);
     }
 
     public function findKnowledgesByKnowledgeIds($knowledgeIds)
@@ -127,23 +131,29 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
 
     public function searchKnowledges($conditions, $orderBy, $start, $limit)
     {
-        $knowledges = $this->getKnowledgeDao()->search($conditions, $orderBy, $start, $limit);
+        return $this->getKnowledgeDao()->search($conditions, $orderBy, $start, $limit);
+    }
 
-        $knowledges = $this->setToreadMark($knowledges);
+    public function setToreadMark($knowledges, $userId)
+    {
+        $toreadKnowledgeIds =  $this->getToreadDao()->findToreadIds($userId);
+        $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledgeIds, 'knowledgeId');
+        foreach ($knowledges as $key => $value) {
+            if (isset($toreadKnowledgeIds[$value['id']])) {
+                $knowledges[$key]['toread'] = true;
+            }
+        }
 
         return $knowledges;
     }
 
-    protected function setToreadMark($knowledges)
+    public function setLearnedMark($knowledges, $userId)
     {
-        $user = $this->biz->getUser();
-        if (!empty($user)) {
-            $toreadKnowledgeIds =  $this->getToreadDao()->findToreadIds($user['id']);
-            $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledgeIds, 'knowledgeId');
-            foreach ($knowledges as $key => $value) {
-                if (isset($toreadKnowledgeIds[$value['id']])) {
-                    $knowledges[$key]['toread'] = true;
-                }
+        $learnedIds = $this->getLearnDao()->findLearnedIds($userId);
+        $learnedIds = ArrayToolkit::index($learnedIds, 'knowledgeId');
+        foreach ($knowledges as $key => $value) {
+            if (isset($learnedIds[$value['id']])) {
+                $knowledges[$key]['learned'] = true;
             }
         }
 
@@ -168,5 +178,10 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     protected function getToreadDao()
     {
         return $this->biz['toread_dao'];
+    }
+
+    protected function getLearnDao()
+    {
+        return $this->biz['learn_dao'];
     }
 }
