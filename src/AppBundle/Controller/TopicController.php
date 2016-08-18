@@ -121,4 +121,9 @@ class TopicController extends BaseController
     {
         return $this->biz['knowledge_service'];
     }
+
+    protected function getTagService()
+    {
+        return $this->biz['tag_service'];
+    }
 }
