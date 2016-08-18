@@ -10,6 +10,8 @@ interface TopicService
 
     public function searchTopics($conditions, $orderBy, $start, $limit);
 
+    public function searchTopicsByIds($objectIds, $start, $limit);
+
     public function findTopTopics($type);
 
     public function getTopicsCount($conditions);
