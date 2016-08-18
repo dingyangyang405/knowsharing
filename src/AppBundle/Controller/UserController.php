@@ -217,11 +217,12 @@ class UserController extends BaseController
             );
             $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
         }
-
+        $myFollows = ArrayToolKit::index($myFollows, 'objectId');
         return $this->render('AppBundle:MyKnowledgeShare:my-follows.html.twig', array(
             'objects' => $objects,
             'type' => $type,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'myFollows' => $myFollows
         ));
     }
 

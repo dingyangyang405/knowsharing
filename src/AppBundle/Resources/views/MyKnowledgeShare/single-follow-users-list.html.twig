@@ -2,7 +2,7 @@
   <div class="news-info col-xs-12 col-sm-12 col-md-11">
     <dl>
       <dd>
-        <h3 class="box-title"><a href="{{path('user_page',{userId:user.id})}}">{{ user.username }}</a></h3>
+        <h3 class="box-title"><a href="{{path('user_page',{userId:user.id})}}">{{ user.username }}</a><span class="badge">{{ myFollow.newKnowledgeNum }}</span></h3>
       </dd>
     </dl>
     <div class="news_bot col-sm-7 col-md-8">

@@ -15,10 +15,12 @@
         </ul>
           {% for object in objects %}
             {% if (type == 'user') %}
-              {% set user = object %} 
+              {% set user = object %}
+              {% set myFollow = myFollows[object.id]|default(null) %}
               {% include "AppBundle:MyKnowledgeShare:single-follow-users-list.html.twig" %}
             {% elseif (type == 'topic') %}
               {% set topic = object %}
+              {% set myFollow = myFollows[object.id]|default(null) %}
               {% include "AppBundle:Topic:single-topic-list.html.twig" %}
             {% endif %}
           {% endfor %}
