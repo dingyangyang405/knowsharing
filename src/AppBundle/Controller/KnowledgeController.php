@@ -51,6 +51,8 @@ class KnowledgeController extends BaseController
             }
         }
 
+        $singleTagIds = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+
         $knowledge = array($knowledge);
         $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$currentUser['id']);
 
@@ -63,7 +65,8 @@ class KnowledgeController extends BaseController
             'comments' => $comments,
             'users' => $users,
             'paginator' => $paginator,
-            'hasLearned' => $hasLearned
+            'hasLearned' => $hasLearned,
+            'singleTagIds' => $singleTagIds
         ));
     }
 
