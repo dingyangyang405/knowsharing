@@ -14,6 +14,9 @@ class UserController extends BaseController
     public function indexAction(Request $request,$userId)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $user = $this->getUserService()->getUser($userId);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
 
@@ -50,6 +53,9 @@ class UserController extends BaseController
     public function listFavoritesAction(Request $request, $userId)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $user = $this->getUserService()->getUser($userId);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
         
@@ -120,6 +126,9 @@ class UserController extends BaseController
     public function listFollowsAction(Request $request, $userId, $type)
     {   
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $user = $this->getUserService()->getUser($userId);
         $conditions = array('userId' => $user['id']);
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
@@ -242,8 +251,8 @@ class UserController extends BaseController
     {
         $user = $this->getCurrentUser();
 
-        if (empty($user)) {
-            throw new \Exception('用户不存在');
+        if (!$user->isLogin()) {
+           return new JsonResponse(false);
         }
 
         $this->getToreadService()->createToreadKnowledge($id ,$user['id']);

@@ -33,9 +33,33 @@ class AjaxController  extends BaseController
         ));
     }
 
+    public function tagAction(Request $request)
+    {
+        $conditions = $request->request->all();
+
+        $tags = $this->getTagService()->searchTags(
+            $conditions,
+            array('createdTime', 'DESC'),
+            0,
+            PHP_INT_MAX
+        );
+
+        if (empty($tags)) {
+            $tags = $conditions['name'];
+        }
+        return new JsonResponse(array(
+            'tags' => $tags
+        ));      
+    }
+
     protected function getTopicService()
     {
         return $this->biz['topic_service'];
+    }
+
+    protected function getTagService()
+    {
+        return $this->biz['tag_service'];
     }
 
 }

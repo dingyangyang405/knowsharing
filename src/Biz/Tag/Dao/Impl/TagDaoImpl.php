@@ -9,6 +9,18 @@ class TagDaoImpl extends GeneralDaoImpl implements TagDao
 {
     protected $table = 'tag';
 
+    public function findTagsByIds($tagIds)
+    {
+        if (empty($tagIds)) {
+            return array();
+        }
+
+        $marks = str_repeat('?,', count($tagIds)-1).'?';
+        $sql = "SELECT * FROM {$this->table} WHERE id IN ({$marks})";
+
+        return $this->db()->fetchAll($sql,$tagIds);
+    }
+
     public function declares()
     {
         return array(
@@ -16,6 +28,7 @@ class TagDaoImpl extends GeneralDaoImpl implements TagDao
             'serializes' => array(),
             'conditions' => array(
                 'name = :name',
+                'id IN (:ids)' 
             ),
         );        
     }

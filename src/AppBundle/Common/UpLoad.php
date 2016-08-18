@@ -19,6 +19,6 @@ class UpLoad
         $Path = __DIR__.'/../../../web/files/'.$user['username'];
         $this->file->move($Path,$fileName);
 
-        return 'files/'.$user['username'].'/'.$fileName;
+        return $fileName;
     }
 }

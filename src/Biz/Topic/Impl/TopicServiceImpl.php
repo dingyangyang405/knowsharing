@@ -21,7 +21,7 @@ class TopicServiceImpl extends KernelAwareBaseService implements TopicService
 
     public function getTopicById($id,$user)
     {
-        if (empty($id)) {
+        if ($id == '请输入搜索主题') {
             return array('id' => 0);
         }
         $field = array('name' => $id,'userId' => $user['id']);
@@ -31,6 +31,11 @@ class TopicServiceImpl extends KernelAwareBaseService implements TopicService
         } else {
             return $this->getTopicDao()->create($field);
         }
+    }
+
+    public function getTopicByKnowledgeId($id)
+    {
+        return $this->getTopicDao()->get($id);
     }
 
     public function getTopicByName($name)
