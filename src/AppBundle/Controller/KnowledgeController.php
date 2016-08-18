@@ -72,9 +72,11 @@ class KnowledgeController extends BaseController
         $user = $this->getCurrentUser();
 
         $knowledge = $request->request->all();
+
         $knowledge['title'] = trim($knowledge['title']);
         $knowledge['topic'] = trim($knowledge['topic']);
         if ($knowledge['type'] == 'file') {
+            
             $file = $request->files->get('content');
             $content = $this->getKnowledgeService()->moveToPath($file,$user,$knowledge);   
         } elseif ($knowledge['type'] == 'link') {

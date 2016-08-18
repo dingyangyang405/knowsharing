@@ -46,6 +46,7 @@ $(document).ready(function(){
         if (checkLength('select-topic') == false) {
             return ;
         }
+        
         $.ajax({
             url:$url,
             cache:false,
