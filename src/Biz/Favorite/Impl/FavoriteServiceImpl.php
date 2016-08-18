@@ -32,12 +32,12 @@ class FavoriteServiceImpl extends KernelAwareBaseService implements FavoriteServ
         $hasFavorited = array();
         foreach ($knowledge as $singleKnowledge) {
             if (empty($favoriteKnowledgeIds)) {
-                $singleKnowledge['isFavorited'] = '';
+                $singleKnowledge['isFavorited'] = false;
             } else {
                 if(in_array($singleKnowledge['id'], $favoriteKnowledgeIds)) {
                     $singleKnowledge['isFavorited'] = true;
                 } else {
-                    $singleKnowledge['isFavorited'] = '';
+                    $singleKnowledge['isFavorited'] = false;
                 }
             }
             $hasFavorited[] = $singleKnowledge;
