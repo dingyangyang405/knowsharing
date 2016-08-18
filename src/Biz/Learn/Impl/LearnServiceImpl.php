@@ -32,6 +32,16 @@ class LearnServiceImpl extends KernelAwareBaseService implements LearnService
         return $this->getKnowledgeDao()->update($id, $knowledge);
     }
 
+    public function getLearnCount($conditions)
+    {
+        return $this->getLearnDao()->count($conditions);
+    }
+
+    public function findLearnedKnowledgeIds($userId)
+    {
+        return $this->getLearnDao()->findLearnedIds($userId);
+    }
+
     protected function getLearnDao()
     {
         return $this->biz['learn_dao'];

@@ -186,3 +186,7 @@ ajax_tag:
 search_info:
     path: /search
     defaults: { _controller: AppBundle:Default:searchRelatedIn }
+
+my_learn_history: 
+    path: /my/learn/history
+    defaults: { _controller: AppBundle:User:learnHistory }
