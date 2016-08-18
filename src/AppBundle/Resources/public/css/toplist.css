@@ -1,0 +1,15 @@
+.skin-blue .sidebar a {
+	color:#3c8dbc!important;
+}
+li:first-child > span {
+    border-top-left-radius: 10px!important;
+    border-bottom-left-radius: 10px!important;
+}
+li:last-child > span {
+    border-top-right-radius: 10px!important;
+    border-bottom-right-radius: 10px!important;
+}
+.list-top tr td:nth-child(2) {
+	width:223px!important;
+	overflow:hidden!important;
+}
