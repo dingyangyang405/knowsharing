@@ -193,8 +193,9 @@ class DefaultController extends BaseController
         if (!$user->isLogin()) {
            return $this->redirect($this->generateUrl("login"));
         }
-        $file = $request->files->get('file');
-        $moveFile = $this->getKnowledgeService()->moveImageToPath($file,$user);
+        $file = $request->files->get('photo');
+        var_dump($file);
+        // $moveFile = $this->getKnowledgeService()->moveImageToPath($file,$user);
         // $path = __DIR__.'/../../../web/image/'.$user['username'];
         // $fileName = $user['username'].'-'.time();
 

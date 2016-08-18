@@ -12,9 +12,6 @@
       <li class=" list-group-item" {% if type is defined and type == 'newKnowledge' %} style="border:none;border-left:solid 4px #46c37b;color:#46c37b;" {% endif %} >
         <span style="padding-left:21px;"><a href="{{path('homepage')}}">最新知识</a></span>
       </li>
-      <li class="list-group-item" {% if type is defined and type == 'followNotify' %} style="border:none;border-left:solid 4px #46c37b;color:#46c37b;" {% endif %}>
-        <span style="padding-left:21px;"><a href="{{path('follow_knowledge')}}">我的关注</a><span class="badge">14</span></span>
-      </li>
       <li class="list-group-item" {% if type is defined and type == 'allTopics' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
         <span style="padding-left:21px;"><a href="{{path('topic')}}">主题</a></span>
       </li>
@@ -38,7 +35,7 @@
         <span style="padding-left:21px;"><a href="{{path('my_follows', {type:'topic'})}}">我的关注</a></span>
       </li>
       <li class="list-group-item" {% if type is defined and type == 'history' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
-        <span style="padding-left:21px;"><a>学习记录</a></span>
+        <span style="padding-left:21px;"><a href="{{path('my_learn_history')}}">学习记录</a></span>
       </li>
     </ul>
   </li>

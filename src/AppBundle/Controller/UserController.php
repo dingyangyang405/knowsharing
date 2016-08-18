@@ -264,6 +264,42 @@ class UserController extends BaseController
         return new JsonResponse(true);
     }
 
+    public function learnHistoryAction(Request $request)
+    {
+        $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
+        $conditions = array(
+            'userId' => $currentUser['id'],
+        );
+        $orderBy = array('createdTime', 'DESC');
+        $knowledgesCount = $this->getLearnService()->getLearnCount($conditions);
+        $learnedKnowledges = $this->getLearnService()->findLearnedKnowledgeIds($currentUser['id']);
+        $ids = ArrayToolKit::column($learnedKnowledges, 'knowledgeId');
+        
+        $paginator = new Paginator(
+            $this->get('request'),
+            $knowledgesCount,
+            20
+        );
+        
+        $knowledges = $this->getKnowledgeService()->searchKnowledgesByIdsWithNoOrder(
+            $ids,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
+        $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
+        $users = ArrayToolKit::index($users, 'id');
+       
+        return $this->render('AppBundle:User:my-learn-history.html.twig', 
+            array(
+            'type' => 'history',
+            'knowledges' => $knowledges,
+            'users' => $users,
+        ));
+    }
+
     protected function getKnowledgeService()
     {
         return $this->biz['knowledge_service'];
@@ -297,5 +333,10 @@ class UserController extends BaseController
     protected function getToreadService()
     {
         return $this->biz['toread_service'];
+    }
+
+    protected function getLearnService()
+    {
+        return $this->biz['learn_service'];
     }
 }

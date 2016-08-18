@@ -36,4 +36,5 @@ interface KnowledgeService
 
     public function searchFollowKnowledges($conditions, $start, $limit);
 
+    public function searchKnowledgesByIdsWithNoOrder($ids, $start, $limit);
 }

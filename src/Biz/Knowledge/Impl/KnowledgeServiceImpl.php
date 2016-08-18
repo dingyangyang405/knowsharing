@@ -177,6 +177,11 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $this->getKnowledgeDao()->searchKnowledgesByIds($ids, $start, $limit);
     }
 
+    public function searchKnowledgesByIdsWithNoOrder($ids, $start, $limit)
+    {
+        return $this->getKnowledgeDao()->searchKnowledgesByIdsWithNoOrder($ids, $start, $limit);
+    }
+
     protected function getKnowledgeDao()
     {
         return $this->biz['knowledge_dao'];
