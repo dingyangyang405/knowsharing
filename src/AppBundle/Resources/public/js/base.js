@@ -31,3 +31,4 @@ $.fn.smartFloat = function() {
 $(function(){
     $("#search").smartFloat();
 });
+

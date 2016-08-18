@@ -1,13 +1,13 @@
 <link rel="stylesheet" href="{{ asset('bundles/app/css/toplist.css') }}">
 <div class="box">
 <div class="box-header">
-  <h3 class="box-title">榜单</h3>
+  <h3 class="box-title">用户排行</h3>
 
   <div class="box-tools">
     <ul class="pagination pagination-sm no-margin pull-right">
-      <li class="active" id="score-user"><span class="badge bg-yellow"><i class="fa fa-fw fa-usd"></i></span></li>
-      <li id="knowledge-user"><span class="badge bg-blue"><i class="fa fa-fw fa-eye"></i></span></li>
-      <li id="browse-user"><span class="badge bg-green"><i class="fa fa-fw fa-file-o"></i></span></li>
+      <li class="active" id="score-user"><a>Ｓ</a></li>
+      <li id="knowledge-user"><a><i class="fa fa-fw fa-eye"></i></a></li>
+      <li id="browse-user"><a><i class="fa fa-fw fa-file-o"></i></a></li>
     </ul>
   </div>
 </div>
@@ -18,7 +18,7 @@
       <tr>
         <td>{{loop.index}}</td>
         <td><a href="{{ path('user_page',{userId:scoreUser.id}) }}"  rel="author">{{scoreUser.username}}</a></td>
-        <td><span class="badge bg-yellow"><i class="fa fa-fw fa-usd"></i>{{scoreUser.score}}</span></td>
+        <td><i class="fa fa-fw fa-usd"></i>{{scoreUser.score}}</td>
       </tr>
     {% endfor %}
   </table>
@@ -27,7 +27,7 @@
       <tr>
         <td>{{loop.index}}</td>
         <td><a href="{{ path('user_page',{userId:knowledgeUser.id}) }}"  rel="author">{{knowledgeUser.username}}</a></td>
-        <td><span class="badge bg-blue"><i class="fa fa-fw fa-eye"></i>{{knowledgeUser.browseNum}}</span></td>
+        <td><i class="fa fa-fw fa-eye"></i>{{knowledgeUser.browseNum}}</td>
       </tr>
     {% endfor %}
   </table>
@@ -36,7 +36,7 @@
       <tr>
         <td>{{loop.index}}</td>
         <td><a href="{{ path('user_page',{userId:browseUser.id}) }}"  rel="author">{{browseUser.username}}</a></td>
-        <td><span class="badge bg-green"><i class="fa fa-fw fa-file-o"></i>{{browseUser.knowledgeNum}}</span></td>
+        <td><i class="fa fa-fw fa-file-o"></i>{{browseUser.knowledgeNum}}</td>
       </tr>
     {% endfor %}
   </table>
