@@ -25,6 +25,9 @@
       <li class="list-group-heading" style="padding: 10px 15px;"> <i class="fa fa-book">&nbsp;&nbsp;
         我的知识库</i> 
       </li>
+      <li class="list-group-item" {% if type is defined and type == 'toDoList' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+        <span style="padding-left:21px;"><a href="{{path('my_knowledge_share_todolist')}}">待读列表</a></span>
+      </li>
       <li class="list-group-item" {% if type is defined and type == 'myKnowledge' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
         <span style="padding-left:21px;"><a href="{{path('my_knowledge_share')}}">我的分享</a></span>
       </li>
@@ -34,8 +37,8 @@
       <li class="list-group-item" {% if type is defined and type == 'topic' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
         <span style="padding-left:21px;"><a href="{{path('my_follows', {type:'topic'})}}">我的关注</a></span>
       </li>
-      <li class="list-group-item" {% if type is defined and type == 'toDoList' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
-        <span style="padding-left:21px;"><a href="{{path('my_knowledge_share_todolist')}}">待读列表</a></span>
+      <li class="list-group-item" {% if type is defined and type == 'history' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+        <span style="padding-left:21px;"><a>学习记录</a></span>
       </li>
     </ul>
   </li>
