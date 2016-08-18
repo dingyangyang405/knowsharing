@@ -14,6 +14,9 @@ class UserController extends BaseController
     public function indexAction(Request $request,$userId)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $user = $this->getUserService()->getUser($userId);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
 
@@ -33,7 +36,8 @@ class UserController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-
+        $knowledges = $this->getKnowledgeService()->setToreadMark($knowledges, $currentUser['id']);
+        $knowledges = $this->getKnowledgeService()->setLearnedMark($knowledges,$currentUser['id']);
         $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$userId);
         $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$userId);
 
@@ -50,6 +54,9 @@ class UserController extends BaseController
     public function listFavoritesAction(Request $request, $userId)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $user = $this->getUserService()->getUser($userId);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
         
@@ -92,17 +99,15 @@ class UserController extends BaseController
         }
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($currentUser['id']);
         $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
-
-        $conditions = array('knowledgeIds' => $knowledgeIds);
+        
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
             $this->get('request'),
-            $this->getKnowledgeService()->getKnowledgesCount($conditions),
+            count($knowledgeIds),
             20
         );
-        $knowledges = $this->getKnowledgeService()->searchKnowledges(
-            $conditions,
-            $orderBy,
+        $knowledges = $this->getKnowledgeService()->searchKnowledgesByIds(
+            $knowledgeIds,
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
@@ -120,6 +125,9 @@ class UserController extends BaseController
     public function listFollowsAction(Request $request, $userId, $type)
     {   
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $user = $this->getUserService()->getUser($userId);
         $conditions = array('userId' => $user['id']);
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
@@ -142,17 +150,13 @@ class UserController extends BaseController
 
             $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
-            $conditions = array('ids' => $objectIds);
-            $orderBy = array('createdTime', 'DESC');
-
             $paginator = new Paginator(
                 $this->get('request'),
                 count($objectIds),
                 20
             );
-            $objects = $this->getTopicService()->searchTopics(
-                $conditions,
-                $orderBy,
+            $objects = $this->getTopicService()->searchTopicsByIds(
+                $objectIds,
                 $paginator->getOffsetCount(),
                 $paginator->getPerPageCount()
             );
@@ -192,17 +196,13 @@ class UserController extends BaseController
             );
             $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
-            $conditions = array('ids' => $objectIds);
-            $orderBy = array('createdTime', 'DESC');
-
             $paginator = new Paginator(
                 $this->get('request'),
                 count($objectIds),
                 20
             );
-            $objects = $this->getTopicService()->searchTopics(
-                $conditions,
-                $orderBy,
+            $objects = $this->getTopicService()->searchTopicsByIds(
+                $objectIds,
                 $paginator->getOffsetCount(),
                 $paginator->getPerPageCount()
             );
@@ -242,8 +242,8 @@ class UserController extends BaseController
     {
         $user = $this->getCurrentUser();
 
-        if (empty($user)) {
-            throw new \Exception('用户不存在');
+        if (!$user->isLogin()) {
+           return new JsonResponse(false);
         }
 
         $this->getToreadService()->createToreadKnowledge($id ,$user['id']);

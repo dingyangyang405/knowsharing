@@ -6,8 +6,8 @@
         </a>
       </dt>
       <span style="float:right">
-        <a class="btn  pull-center" id="create-todo-btn" data-url="{{ path('user_create_toread', {id:knowledge.id}) }}" ><i class="glyphicon glyphicon-pushpin"></i><span>加入待读列表</span></a>
-        <a class="btn pull-right" id="delete-todo-btn" data-url="{{ path('user_delete_toread', {id:knowledge.id}) }}" style="display:none"><i class="fa fa-fw fa-thumb-tack"></i><span></span></a>
+        <a class="btn  pull-center" id="create-todo-btn" data-url="{{ path('user_create_toread', {id:knowledge.id}) }}" {% if knowledge.learned is defined and knowledge.learned == true %}style="display:none"{% endif %}><i class="glyphicon glyphicon-pushpin"></i><span>加入待读列表</span></a>
+        <a class="btn pull-right" {% if knowledge.learned is not defined %}style="display:none;disable:true;"{% endif %}><i class="fa fa-fw fa-thumb-tack"></i><span>该知识已学习</span></a>
       </span>
       <dd>
         <span class="name">

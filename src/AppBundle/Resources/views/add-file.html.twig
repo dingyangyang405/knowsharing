@@ -17,7 +17,7 @@
           <div class="form-group">
             <label for="title" class="col-sm-2 control-label">标题</label>
             <div class="col-sm-10">
-              <input type="text" name="title" class="form-control" id="title" placeholder="标题">
+              <input type="text" name="title" class="form-control" id="title" placeholder="标题" onblur="checkNull('title','标题'),checkLength('title')">
               <input type="hidden" name="type" value="file">
             </div>
           </div>
@@ -30,8 +30,8 @@
           <div class="form-group">
           <label for="topic" class="col-sm-2 control-label">主题</label>
           <div class="col-sm-10">
-          <select  name="topic" class ="linke-select" data-url="{{ path('ajax_topic') }}">
-            <option  selected="selected">请输入搜索主题</option>
+          <select  name="topic" class ="link-select" data-url="{{ path('ajax_topic') }}">
+            <option  selected="selected" id="select-topic">请输入搜索主题</option>
           </select>
           </div>
         </div>

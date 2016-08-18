@@ -26,6 +26,21 @@ class TopicDaoImpl extends GeneralDaoImpl implements TopicDao
         $sql = "SELECT * FROM {$this->table} WHERE id IN ({$marks})";
         return $this->db()->fetchAll($sql,$ids);
     }
+
+    public function searchTopicsByIds($objectIds, $start, $limit)
+    {
+        if (empty($objectIds)) {
+            return array();
+        }
+
+        $marks = str_repeat('?,', count($objectIds)-1).'?';
+        $start = (int) $start;
+        $limit = (int) $limit;
+
+        $sql = "SELECT * FROM {$this->table} WHERE id IN ({$marks}) LIMIT {$start}, {$limit}";
+
+        return $this->db()->fetchAll($sql,$objectIds);
+    }
     
     public function declares()
     {
