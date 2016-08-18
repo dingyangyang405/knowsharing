@@ -11,8 +11,7 @@ $(document).ready(function(){
 
     $('span').on('click','.admin-edit-btn',function(){
         var url = $(this).data('url');
-        $.post(url,function(data){
-            console.log(data);
+        $.get(url,function(data){
             $('#uploadModal').html(data).modal();
         });
     });

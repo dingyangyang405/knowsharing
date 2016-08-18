@@ -61,10 +61,20 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
             throw new \Exception("标题不能为空!");
         }
         $upLoad = new UpLoad($file);
-        $path = $upLoad->moveToPath($user,$title);
+        $fileName = $title.'-'.time();
+        $path = __DIR__.'/../../../web/files/'.$user['username'];
+        $path = $upLoad->moveToPath($path,$fileName);
 
         return $path;
     }
+
+    // public function moveImageToPath($file,$user)
+    // {
+    //     $upLoad = new UpLoad($file);
+    //     $title = $upLoad->
+    //     $path = __DIR__.'/../../../web/image/'.$user['username'];
+    //     $fileName = $user['username'].'-'.time();
+    // }
 
     public function deleteKnowledge($id)
     {

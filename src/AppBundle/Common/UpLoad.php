@@ -13,11 +13,9 @@ class UpLoad
         $this->file = $file;
     }
 
-    public function moveToPath($user,$title)
+    public function moveToPath($path,$fileName)
     {
-        $fileName = $title.'-'.time();
-        $Path = __DIR__.'/../../../web/files/'.$user['username'];
-        $this->file->move($Path,$fileName);
+        $this->file->move($path,$fileName);
 
         return $fileName;
     }

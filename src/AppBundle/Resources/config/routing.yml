@@ -181,3 +181,7 @@ knowledge_download_file:
 search_info:
     path: /search
     defaults: { _controller: AppBundle:Default:searchRelatedIn }
+
+picture_upload:
+    path: /picture/upload
+    defaults: { _controller: AppBundle:Default:uploadPicture }
