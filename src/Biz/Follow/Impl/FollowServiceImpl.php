@@ -201,6 +201,11 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
         );
     }
 
+    public function clearFollowNewKnowledgeNumByObjectId($type, $objectId)
+    {
+       return $this->getFollowDao()->clearFollowNewKnowledgeNumByObjectId($type, $objectId);
+    }
+
     protected function getFollowDao()
     {
         return $this->biz['follow_dao'];
