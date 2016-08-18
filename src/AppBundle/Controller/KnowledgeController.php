@@ -55,7 +55,6 @@ class KnowledgeController extends BaseController
         $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$currentUser['id']);
 
         $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$currentUser['id']);
-
         return $this->render('AppBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge[0],
             'user' => $user,
