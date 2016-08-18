@@ -28,6 +28,7 @@ class ToreadDaoImpl extends GeneralDaoImpl implements ToreadDao
             'serializes' => array(),
             'conditions' => array(
                 'name = :name',
+                'userId = :userId',
             ),
         );
     }
