@@ -24,7 +24,7 @@ $(document).ready(function(){
             data:{content:content,title:title,type:type,summary:summary,topic:topic,tag:tag},
             type:"POST",
             success:function(data){
-                // location.href = '/';
+                location.href = '/';
             },
             error:function(jqXHR){
                 alert("添加失败！");
@@ -59,7 +59,7 @@ $(document).ready(function(){
             processData:false,
             contentType:false,
             success:function(data){
-                // location.href = '/';
+                location.href = '/';
             },
             error:function(jqXHR){
                 alert("添加失败！");
