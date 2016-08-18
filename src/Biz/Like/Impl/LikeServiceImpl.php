@@ -32,12 +32,12 @@ class LikeServiceImpl extends KernelAwareBaseService implements LikeService
         $hasliked = array();
         foreach ($knowledge as $singleKnowledge) {
             if (empty($likeKnowledgeIds)) {
-                $singleKnowledge['isLiked'] = '';
+                $singleKnowledge['isLiked'] = false;
             } else {
                 if(in_array($singleKnowledge['id'], $likeKnowledgeIds)) {
                     $singleKnowledge['isLiked'] = true;
                 } else {
-                    $singleKnowledge['isLiked'] = '';
+                    $singleKnowledge['isLiked'] = false;
                 }
             }
             $hasliked[] = $singleKnowledge;
