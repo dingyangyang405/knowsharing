@@ -18,17 +18,19 @@
       </dd>
       <dd class="text" style="padding-left:19px;"><i class="fa fa-fw fa-book"></i>摘要：{{knowledge.summary}}</dd>
     </dl>
-    <div class="news_bot col-sm-7 col-md-8" style="padding-left:19px;">
-      <span class="tags visible-lg visible-md">
-        <a href="javascript:;">技术贴</a>
-        <a href="javascript:;">PHP</a>
-      </span>
-      <div class="pull-right">
+    <div class="news_bot col-sm-7 col-md-8">
+      {% for tag in knowledgeTag %}
+        <span class="tags visible-lg visible-md">
+          <a href="javascript:;">{{tag.text}}</a>
+        </span>
+      {% endfor %}
+    </div>
+    <div class="pull-right">
         <span>
           <i class="fa fa-fw fa-eye"></i>已被{{knowledge.viewNum}}人学习
         </span>
-      </div>
     </div>
   </div>
 </div>
+
 
