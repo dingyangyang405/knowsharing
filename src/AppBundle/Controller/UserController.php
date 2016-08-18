@@ -40,6 +40,8 @@ class UserController extends BaseController
         $knowledges = $this->getKnowledgeService()->setLearnedMark($knowledges,$currentUser['id']);
         $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$userId);
         $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$userId);
+        $type = 'user';
+        $this->getFollowService()->clearFollowNewKnowledgeNumByObjectId($type, $userId);
 
         return $this->render('AppBundle:User:index.html.twig', array(
             'user' => $user,
@@ -208,11 +210,12 @@ class UserController extends BaseController
             );
             $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
         }
-
+        $myFollows = ArrayToolKit::index($myFollows, 'objectId');
         return $this->render('AppBundle:MyKnowledgeShare:my-follows.html.twig', array(
             'objects' => $objects,
             'type' => $type,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'myFollows' => $myFollows
         ));
     }
 

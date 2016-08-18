@@ -16,6 +16,20 @@ class FollowDaoImpl extends GeneralDaoImpl implements FollowDao
         return $this->db()->fetchAssoc($sql, array($userId, $objectId,'user')) ?: null;
     }
 
+    public function updateFollowByObjectId($objectId, $addNumber, $type)
+    {
+        $sql = "UPDATE {$this->table()} SET newKnowledgeNum = newKnowledgeNum + ? where type = ? AND objectId = ?";
+
+        return $this->db()->executeUpdate($sql, array($addNumber, $type ,$objectId));
+    }
+
+    public function clearFollowNewKnowledgeNumByObjectId($type, $objectId)
+    {
+        $sql = "UPDATE {$this->table()} SET newKnowledgeNum = 0 where type = ? AND objectId = ?";
+
+        return $this->db()->executeUpdate($sql, array($type, $objectId));
+    }
+
     public function declares()
     {
         return array(

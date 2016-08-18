@@ -32,6 +32,8 @@ interface KnowledgeService
 
     public function findTopKnowledges($type);
 
+    public function getTagIds($tags);
+
     public function getFollowKnowledgesCount($conditions);
 
     public function searchFollowKnowledges($conditions, $start, $limit);

@@ -15,6 +15,7 @@ class KsFollow extends Migration
         $table->addColumn('userId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '用户id'));
         $table->addColumn('type', 'string', array('length' => 10, 'null' => false, 'comment' => '被关注的类型（user/topic）'));
         $table->addColumn('objectId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '被关注的id'));
+        $table->addColumn('newKnowledgeNum', 'integer', array('default' => 0, 'unsigned' => true, 'null' => false, 'comment' => '关注的主题或用户更新的知识数'));
         $table->setPrimaryKey(array('id'));
 
         $container['db']->getSchemaManager()->createTable($table);
