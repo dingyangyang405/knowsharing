@@ -168,7 +168,7 @@ admin_knowledge_delete:
     defaults: { _controller: AppBundle:Knowledge:adminDelete }
 
 topic_knowledge:
-    path: /topic/{id}/knowldeges
+    path: /topic/{id}/{name}/knowldeges
     defaults: { _controller: AppBundle:Topic:topicKnowledges }
 
 follow_knowledge:

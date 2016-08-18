@@ -16,7 +16,7 @@
     {% for followTopic in followTopics %}
     <tr>
       <td>{{loop.index}}</td>
-      <td><a href="{{ path('topic_knowledge', {id:followTopic.id}) }}">{{followTopic.name}}</a></td>
+      <td><a href="{{ path('topic_knowledge', {id:followTopic.id, name:followTopic.name}) }}">{{followTopic.name}}</a></td>
       <td><i class="fa fa-fw fa-heart-o"></i>{{followTopic.followNum}}</td>
     </tr>
     {% endfor %}
@@ -25,7 +25,7 @@
     {% for knowledgeTopic in knowledgeTopics %}
     <tr>
       <td>{{loop.index}}</td>
-      <td><a href="{{ path('topic_knowledge', {id:knowledgeTopic.id}) }}">{{knowledgeTopic.name}}</a></td>
+      <td><a href="{{ path('topic_knowledge', {id:knowledgeTopic.id, name:knowledgeTopic.name}) }}">{{knowledgeTopic.name}}</a></td>
       <td><i class="fa fa-fw fa-file-o"></i>{{knowledgeTopic.knowledgeNum}}</td>
     </tr>
     {% endfor %}
