@@ -1,3 +1,4 @@
+
 <link rel="stylesheet" href="{{ asset('bundles/app/css/toplist.css') }}">
 <div class="box">
 <div class="box-header">
@@ -43,9 +44,3 @@
 </div>
 <!-- /.box-body -->
 </div>
-{% block javascripts %}
-    {% for path in script()  %}
-    <script src="{{ asset( 'assets/' ~ path) }}"></script>
-    {% endfor %}
-    <script src="{{ asset('bundles/app/js/toplist/toplist.js') }}"></script>
-{% endblock %}
