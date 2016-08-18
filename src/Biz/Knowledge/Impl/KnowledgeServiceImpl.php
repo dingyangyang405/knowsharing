@@ -53,15 +53,22 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $topKnowledges;
     }
 
-    public function moveToPath($file,$user,$title)
+    public function moveToPath($file,$user,$knowledge)
     {
         if (empty($file)) {
             throw new \Exception("上传文档不能为空!");
-        } elseif (empty($title)) {
+        } elseif (abs(filesize($file)) > 20971520) {
+            throw new \Exception("文件不能大于20M!");
+        } elseif (empty($knowledge['title'])) {
             throw new \Exception("标题不能为空!");
+        } elseif (strlen($knowledge['title']) > 60) {
+            throw new \Exception("标题不能超过20个汉字!");
+        } elseif (strlen($knowledge['topic']) > 60) {
+            throw new \Exception("主题名不能超过20个汉字!");
         }
+        
         $upLoad = new UpLoad($file);
-        $path = $upLoad->moveToPath($user,$title);
+        $path = $upLoad->moveToPath($user,$knowledge['title']);
 
         return $path;
     }

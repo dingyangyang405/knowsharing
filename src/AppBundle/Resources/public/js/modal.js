@@ -14,9 +14,9 @@ $(document).ready(function(){
             url:$url,
             data:$('form').serialize(),
             type:"POST",
-            success:function(data){
-                location.href = '/';
-            },
+            // success:function(data){
+            //     location.href = '/';
+            // },
             error:function(jqXHR){
                 alert("添加失败！");
             }
@@ -106,7 +106,7 @@ $(document).ready(function(){
         var fileSize = file.size;
         var maxSize = 20971520;
         if (fileSize >= maxSize) {
-            $("#title").val('文件不能大于20');
+            $("#title").val('文件不能大于20M');
             return;
         }
         $("#title").val(fileName);

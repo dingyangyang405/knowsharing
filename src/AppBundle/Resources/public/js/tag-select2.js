@@ -1,41 +1,47 @@
-$('.tag-select').select2({
-    ajax: {
-        url: $('.tag-select').data('url'),
-        delay: 250,
-        type: 'POST',
-        dataType: 'json',
-        data: function (params) {
-            var query = {
-                name: params.term,
-            }
-            return query;
-        },
+// $(".tags-select").select2({
+//   tags: true,
+//   tokenSeparators: [",", " "],
+//   createSearchChoice: function(term, data) {
+//     if ($(data).filter(function() {
+//       return this.text.localeCompare(term) === 0;
+//     }).length === 0) {
+//       return {
+//         id: term,
+//         text: term
+//       };
+//     }
+//   },
+//   multiple: true,
+//   ajax: {
+//     url: $('.tags-select').data('url'),
+//     dataType: "json",
+//     type: 'POST',
+//     data: function(term, page) {
+//       return {
+//         q: term
+//       };
+//     },
+//     processResults: function(data) {
+//       return {
+//         results: data
+//       };
+//     }
+//   }
+// });
+$(".tags-select").select2({
 
-        processResults: function (data) {
-            return {
-                results: data.tags
-            };
-        }
-    },
-    templateResult: tagFormatState,
-    templateSelection: tagTemplate,
-    minimumInputLength: 1,
-    escapeMarkup: function (markup) {
-        return markup;
-    },
-});
+  tags: true,
+  
+  maximumSelectionLength: 4,
 
-
-function tagFormatState(state) {
-    if (!state.id) {
-        return state.name;
+  ajax: {
+    url: $('.tags-select').data('url'),
+    type: 'POST',
+    dataType: 'json',
+    processResults: function (data) {
+      return {
+        results: data.tags
+      };
     }
-    var $state = $(
-        '<span>' + state.name + '</span>'
-    );
-    return $state;
-};
-
-function tagTemplate(data) {
-    return data.name;
-}
+  }
+});

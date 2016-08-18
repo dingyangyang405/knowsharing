@@ -44,9 +44,6 @@ class AjaxController  extends BaseController
             PHP_INT_MAX
         );
 
-        if (empty($tags)) {
-            $tags = $conditions['name'];
-        }
         return new JsonResponse(array(
             'tags' => $tags
         ));      
