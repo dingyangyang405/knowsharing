@@ -1,6 +1,14 @@
 $(document).ready(function(){
     $("body").on('click', '#addLink', function() {
+        //没用serialize()是因为没想到比较好的解决办法
         var $url = $(this).data('url');
+        var content = $('[name = content]').val();
+        var title = $('[name = title]').val();
+        var type = $('[name = type]').val();
+        var summary = $('[name = summary]').val();
+        var topic = $('[name = topic]').val();
+        var tag = $('[name = tag]').val();
+
         if (checkNull('title','标题') == false) {
             return ;
         }
@@ -10,9 +18,10 @@ $(document).ready(function(){
         if (checkLength('select-topic') == false) {
             return;
         }
+
         $.ajax({
             url:$url,
-            data:$('form').serialize(),
+            data:{content:content,title:title,type:type,summary:summary,topic:topic,tag:tag},
             type:"POST",
             success:function(data){
                 location.href = '/';
@@ -25,6 +34,9 @@ $(document).ready(function(){
 
     $("body").on('click', '#addFile', function() {
         var $url = $(this).data('url');
+        var tag = $('[name = tag]').val();
+        var $file = new FormData($('#addFileForm')[0]);
+        $file.append('tag',tag);
         if (checkFileSize('inputfile') == false) {
             return ;
         }
@@ -37,10 +49,11 @@ $(document).ready(function(){
         if (checkLength('select-topic') == false) {
             return ;
         }
+        
         $.ajax({
             url:$url,
             cache:false,
-            data:new FormData($('#addFileForm')[0]),
+            data:$file,
             type:"POST",
             async:false,
             processData:false,
@@ -106,7 +119,7 @@ $(document).ready(function(){
         var fileSize = file.size;
         var maxSize = 20971520;
         if (fileSize >= maxSize) {
-            $("#title").val('文件不能大于20');
+            $("#title").val('文件不能大于20M');
             return;
         }
         $("#title").val(fileName);
@@ -174,14 +187,22 @@ function isNum(obj, vid){
 }
 
 function checkLength(obj) {
-    var Str=document.getElementById(obj).value;
-    RegularExp=/^.{0,10}$/
-    if (RegularExp.test(Str)) {
-        return true;
-    } else {
-    alert("主题长度不能超过十位");
-    return false;
+    var str=document.getElementById(obj).value;
+    var realLength = 0;
+    var charCode = -1;
+    for (var i = str.length - 1; i >= 0; i--) {
+        charCode = str.charCodeAt(i);
+        if (charCode >=0 && charCode <=128 )　{
+            realLength += 1;
+        } else {
+            realLength += 3;
+        }
     }
+    if (realLength > 60) {
+        alert('长度不能超过２０个字');
+        return false;
+    }
+    return true;
 }
 
 function checkFileSize(obj) {

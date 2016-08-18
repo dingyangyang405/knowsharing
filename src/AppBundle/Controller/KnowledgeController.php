@@ -14,7 +14,6 @@ class KnowledgeController extends BaseController
     public function indexAction($id)
     {
         $currentUser = $this->getCurrentUser();
-
         if (in_array('ROLE_SUPER_ADMIN', $currentUser['roles'])) {
             $userRole = array(
                 'roles' => 'admin'
@@ -71,21 +70,25 @@ class KnowledgeController extends BaseController
     public function createKnowledgeAction(Request $request)
     {
         $user = $this->getCurrentUser();
-        $post = $request->request->all();
-        if ($post['type'] == 'file') {
+
+        $knowledge = $request->request->all();
+
+        $knowledge['title'] = trim($knowledge['title']);
+        $knowledge['topic'] = trim($knowledge['topic']);
+        if ($knowledge['type'] == 'file') {
             $file = $request->files->get('content');
-            $content = $this->getKnowledgeService()->moveToPath($file,$user,$post['title']);   
-        } elseif ($post['type'] == 'link') {
+            $content = $this->getKnowledgeService()->moveToPath($file,$user,$knowledge);   
+        } elseif ($knowledge['type'] == 'link') {
             $content = $request->request->get('content');        
         }
 
-        $topic = $this->getTopicService()->getTopicById($post['topic'],$user);
+        $topic = $this->getTopicService()->getTopicById($knowledge['topic'],$user);
         $data = array(
-            'title' => $post['title'],
-            'summary' => $post['summary'],
+            'title' => $knowledge['title'],
+            'summary' => $knowledge['summary'],
             'content' => $content,
             'topicId' => $topic['id'],
-            'type' => $post['type'],
+            'type' => $knowledge['type'],
             'userId' => $user['id'],
         );
         $this->getKnowledgeService()->createKnowledge($data);

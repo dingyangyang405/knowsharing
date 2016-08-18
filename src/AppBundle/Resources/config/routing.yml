@@ -34,6 +34,7 @@ user_page:
 knowledge_create_knowledge:
     path:  /create/knowledge
     defaults: {_controller: AppBundle:Knowledge:createKnowledge }
+    methods: [POST]
 
 knowledge_detail:
     path:  /knowledge/{id}
@@ -167,7 +168,7 @@ admin_knowledge_delete:
     defaults: { _controller: AppBundle:Knowledge:adminDelete }
 
 topic_knowledge:
-    path: /topic/{id}/knowldeges
+    path: /topic/{id}/{name}/knowldeges
     defaults: { _controller: AppBundle:Topic:topicKnowledges }
 
 follow_knowledge:
@@ -186,3 +187,7 @@ ajax_tag:
 search_info:
     path: /search
     defaults: { _controller: AppBundle:Default:searchRelatedIn }
+
+my_learn_history: 
+    path: /my/learn/history
+    defaults: { _controller: AppBundle:User:learnHistory }

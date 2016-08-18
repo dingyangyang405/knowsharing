@@ -19,4 +19,6 @@ interface KnowledgeDao extends GeneralDaoInterface
     public function getFollowKnowledgesCount($conditions);
 
     public function searchFollowKnowledges($conditions, $start, $limit);
+
+    public function searchKnowledgesByIdsWithNoOrder($ids, $start, $limit);
 }

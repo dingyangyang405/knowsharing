@@ -18,6 +18,13 @@ class LearnDaoImpl extends GeneralDaoImpl implements LearnDao
         return $this->getByFields($fields);
     }
 
+    public function findLearnedIds($userId)
+    {
+        $sql = "SELECT knowledgeId FROM {$this->table} WHERE userId = ?";
+        
+        return $this->db()->fetchAll($sql, array($userId));
+    }
+
     public function declares()
     {
         return array(

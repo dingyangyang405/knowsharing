@@ -36,7 +36,8 @@ class UserController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-
+        $knowledges = $this->getKnowledgeService()->setToreadMark($knowledges, $currentUser['id']);
+        $knowledges = $this->getKnowledgeService()->setLearnedMark($knowledges,$currentUser['id']);
         $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$userId);
         $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$userId);
         $type = 'user';
@@ -100,17 +101,15 @@ class UserController extends BaseController
         }
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($currentUser['id']);
         $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
-
-        $conditions = array('knowledgeIds' => $knowledgeIds);
+        
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
             $this->get('request'),
-            $this->getKnowledgeService()->getKnowledgesCount($conditions),
+            count($knowledgeIds),
             20
         );
-        $knowledges = $this->getKnowledgeService()->searchKnowledges(
-            $conditions,
-            $orderBy,
+        $knowledges = $this->getKnowledgeService()->searchKnowledgesByIds(
+            $knowledgeIds,
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
@@ -153,17 +152,13 @@ class UserController extends BaseController
 
             $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
-            $conditions = array('ids' => $objectIds);
-            $orderBy = array('createdTime', 'DESC');
-
             $paginator = new Paginator(
                 $this->get('request'),
                 count($objectIds),
                 20
             );
-            $objects = $this->getTopicService()->searchTopics(
-                $conditions,
-                $orderBy,
+            $objects = $this->getTopicService()->searchTopicsByIds(
+                $objectIds,
                 $paginator->getOffsetCount(),
                 $paginator->getPerPageCount()
             );
@@ -203,17 +198,13 @@ class UserController extends BaseController
             );
             $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
-            $conditions = array('ids' => $objectIds);
-            $orderBy = array('createdTime', 'DESC');
-
             $paginator = new Paginator(
                 $this->get('request'),
                 count($objectIds),
                 20
             );
-            $objects = $this->getTopicService()->searchTopics(
-                $conditions,
-                $orderBy,
+            $objects = $this->getTopicService()->searchTopicsByIds(
+                $objectIds,
                 $paginator->getOffsetCount(),
                 $paginator->getPerPageCount()
             );
@@ -276,6 +267,42 @@ class UserController extends BaseController
         return new JsonResponse(true);
     }
 
+    public function learnHistoryAction(Request $request)
+    {
+        $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
+        $conditions = array(
+            'userId' => $currentUser['id'],
+        );
+        $orderBy = array('createdTime', 'DESC');
+        $knowledgesCount = $this->getLearnService()->getLearnCount($conditions);
+        $learnedKnowledges = $this->getLearnService()->findLearnedKnowledgeIds($currentUser['id']);
+        $ids = ArrayToolKit::column($learnedKnowledges, 'knowledgeId');
+        
+        $paginator = new Paginator(
+            $this->get('request'),
+            $knowledgesCount,
+            20
+        );
+        
+        $knowledges = $this->getKnowledgeService()->searchKnowledgesByIdsWithNoOrder(
+            $ids,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
+        $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
+        $users = ArrayToolKit::index($users, 'id');
+       
+        return $this->render('AppBundle:User:my-learn-history.html.twig', 
+            array(
+            'type' => 'history',
+            'knowledges' => $knowledges,
+            'users' => $users,
+        ));
+    }
+
     protected function getKnowledgeService()
     {
         return $this->biz['knowledge_service'];
@@ -309,5 +336,10 @@ class UserController extends BaseController
     protected function getToreadService()
     {
         return $this->biz['toread_service'];
+    }
+
+    protected function getLearnService()
+    {
+        return $this->biz['learn_service'];
     }
 }

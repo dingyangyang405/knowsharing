@@ -18,7 +18,7 @@
         <div class="form-group">
           <label for="title" class="col-sm-2 control-label">标题</label>
           <div class="col-sm-10">
-            <input type="text" name="title" class="form-control" id="title" placeholder="标题">
+            <input type="text" name="title" class="form-control" id="title" placeholder="标题" onblur="checkNull('title','标题'),checkLength('title')">
             <input type="hidden" name="type" value="link">
           </div>
         </div>
@@ -28,7 +28,7 @@
             <textarea rows="3" type="textarea" name="summary" class="form-control" id="summary"></textarea>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="select2-div">
           <label for="topic" class="col-sm-2 control-label">主题</label>
           <div class="col-sm-10">
           <select  name="topic" class ="link-select" data-url="{{ path('ajax_topic') }}">
@@ -36,14 +36,14 @@
           </select>
           </div>
         </div>
-        {#<div class="form-group">#}
-          {#<label for="tags" class="col-sm-2 control-label">标签</label>#}
-          {#<div class="col-sm-10">#}
-          {#<select  name="tags" class ="tag-select" data-url="{{ path('ajax_tag') }}" multiple="multiple">#}
-            {#<option></option>#}
-          {#</select>#}
-          {#</div>#}
-        {#</div>#}
+        <div class="form-group">
+          <label for="tags" class="col-sm-2 control-label">标签</label>
+          <div class="col-sm-10">
+            <select class="tags-select form-control"  multiple="multiple" style="width: 200px;" data-url="{{ path('ajax_tag') }}" name="tag">
+              <option></option>
+            </select>
+          </div>
+        </div>
       </form>
     </div>
     <div class="modal-footer">

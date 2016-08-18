@@ -90,6 +90,13 @@ class TopicServiceImpl extends KernelAwareBaseService implements TopicService
         return $topics;
     }
 
+    public function searchTopicsByIds($objectIds, $start, $limit)
+    {
+        $topics = $this->getTopicDao()->searchTopicsByIds($objectIds, $start, $limit);
+
+        return $topics;
+    }
+
     public function findTopicsByIds($ids)
     {
         return $this->getTopicDao()->findTopicsByIds($ids);
