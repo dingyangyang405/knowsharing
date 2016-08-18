@@ -1,6 +1,14 @@
 $(document).ready(function(){
     $("body").on('click', '#addLink', function() {
+        //没用serialize()是因为没想到比较好的解决办法
         var $url = $(this).data('url');
+        var content = $('[name = content]').val();
+        var title = $('[name = title]').val();
+        var type = $('[name = type]').val();
+        var summary = $('[name = summary]').val();
+        var topic = $('[name = topic]').val();
+        var tag = $('[name = tag]').val();
+
         if (checkNull('title','标题') == false) {
             return ;
         }
@@ -10,13 +18,14 @@ $(document).ready(function(){
         if (checkLength('select-topic') == false) {
             return;
         }
+
         $.ajax({
             url:$url,
-            data:$('form').serialize(),
+            data:{content:content,title:title,type:type,summary:summary,topic:topic,tag:tag},
             type:"POST",
-            // success:function(data){
-            //     location.href = '/';
-            // },
+            success:function(data){
+                location.href = '/';
+            },
             error:function(jqXHR){
                 alert("添加失败！");
             }
