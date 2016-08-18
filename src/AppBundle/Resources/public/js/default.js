@@ -8,7 +8,9 @@ $(function(){
                 $btn.hide();
                 $btn.parent().find(".uncollect-btn").show();
                 $btn.parent().find(".uncollect-btn").find(".uncollect-num").html($collectNum);
-            } 
+            }  else {
+                location.href = '/login';
+            }
         })
     });
 
@@ -21,6 +23,8 @@ $(function(){
                 $btn.parent().find(".collect-btn").find(".collect-num").html($collectNum);
                 $btn.hide();
                 $btn.parent().find(".collect-btn").show();
+            } else {
+                location.href = '/login';
             }
         })
     });
@@ -34,7 +38,9 @@ $(function(){
                 $btn.hide();
                 $btn.parent().find(".dislike-btn").show();
                 $btn.parent().find(".dislike-btn").find(".dislike-num").html($collectNum);
-            } 
+            } else {
+                location.href = '/login';
+            }
         })
     });
 
@@ -47,6 +53,8 @@ $(function(){
                 $btn.parent().find(".like-btn").find(".like-num").html($collectNum);
                 $btn.hide();
                 $btn.parent().find(".like-btn").show();
+            } else {
+                location.href = '/login';
             }
         })
     });

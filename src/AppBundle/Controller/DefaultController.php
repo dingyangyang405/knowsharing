@@ -106,75 +106,93 @@ class DefaultController extends BaseController
     public function searchRelatedInAction(Request $request)
     {
         $conditions = $request->query->all();
-        $orderBy = array('createdTime', 'DESC');
-        if ($conditions['SearchType'] == 'topic') {
-            $currentUser = $this->getCurrentUser();
-            $condition = array('name' => $conditions['query']);
-            $paginator = new Paginator(
-                $request,
-                $this->getTopicService()->getTopicsCount($condition),
-                20
-            );
-            $topics = $this->getTopicService()->searchTopics(
-                $condition,
-                $orderBy,
-                $paginator->getOffsetCount(),
-                $paginator->getPerPageCount()
-            );
-
-            $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
-            return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
-                'SearchType' => $conditions['SearchType'],
-                'query' => $conditions['query'],
-                'paginator'=> $paginator,
-                'topics' => $topics,
-            ));
-        } else if ($conditions['SearchType'] == 'user') {
-            $condition = array('username' => $conditions['query']);
-            $paginator = new Paginator(
-                $request,
-                $this->getUserService()->getUsersCount($condition),
-                20
-            );
-
-            $users = $this->getUserService()->findUsers(
-                $condition,
-                array('created', 'DESC'),
-                $paginator->getOffsetCount(),
-                $paginator->getPerPageCount()
-            );
-            return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
-                'SearchType' => $conditions['SearchType'],
-                'query' => $conditions['query'],
-                'paginator'=> $paginator,
-                'users' => $users
-            ));
+        if ($conditions['searchType'] == 'topic') {
+            return $this->topicSearch($request, $conditions);
+        } else if ($conditions['searchType'] == 'user') {
+            return  $this->userSearch($request, $conditions);
         } else {
-            $condition = array('title' => $conditions['query']);
-            $paginator = new Paginator(
-                $request,
-                $this->getKnowledgeService()->getKnowledgesCount($condition),
-                20
-            );
-            $knowledges = $this->getKnowledgeService()->searchKnowledges(
-                $condition,
-                $orderBy,
-                $paginator->getOffsetCount(),
-                $paginator->getPerPageCount()
-            );
-
-            $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
-            $users = ArrayToolKit::index($users, 'id');
-
-            return $this->render('AppBundle:Default:searchRelatedIn.html.twig',array(
-                'SearchType' => $conditions['SearchType'],
-                'query' => $conditions['query'],
-                'paginator'=> $paginator,
-                'knowledges' => $knowledges,
-                'users' => $users
-            ));
+            return  $this->knowledgeSearch($request, $conditions);
         }
 
+    }
+
+    private function topicSearch($request, $conditions)
+    {
+        $currentUser = $this->getCurrentUser();
+        $condition = array('name' => "%{$conditions['query']}%");
+        $orderBy = array('createdTime', 'DESC');
+        $paginator = new Paginator(
+            $request,
+            $this->getTopicService()->getTopicsCount($condition),
+            20
+        );
+        $topics = $this->getTopicService()->searchTopics(
+            $condition,
+            $orderBy,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
+
+        $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
+        return $this->render('AppBundle:Default:search-related-in.html.twig',array(
+            'searchType' => $conditions['searchType'],
+            'query' => $conditions['query'],
+            'paginator'=> $paginator,
+            'topics' => $topics,
+        ));
+    }
+
+    private function knowledgeSearch($request, $conditions)
+    {
+        $condition = array('title' => "%{$conditions['query']}%");
+        $orderBy = array('createdTime', 'DESC');
+        $paginator = new Paginator(
+            $request,
+            $this->getKnowledgeService()->getKnowledgesCount($condition),
+            20
+        );
+        $knowledges = $this->getKnowledgeService()->searchKnowledges(
+            $condition,
+            $orderBy,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
+
+        $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
+        $users = ArrayToolKit::index($users, 'id');
+
+        return $this->render('AppBundle:Default:search-related-in.html.twig',array(
+            'searchType' => $conditions['searchType'],
+            'query' => $conditions['query'],
+            'paginator'=> $paginator,
+            'knowledges' => $knowledges,
+            'users' => $users
+        ));
+    }
+
+    private function userSearch($request, $conditions)
+    {
+        $orderBy = array('created', 'DESC');
+        $condition = array('username' => "%{$conditions['query']}%");
+        $paginator = new Paginator(
+            $request,
+            $this->getUserService()->getUsersCount($condition),
+            20
+        );
+
+        $users = $this->getUserService()->findUsers(
+            $condition,
+            $orderBy ,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
+
+        return $this->render('AppBundle:Default:search-related-in.html.twig',array(
+            'searchType' => $conditions['searchType'],
+            'query' => $conditions['query'],
+            'paginator'=> $paginator,
+            'users' => $users
+        ));
     }
 
     public function docModalAction(Request $request)

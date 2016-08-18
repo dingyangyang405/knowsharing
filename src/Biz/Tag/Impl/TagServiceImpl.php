@@ -12,8 +12,23 @@ class TagServiceImpl extends KernelAwareBaseService implements TagService
         return $this->getTagDao()->search($conditions, $orderBy, $start, $limit);
     }
 
+    public function findTagsByKnowledgeId($id)
+    {   
+        return $this->getTagKnowledgeDao()->findTagsByKnowledgeId($id);
+    }
+
+    public function findTagsByIds($ids)
+    {
+        return $this->getTagDao()->findTagsByIds($ids);
+    }
+
     protected function getTagDao()
     {
-        $this->container['tag_dao'];
+        return $this->biz['tag_dao'];
+    }
+
+    protected function getTagKnowledgeDao()
+    {
+        return $this->biz['tag_knowledge_dao'];
     }
 }
