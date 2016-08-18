@@ -28,7 +28,8 @@ class TagDaoImpl extends GeneralDaoImpl implements TagDao
             'serializes' => array(),
             'conditions' => array(
                 'name = :name',
-                'id IN (:ids)' 
+                'id IN (:ids)',
+                'text = :text'
             ),
         );        
     }
