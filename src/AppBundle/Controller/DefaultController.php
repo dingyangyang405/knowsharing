@@ -25,7 +25,9 @@ class DefaultController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-
+        $currentUser = $this->getCurrentUser();
+        $knowledges = $this->getKnowledgeService()->setToreadMark($knowledges, $currentUser['id']);
+        $knowledges = $this->getKnowledgeService()->setLearnedMark($knowledges,$currentUser['id']);
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
 
         $users = ArrayToolKit::index($users, 'id');

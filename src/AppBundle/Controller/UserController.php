@@ -36,7 +36,8 @@ class UserController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-
+        $knowledges = $this->getKnowledgeService()->setToreadMark($knowledges, $currentUser['id']);
+        $knowledges = $this->getKnowledgeService()->setLearnedMark($knowledges,$currentUser['id']);
         $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$userId);
         $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$userId);
 

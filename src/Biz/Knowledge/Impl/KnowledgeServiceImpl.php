@@ -83,10 +83,7 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
 
     public function findKnowledgesByUserId($id)
     {
-        $knowledges = $this->getKnowledgeDao()->findKnowledgesByUserId($id);
-        $knowledges = $this->setToreadMark($knowledges);
-
-        return $knowledges;
+        return $this->getKnowledgeDao()->findKnowledgesByUserId($id);
     }
 
     public function findKnowledgesByKnowledgeIds($knowledgeIds)
@@ -127,23 +124,29 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
 
     public function searchKnowledges($conditions, $orderBy, $start, $limit)
     {
-        $knowledges = $this->getKnowledgeDao()->search($conditions, $orderBy, $start, $limit);
+        return $this->getKnowledgeDao()->search($conditions, $orderBy, $start, $limit);
+    }
 
-        $knowledges = $this->setToreadMark($knowledges);
+    public function setToreadMark($knowledges, $userId)
+    {
+        $toreadKnowledgeIds =  $this->getToreadDao()->findToreadIds($userId);
+        $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledgeIds, 'knowledgeId');
+        foreach ($knowledges as $key => $value) {
+            if (isset($toreadKnowledgeIds[$value['id']])) {
+                $knowledges[$key]['toread'] = true;
+            }
+        }
 
         return $knowledges;
     }
 
-    protected function setToreadMark($knowledges)
+    public function setLearnedMark($knowledges, $userId)
     {
-        $user = $this->biz->getUser();
-        if (!empty($user)) {
-            $toreadKnowledgeIds =  $this->getToreadDao()->findToreadIds($user['id']);
-            $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledgeIds, 'knowledgeId');
-            foreach ($knowledges as $key => $value) {
-                if (isset($toreadKnowledgeIds[$value['id']])) {
-                    $knowledges[$key]['toread'] = true;
-                }
+        $learnedIds = $this->getLearnDao()->findLearnedIds($userId);
+        $learnedIds = ArrayToolkit::index($learnedIds, 'knowledgeId');
+        foreach ($knowledges as $key => $value) {
+            if (isset($learnedIds[$value['id']])) {
+                $knowledges[$key]['learned'] = true;
             }
         }
 
@@ -168,5 +171,10 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     protected function getToreadDao()
     {
         return $this->biz['toread_dao'];
+    }
+
+    protected function getLearnDao()
+    {
+        return $this->biz['learn_dao'];
     }
 }
