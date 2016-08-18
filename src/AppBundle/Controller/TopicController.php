@@ -84,12 +84,21 @@ class TopicController extends BaseController
         $type = 'topic';
         $this->getFollowService()->clearFollowNewKnowledgeNumByObjectId($type, $id);
 
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:Topic:knowledge.html.twig', array(
             'knowledges' => $knowledges,
             'paginator' => $paginator,
             'users' => $users,
             'name' => $name,
-            'id' => $id
+            'id' => $id,
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
