@@ -18,6 +18,7 @@ class KsUser extends Migration
         $table->addColumn('roles', 'string', array('length' => 512, 'null' => false, 'comment' => '角色'));
         $table->addColumn('updated', 'integer', array('default' => 0, 'signed' => true));
         $table->addColumn('created', 'integer', array('default' => 0, 'signed' => true));
+        $table->addColumn('loginOutTime', 'integer', array('default' => 0, 'signed' => true));
         $table->setPrimaryKey(array('id'));
         $table->addUniqueIndex(array('username'));
         $table->addColumn('followNum', 'integer', array('default' => 0, 'unsigned' => true, 'comment' => '被关注总数'));
