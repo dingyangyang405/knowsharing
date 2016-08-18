@@ -48,6 +48,21 @@ class KnowledgeDaoImpl extends GeneralDaoImpl implements KnowledgeDao
         return $this->db()->fetchAll($sql,$ids);
     }
 
+    public function searchKnowledgesByIdsWithNoOrder($ids, $start, $limit)
+    {
+        if (empty($ids)) {
+            return array();
+        }
+
+        $marks = str_repeat('?,', count($ids)-1).'?';
+        $start = (int) $start;
+        $limit = (int) $limit;
+
+        $sql = "SELECT * FROM {$this->table} WHERE id IN ({$marks}) LIMIT {$start}, {$limit}";
+
+        return $this->db()->fetchAll($sql,$ids);
+    }
+
     public function getFollowKnowledgesCount($conditions)
     {
         $sql = "SELECT COUNT(*) FROM {$this->table} WHERE userId IN (:userIds) OR topicId IN (:topicIds)";
