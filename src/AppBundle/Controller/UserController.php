@@ -14,6 +14,9 @@ class UserController extends BaseController
     public function indexAction(Request $request,$userId)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $user = $this->getUserService()->getUser($userId);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
 
@@ -33,7 +36,8 @@ class UserController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-
+        $knowledges = $this->getKnowledgeService()->setToreadMark($knowledges, $currentUser['id']);
+        $knowledges = $this->getKnowledgeService()->setLearnedMark($knowledges,$currentUser['id']);
         $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$userId);
         $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$userId);
 
@@ -50,6 +54,9 @@ class UserController extends BaseController
     public function listFavoritesAction(Request $request, $userId)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $user = $this->getUserService()->getUser($userId);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
         
@@ -120,6 +127,9 @@ class UserController extends BaseController
     public function listFollowsAction(Request $request, $userId, $type)
     {   
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $user = $this->getUserService()->getUser($userId);
         $conditions = array('userId' => $user['id']);
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);

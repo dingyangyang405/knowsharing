@@ -1,6 +1,6 @@
-$('.linke-select').select2({
+$('.link-select').select2({
     ajax: {
-        url: $('.linke-select').data('url'),
+        url: $('.link-select').data('url'),
         delay: 250,
         type: 'POST',
         dataType: 'json',
@@ -38,8 +38,8 @@ function template(data) {
     return data.name;
 }
 
-$(".linke-select").select2("data", $(".linke-select").select2('data')[0]['id']);
-$('body').on('keyup','.select2-search__field',function() {
-    $(".linke-select option ").val($(".select2-search__field").val());
-    $(".select2-selection__rendered").html($(".select2-search__field").val());
-});
+$(".link-select").select2("data", $(".link-select").select2('data')[0]['id']);
+// $('body').on('keyup','.select2-search__field',function() {
+//     $(".link-select option ").val($(".select2-search__field").val());
+//     $('.link-select').next().find(".select2-selection__rendered").html($(".select2-search__field").val());
+// });

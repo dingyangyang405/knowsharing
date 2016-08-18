@@ -1,13 +1,22 @@
 $(document).ready(function(){
     $("body").on('click', '#addLink', function() {
         var $url = $(this).data('url');
+        if (checkNull('title','标题') == false) {
+            return ;
+        }
+        if (isNum('select-topic', '主题') == false) {
+            return ;
+        }
+        if (checkLength('select-topic') == false) {
+            return;
+        }
         $.ajax({
             url:$url,
             data:$('form').serialize(),
             type:"POST",
-            success:function(data){
-                location.href = '/';
-            },
+            // success:function(data){
+            //     location.href = '/';
+            // },
             error:function(jqXHR){
                 alert("添加失败！");
             }
@@ -16,6 +25,18 @@ $(document).ready(function(){
 
     $("body").on('click', '#addFile', function() {
         var $url = $(this).data('url');
+        if (checkFileSize('inputfile') == false) {
+            return ;
+        }
+        if (checkNull('title','标题') == false) {
+            return ;
+        }
+        if (isNum('select-topic', '主题') == false) {
+            return ;
+        }
+        if (checkLength('select-topic') == false) {
+            return ;
+        }
         $.ajax({
             url:$url,
             cache:false,
@@ -85,7 +106,7 @@ $(document).ready(function(){
         var fileSize = file.size;
         var maxSize = 20971520;
         if (fileSize >= maxSize) {
-            $("#title").val('文件不能大于20');
+            $("#title").val('文件不能大于20M');
             return;
         }
         $("#title").val(fileName);
@@ -130,3 +151,54 @@ $(document).ready(function(){
 
 });
 
+function checkNull(obj, vline){
+    //判断输入框是否为空，为空时弹出提示框
+    var value=document.getElementById(obj).value;
+    value = value.replace(/(^\s*)|(\s*$)/g,"");///去除空格的方法
+    if (value.length == 0) {
+        alert(vline + " 输入值为空！");
+        return false;
+    }
+    return true;
+}
+
+function isNum(obj, vid){
+    re = new RegExp("[^0-9]");
+    var s;
+    var i_value = document.getElementById(obj).value;
+    if (s = i_value.match(re)) {
+        return true;
+    }
+    alert("'" + vid + "' 中不能全为数字 '");
+    return false;
+}
+
+function checkLength(obj) {
+    var Str=document.getElementById(obj).value;
+    RegularExp=/^.{0,10}$/
+    if (RegularExp.test(Str)) {
+        return true;
+    } else {
+    alert("主题长度不能超过十位");
+    return false;
+    }
+}
+
+function checkFileSize(obj) {
+    var fileInput = document.getElementById('inputfile');
+        //检测是否选择文件
+    if (!fileInput.value) {
+        alert('请上传文件');
+        return　false;
+    }
+    //获取文件相关信息
+    var file = fileInput.files[0];
+    var fileName = file.name;
+    var fileSize = file.size;
+    var maxSize = 20971520;
+    if (fileSize >= maxSize) {
+        alert('文件不能大于20M');
+        return false;
+    }
+    return true;
+}
