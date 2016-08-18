@@ -152,17 +152,13 @@ class UserController extends BaseController
 
             $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
-            $conditions = array('ids' => $objectIds);
-            $orderBy = array('createdTime', 'DESC');
-
             $paginator = new Paginator(
                 $this->get('request'),
                 count($objectIds),
                 20
             );
-            $objects = $this->getTopicService()->searchTopics(
-                $conditions,
-                $orderBy,
+            $objects = $this->getTopicService()->searchTopicsByIds(
+                $objectIds,
                 $paginator->getOffsetCount(),
                 $paginator->getPerPageCount()
             );
@@ -247,7 +243,7 @@ class UserController extends BaseController
     public function createToreadAction(Request $request, $id)
     {
         $user = $this->getCurrentUser();
-
+        
         if (!$user->isLogin()) {
            return new JsonResponse(false);
         }
