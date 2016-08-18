@@ -99,17 +99,15 @@ class UserController extends BaseController
         }
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($currentUser['id']);
         $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
-
-        $conditions = array('knowledgeIds' => $knowledgeIds);
+        
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
             $this->get('request'),
-            $this->getKnowledgeService()->getKnowledgesCount($conditions),
+            count($knowledgeIds),
             20
         );
-        $knowledges = $this->getKnowledgeService()->searchKnowledges(
-            $conditions,
-            $orderBy,
+        $knowledges = $this->getKnowledgeService()->searchKnowledgesByIds(
+            $knowledgeIds,
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
@@ -243,7 +241,7 @@ class UserController extends BaseController
     public function createToreadAction(Request $request, $id)
     {
         $user = $this->getCurrentUser();
-        
+
         if (!$user->isLogin()) {
            return new JsonResponse(false);
         }

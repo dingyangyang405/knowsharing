@@ -58,15 +58,4 @@ $(function(){
             }
         })
     });
-
-    $(".delete-favorite").click(function(){
-        var url = $(this);
-        if (confirm('确定要取消收藏吗?')) {
-            $.post(url.data('url'),function(data){
-                if (data.status == 'success') {
-                    location.reload();
-                }
-            })
-        }
-    });
 });
