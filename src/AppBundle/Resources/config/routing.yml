@@ -34,6 +34,7 @@ user_page:
 knowledge_create_knowledge:
     path:  /create/knowledge
     defaults: {_controller: AppBundle:Knowledge:createKnowledge }
+    methods: [POST]
 
 knowledge_detail:
     path:  /knowledge/{id}
