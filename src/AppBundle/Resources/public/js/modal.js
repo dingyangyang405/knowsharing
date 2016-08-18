@@ -5,9 +5,9 @@ $(document).ready(function(){
             url:$url,
             data:$('form').serialize(),
             type:"POST",
-            success:function(data){
-                location.href = '/';
-            },
+            // success:function(data){
+            //     location.href = '/';
+            // },
             error:function(jqXHR){
                 alert("添加失败！");
             }
