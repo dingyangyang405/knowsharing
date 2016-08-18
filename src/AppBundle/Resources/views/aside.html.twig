@@ -1,3 +1,6 @@
+{{ script(['js/vendor.js', 'js/global.js'])}}
+{{ css('css/vendor.css') }}
+
 <aside class="sidebar visible-lg"><!--右侧>992px显示-->
     <div class="sentence"> <strong>每日一句</strong>
         {{ render(controller('AppBundle:Default:noticeToDoList'))}}
@@ -8,3 +11,6 @@
     {{ render(controller('AppBundle:Default:listTopTopics')) }}
     {{ render(controller('AppBundle:Default:listTopUsers')) }}
 </aside>
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/toplist/toplist.js') }}"></script>
+{% endblock %}
