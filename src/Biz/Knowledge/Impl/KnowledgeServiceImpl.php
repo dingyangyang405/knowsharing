@@ -124,11 +124,11 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     
     public function createKnowledge($field)
     {
-
         $this->updateFollow($field);
         $tagId = $field['tagId'];
         $string = implode('|', $tagId);
         $field['tagId'] = $string;
+
         return $this->getKnowledgeDao()->create($field);
     }
     
