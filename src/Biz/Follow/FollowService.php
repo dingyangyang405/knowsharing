@@ -25,4 +25,6 @@ interface FollowService
     public function getFollowTopicByUserIdAndTopicId($userId, $topicId);
 
     public function searchMyFollowsByUserIdAndType($userId, $type);
+
+    public function clearFollowNewKnowledgeNumByObjectId($type, $objectId);
 }

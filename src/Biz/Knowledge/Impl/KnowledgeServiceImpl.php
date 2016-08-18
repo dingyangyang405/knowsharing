@@ -111,8 +111,8 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         $topicId = $filed['topicId'];
         $userId = $currentUser['id'];
         $addNumber = 1;
-        $this->getFollowDao()->updateFollowByTopicId($topicId, $addNumber, $type = 'topic');
-        $this->getFollowDao()->updateFollowByUserId($userId, $addNumber, $type = 'user');
+        $this->getFollowDao()->updateFollowByObjectId($topicId, $addNumber, $type = 'topic');
+        $this->getFollowDao()->updateFollowByObjectId($userId, $addNumber, $type = 'user');
         return true;
     }
 

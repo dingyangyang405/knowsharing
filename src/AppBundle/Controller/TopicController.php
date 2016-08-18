@@ -78,8 +78,12 @@ class TopicController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
+
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
+        $type = 'topic';
+        $this->getFollowService()->clearFollowNewKnowledgeNumByObjectId($type, $id);
+
         return $this->render('AppBundle:Topic:knowledge.html.twig', array(
             'knowledges' => $knowledges,
             'paginator' => $paginator,

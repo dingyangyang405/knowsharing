@@ -39,6 +39,8 @@ class UserController extends BaseController
 
         $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$userId);
         $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$userId);
+        $type = 'user';
+        $this->getFollowService()->clearFollowNewKnowledgeNumByObjectId($type, $userId);
 
         return $this->render('AppBundle:User:index.html.twig', array(
             'user' => $user,
