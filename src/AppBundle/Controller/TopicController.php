@@ -32,7 +32,7 @@ class TopicController extends BaseController
             $paginator->getPerPageCount()
         );
         $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
-
+        
         return $this->render('AppBundle:Topic:index.html.twig', array(
             'topics' => $topics,
             'paginator' => $paginator,
@@ -62,7 +62,7 @@ class TopicController extends BaseController
         return new JsonResponse(true);
     }
 
-    public function topicKnowledgesAction(Request $request, $id)
+    public function topicKnowledgesAction(Request $request, $id, $name)
     {
         $conditions = array('topicId' => $id);
         $orderBy = array('createdTime', 'DESC');
@@ -83,7 +83,9 @@ class TopicController extends BaseController
         return $this->render('AppBundle:Topic:knowledge.html.twig', array(
             'knowledges' => $knowledges,
             'paginator' => $paginator,
-            'users' => $users
+            'users' => $users,
+            'name' => $name,
+            'id' => $id
         ));
     }
 
