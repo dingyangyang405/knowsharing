@@ -174,14 +174,22 @@ function isNum(obj, vid){
 }
 
 function checkLength(obj) {
-    var Str=document.getElementById(obj).value;
-    RegularExp=/^.{0,10}$/
-    if (RegularExp.test(Str)) {
-        return true;
-    } else {
-    alert("主题长度不能超过十位");
-    return false;
+    var str=document.getElementById(obj).value;
+    var realLength = 0;
+    var charCode = -1;
+    for (var i = str.length - 1; i >= 0; i--) {
+        charCode = str.charCodeAt(i);
+        if (charCode >=0 && charCode <=128 )　{
+            realLength += 1;
+        } else {
+            realLength += 3;
+        }
     }
+    if (realLength > 60) {
+        alert('长度不能超过２０个字');
+        return false;
+    }
+    return true;
 }
 
 function checkFileSize(obj) {
