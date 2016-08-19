@@ -91,6 +91,14 @@ class UserController extends BaseController
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:User:favorite.html.twig', array(
             'users' => $users,
             'user' => $user,
@@ -98,7 +106,8 @@ class UserController extends BaseController
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
             'knowledges' => $knowledges,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
