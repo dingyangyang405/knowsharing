@@ -35,7 +35,7 @@
     </div>
     <p style="padding-left:19px;">
       <i class="fa fa-fw  fa-mail-forward"></i>
-      <a href="{% if knowledge.type == 'link' %}http://{{ knowledge.content  }} {% else %} {{path('knowledge_download_file',{id:knowledge.id})}} {% endif %}">{{ knowledge.content  }}</a>
+      <a href="{% if knowledge.type == 'link' %}{{ knowledge.content  }} {% else %} {{path('knowledge_download_file',{id:knowledge.id})}} {% endif %}">{{ knowledge.content  }}</a>
     </p>
     <div class="news_bot col-sm-7 col-md-8" style="padding-left:19px;margin-top: 15px;;">
       <span class="tags visible-lg visible-md">
