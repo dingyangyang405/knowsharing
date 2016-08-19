@@ -25,7 +25,7 @@ class LikeServiceImpl extends KernelAwareBaseService implements LikeService
 
     public function haslikedKnowledge($knowledge,$userId)
     {
-        $userId = '1';
+
         $likes = $this->findLikeByUserId($userId);
         $likeKnowledgeIds = ArrayToolKit::column($likes, 'knowledgeId');
 
