@@ -5,14 +5,12 @@
 {% block base_content %} 
   <div class="content">
     <div class="content-block new-content">
-      {% block navTabs %}
-      {% endblock %}
       <div class="row" id="topic-tables">
-        {% if objects is defined %}
         <ul class="nav nav-tabs">
           <li role="topic" {% if (type == 'topic') %} class="active" {% endif %}><a href="{{path('my_follows', {type:'topic'})}}">我关注的主题</a></li>
           <li role="share" {% if (type == 'user') %} class="active" {% endif %}><a href="{{path('my_follows', {type:'user'})}}">我关注的用户</a></li>
         </ul>
+        {% if objects is defined and objects %}
           {% for object in objects %}
             {% if (type == 'user') %}
               {% set user = object %}
@@ -25,9 +23,7 @@
             {% endif %}
           {% endfor %}
         {% else %}
-          <div class="panel-title">
-            <h4 align="center">---暂无分享记录---</h4>
-          </div>
+          <div class="panel-title" style="padding-top:20px;"><h4 align="center">---暂无记录---</h4></div>
         {% endif %}
       </div>
     </div>

@@ -188,6 +188,11 @@ search_info:
     path: /search
     defaults: { _controller: AppBundle:Default:searchRelatedIn }
 
+picture_upload:
+    path: /picture/upload
+    defaults: { _controller: AppBundle:Default:uploadPicture }
+
+
 my_learn_history: 
     path: /my/learn/history
     defaults: { _controller: AppBundle:User:learnHistory }

@@ -2,8 +2,10 @@
   <div class="news-info col-xs-12 col-sm-12 col-md-11">
     <dl>
       <dt>
+        <h4>
         <a href="{{path('knowledge_detail',{id:knowledge.id})}}" target="_blank" ><i class="{% if knowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}"></i>&nbsp;{{knowledge.title}}
         </a>
+      </h4>
       </dt>
       <dd class="text" style="padding-left:19px;"><i class="fa fa-fw fa-book"></i>摘要：{{knowledge.summary}}</dd>
       <span style="float:right;padding-right:12px">
