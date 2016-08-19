@@ -15,7 +15,7 @@ class KsUserBrowse extends Migration
         $table->addColumn('userId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '用户id'));
         $table->addColumn('knowledgeId', 'integer', array('unsigned' => true, 'null' => false, 'comment' => '知识id'));
         $table->addColumn('createdTime', 'integer', array('null' => false, 'comment' => '创建日期'));
-
+        $table->addColumn('imageUrl', 'string', array('default' => 0, 'unsigned' => true, 'comment' => '图片路径'));
         $table->setPrimaryKey(array('id'));
         $container['db']->getSchemaManager()->createTable($table);
     }
