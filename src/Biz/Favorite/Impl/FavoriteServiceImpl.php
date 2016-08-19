@@ -25,7 +25,6 @@ class FavoriteServiceImpl extends KernelAwareBaseService implements FavoriteServ
 
     public function hasFavoritedKnowledge($knowledge,$userId)
     {
-        $userId = '1';
         $favorites = $this->findFavoritesByUserId($userId);
         $favoriteKnowledgeIds = ArrayToolKit::column($favorites, 'knowledgeId');
 
