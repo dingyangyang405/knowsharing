@@ -2,7 +2,7 @@
 
 namespace AppBundle\Common;
 
-class Curl
+class Api
 {
     public static function getTitle($url)
     {
@@ -29,5 +29,17 @@ class Curl
         $title = substr($data ,$postStart, $length);
 
         return $title;
+    }
+
+    public static function getDailyOne()
+    {
+        $nowyear = date("Y");
+        $nowmouth = date('m');
+        $nowday = date('d');
+        $date = mt_rand("2012",$nowyear)."-".mt_rand("1",$nowmouth)."-".mt_rand("1",$nowday);
+        $content = file_get_contents('http://open.iciba.com/dsapi/?date='.$date);
+        $content = json_decode($content);
+        $time = time();
+        return array('content' => $content, 'date' => $time);
     }
 }

@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Common\ArrayToolKit;
 use AppBundle\Common\Paginator;
 use AppBundle\Common\Setting;
+use AppBundle\Common\Api;
 
 class DefaultController extends BaseController
 {
@@ -116,6 +117,12 @@ class DefaultController extends BaseController
 
     }
 
+    public function dailyOneAction()
+    {
+        $dailyOne = Api::getDailyOne();
+
+        return $this->render('AppBundle:Default:dailyOne.html.twig', $dailyOne);
+    }
     private function topicSearch($request, $conditions)
     {
         $currentUser = $this->getCurrentUser();
