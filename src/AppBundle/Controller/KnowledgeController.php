@@ -113,9 +113,10 @@ class KnowledgeController extends BaseController
             $this->getKnowledgeService()->updateKnowledge($id, $knowledge);
         }
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
-        $tags = $this->getTagService()->findTagsByKnowledgeId($knowledge['id']);
-        $tagIds = ArrayToolKit::column($tags,'tagId');
+
+        $tagIds = explode('|', $knowledge['tagId']);
         $tags = $this->getTagService()->findTagsByIds($tagIds);
+        
         $topic = $this->getTopicService()->getTopicByKnowledgeId($knowledge['topicId']);
 
         return $this->render('AppBundle:Knowledge:admin-edit.html.twig', array(

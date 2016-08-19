@@ -20,8 +20,6 @@ interface TopicService
 
     public function createTopic($field);
 
-    public function getTopicByName($name);
-
     public function deleteTopicById($id);
 
     public function findTopicsByIds($ids);

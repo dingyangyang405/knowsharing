@@ -13,7 +13,7 @@ class TopicServiceTest extends BaseTestCase
             'userId' => 1
         );
         $topic = $this->getTopicService()->createTopic($topic);
-        $result = $this->getTopicService()->getTopicById(1);
+        $result = $this->getTopicService()->getTopicById(1, 1);
 
         $this->assertEquals($topic['name'], $result['name']);
         $this->assertEquals($topic['createdTime'], $result['createdTime']);
@@ -25,10 +25,10 @@ class TopicServiceTest extends BaseTestCase
         $topic = array(
             'name' => 'sql',
             'createdTime' => time(),
-            'userId' => '1'
+            'userId' => 1
         );
         $topic = $this->getTopicService()->createTopic($topic);
-        $result = $this->getTopicService()->getTopicById('1');
+        $result = $this->getTopicService()->getTopicById(1, 1);
 
         $this->assertEquals($topic['name'], $result['name']);
         $this->assertEquals($topic['createdTime'], $result['createdTime']);
@@ -39,14 +39,17 @@ class TopicServiceTest extends BaseTestCase
     {
         $topic = array(
             'name' => 'sql',
+            'userId' => 1,
             'createdTime' => time(),
-            'userId' => '1'
+        );
+        $user = array(
+            'id' => 1,
         );
         $topic = $this->getTopicService()->createTopic($topic);
-        $this->getTopicService()->deleteTopicById('1');
-        $result = $this->getTopicService()->getTopicById('1');
+        $this->getTopicService()->deleteTopicById(1);
+        $result = $this->getTopicService()->getTopicById($topic['id'], $user);
 
-        $this->assertEquals(null,$result);
+        $this->assertNotEquals($topic['id'],$result['id']);
     }
 
     public function testFindAllTopics()
