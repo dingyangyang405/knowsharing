@@ -22,11 +22,9 @@ use Biz\Learn\Impl\LearnServiceImpl;
 use Biz\Learn\Dao\Impl\LearnDaoImpl;
 use Biz\ToDoList\Impl\ToDoListServiceImpl;
 use Biz\ToDoList\Dao\Impl\ToDoListDaoImpl;
-use Biz\Search\Impl\KnowledgeSearchServiceImpl;
 use Biz\Tag\Impl\TagServiceImpl;
 use Biz\Tag\Dao\Impl\TagDaoImpl;
 use Biz\Tag\Dao\Impl\TagKnowledgeDaoImpl;
-
 
 class BizKernel extends Kernel
 {
@@ -152,10 +150,6 @@ class BizKernel extends Kernel
 
         $this['todolist_dao'] = $this->dao(function($container) {
             return new ToDoListDaoImpl($container);
-        });
-
-        $this['knowledge_search'] = $this->dao(function($container) {
-            return new KnowledgeSearchServiceImpl($container);
         });
 
         $this['tag_service'] = function($container) {

@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Common\ArrayToolKit;
 use AppBundle\Common\Paginator;
 use AppBundle\Common\Setting;
+use AppBundle\Common\Api;
 
 class DefaultController extends BaseController
 {
@@ -25,64 +26,64 @@ class DefaultController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-
+        $currentUser = $this->getCurrentUser();
+        $knowledges = $this->getKnowledgeService()->setToreadMark($knowledges, $currentUser['id']);
+        $knowledges = $this->getKnowledgeService()->setLearnedMark($knowledges,$currentUser['id']);
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
 
         $users = ArrayToolKit::index($users, 'id');
+
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
 
         return $this->render('AppBundle:Default:index.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
             'paginator' => $paginator,
-            'type' => 'newKnowledge'
+            'type' => 'newKnowledge',
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
     public function listTopKnowledgesAction(Request $request)
     {
-        $post = $request->request->all();
-        if (empty($post['type'])) {
-            $type = 'like';
-        } else {
-            $type = $post['type'];
-        }
-        $topKnowledges = $this->getKnowledgeService()->findTopKnowledges($type);
+        $likeKnowledges = $this->getKnowledgeService()->findTopKnowledges('like');
+        $favoriteKnowledges = $this->getKnowledgeService()->findTopKnowledges('favorite');
+        $viewKnowledges = $this->getKnowledgeService()->findTopKnowledges('view');
 
         return $this->render('AppBundle:TopList:top-knowledge.html.twig',array(
-            'topKnowledges' => $topKnowledges,
-            'type' => $type
+            'likeKnowledges' => $likeKnowledges,
+            'viewKnowledges' => $viewKnowledges,
+            'favoriteKnowledges' => $favoriteKnowledges,
         ));
     }
 
     public function listTopTopicsAction(Request $request)
     {
-        $post = $request->request->all();
-        if (empty($post['type'])) {
-            $type = 'follow';
-        } else {
-            $type = $post['type'];
-        }
-        $topTopics = $this->getTopicService()->findTopTopics($type);
+        $followTopics = $this->getTopicService()->findTopTopics('follow');
+        $knowledgeTopics = $this->getTopicService()->findTopTopics('knowledge');
 
         return $this->render('AppBundle:TopList:top-topic.html.twig',array(
-            'topTopics' => $topTopics,
-            'type' => $type
+            'followTopics' => $followTopics,
+            'knowledgeTopics' => $knowledgeTopics,
         ));
     }
 
     public function listTopUsersAction(Request $request)
     {
-        $post = $request->request->all();
-        if (empty($post['type'])) {
-            $type = 'score';
-        } else {
-            $type = $post['type'];
-        }
-        $topUsers = $this->getUserService()->findTopUsers($type);
+        $scoreUsers = $this->getUserService()->findTopUsers('score');
+        $browseUsers = $this->getUserService()->findTopUsers('browse');
+        $knowledgeUsers = $this->getUserService()->findTopUsers('knowledge');
 
         return $this->render('AppBundle:TopList:top-user.html.twig',array(
-            'topUsers' => $topUsers,
-            'type' => $type
+            'scoreUsers' => $scoreUsers,
+            'browseUsers' => $browseUsers,
+            'knowledgeUsers' => $knowledgeUsers,
         ));
     }
     
@@ -116,6 +117,12 @@ class DefaultController extends BaseController
 
     }
 
+    public function dailyOneAction()
+    {
+        $dailyOne = Api::getDailyOne();
+
+        return $this->render('AppBundle:Default:dailyOne.html.twig', $dailyOne);
+    }
     private function topicSearch($request, $conditions)
     {
         $currentUser = $this->getCurrentUser();
@@ -161,12 +168,21 @@ class DefaultController extends BaseController
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:Default:search-related-in.html.twig',array(
             'searchType' => $conditions['searchType'],
             'query' => $conditions['query'],
             'paginator'=> $paginator,
             'knowledges' => $knowledges,
-            'users' => $users
+            'users' => $users,
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
@@ -245,4 +261,8 @@ class DefaultController extends BaseController
         return $this->biz['follow_service'];
     }
 
+    protected function getTagService()
+    {
+        return $this->biz['tag_service'];
+    }
 }

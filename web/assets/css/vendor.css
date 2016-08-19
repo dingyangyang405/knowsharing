@@ -12023,6 +12023,9 @@ body, input, button, textarea, select {
 	border-bottom: solid 1px #f0f0f0;
 	margin: 0px;
 	text-decoration: none;
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-bottom: 15px;
 }
 .news-img img {
 	width: 100%;

@@ -53,15 +53,46 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $topKnowledges;
     }
 
-    public function moveToPath($file,$user,$title)
+    public function getTagIds($tags)
+    {
+        if (empty($tags[0])) {
+            return array('id' => 0);
+        }
+        $allTags = $this->findAllTags(array(),array('createdTime','DESC'),0,PHP_INT_MAX);
+        $allTagIds = ArrayToolKit::column($allTags,'id');
+        $result = array();
+        foreach ($tags as $key => $tag) {
+            if (in_array($tag, $allTagIds)) {
+                $result[] = $tag;
+            } else {
+                $result[] = $this->getTagDao()->create(array('text' => $tag))['id'];
+            }
+        }
+
+        return $result;
+    }
+
+    public function findAllTags($conditions,$orderBy,$start,$limit)
+    {
+        return $this->getTagDao()->search($conditions,$orderBy,$start,$limit);
+    }
+
+    public function moveToPath($file,$user,$knowledge)
     {
         if (empty($file)) {
             throw new \Exception("上传文档不能为空!");
-        } elseif (empty($title)) {
+        } elseif (abs(filesize($file)) > 20971520) {
+            throw new \Exception("文件不能大于20M!");
+        } elseif (empty($knowledge['title'])) {
             throw new \Exception("标题不能为空!");
+        } elseif (strlen($knowledge['title']) > 60) {
+            throw new \Exception("标题不能超过20个汉字!");
+        } elseif (strlen($knowledge['topic']) > 60) {
+            throw new \Exception("主题名不能超过20个汉字!");
         }
+        
         $upLoad = new UpLoad($file);
-        $path = $upLoad->moveToPath($user,$title);
+        $path = $upLoad->moveToPath($user,$knowledge['title']);
 
         return $path;
     }
@@ -83,10 +114,7 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
 
     public function findKnowledgesByUserId($id)
     {
-        $knowledges = $this->getKnowledgeDao()->findKnowledgesByUserId($id);
-        $knowledges = $this->setToreadMark($knowledges);
-
-        return $knowledges;
+        return $this->getKnowledgeDao()->findKnowledgesByUserId($id);
     }
 
     public function findKnowledgesByKnowledgeIds($knowledgeIds)
@@ -96,12 +124,28 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     
     public function createKnowledge($field)
     {
+        $this->updateFollow($field);
+        $tagId = $field['tagId'];
+        $string = implode('|', $tagId);
+        $field['tagId'] = $string;
+
         return $this->getKnowledgeDao()->create($field);
     }
     
     public function getKnowledge($id)
     {
         return $this->getKnowledgeDao()->get($id);
+    }
+
+    public function updateFollow($filed)
+    {
+        $currentUser = $this->getCurrentUser();
+        $topicId = $filed['topicId'];
+        $userId = $currentUser['id'];
+        $addNumber = 1;
+        $this->getFollowDao()->updateFollowByObjectId($topicId, $addNumber, $type = 'topic');
+        $this->getFollowDao()->updateFollowByObjectId($userId, $addNumber, $type = 'user');
+        return true;
     }
 
     public function createComment($conditions)
@@ -127,23 +171,29 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
 
     public function searchKnowledges($conditions, $orderBy, $start, $limit)
     {
-        $knowledges = $this->getKnowledgeDao()->search($conditions, $orderBy, $start, $limit);
+        return $this->getKnowledgeDao()->search($conditions, $orderBy, $start, $limit);
+    }
 
-        $knowledges = $this->setToreadMark($knowledges);
+    public function setToreadMark($knowledges, $userId)
+    {
+        $toreadKnowledgeIds =  $this->getToreadDao()->findToreadIds($userId);
+        $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledgeIds, 'knowledgeId');
+        foreach ($knowledges as $key => $value) {
+            if (isset($toreadKnowledgeIds[$value['id']])) {
+                $knowledges[$key]['toread'] = true;
+            }
+        }
 
         return $knowledges;
     }
 
-    protected function setToreadMark($knowledges)
+    public function setLearnedMark($knowledges, $userId)
     {
-        $user = $this->biz->getUser();
-        if (!empty($user)) {
-            $toreadKnowledgeIds =  $this->getToreadDao()->findToreadIds($user['id']);
-            $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledgeIds, 'knowledgeId');
-            foreach ($knowledges as $key => $value) {
-                if (isset($toreadKnowledgeIds[$value['id']])) {
-                    $knowledges[$key]['toread'] = true;
-                }
+        $learnedIds = $this->getLearnDao()->findLearnedIds($userId);
+        $learnedIds = ArrayToolkit::index($learnedIds, 'knowledgeId');
+        foreach ($knowledges as $key => $value) {
+            if (isset($learnedIds[$value['id']])) {
+                $knowledges[$key]['learned'] = true;
             }
         }
 
@@ -155,9 +205,19 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $this->getKnowledgeDao()->searchKnowledgesByIds($ids, $start, $limit);
     }
 
+    public function searchKnowledgesByIdsWithNoOrder($ids, $start, $limit)
+    {
+        return $this->getKnowledgeDao()->searchKnowledgesByIdsWithNoOrder($ids, $start, $limit);
+    }
+
     protected function getKnowledgeDao()
     {
         return $this->biz['knowledge_dao'];
+    }
+
+    protected function getTagDao()
+    {
+        return $this->biz['tag_dao'];
     }
 
     protected function getCommentDao()
@@ -168,5 +228,14 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     protected function getToreadDao()
     {
         return $this->biz['toread_dao'];
+    }
+
+    public function getFollowDao()
+    {
+        return $this->biz['follow_dao'];
+    }
+    protected function getLearnDao()
+    {
+        return $this->biz['learn_dao'];
     }
 }

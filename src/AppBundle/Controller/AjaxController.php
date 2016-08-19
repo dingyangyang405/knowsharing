@@ -4,14 +4,14 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use AppBundle\Common\Curl;
+use AppBundle\Common\Api;
 
 class AjaxController  extends BaseController
 {
     public function linkAction(Request $request)
     {
         $requestData = $request->request->all();
-        $title = Curl::getTitle($requestData['link']);
+        $title = Api::getTitle($requestData['link']);
 
         return new JsonResponse(array(
             'title' => $title
@@ -33,9 +33,30 @@ class AjaxController  extends BaseController
         ));
     }
 
+    public function tagAction(Request $request)
+    {
+        $conditions = $request->request->all();
+
+        $tags = $this->getTagService()->searchTags(
+            $conditions,
+            array('createdTime', 'DESC'),
+            0,
+            PHP_INT_MAX
+        );
+
+        return new JsonResponse(array(
+            'tags' => $tags
+        ));      
+    }
+    
     protected function getTopicService()
     {
         return $this->biz['topic_service'];
+    }
+
+    protected function getTagService()
+    {
+        return $this->biz['tag_service'];
     }
 
 }

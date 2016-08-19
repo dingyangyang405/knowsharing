@@ -14,6 +14,9 @@ class UserController extends BaseController
     public function indexAction(Request $request,$userId)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $user = $this->getUserService()->getUser($userId);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
 
@@ -33,9 +36,20 @@ class UserController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
-
+        $knowledges = $this->getKnowledgeService()->setToreadMark($knowledges, $currentUser['id']);
+        $knowledges = $this->getKnowledgeService()->setLearnedMark($knowledges,$currentUser['id']);
         $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$userId);
         $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$userId);
+        $type = 'user';
+        $this->getFollowService()->clearFollowNewKnowledgeNumByObjectId($type, $userId);
+
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
 
         return $this->render('AppBundle:User:index.html.twig', array(
             'user' => $user,
@@ -43,13 +57,17 @@ class UserController extends BaseController
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
             'knowledges' => $knowledges,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
     public function listFavoritesAction(Request $request, $userId)
     {
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $user = $this->getUserService()->getUser($userId);
         $hasfollowed = $this->getFollowService()->getFollowUserByUserIdAndObjectUserId($currentUser['id'],$userId);
         
@@ -73,6 +91,14 @@ class UserController extends BaseController
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:User:favorite.html.twig', array(
             'users' => $users,
             'user' => $user,
@@ -80,7 +106,8 @@ class UserController extends BaseController
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
             'knowledges' => $knowledges,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
@@ -92,34 +119,45 @@ class UserController extends BaseController
         }
         $favorites = $this->getFavoriteService()->findFavoritesByUserId($currentUser['id']);
         $knowledgeIds = ArrayToolKit::column($favorites,'knowledgeId');
-
-        $conditions = array('knowledgeIds' => $knowledgeIds);
+        
         $orderBy = array('createdTime', 'DESC');
         $paginator = new Paginator(
             $this->get('request'),
-            $this->getKnowledgeService()->getKnowledgesCount($conditions),
+            count($knowledgeIds),
             20
         );
-        $knowledges = $this->getKnowledgeService()->searchKnowledges(
-            $conditions,
-            $orderBy,
+        $knowledges = $this->getKnowledgeService()->searchKnowledgesByIds(
+            $knowledgeIds,
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
+
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
             'paginator' => $paginator,
-            'type' => 'myFavorite'
+            'type' => 'myFavorite',
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
     public function listFollowsAction(Request $request, $userId, $type)
     {   
         $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
         $user = $this->getUserService()->getUser($userId);
         $conditions = array('userId' => $user['id']);
         $knowledgesCount = $this->getKnowledgeService()->getKnowledgesCount($conditions);
@@ -142,17 +180,13 @@ class UserController extends BaseController
 
             $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
-            $conditions = array('ids' => $objectIds);
-            $orderBy = array('createdTime', 'DESC');
-
             $paginator = new Paginator(
                 $this->get('request'),
                 count($objectIds),
                 20
             );
-            $objects = $this->getTopicService()->searchTopics(
-                $conditions,
-                $orderBy,
+            $objects = $this->getTopicService()->searchTopicsByIds(
+                $objectIds,
                 $paginator->getOffsetCount(),
                 $paginator->getPerPageCount()
             );
@@ -192,27 +226,24 @@ class UserController extends BaseController
             );
             $objects = $this->getFollowService()->hasFollowUsers($objects,$currentUser['id']);
         } elseif ($type == 'topic') {
-            $conditions = array('ids' => $objectIds);
-            $orderBy = array('createdTime', 'DESC');
-
             $paginator = new Paginator(
                 $this->get('request'),
                 count($objectIds),
                 20
             );
-            $objects = $this->getTopicService()->searchTopics(
-                $conditions,
-                $orderBy,
+            $objects = $this->getTopicService()->searchTopicsByIds(
+                $objectIds,
                 $paginator->getOffsetCount(),
                 $paginator->getPerPageCount()
             );
             $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
         }
-
+        $myFollows = ArrayToolKit::index($myFollows, 'objectId');
         return $this->render('AppBundle:MyKnowledgeShare:my-follows.html.twig', array(
             'objects' => $objects,
             'type' => $type,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'myFollows' => $myFollows
         ));
     }
 
@@ -242,8 +273,8 @@ class UserController extends BaseController
     {
         $user = $this->getCurrentUser();
 
-        if (empty($user)) {
-            throw new \Exception('用户不存在');
+        if (!$user->isLogin()) {
+           return new JsonResponse(false);
         }
 
         $this->getToreadService()->createToreadKnowledge($id ,$user['id']);
@@ -262,6 +293,52 @@ class UserController extends BaseController
         $this->getToreadService()->deleteToreadKnowledge($id, $user['id']);
 
         return new JsonResponse(true);
+    }
+
+    public function learnHistoryAction(Request $request)
+    {
+        $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
+        $conditions = array(
+            'userId' => $currentUser['id'],
+        );
+        $orderBy = array('createdTime', 'DESC');
+        $knowledgesCount = $this->getLearnService()->getLearnCount($conditions);
+        $learnedKnowledges = $this->getLearnService()->findLearnedKnowledgeIds($currentUser['id']);
+        $ids = ArrayToolKit::column($learnedKnowledges, 'knowledgeId');
+        
+        $paginator = new Paginator(
+            $this->get('request'),
+            $knowledgesCount,
+            20
+        );
+        
+        $knowledges = $this->getKnowledgeService()->searchKnowledgesByIdsWithNoOrder(
+            $ids,
+            $paginator->getOffsetCount(),
+            $paginator->getPerPageCount()
+        );
+        $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
+        $users = ArrayToolKit::index($users, 'id');
+
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
+        return $this->render('AppBundle:User:my-learn-history.html.twig', 
+            array(
+            'type' => 'history',
+            'knowledges' => $knowledges,
+            'users' => $users,
+            'knowledgeTags' => $knowledgeTags,
+            'paginator' => $paginator
+        ));
     }
 
     protected function getKnowledgeService()
@@ -297,5 +374,15 @@ class UserController extends BaseController
     protected function getToreadService()
     {
         return $this->biz['toread_service'];
+    }
+
+    protected function getLearnService()
+    {
+        return $this->biz['learn_service'];
+    }
+
+    protected function getTagService()
+    {
+        return $this->biz['tag_service'];
     }
 }

@@ -32,7 +32,7 @@ class TopicController extends BaseController
             $paginator->getPerPageCount()
         );
         $topics = $this->getFollowService()->hasFollowTopics($topics,$currentUser['id']);
-
+        
         return $this->render('AppBundle:Topic:index.html.twig', array(
             'topics' => $topics,
             'paginator' => $paginator,
@@ -62,7 +62,7 @@ class TopicController extends BaseController
         return new JsonResponse(true);
     }
 
-    public function topicKnowledgesAction(Request $request, $id)
+    public function topicKnowledgesAction(Request $request, $id, $name)
     {
         $conditions = array('topicId' => $id);
         $orderBy = array('createdTime', 'DESC');
@@ -78,12 +78,27 @@ class TopicController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
+
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
+        $type = 'topic';
+        $this->getFollowService()->clearFollowNewKnowledgeNumByObjectId($type, $id);
+
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:Topic:knowledge.html.twig', array(
             'knowledges' => $knowledges,
             'paginator' => $paginator,
-            'users' => $users
+            'users' => $users,
+            'name' => $name,
+            'id' => $id,
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
@@ -105,5 +120,10 @@ class TopicController extends BaseController
     protected function getKnowledgeService()
     {
         return $this->biz['knowledge_service'];
+    }
+
+    protected function getTagService()
+    {
+        return $this->biz['tag_service'];
     }
 }
