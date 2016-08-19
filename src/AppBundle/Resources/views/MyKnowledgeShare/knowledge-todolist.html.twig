@@ -11,6 +11,7 @@
         {% if knowledges is defined and knowledges %}
           {% for knowledge in knowledges %}
             {% set user = users[knowledge.userId]|default(null) %}
+            {% set knowledgeTag = knowledgeTags[knowledge.id].knowledgeTag|default(null) %}
               {% include "AppBundle:MyKnowledgeShare:single-knowledge-todolist.html.twig" %}
             {% endfor %}
           {% else %}
