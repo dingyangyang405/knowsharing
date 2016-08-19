@@ -168,12 +168,21 @@ class DefaultController extends BaseController
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:Default:search-related-in.html.twig',array(
             'searchType' => $conditions['searchType'],
             'query' => $conditions['query'],
             'paginator'=> $paginator,
             'knowledges' => $knowledges,
-            'users' => $users
+            'users' => $users,
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
