@@ -1,8 +1,8 @@
 <div class="news-list">
   <div class="news-info col-xs-12 col-sm-12 col-md-11">
-    <dl>
-      <dt style="padding-left:19px;">
-        <a href="javascript:;" target="_blank" >{{ knowledge.title }}</a>
+    <div>
+      <div style="padding-left:19px; height:50px;line-height:50px;">
+        <a href="javascript:;" target="_blank" style="color: #0c0c0c">{{ knowledge.title }}</a>
         <div class="pull-right">
           <button id="learn-btn" class="btn btn-primary finish-btn" {% if hasLearned %}style="display:none"{% endif %} data-url="{{path('knowledge_finish_learn',{id:knowledge.id})}}">
             <span class="glyphicon glyphicon-unchecked"></span>
@@ -14,8 +14,11 @@
             学过了
           </button>
         </div>
-      </dt>
-      <dd>
+      </div>
+      <p class="text" style="padding-left:19px;"> <i class="fa fa-fw fa-book"></i>
+        摘要：{{knowledge.summary}}
+      </p>
+      <p>
         <span class="name">
           <a href="{{ path('user_page',{userId:user.id}) }}"  rel="author"> <i class="fa fa-fw fa-user"></i>
             {{ user.username }}
@@ -28,16 +31,13 @@
           <a class="btn btn-default fa fa-trash admin-delete-btn" data-url="{{path('admin_knowledge_delete',{id: knowledge.id})}}"></a>
         </span>
         {% endif %}
-      </dd>
-      <dd class="text" style="padding-left:19px;"> <i class="fa fa-fw fa-book"></i>
-        摘要：{{knowledge.summary}}
-      </dd>
-    </dl>
-    <dd style="padding-left:19px;">
+      </p>
+    </div>
+    <p style="padding-left:19px;">
       <i class="fa fa-fw  fa-mail-forward"></i>
       <a href="{% if knowledge.type == 'link' %}http://{{ knowledge.content  }} {% else %} {{path('knowledge_download_file',{id:knowledge.id})}} {% endif %}">{{ knowledge.content  }}</a>
-    </dd>
-    <div class="news_bot col-sm-7 col-md-8" style="padding-left:19px;">
+    </p>
+    <div class="news_bot col-sm-7 col-md-8" style="padding-left:19px;margin-top: 15px;;">
       <span class="tags visible-lg visible-md">
       {% for tag in singleTagIds %}
         <span class="tags visible-lg visible-md">
