@@ -43,13 +43,22 @@ class UserController extends BaseController
         $type = 'user';
         $this->getFollowService()->clearFollowNewKnowledgeNumByObjectId($type, $userId);
 
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:User:index.html.twig', array(
             'user' => $user,
             'knowledgesCount' => $knowledgesCount,
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
             'knowledges' => $knowledges,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
