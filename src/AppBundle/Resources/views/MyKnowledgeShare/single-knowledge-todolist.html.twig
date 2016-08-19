@@ -18,8 +18,11 @@
     </dl>
     <div class="news_bot col-sm-7 col-md-8" style="padding-left:19px;">
       <span class="tags visible-lg visible-md">
-        <a href="javascript:;">技术贴</a>
-        <a href="javascript:;">PHP</a>
+      {% for tag in knowledgeTag %}
+        <span class="tags visible-lg visible-md">
+          <a href="javascript:;">{{tag.text}}</a>
+        </span>
+      {% endfor %}
       </span>
       <div class="pull-right">
         <span>
