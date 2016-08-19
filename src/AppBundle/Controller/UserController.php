@@ -116,11 +116,21 @@ class UserController extends BaseController
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
+
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
             'paginator' => $paginator,
-            'type' => 'myFavorite'
+            'type' => 'myFavorite',
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
