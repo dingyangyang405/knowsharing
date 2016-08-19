@@ -51,6 +51,8 @@ class KnowledgeController extends BaseController
             }
         }
 
+        $singleTagIds = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+
         $knowledge = array($knowledge);
         $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$currentUser['id']);
 
@@ -63,25 +65,31 @@ class KnowledgeController extends BaseController
             'comments' => $comments,
             'users' => $users,
             'paginator' => $paginator,
-            'hasLearned' => $hasLearned
+            'hasLearned' => $hasLearned,
+            'singleTagIds' => $singleTagIds
         ));
     }
 
     public function createKnowledgeAction(Request $request)
     {
         $user = $this->getCurrentUser();
-
         $knowledge = $request->request->all();
-
         $knowledge['title'] = trim($knowledge['title']);
         $knowledge['topic'] = trim($knowledge['topic']);
+
         if ($knowledge['type'] == 'file') {
             $file = $request->files->get('content');
+
+            $tags = explode(",", trim($knowledge['tag']));
+            $tagIds = $this->getKnowledgeService()->getTagIds($tags);
+
             $content = $this->getKnowledgeService()->moveToPath($file,$user,$knowledge);   
         } elseif ($knowledge['type'] == 'link') {
+            $tagIds = $this->getKnowledgeService()->getTagIds($knowledge['tag']);
             $content = $request->request->get('content');        
         }
 
+        
         $topic = $this->getTopicService()->getTopicById($knowledge['topic'],$user);
         $data = array(
             'title' => $knowledge['title'],
@@ -90,6 +98,7 @@ class KnowledgeController extends BaseController
             'topicId' => $topic['id'],
             'type' => $knowledge['type'],
             'userId' => $user['id'],
+            'tagId' => $tagIds
         );
         $this->getKnowledgeService()->createKnowledge($data);
         $this->getUserService()->addScore($user['id'], 3);

@@ -78,14 +78,27 @@ class TopicController extends BaseController
             $paginator->getOffsetCount(),
             $paginator->getPerPageCount()
         );
+
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
+        $type = 'topic';
+        $this->getFollowService()->clearFollowNewKnowledgeNumByObjectId($type, $id);
+
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:Topic:knowledge.html.twig', array(
             'knowledges' => $knowledges,
             'paginator' => $paginator,
             'users' => $users,
             'name' => $name,
-            'id' => $id
+            'id' => $id,
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
@@ -107,5 +120,10 @@ class TopicController extends BaseController
     protected function getKnowledgeService()
     {
         return $this->biz['knowledge_service'];
+    }
+
+    protected function getTagService()
+    {
+        return $this->biz['tag_service'];
     }
 }

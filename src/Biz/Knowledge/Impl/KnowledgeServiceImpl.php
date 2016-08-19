@@ -54,6 +54,30 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $topKnowledges;
     }
 
+    public function getTagIds($tags)
+    {
+        if (empty($tags[0])) {
+            return array('id' => 0);
+        }
+        $allTags = $this->findAllTags(array(),array('createdTime','DESC'),0,PHP_INT_MAX);
+        $allTagIds = ArrayToolKit::column($allTags,'id');
+        $result = array();
+        foreach ($tags as $key => $tag) {
+            if (in_array($tag, $allTagIds)) {
+                $result[] = $tag;
+            } else {
+                $result[] = $this->getTagDao()->create(array('text' => $tag))['id'];
+            }
+        }
+
+        return $result;
+    }
+
+    public function findAllTags($conditions,$orderBy,$start,$limit)
+    {
+        return $this->getTagDao()->search($conditions,$orderBy,$start,$limit);
+    }
+
     public function moveToPath($file,$user,$knowledge)
     {
         if (empty($file)) {
@@ -120,12 +144,28 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     
     public function createKnowledge($field)
     {
+        $this->updateFollow($field);
+        $tagId = $field['tagId'];
+        $string = implode('|', $tagId);
+        $field['tagId'] = $string;
+
         return $this->getKnowledgeDao()->create($field);
     }
     
     public function getKnowledge($id)
     {
         return $this->getKnowledgeDao()->get($id);
+    }
+
+    public function updateFollow($filed)
+    {
+        $currentUser = $this->getCurrentUser();
+        $topicId = $filed['topicId'];
+        $userId = $currentUser['id'];
+        $addNumber = 1;
+        $this->getFollowDao()->updateFollowByObjectId($topicId, $addNumber, $type = 'topic');
+        $this->getFollowDao()->updateFollowByObjectId($userId, $addNumber, $type = 'user');
+        return true;
     }
 
     public function createComment($conditions)
@@ -195,6 +235,11 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $this->biz['knowledge_dao'];
     }
 
+    protected function getTagDao()
+    {
+        return $this->biz['tag_dao'];
+    }
+
     protected function getCommentDao()
     {
         return $this->biz['comment_dao'];
@@ -205,6 +250,10 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $this->biz['toread_dao'];
     }
 
+    public function getFollowDao()
+    {
+        return $this->biz['follow_dao'];
+    }
     protected function getLearnDao()
     {
         return $this->biz['learn_dao'];

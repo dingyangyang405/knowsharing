@@ -40,6 +40,16 @@ class UserController extends BaseController
         $knowledges = $this->getKnowledgeService()->setLearnedMark($knowledges,$currentUser['id']);
         $knowledges = $this->getFavoriteService()->hasFavoritedKnowledge($knowledges,$userId);
         $knowledges = $this->getLikeService()->haslikedKnowledge($knowledges,$userId);
+        $type = 'user';
+        $this->getFollowService()->clearFollowNewKnowledgeNumByObjectId($type, $userId);
+
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
 
         return $this->render('AppBundle:User:index.html.twig', array(
             'user' => $user,
@@ -47,7 +57,8 @@ class UserController extends BaseController
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
             'knowledges' => $knowledges,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
@@ -80,6 +91,14 @@ class UserController extends BaseController
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:User:favorite.html.twig', array(
             'users' => $users,
             'user' => $user,
@@ -87,7 +106,8 @@ class UserController extends BaseController
             'favoritesCount' => $favoritesCount,
             'hasfollowed' => $hasfollowed,
             'knowledges' => $knowledges,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
@@ -114,11 +134,21 @@ class UserController extends BaseController
 
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
+
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:MyKnowledgeShare:my-favorites.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
             'paginator' => $paginator,
-            'type' => 'myFavorite'
+            'type' => 'myFavorite',
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
@@ -208,11 +238,12 @@ class UserController extends BaseController
             );
             $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
         }
-
+        $myFollows = ArrayToolKit::index($myFollows, 'objectId');
         return $this->render('AppBundle:MyKnowledgeShare:my-follows.html.twig', array(
             'objects' => $objects,
             'type' => $type,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'myFollows' => $myFollows
         ));
     }
 
@@ -291,12 +322,22 @@ class UserController extends BaseController
         );
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
-       
+
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:User:my-learn-history.html.twig', 
             array(
             'type' => 'history',
             'knowledges' => $knowledges,
             'users' => $users,
+            'knowledgeTags' => $knowledgeTags,
+            'paginator' => $paginator
         ));
     }
 
@@ -338,5 +379,10 @@ class UserController extends BaseController
     protected function getLearnService()
     {
         return $this->biz['learn_service'];
+    }
+
+    protected function getTagService()
+    {
+        return $this->biz['tag_service'];
     }
 }

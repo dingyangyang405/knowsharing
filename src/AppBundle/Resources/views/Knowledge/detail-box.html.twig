@@ -1,47 +1,49 @@
 <div class="news-list">
-    <div class="news-info col-xs-12 col-sm-12 col-md-11">
-        <dl>
-            <dt>
-                <a href="javascript:;" target="_blank" >
-                    {{ knowledge.title }}
-                </a>
-                <div class="pull-right">
-                  <button id="learn-btn" class="btn btn-primary finish-btn" {% if hasLearned %}style="display:none"{% endif %} data-url="{{path('knowledge_finish_learn',{id:knowledge.id})}}">
-                  <span class="glyphicon glyphicon-unchecked"></span>
-                  待学习
-                  </button>
+  <div class="news-info col-xs-12 col-sm-12 col-md-11">
+    <div>
+      <div style="padding-left:19px; height:50px;line-height:50px;">
+        <a href="javascript:;" target="_blank" style="color: #0c0c0c;font-size: 18px;">{{ knowledge.title }}</a>
+        <div class="pull-right">
+          <button id="learn-btn" class="btn btn-primary finish-btn" {% if hasLearned %}style="display:none"{% endif %} data-url="{{path('knowledge_finish_learn',{id:knowledge.id})}}">
+            <span class="glyphicon glyphicon-unchecked"></span>
+            待学习
+          </button>
 
-                  <button id="finish-btn" class="btn btn-primary finish-btn success" {% if not hasLearned %}style="display:none"{% endif %} disabled="disabled">
-                  <span class="glyphicon glyphicon-check"></span>
-                  学过了
-                  </button>
-                </div>
-            </dt>
-            <dd>
-              <span class="name">
-                <a href="{{ path('user_page',{userId:user.id}) }}"  rel="author">分享者:{{ user.username }}</a>
-              </span>
-                      <span class="identity"></span>
-              <span class="time">
-                分享日期:{{ knowledge.createdTime |date('Y年m月d日') }}
-              </span>
-              {% if userRole.roles == 'admin' %}
-                <span style="float:right">
-                  <a class="btn btn-primary fa fa-edit admin-edit-btn" data-url="{{path('admin_knowledge_edit',{id:knowledge.id})}}"></a>
-                  <a class="btn btn-default fa fa-trash admin-delete-btn" data-url="{{path('admin_knowledge_delete',{id: knowledge.id})}}"></a>
-                </span>
-              {% endif %}
-            </dd>
-            <dd class="text">{{ knowledge.summary }}</dd>
-        </dl>
-        <p>
-          传送门:
-          <a href="{% if knowledge.type == 'link' %}http://{{ knowledge.content  }} {% else %} {{path('knowledge_download_file',{id:knowledge.id})}} {% endif %}">{{ knowledge.content  }}</a>
-        </p>
-        <div class="news_bot col-sm-7 col-md-8">
+          <button id="finish-btn" class="btn btn-primary finish-btn success" {% if not hasLearned %}style="display:none"{% endif %} disabled="disabled">
+            <span class="glyphicon glyphicon-check"></span>
+            学过了
+          </button>
+        </div>
+      </div>
+      <p class="text" style="padding-left:19px;"> <i class="fa fa-fw fa-book"></i>
+        摘要：{{knowledge.summary}}
+      </p>
+      <p>
+        <span class="name">
+          <a href="{{ path('user_page',{userId:user.id}) }}"  rel="author"> <i class="fa fa-fw fa-user"></i>
+            {{ user.username }}
+          </a>
+        </span>
+        <span class="identity"></span>
+        {% if userRole.roles == 'admin' %}
+        <span style="float:right">
+          <a class="btn btn-primary fa fa-edit admin-edit-btn" data-url="{{path('admin_knowledge_edit',{id:knowledge.id})}}"></a>
+          <a class="btn btn-default fa fa-trash admin-delete-btn" data-url="{{path('admin_knowledge_delete',{id: knowledge.id})}}"></a>
+        </span>
+        {% endif %}
+      </p>
+    </div>
+    <p style="padding-left:19px;">
+      <i class="fa fa-fw  fa-mail-forward"></i>
+      <a href="{% if knowledge.type == 'link' %}http://{{ knowledge.content  }} {% else %} {{path('knowledge_download_file',{id:knowledge.id})}} {% endif %}">{{ knowledge.content  }}</a>
+    </p>
+    <div class="news_bot col-sm-7 col-md-8" style="padding-left:19px;margin-top: 15px;;">
       <span class="tags visible-lg visible-md">
-        <a href="avascript:;">技术贴</a>
-        <a href="javascript:;">PHP</a>
+      {% for tag in singleTagIds %}
+        <span class="tags visible-lg visible-md">
+          <a href="javascript:;">{{tag.text}}</a>
+        </span>
+      {% endfor %}
       </span>
       <span class="look">
         <a class="pull-center collect-btn"  data-url="{{ path('knowledge_favorite', {id:knowledge.id}) }}" {% if knowledge.isFavorited %}style="display:none"{% endif %}>
@@ -61,8 +63,8 @@
         <a class="pull-right dislike-btn"  data-url="{{ path('knowledge_dislike', {id:knowledge.id}) }}" {% if not knowledge.isLiked   %}style="display:none"{% endif %}>
           <i class="fa fa-fw fa-thumbs-up"></i>
           <span class="dislike-num" >{{knowledge.likeNum}}</span>
-        </a> 
+        </a>
       </span>
-        </div>
     </div>
+  </div>
 </div>

@@ -8,6 +8,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use AppBundle\Common\ArrayToolKit;
 use AppBundle\Common\Paginator;
 use AppBundle\Common\Setting;
+use AppBundle\Common\Api;
 
 class DefaultController extends BaseController
 {
@@ -33,11 +34,20 @@ class DefaultController extends BaseController
 
         $users = ArrayToolKit::index($users, 'id');
 
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:Default:index.html.twig', array(
             'knowledges' => $knowledges,
             'users' => $users,
             'paginator' => $paginator,
-            'type' => 'newKnowledge'
+            'type' => 'newKnowledge',
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
@@ -108,6 +118,12 @@ class DefaultController extends BaseController
 
     }
 
+    public function dailyOneAction()
+    {
+        $dailyOne = Api::getDailyOne();
+
+        return $this->render('AppBundle:Default:dailyOne.html.twig', $dailyOne);
+    }
     private function topicSearch($request, $conditions)
     {
         $currentUser = $this->getCurrentUser();
@@ -153,12 +169,21 @@ class DefaultController extends BaseController
         $users = $this->getUserService()->findUsersByIds(ArrayToolKit::column($knowledges, 'userId'));
         $users = ArrayToolKit::index($users, 'id');
 
+        $knowledgeTags = array();
+        foreach ($knowledges as $key => $knowledge) {
+            $singleTagIds['knowledgeId'] = $knowledge['id'];
+            $singleTagIds['knowledgeTag'] = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
+            $knowledgeTags[] = $singleTagIds;
+        }
+        $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
+
         return $this->render('AppBundle:Default:search-related-in.html.twig',array(
             'searchType' => $conditions['searchType'],
             'query' => $conditions['query'],
             'paginator'=> $paginator,
             'knowledges' => $knowledges,
-            'users' => $users
+            'users' => $users,
+            'knowledgeTags' => $knowledgeTags
         ));
     }
 
@@ -251,4 +276,8 @@ class DefaultController extends BaseController
         return $this->biz['follow_service'];
     }
 
+    protected function getTagService()
+    {
+        return $this->biz['tag_service'];
+    }
 }

@@ -52,27 +52,6 @@ class AuthController extends BaseController
         return $this->render('AppBundle:Auth:register.html.twig');
     }
 
-    public function formSubmitAction(Request $request)
-    {
-        if ('POST' == $request->getMethod()) {
-            $fields = $request->request->all();
-        }
-
-        return $this->render('AppBundle:Auth:form-submit.html.twig', array(
-            'fields' => isset($fields) ? $fields : null,
-        ));
-    }
-
-    public function ajaxFormSubmitAction(Request $request)
-    {
-        if ('POST' == $request->getMethod()) {
-            $fields = $request->request->all();
-            return $this->json($fields);
-        }
-
-        return $this->render('AppBundle:Auth:ajax-form-submit.html.twig');
-    }
-
     protected function getUserService()
     {
         return $this->biz['user_service'];
