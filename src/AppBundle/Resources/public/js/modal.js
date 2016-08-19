@@ -34,6 +34,9 @@ $(document).ready(function(){
 
     $("body").on('click', '#addFile', function() {
         var $url = $(this).data('url');
+        var tag = $('[name = tag]').val();
+        var $file = new FormData($('#addFileForm')[0]);
+        $file.append('tag',tag);
         if (checkFileSize('inputfile') == false) {
             return ;
         }
@@ -46,10 +49,11 @@ $(document).ready(function(){
         if (checkLength('select-topic') == false) {
             return ;
         }
+        
         $.ajax({
             url:$url,
             cache:false,
-            data:new FormData($('#addFileForm')[0]),
+            data:$file,
             type:"POST",
             async:false,
             processData:false,

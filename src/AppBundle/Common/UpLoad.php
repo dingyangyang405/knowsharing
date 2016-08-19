@@ -3,6 +3,8 @@
 namespace AppBundle\Common;
 
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UpLoad
 {
@@ -15,8 +17,16 @@ class UpLoad
 
     public function moveToPath($path,$fileName)
     {
-        $this->file->move($path,$fileName);
+        return $this->file->move($path,$fileName);
+    }
 
-        return $fileName;
+    public function getClientOriginalName()
+    {
+        return $this->file->getClientOriginalName();
+    }
+
+    public function getClientMimeType()
+    {
+        return $this->file->getClientMimeType();
     }
 }

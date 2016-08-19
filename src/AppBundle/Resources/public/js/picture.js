@@ -25,10 +25,10 @@ $(document).ready(function(){
         var reader = new FileReader();
         reader.onload = function(e){
             var data = e.target.result;
-            // preview.style.backgroundImage = 'url('+data+')';
-            var img = document.createElement("img");
-            img.src = data;
-            document.getElementById("picture-preview").appendChild(img);
+            preview.style.backgroundImage = 'url('+data+')';    
+            // var img = document.createElement("img");
+            // img.src = data;
+            // document.getElementById("picture-preview").appendChild(img);
         };
         reader.readAsDataURL(file);
     });
@@ -37,9 +37,8 @@ $(document).ready(function(){
         var modal = $('#upload-picture-form').parents('.modal');
         var form = $('#upload-picture-form');
         var url = form.attr('action');
-        console.log($('#upload-picture-form')[0]);
         var data = new FormData($('#upload-picture-form')[0]);
-        console.log(data);
+
         $('#upload-picture-btn').button('submiting').addClass('disabled');
         $.ajax({
             url: url,
@@ -50,9 +49,10 @@ $(document).ready(function(){
             processData: false, 
             contentType: false,
             success:function(){
-                // modal.modal('hide');
-                // window.location.reload();
+                modal.modal('hide');
+                location.href = '/';  
             }
         });
+         window.location.reload();
     });
 });

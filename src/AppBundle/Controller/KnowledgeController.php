@@ -72,6 +72,7 @@ class KnowledgeController extends BaseController
         $user = $this->getCurrentUser();
 
         $knowledge = $request->request->all();
+
         $knowledge['title'] = trim($knowledge['title']);
         $knowledge['topic'] = trim($knowledge['topic']);
         if ($knowledge['type'] == 'file') {

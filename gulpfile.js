@@ -16,7 +16,6 @@ elixir(function(mix) {
         './node_modules/select2/dist/js/select2.min.js',
         './node_modules/bootstrap/dist/js/bootstrap.js',
         './node_modules/admin-lte/dist/js/app.js',
-        './app/Resources/public/js/html5shiv.min.js',
     ], 'web/assets/js/vendor.js');
 
     mix.copy([
