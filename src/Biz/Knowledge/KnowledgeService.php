@@ -39,4 +39,12 @@ interface KnowledgeService
     public function searchFollowKnowledges($conditions, $start, $limit);
 
     public function searchKnowledgesByIdsWithNoOrder($ids, $start, $limit);
+
+    public function findAllTags($conditions,$orderBy,$start,$limit);
+
+    public function moveToPath($file,$user,$knowledge);
+
+    public function updateFollow($filed);
+
+    public function setLearnedMark($knowledges, $userId);
 }
