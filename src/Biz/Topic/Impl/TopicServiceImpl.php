@@ -16,6 +16,7 @@ class TopicServiceImpl extends KernelAwareBaseService implements TopicService
         if (!empty($topic)) {
             return $topic;
         }
+
         return $this->getTopicDao()->create($field);
     }
 
@@ -36,20 +37,6 @@ class TopicServiceImpl extends KernelAwareBaseService implements TopicService
     public function getTopicByKnowledgeId($id)
     {
         return $this->getTopicDao()->get($id);
-    }
-
-    public function getTopicByName($name)
-    {
-        if (empty($name)) {
-            return $topic['id'] = null;
-        }
-        $result = $this->getTopicDao()->getTopicByName($name);
-        if ($result) {
-            return $result;
-        } else {
-            $field['name'] = $name;
-            return $this->getTopicDao()->create($field);
-        }
     }
 
     public function findTopTopics($type)
