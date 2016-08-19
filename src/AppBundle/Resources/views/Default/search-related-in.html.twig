@@ -18,6 +18,7 @@
                             {% include "AppBundle:Topic:single-topic-list.html.twig" %}
                         {% endfor %}
                     {% else %}
+                        <br>
                         <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>
                     {% endif %}
                 {% elseif searchType == 'user' %}
@@ -25,6 +26,9 @@
                         {% for user in users %}
                             {% include "AppBundle:Default:single-user-list.html.twig" %}
                         {% endfor %}
+                    {% else %}
+                        <br>
+                        <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>
                     {% endif %}
                 {% else %}
                     {% if knowledges is defined and knowledges %}
@@ -36,6 +40,7 @@
                             {% endif %}
                         {% endfor %}
                     {% else %}
+                        <br>
                         <div class="panel-title"><h4 align="center">---暂无分享记录---</h4></div>
                     {% endif %}
                 {% endif %}
