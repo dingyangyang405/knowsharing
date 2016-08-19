@@ -93,11 +93,9 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         }
         
         $upLoad = new UpLoad($file);
-        $fileName = $title.'-'.time();
+        $fileName = $knowledge['title'].'-'.time();
         $path = __DIR__.'/../../../web/files/'.$user['username'];
         $path = $upLoad->moveToPath($path,$fileName);
-        $path = $upLoad->moveToPath($user,$knowledge['title']);
-
 
         return $path;
     }
