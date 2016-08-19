@@ -22,12 +22,12 @@
                 {% if app.user %}
                     <li class="dropdown user user-menu pull-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ asset('bundles/app/img/user.jpg') }}" class="user-image" alt="User Image">
+                            <img src="{{ app.user.imageUrl }}" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{ app.user.username }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                                <img src="{{ asset('bundles/app/img/user.jpg') }}" class="img-circle" alt="User Image">
+                                <img src="{{ app.user.imageUrl }}" class="img-circle" alt="User Image">
                                 <p>
                                     {{ app.user.username }}
                                     <small>{{ app.user.created |date('Y年m月d日') }}</small>
@@ -48,7 +48,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">设置</a>
+                                    <a data-url="{{path('picture_upload')}}" class="btn btn-default btn-flat" id="user-setting">设置</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ path('logout') }}" class="btn btn-default btn-flat">退出</a>

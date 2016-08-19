@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Filesystem\Filesystem;
 use AppBundle\Common\ArrayToolKit;
 use AppBundle\Common\Paginator;
 use AppBundle\Common\Setting;
@@ -209,6 +210,20 @@ class DefaultController extends BaseController
             'paginator'=> $paginator,
             'users' => $users
         ));
+    }
+
+    public function uploadPictureAction(Request $request)
+    {   
+        $user = $this->getCurrentUser();
+        if (!$user->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));
+        }
+        if ($request->getMethod() == 'POST') {
+            $file = $request->files->get('photo');
+            $this->getKnowledgeService()->moveImageToPath($file, $user);
+        }
+
+        return $this->render('AppBundle::upload-picture.html.twig');
     }
 
     public function docModalAction(Request $request)

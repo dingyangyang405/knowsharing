@@ -6,6 +6,7 @@ use Biz\Knowledge\KnowledgeService;
 use AppBundle\Common\ArrayToolKit;
 use Codeages\Biz\Framework\Service\KernelAwareBaseService;
 use AppBundle\Common\UpLoad;
+use Symfony\Component\Filesystem\Filesystem;
 
 class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeService
 {
@@ -92,9 +93,28 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         }
         
         $upLoad = new UpLoad($file);
+        $fileName = $title.'-'.time();
+        $path = __DIR__.'/../../../web/files/'.$user['username'];
+        $path = $upLoad->moveToPath($path,$fileName);
         $path = $upLoad->moveToPath($user,$knowledge['title']);
 
+
         return $path;
+    }
+
+    public function moveImageToPath($file,$user)
+    {   
+        $upLoad = new UpLoad($file);
+        $fileSystem = new Filesystem();
+
+        $path = $_SERVER['DOCUMENT_ROOT'].'/bundles/app/img';
+        $extension = $file->getClientOriginalExtension();
+        $fileName = time().'.'.$extension;
+        $upLoad->moveToPath($path, $fileName);
+        $path = 'bundles/app/img/'.$fileName;
+        $this->getUserDao()->update($user['id'],array(
+            'imageUrl' => $path
+        ));
     }
 
     public function deleteKnowledge($id)
@@ -237,5 +257,10 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     protected function getLearnDao()
     {
         return $this->biz['learn_dao'];
+    }
+
+    protected function getUserDao()
+    {
+        return $this->biz['user_dao'];
     }
 }
