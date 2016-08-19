@@ -8,9 +8,7 @@ $(document).ready(function(){
             data:{comment:value,knowledgeId:id},
             type:"POST",
             success:function(data){
-                if (data) {
-                    location.href = '/';
-                } else {
+                if (empty(data)) {
                     location.href = '/login';
                 }
             }
