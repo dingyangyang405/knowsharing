@@ -256,12 +256,12 @@ class KnowledgeController extends BaseController
 
         $fileName = substr($knowledge['content'],0);
         $filePath = $_SERVER['DOCUMENT_ROOT'].'/files/'.$auth['username'].'/'.$fileName;
-        $fopen = fopen($filePath,"r+");
 
         if (!file_exists($filePath)) {
             throw new \Exception("文件不存在");
         }
 
+        $fopen = fopen($filePath,"r+");
         $content = fread($fopen, filesize($filePath));
 
         $response = new Response();
