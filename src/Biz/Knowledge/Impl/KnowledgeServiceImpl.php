@@ -107,7 +107,7 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
 
         $path = $_SERVER['DOCUMENT_ROOT'].'/picture';
         $extension = $file->getClientOriginalExtension();
-        $fileName = 'user.'.$extension;
+        $fileName = $user['username'].'.'.$extension;
         if (empty($fileSystem->exists($path))) {
             $fileSystem->mkdir($path,0777);
         }

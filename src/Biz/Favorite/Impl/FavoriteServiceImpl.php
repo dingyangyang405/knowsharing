@@ -76,7 +76,7 @@ class FavoriteServiceImpl extends KernelAwareBaseService implements FavoriteServ
             array('knowledgeId' => $knowledgeId),
             array('createdTime', 'DESC'),
             0,
-            PHP_INT_MAX
+            15
         );
     }
 

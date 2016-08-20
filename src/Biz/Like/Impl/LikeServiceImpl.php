@@ -29,7 +29,7 @@ class LikeServiceImpl extends KernelAwareBaseService implements LikeService
             array('knowledgeId' => $knowledgeId),
             array('createdTime', 'DESC'),
             0,
-            PHP_INT_MAX
+            15
         );
     }
 

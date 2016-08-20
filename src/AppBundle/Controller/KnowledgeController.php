@@ -59,9 +59,15 @@ class KnowledgeController extends BaseController
         $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$currentUser['id']);
 
         $likeList = $this->getLikeService()->findLikesByKnowledgeId($id);
-        $likeUsers = $this->getUserService()->findUsersByIds(ArrayToolKit::column($likeList, 'userId'));
+        $likeUserIds = ArrayToolKit::column($likeList, 'userId');
+        foreach ($likeUserIds as $likeUserId) {
+            $likeUsers[$likeUserId] = $this->getUserService()->getUser($likeUserId);
+        }
         $favoriteList = $this->getFavoriteService()->findFavoritesByKnowledgeId($id);
-        $favoriteUsers = $this->getUserService()->findUsersByIds(ArrayToolKit::column($favoriteList, 'userId'));
+        $favoriteUserIds = ArrayToolKit::column($favoriteList, 'userId');
+        foreach ($favoriteUserIds as $favoriteUserId) {
+            $favoriteUsers[$favoriteUserId] = $this->getUserService()->getUser($favoriteUserId);
+        }
 
         return $this->render('AppBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge[0],
