@@ -16,8 +16,6 @@ use Biz\Like\Impl\LikeServiceImpl;
 use Biz\Like\Dao\Impl\LikeDaoImpl;
 use Biz\Favorite\Impl\FavoriteServiceImpl;
 use Biz\Favorite\Dao\Impl\FavoriteDaoImpl;
-use Biz\Toread\Impl\ToreadServiceImpl;
-use Biz\Toread\Dao\Impl\ToreadDaoImpl;
 use Biz\Learn\Impl\LearnServiceImpl;
 use Biz\Learn\Dao\Impl\LearnDaoImpl;
 use Biz\ToDoList\Impl\ToDoListServiceImpl;
@@ -127,14 +125,6 @@ class BizKernel extends Kernel
         $this['like_service'] = function($container) {
             return new LikeServiceImpl($container);
         };
-
-        $this['toread_service'] = function($container) {
-            return new ToreadServiceImpl($container);
-        };
-
-        $this['toread_dao'] = $this->dao(function($container) {
-            return new ToreadDaoImpl($container);
-        });
 
         $this['learn_service'] = function($container) {
             return new LearnServiceImpl($container);
