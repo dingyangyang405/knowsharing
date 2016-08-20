@@ -1,0 +1,8 @@
+#picture-preview, .img, img{
+    width:300px;  
+    height:300px;  
+}
+#picture-preview{
+    border:1px solid #000; 
+    margin: auto;
+}

@@ -146,10 +146,16 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     
     public function createKnowledge($field)
     {
+        $currentUser = $this->getCurrentUser();
+
         $this->updateFollow($field);
         $tagId = $field['tagId'];
         $string = implode('|', $tagId);
         $field['tagId'] = $string;
+
+        $user = $this->getUserDao()->get($currentUser['id']);
+        $user['knowledgeNum'] += 1;
+        $this->getUserDao()->update($user['id'],$user);
 
         return $this->getKnowledgeDao()->create($field);
     }
@@ -230,6 +236,19 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     public function searchKnowledgesByIdsWithNoOrder($ids, $start, $limit)
     {
         return $this->getKnowledgeDao()->searchKnowledgesByIdsWithNoOrder($ids, $start, $limit);
+    }
+
+    public function isCorrectLink($knowledge)
+    {
+        if ($knowledge['content'] == 'file') {
+            return $knowledge;
+        }
+
+        if (!preg_match("/http:\\/\\/\[^\s]*/", $knowledge['content'])) {
+            $knowledge['content'] = 'http://'.$knowledge['content'];
+        }
+
+        return $knowledge;
     }
 
     protected function getKnowledgeDao()

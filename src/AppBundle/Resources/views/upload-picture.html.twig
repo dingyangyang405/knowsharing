@@ -5,8 +5,8 @@
 {% block body %}
   <form id="upload-picture-form" class="form-horizontal" enctype="multipart/form-data" method="post" action="{{path('picture_upload')}}">
     <div class="form-group">
-      <div class="col-md-2 control-label"><b>当前头像</b></div>
-      <div class="controls col-md-8 controls" id="picture-preview" style="border: 1px solid #000; width: 300px;margin:auto; height: 190px; overflow:hiden background-size: contain; background-repeat: no-repeat; background-position: center center;"></div>
+      <div class="col-md-3 control-label"><b>当前头像</b></div>
+      <div id="picture-preview"><img src="{{asset(app.user.imageUrl)}}"></div>
     </div>
     <div class="form-group">
       <div class="col-md-2 control-label"></div>
