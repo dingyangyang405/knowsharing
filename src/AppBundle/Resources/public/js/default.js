@@ -6,7 +6,7 @@ $(function(){
         var $collectNum = $btn.find(".collect-num").html();
         $.post($btn.data('url'),function(data){
             if (data.status == 'success') {
-                $('#favorite-list').append(li);
+                $('#favorite-list').prepend(li);
                 $collectNum = parseInt($collectNum)+parseInt(1);
                 $btn.hide();
                 $btn.parent().find(".uncollect-btn").show();
@@ -40,7 +40,7 @@ $(function(){
         var li = '<li><a style="margin-left: 10px;"><img class="img-circle img-sm" src="'+img+'" alt="User Image"></a></li>';
         $.post($btn.data('url'),function(data){
             if (data.status == 'success') {
-                $('#like-list').append(li);
+                $('#like-list').prepend(li);
                 $collectNum = parseInt($collectNum)+parseInt(1);
                 $btn.hide();
                 $btn.parent().find(".dislike-btn").show();
