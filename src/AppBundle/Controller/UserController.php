@@ -269,7 +269,7 @@ class UserController extends BaseController
         return new JsonResponse(true);
     }
 
-    public function createToreadAction(Request $request, $id)
+    public function createToDoListAction(Request $request, $id)
     {
         $user = $this->getCurrentUser();
 
@@ -277,20 +277,7 @@ class UserController extends BaseController
            return new JsonResponse(false);
         }
 
-        $this->getToreadService()->createToreadKnowledge($id ,$user['id']);
-
-        return new JsonResponse(true);
-    }
-
-    public function deleteToreadAction(Request $request, $id)
-    {
-        $user = $this->getCurrentUser();
-
-        if (empty($user)) {
-            throw new \Exception('用户不存在');
-        }
-
-        $this->getToreadService()->deleteToreadKnowledge($id, $user['id']);
+        $this->getToDoListService()->createToDoListKnowledge($id ,$user['id']);
 
         return new JsonResponse(true);
     }
@@ -371,9 +358,9 @@ class UserController extends BaseController
         return $this->biz['follow_service'];
     }
 
-    protected function getToreadService()
+    protected function getToDoListService()
     {
-        return $this->biz['toread_service'];
+        return $this->biz['todolist_service'];
     }
 
     protected function getLearnService()

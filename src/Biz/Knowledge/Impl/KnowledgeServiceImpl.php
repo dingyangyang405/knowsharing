@@ -145,10 +145,16 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     
     public function createKnowledge($field)
     {
+        $currentUser = $this->getCurrentUser();
+
         $this->updateFollow($field);
         $tagId = $field['tagId'];
         $string = implode('|', $tagId);
         $field['tagId'] = $string;
+
+        $user = $this->getUserDao()->get($currentUser['id']);
+        $user['knowledgeNum'] += 1;
+        $this->getUserDao()->update($user['id'],$user);
 
         return $this->getKnowledgeDao()->create($field);
     }
@@ -197,8 +203,8 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
 
     public function setToreadMark($knowledges, $userId)
     {
-        $toreadKnowledgeIds =  $this->getToreadDao()->findToreadIds($userId);
-        $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledgeIds, 'knowledgeId');
+        $toreadKnowledge =  $this->getToDoListDao()->findByUserId(array($userId));
+        $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledge, 'knowledgeId');
         foreach ($knowledges as $key => $value) {
             if (isset($toreadKnowledgeIds[$value['id']])) {
                 $knowledges[$key]['toread'] = true;
@@ -231,6 +237,19 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $this->getKnowledgeDao()->searchKnowledgesByIdsWithNoOrder($ids, $start, $limit);
     }
 
+    public function isCorrectLink($knowledge)
+    {
+        if ($knowledge['content'] == 'file') {
+            return $knowledge;
+        }
+
+        if (!preg_match("/http:\\/\\/\[^\s]*/", $knowledge['content'])) {
+            $knowledge['content'] = 'http://'.$knowledge['content'];
+        }
+
+        return $knowledge;
+    }
+
     protected function getKnowledgeDao()
     {
         return $this->biz['knowledge_dao'];
@@ -246,9 +265,9 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $this->biz['comment_dao'];
     }
 
-    protected function getToreadDao()
+    protected function getToDoListDao()
     {
-        return $this->biz['toread_dao'];
+        return $this->biz['todolist_dao'];
     }
 
     public function getFollowDao()

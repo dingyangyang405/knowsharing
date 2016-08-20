@@ -56,7 +56,7 @@ user_unfollow:
 
 user_create_toread:
     path: /user/{id}/create/toread
-    defaults: { _controller: AppBundle:User:createToread }
+    defaults: { _controller: AppBundle:User:createToDoList }
     methods: [POST]
 
 user_delete_toread:
