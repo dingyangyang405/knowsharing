@@ -33,6 +33,7 @@ class LikeDaoImpl extends GeneralDaoImpl implements LikeDao
             'serializes' => array(),
             'conditions' => array(
                 'userId = :userId',
+                'knowledgeId = :knowledgeId'
             ),
         );
     }

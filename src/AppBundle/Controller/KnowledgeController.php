@@ -58,6 +58,11 @@ class KnowledgeController extends BaseController
 
         $knowledge = $this->getLikeService()->haslikedKnowledge($knowledge,$currentUser['id']);
 
+        $likeList = $this->getLikeService()->findLikesByKnowledgeId($id);
+        $likeUsers = $this->getUserService()->findUsersByIds(ArrayToolKit::column($likeList, 'userId'));
+        $favoriteList = $this->getFavoriteService()->findFavoritesByKnowledgeId($id);
+        $favoriteUsers = $this->getUserService()->findUsersByIds(ArrayToolKit::column($favoriteList, 'userId'));
+
         return $this->render('AppBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge[0],
             'user' => $user,
@@ -66,7 +71,9 @@ class KnowledgeController extends BaseController
             'users' => $users,
             'paginator' => $paginator,
             'hasLearned' => $hasLearned,
-            'singleTagIds' => $singleTagIds
+            'singleTagIds' => $singleTagIds,
+            'likeUsers' => $likeUsers,
+            'favoriteUsers' => $favoriteUsers
         ));
     }
 

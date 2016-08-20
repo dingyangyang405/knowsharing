@@ -23,6 +23,16 @@ class LikeServiceImpl extends KernelAwareBaseService implements LikeService
         return $this->getLikeDao()->findByUserId($userId);
     }
 
+    public function findLikesByKnowledgeId($knowledgeId)
+    {
+        return $this->getLikeDao()->search(
+            array('knowledgeId' => $knowledgeId),
+            array('createdTime', 'DESC'),
+            0,
+            PHP_INT_MAX
+        );
+    }
+
     public function haslikedKnowledge($knowledge,$userId)
     {
 

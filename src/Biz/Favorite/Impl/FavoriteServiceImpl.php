@@ -68,7 +68,16 @@ class FavoriteServiceImpl extends KernelAwareBaseService implements FavoriteServ
     public function findFavoritesByUserId($userId)
     {
         return $this->getFavoriteDao()->findFavoritesByUserId($userId);
+    }
 
+    public function findFavoritesByKnowledgeId($knowledgeId)
+    {
+        return $this->getFavoriteDao()->search(
+            array('knowledgeId' => $knowledgeId),
+            array('createdTime', 'DESC'),
+            0,
+            PHP_INT_MAX
+        );
     }
 
     protected function getFavoriteDao()
