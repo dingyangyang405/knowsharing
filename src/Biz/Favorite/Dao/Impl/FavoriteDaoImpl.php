@@ -34,6 +34,7 @@ class FavoriteDaoImpl extends GeneralDaoImpl implements FavoriteDao
             'serializes' => array(),
             'conditions' => array(
                 'userId = :userId',
+                'knowledgeId = :knowledgeId'
             ),
         );
     }

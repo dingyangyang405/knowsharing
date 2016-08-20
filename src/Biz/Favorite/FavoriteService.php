@@ -12,4 +12,6 @@ interface FavoriteService
 
     public function findFavoritesByUserId($userId);
 
+    public function findFavoritesByKnowledgeId($knowledgeId);
+
 }
