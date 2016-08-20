@@ -111,6 +111,7 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         if (empty($fileSystem->exists($path))) {
             $fileSystem->mkdir($path,0777);
         }
+        $fileSystem->remove(dirname($_SERVER['DOCUMENT_ROOT']).'/app/cache');
         $upLoad->moveToPath($path, $fileName);
         $path = 'picture/'.$fileName;
         $this->getUserDao()->update($user['id'],array(
