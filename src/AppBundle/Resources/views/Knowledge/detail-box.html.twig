@@ -59,7 +59,7 @@
         <ul class="users-list clearfix" id="favorite-list">
         {% for favoriteUser in favoriteUsers %}
           <li>
-            <a style="margin-left: 10px;"><img class="img-circle img-sm" src="{{ asset(favoriteUser.imageUrl) }}" alt="User Image"></a>
+            <a href="{{ path('user_page',{userId:favoriteUser.id}) }}" style="margin-left: 10px;"><img class="img-circle img-sm" src="{{ asset(favoriteUser.imageUrl) }}" alt="User Image"></a>
           </li>
           {% endfor %}
         </ul>
@@ -76,7 +76,7 @@
         <ul class="users-list clearfix" id="like-list">
         {% for likeUser in likeUsers %}
           <li>
-            <a style="margin-left: 10px;"><img class="img-circle img-sm" src="{{ asset(likeUser.imageUrl) }}" alt="User Image"></a>
+            <a href="{{ path('user_page',{userId:likeUser.id}) }}" style="margin-left: 10px;"><img class="img-circle img-sm" src="{{ asset(likeUser.imageUrl) }}" alt="User Image"></a>
           </li>
         {% endfor %}
         </ul>
