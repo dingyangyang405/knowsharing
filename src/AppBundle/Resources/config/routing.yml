@@ -196,3 +196,7 @@ picture_upload:
 my_learn_history: 
     path: /my/learn/history
     defaults: { _controller: AppBundle:User:learnHistory }
+
+image_path:
+    path: /image/path
+    defaults: { _controller: AppBundle:Base:imagePath }

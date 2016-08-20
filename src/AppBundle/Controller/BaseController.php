@@ -29,6 +29,15 @@ class BaseController extends Controller
         $this->get('event_dispatcher')->dispatch('security.interactive_login', $event);
     }
 
+    public function imagePathAction()
+    {
+        $user = $this->getCurrentUser();
+
+        return $this->render('AppBundle::header-user-image.html.twig', array(
+            'user' => $user,
+        ));
+    }
+
     public function getCurrentUser()
     {
         return $this->biz->getCurrentUser();

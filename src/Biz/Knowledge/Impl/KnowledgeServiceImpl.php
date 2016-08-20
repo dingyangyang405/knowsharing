@@ -112,7 +112,6 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
             $fileSystem->mkdir($path);
         }
         $upLoad->moveToPath($path, $fileName);
-        $fileSystem->chmod($path, 766);
         $path = 'picture/'.$fileName;
         $this->getUserDao()->update($user['id'],array(
             'imageUrl' => $path
