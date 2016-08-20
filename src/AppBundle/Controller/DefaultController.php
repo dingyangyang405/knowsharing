@@ -95,7 +95,7 @@ class DefaultController extends BaseController
             $conditions = array(
                 'userId' => $currentUser['id'],
             );
-            $toReadListNum = $this->getToreadService()->getToreadlistCount($conditions);
+            $toReadListNum = $this->getToDoListService()->getToDolistCount($conditions);
             
             return $this->render('AppBundle::notice-todolist.html.twig', array(
                 'toReadListNum' => $toReadListNum,
@@ -261,9 +261,9 @@ class DefaultController extends BaseController
         return $this->biz['topic_service'];
     }
 
-    protected function getToreadService()
+    protected function getToDoListService()
     {
-        return $this->biz['toread_service'];
+        return $this->biz['todolist_service'];
     }
 
     protected function getKnowledgeSearchService()

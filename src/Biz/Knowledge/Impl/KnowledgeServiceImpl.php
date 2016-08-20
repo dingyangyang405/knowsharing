@@ -197,8 +197,8 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
 
     public function setToreadMark($knowledges, $userId)
     {
-        $toreadKnowledgeIds =  $this->getToreadDao()->findToreadIds($userId);
-        $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledgeIds, 'knowledgeId');
+        $toreadKnowledge =  $this->getToDoListDao()->findByUserId(array($userId));
+        $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledge, 'knowledgeId');
         foreach ($knowledges as $key => $value) {
             if (isset($toreadKnowledgeIds[$value['id']])) {
                 $knowledges[$key]['toread'] = true;
@@ -246,9 +246,9 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $this->biz['comment_dao'];
     }
 
-    protected function getToreadDao()
+    protected function getToDoListDao()
     {
-        return $this->biz['toread_dao'];
+        return $this->biz['todolist_dao'];
     }
 
     public function getFollowDao()
