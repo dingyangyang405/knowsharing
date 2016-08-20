@@ -32,7 +32,8 @@ class BaseController extends Controller
     public function imagePathAction()
     {
         $user = $this->getCurrentUser();
-
+        $user = $this->getUserService()->getUser($user['id']);
+        
         return $this->render('AppBundle::header-user-image.html.twig', array(
             'user' => $user,
         ));
@@ -47,5 +48,10 @@ class BaseController extends Controller
     {
         parent::setContainer($container);
         $this->biz = $this->container->get('biz');
+    }
+
+    protected function getUserService()
+    {
+        return $this->biz['user_service'];
     }
 }
