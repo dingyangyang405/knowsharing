@@ -9,15 +9,21 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
 {
     public function followUser($userId, $id)
     {        
-        $followUser = $this->getUserDao()->get($id);
-        if (empty($followUser)) {
+        $objectUser = $this->getUserDao()->get($id);
+
+        if (empty($objectUser)) {
             throw new \Exception('被关注的用户不存在');
         }
+
+        $objectUser['followNum'] += 1;
+        $this->getUserDao()->update($objectUser['id'],$objectUser);
+
         $followUser = $this->getFollowDao()->create(array(
             'userId'=> $userId,
             'type'=>'user',
             'objectId'=>$id
         ));
+
         if ($userId == $followUser['userId'] && $followUser['objectId'] == $id) {
             return true;
         } else {
@@ -27,11 +33,15 @@ class FollowServiceImpl extends KernelAwareBaseService implements FollowService
 
     public function unfollowUser($userId, $id)
     {   
-        $followUser = $this->getUserDao()->get($id);
-        if (empty($followUser)) {
+        $objectUser = $this->getUserDao()->get($id);
+
+        if (empty($objectUser)) {
             throw new \Exception('被关注的用户不存在');
         }
 
+        $objectUser['followNum'] = $objectUser['followNum'] - 1;
+        $this->getUserDao()->update($objectUser['id'],$objectUser);
+        
         $followUser = $this->getFollowDao()->getFollowUserByUserIdAndObjectUserId($userId, $id);
         
         $status = $this->getFollowDao()->delete($followUser['id']);
