@@ -93,11 +93,11 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         }
         
         $upLoad = new UpLoad($file);
-        $fileName = $knowledge['title'].'-'.time();
-        $path = __DIR__.'/../../../web/files/'.$user['username'];
+        $fileName = date('Y-m-d H:i:s',time()).'-'.$knowledge['title'];
+        $path = __DIR__.'/../../../../web/files/'.$user['username'];
         $path = $upLoad->moveToPath($path,$fileName);
 
-        return $path;
+        return $fileName;
     }
 
     public function moveImageToPath($file,$user)
@@ -198,8 +198,8 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
 
     public function setToreadMark($knowledges, $userId)
     {
-        $toreadKnowledgeIds =  $this->getToreadDao()->findToreadIds($userId);
-        $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledgeIds, 'knowledgeId');
+        $toreadKnowledge =  $this->getToDoListDao()->findByUserId(array($userId));
+        $toreadKnowledgeIds = ArrayToolkit::index($toreadKnowledge, 'knowledgeId');
         foreach ($knowledges as $key => $value) {
             if (isset($toreadKnowledgeIds[$value['id']])) {
                 $knowledges[$key]['toread'] = true;
@@ -247,9 +247,9 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
         return $this->biz['comment_dao'];
     }
 
-    protected function getToreadDao()
+    protected function getToDoListDao()
     {
-        return $this->biz['toread_dao'];
+        return $this->biz['todolist_dao'];
     }
 
     public function getFollowDao()
