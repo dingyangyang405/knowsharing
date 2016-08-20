@@ -62,11 +62,13 @@ class KnowledgeController extends BaseController
 
         $likeList = $this->getLikeService()->findLikesByKnowledgeId($id);
         $likeUserIds = ArrayToolKit::column($likeList, 'userId');
+        $likeUsers = array();
         foreach ($likeUserIds as $likeUserId) {
             $likeUsers[$likeUserId] = $this->getUserService()->getUser($likeUserId);
         }
         $favoriteList = $this->getFavoriteService()->findFavoritesByKnowledgeId($id);
         $favoriteUserIds = ArrayToolKit::column($favoriteList, 'userId');
+        $favoriteUsers = array();
         foreach ($favoriteUserIds as $favoriteUserId) {
             $favoriteUsers[$favoriteUserId] = $this->getUserService()->getUser($favoriteUserId);
         }
