@@ -36,19 +36,21 @@
                             <li class="user-body">
                                 <div class="row">
                                     <div class="col-xs-4 text-center">
-                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-fw fa-heart" title="被关注数"></i>{{ app.user.followNum }}
                                     </div>
                                     <div class="col-xs-4 text-center">
-                                        <i class="fa fa-thumbs-up"></i>
+                                        <i class="fa fa-book"　title="分享知识数"></i>
+                                        {{ app.user.knowledgeNum }}
                                     </div>
                                     <div class="col-xs-4 text-center">
-                                        <i class="fa  fa-graduation-cap"></i>
+                                        <i class="fa  fa-graduation-cap" title="学过知识数"></i>
+                                        {{ app.user.browseNum }}
                                     </div>
                                 </div>
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a data-url="{{path('picture_upload')}}" class="btn btn-default btn-flat" id="user-setting">设置</a>
+                                    <a data-url="{{path('picture_upload')}}" class="btn btn-default btn-flat" id="user-setting">设置头像</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ path('logout') }}" class="btn btn-default btn-flat">退出</a>

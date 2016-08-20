@@ -14,23 +14,25 @@ $(document).ready(function(){
             info.innerHTML = '没有选择文件';
             return false;
         }
-        var file = picture.files[0];
-        if (file.size >= 2097152) {
-            alert('图片不能大于2M');
-            return false;
+        if (picture.files && picture.files[0]) {
+            var file = picture.files[0];   
+            if (file.size >= 2097152) {
+                alert('图片不能大于2M');
+                return false;
+            }
+            if (file.type!=='image/jpeg'&&file.type!=='image/png'&&file.type!=='image/gif') {
+                alert('不是有效的图片文件');
+            }
+            var reader = new FileReader();
+            reader.onload = function(e){
+                var data = e.target.result;
+                preview.innerHTML = '<img src="' + data + '" />';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image,src=\'' + picture.value + '\'"></div>';
         }
-        if (file.type!=='image/jpeg'&&file.type!=='image/png'&&file.type!=='image/gif') {
-            alert('不是有效的图片文件');
-        }
-        var reader = new FileReader();
-        reader.onload = function(e){
-            var data = e.target.result;
-            preview.style.backgroundImage = 'url('+data+')';    
-            // var img = document.createElement("img");
-            // img.src = data;
-            // document.getElementById("picture-preview").appendChild(img);
-        };
-        reader.readAsDataURL(file);
+
     });
 
     $('#uploadModal').on('click','#upload-picture-btn', function(){

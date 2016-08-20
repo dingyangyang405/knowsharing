@@ -14,6 +14,8 @@ class LearnServiceImpl extends KernelAwareBaseService implements LearnService
 
     public function finishKnowledgeLearn($id, $userId)
     {
+        $currentUser = $this->getCurrentUser();
+
         $fields = array(
             'userId' => $userId,
             'knowledgeId' => $id
@@ -28,6 +30,11 @@ class LearnServiceImpl extends KernelAwareBaseService implements LearnService
         $this->getLearnDao()->create($fields);
         $knowledge = $this->getKnowledgeDao()->get($id);
         $knowledge['viewNum'] += 1; 
+
+        $user = $this->getUserDao()->get($currentUser['id']);
+        $user['browseNum'] = $user['browseNum']+1;
+
+        $this->getUserDao()->update($user['id'],$user);
 
         return $this->getKnowledgeDao()->update($id, $knowledge);
     }
@@ -55,5 +62,10 @@ class LearnServiceImpl extends KernelAwareBaseService implements LearnService
     protected function getToDoListDao()
     {
         return $this->biz['todolist_dao'];
+    }
+
+    protected function getUserDao()
+    {
+        return $this->biz['user_dao'];
     }
 }

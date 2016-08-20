@@ -53,6 +53,8 @@ class KnowledgeController extends BaseController
 
         $singleTagIds = $this->getTagService()->findTagsByIds(explode('|', $knowledge['tagId']));
 
+        $knowledge = $this->getKnowledgeService()->isCorrectLink($knowledge);
+
         $knowledge = array($knowledge);
         $knowledge = $this->getFavoriteService()->hasFavoritedKnowledge($knowledge,$currentUser['id']);
 
@@ -99,7 +101,7 @@ class KnowledgeController extends BaseController
             $content = $this->getKnowledgeService()->moveToPath($file,$user,$knowledge);   
         } elseif ($knowledge['type'] == 'link') {
             $tagIds = $this->getKnowledgeService()->getTagIds($knowledge['tag']);
-            $content = $request->request->get('content');        
+            $content = $request->request->get('content');
         }
 
         
