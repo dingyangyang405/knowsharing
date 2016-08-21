@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Common\ArrayToolKit;
 use AppBundle\Common\Paginator;
 use AppBundle\Common\Setting;
@@ -221,6 +222,9 @@ class DefaultController extends BaseController
         if ($request->getMethod() == 'POST') {
             $file = $request->files->get('photo');
             $this->getKnowledgeService()->moveImageToPath($file, $user);
+            $user = $this->getUserService()->getUser($user['id']);
+
+            return new JsonResponse($user);
         }
 
         return $this->render('AppBundle::upload-picture.html.twig');

@@ -50,8 +50,9 @@ $(document).ready(function(){
             cache: false, 
             processData: false, 
             contentType: false,
-            success:function(){
+            success:function(data){
                 modal.modal('hide');
+                $('li .user-image').attr('src',data.imageUrl);
                 location.href = '/';  
             }
         });
