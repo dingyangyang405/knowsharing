@@ -78,7 +78,5 @@ $(function(){
             $("#header-xs-menu .list-group-item").hide();
         }
     });
-    $(".top-knowledge").smartFloat();
-    $(".top-topic").smartFloat();
-    $(".top-user").smartFloat();
+    $(".top-box").smartFloat();
 });
