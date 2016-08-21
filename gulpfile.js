@@ -6,7 +6,7 @@ elixir(function(mix) {
         './node_modules/select2/dist/css/select2.min.css',
         './app/Resources/public/css/AdminLTE.css',
         './app/Resources/public/css/style.css',
-        './node_modules/admin-lte/dist/css/skins/skin-blue.css',
+        './node_modules/admin-lte/dist/css/skins/skin-blue-light.css',
         './node_modules/font-awesome/css/font-awesome.css',
     ], 'web/assets/css/vendor.css');
 
