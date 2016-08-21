@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Common\ArrayToolKit;
+use Symfony\Component\Filesystem\Filesystem;
 
 class MyKnowledgeShareController extends BaseController
 {
@@ -107,7 +108,19 @@ class MyKnowledgeShareController extends BaseController
     }
 
     public function deleteAction(Request $request, $id)
-    {
+    {   
+        $currentUser = $this->getCurrentUser();
+        if (!$currentUser->isLogin()) {
+           return $this->redirect($this->generateUrl("login"));;
+        }
+        $knowledge = $this->getKnowledgeService()->getKnowledge($id);
+        $auth = $this->getUserService()->getUser($knowledge['userId']);
+        $fileSystem = new Filesystem();
+        $filePath = $_SERVER['DOCUMENT_ROOT'].'/files/'.$auth['username'].'/'.$knowledge['content'];
+        if (!file_exists($filePath)) {
+            throw new \Exception("文件不存在");
+        }
+        $fileSystem->remove($filePath);
         $this->getKnowledgeService()->deleteKnowledge($id);
 
         return new JsonResponse(true);
