@@ -10,7 +10,7 @@
         {% if app.user.imageUrl is defined %}
           <img src="{{asset(app.user.imageUrl)}}">
           {% else %}
-          <img src="{{asset(default-user-image.png)}}">
+          <img src="{{asset('default-user-image.png')}}">
         {% endif %}
       </div>
     </div>
