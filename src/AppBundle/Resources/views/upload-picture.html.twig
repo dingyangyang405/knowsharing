@@ -7,10 +7,10 @@
     <div class="form-group">
       <div class="col-md-3 control-label"><b>当前头像</b></div>
       <div id="picture-preview">
-        {% if app.user.imageUrl is defined %}
+        {% if app.user.imageUrl is defined and app.user.imageUrl %}
           <img src="{{asset(app.user.imageUrl)}}">
           {% else %}
-          <img src="{{asset('default-user-image.png')}}">
+          <img src="{{asset('bundles/app/img/default-user-image.png')}}">
         {% endif %}
       </div>
     </div>
