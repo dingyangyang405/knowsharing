@@ -243,7 +243,7 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
             return $knowledge;
         }
 
-        if (!preg_match("/http:\\/\\/\[^\s]*/", $knowledge['content'])) {
+        if (!preg_match("/^((http|ftp|https):\/\/)?/", $knowledge['content'])) {
             $knowledge['content'] = 'http://'.$knowledge['content'];
         }
 
