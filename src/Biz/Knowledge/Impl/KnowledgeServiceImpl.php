@@ -104,7 +104,6 @@ class KnowledgeServiceImpl extends KernelAwareBaseService implements KnowledgeSe
     {   
         $upLoad = new UpLoad($file);
         $fileSystem = new Filesystem();
-
         $path = $_SERVER['DOCUMENT_ROOT'].'/picture';
         $extension = $file->getClientOriginalExtension();
         $fileName = $user['username'].'-'.time().'.'.$extension;

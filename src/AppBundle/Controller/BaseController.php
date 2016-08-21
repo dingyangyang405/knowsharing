@@ -33,7 +33,11 @@ class BaseController extends Controller
     {
         $user = $this->getCurrentUser();
         $user = $this->getUserService()->getUser($user['id']);
-        
+        $filePath = $_SERVER['DOCUMENT_ROOT'].'/picture/'.substr($user['imageUrl'], 8);
+        if (!file_exists($filePath) || !is_file($filePath)) {
+            $user['imageUrl'] = 'default-user-image.png';
+        }
+
         return $this->render('AppBundle::header-user-image.html.twig', array(
             'user' => $user,
         ));

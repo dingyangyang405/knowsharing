@@ -6,7 +6,13 @@
   <form id="upload-picture-form" class="form-horizontal" enctype="multipart/form-data" method="post" action="{{path('picture_upload')}}">
     <div class="form-group">
       <div class="col-md-3 control-label"><b>当前头像</b></div>
-      <div id="picture-preview"><img src="{{asset(app.user.imageUrl)}}"></div>
+      <div id="picture-preview">
+        {% if app.user.imageUrl is defined %}
+          <img src="{{asset(app.user.imageUrl)}}">
+          {% else %}
+          <img src="{{asset(default-user-image.png)}}">
+        {% endif %}
+      </div>
     </div>
     <div class="form-group">
       <div class="col-md-2 control-label"></div>
