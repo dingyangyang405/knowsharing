@@ -6,9 +6,11 @@
         {{ render(controller('AppBundle:Default:noticeToDoList'))}}
         {{ render(controller('AppBundle:Default:dailyOne')) }}
     </div>
-    {{ render(controller('AppBundle:Default:listTopKnowledges')) }}
-    {{ render(controller('AppBundle:Default:listTopTopics')) }}
-    {{ render(controller('AppBundle:Default:listTopUsers')) }}
+    <div class="top-box">
+        {{ render(controller('AppBundle:Default:listTopKnowledges')) }}
+        {{ render(controller('AppBundle:Default:listTopTopics')) }}
+        {{ render(controller('AppBundle:Default:listTopUsers')) }}
+    </div>
 </aside>
 {% block javascripts %}
     <script src="{{ asset('bundles/app/js/toplist/toplist.js') }}"></script>
