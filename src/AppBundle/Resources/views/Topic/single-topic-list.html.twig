@@ -3,7 +3,7 @@
     <ul>
       <li class="pull-left">
         <h4>
-          <a href="{{ path('topic_knowledge', {id:topic.id, name:topic.name }) }}">{{ topic.name }}</a>
+          <a href="{{ path('topic_knowledge', {id:topic.id, name:topic.name }) }}">{{ topic.name |slice(0,20)}}</a>
           {% if myFollow.newKnowledgeNum is defined and myFollow.newKnowledgeNum  %}
             <span class="badge">{{ myFollow.newKnowledgeNum }}</span>
           {% endif %}

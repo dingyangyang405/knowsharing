@@ -3,7 +3,7 @@
     <dl>
       <dt>
         <h4>
-          <a href="{{path('knowledge_detail',{id:knowledge.id})}}" target="_blank" ><i class="{% if knowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}"></i>&nbsp;{{knowledge.title}}
+          <a href="{{path('knowledge_detail',{id:knowledge.id})}}" target="_blank" ><i class="{% if knowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}"></i>&nbsp;{{knowledge.title |slice(0,20)}}
           </a>
         </h4>
       </dt>
