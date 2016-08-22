@@ -17,7 +17,7 @@
                   <dt>
                     <h4>
                     <a href="{{path('knowledge_detail',{id:knowledge.id})}}">
-                      {% if knowledge.type == 'file' %}<i class="fa fa-sticky-note-o"></i>{% elseif knowledge.type == 'link' %}<i class="fa fa-link"></i>{% endif %}&nbsp&nbsp{{knowledge.title}}
+                      {% if knowledge.type == 'file' %}<i class="fa fa-sticky-note-o"></i>{% elseif knowledge.type == 'link' %}<i class="fa fa-link"></i>{% endif %}&nbsp&nbsp{{knowledge.title|slice(0,20)}}
                     </a>
                     </h4>
                   </dt>
