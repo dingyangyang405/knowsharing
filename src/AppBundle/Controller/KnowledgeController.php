@@ -93,6 +93,9 @@ class KnowledgeController extends BaseController
         $knowledge = $request->request->all();
         $knowledge['title'] = trim($knowledge['title']);
         $knowledge['topic'] = trim($knowledge['topic']);
+        if (!isset($knowledge['tag'])) {
+            $knowledge['tag'] = null;
+        }
 
         if ($knowledge['type'] == 'file') {
             $file = $request->files->get('content');
