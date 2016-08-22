@@ -18,7 +18,7 @@
         {% for scoreUser in scoreUsers %}
           <tr>
             <td>{{loop.index}}</td>
-            <td><a href="{{ path('user_page',{userId:scoreUser.id}) }}"  rel="author">{{scoreUser.username}}</a></td>
+            <td><a href="{{ path('user_page',{userId:scoreUser.id}) }}"  rel="author">{{scoreUser.username |slice(0,12)}}</a></td>
             <td><i class="fa fa-fw fa-usd"></i>{{scoreUser.score}}</td>
           </tr>
         {% endfor %}
@@ -27,7 +27,7 @@
         {% for knowledgeUser in knowledgeUsers %}
           <tr>
             <td>{{loop.index}}</td>
-            <td><a href="{{ path('user_page',{userId:knowledgeUser.id}) }}"  rel="author">{{knowledgeUser.username}}</a></td>
+            <td><a href="{{ path('user_page',{userId:knowledgeUser.id}) }}"  rel="author">{{knowledgeUser.username |slice(0,12)}}</a></td>
             <td><i class="fa fa-fw fa-eye"></i>{{knowledgeUser.browseNum}}</td>
           </tr>
         {% endfor %}
@@ -36,7 +36,7 @@
         {% for browseUser in browseUsers %}
           <tr>
             <td>{{loop.index}}</td>
-            <td><a href="{{ path('user_page',{userId:browseUser.id}) }}"  rel="author">{{browseUser.username}}</a></td>
+            <td><a href="{{ path('user_page',{userId:browseUser.id}) }}"  rel="author">{{browseUser.username |slice(0,12)}}</a></td>
             <td><i class="fa fa-fw fa-file-o"></i>{{browseUser.knowledgeNum}}</td>
           </tr>
         {% endfor %}
