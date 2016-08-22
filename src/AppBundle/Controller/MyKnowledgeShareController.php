@@ -116,11 +116,13 @@ class MyKnowledgeShareController extends BaseController
         $knowledge = $this->getKnowledgeService()->getKnowledge($id);
         $auth = $this->getUserService()->getUser($knowledge['userId']);
         $fileSystem = new Filesystem();
-        $filePath = $_SERVER['DOCUMENT_ROOT'].'/files/'.$auth['username'].'/'.$knowledge['content'];
-        if (!file_exists($filePath)) {
-            throw new \Exception("文件不存在");
+        if ($knowledge['type'] == 'file') {
+            $filePath = $_SERVER['DOCUMENT_ROOT'].'/files/'.$auth['username'].'/'.$knowledge['content'];
+            if (!file_exists($filePath)) {
+                throw new \Exception("文件不存在");
+            }
+            $fileSystem->remove($filePath);
         }
-        $fileSystem->remove($filePath);
         $this->getKnowledgeService()->deleteKnowledge($id);
 
         return new JsonResponse(true);
