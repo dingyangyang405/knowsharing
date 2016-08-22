@@ -18,7 +18,7 @@
         {% for likeKnowledge in likeKnowledges %}
           <tr>
             <td>{{loop.index}}</td>
-            <td><a href="{{path('knowledge_detail',{id:likeKnowledge.id})}}">{{likeKnowledge.title}}</a></td>
+            <td><a href="{{path('knowledge_detail',{id:likeKnowledge.id})}}">{{likeKnowledge.title |slice(0,12) }}</a></td>
             <td><i class="fa fa-fw fa-thumbs-o-up"></i>{{likeKnowledge.likeNum}}</td>
           </tr>
         {% endfor %}
@@ -27,7 +27,7 @@
         {% for favoriteKnowledge in favoriteKnowledges %}
           <tr>
             <td>{{loop.index}}</td>
-            <td><a href="{{path('knowledge_detail',{id:favoriteKnowledge.id})}}">{{favoriteKnowledge.title}}</a></td>
+            <td><a href="{{path('knowledge_detail',{id:favoriteKnowledge.id})}}">{{favoriteKnowledge.title |slice(0,12)}}</a></td>
             <td><i class="fa fa-fw fa-star-o"></i>{{favoriteKnowledge.favoriteNum}}</td>
           </tr>
         {% endfor %}
@@ -36,7 +36,7 @@
         {% for viewKnowledge in viewKnowledges %}
           <tr>
             <td>{{loop.index}}</td>
-            <td><a href="{{path('knowledge_detail',{id:viewKnowledge.id})}}">{{viewKnowledge.title}}</a></td>
+            <td><a href="{{path('knowledge_detail',{id:viewKnowledge.id})}}">{{viewKnowledge.title |slice(0,12)}}</a></td>
             <td><i class="fa fa-fw fa-eye"></i>{{viewKnowledge.viewNum}}</td>
           </tr>
         {% endfor %}
