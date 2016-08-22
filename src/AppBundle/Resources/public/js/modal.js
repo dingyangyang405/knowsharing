@@ -176,6 +176,11 @@ function checkNull(obj, vline){
 }
 
 function isNum(obj, vid){
+    var value=document.getElementById(obj).value;
+    value = value.replace(/(^\s*)|(\s*$)/g,"");///去除空格的方法
+    if (value.length == 0) {
+        return true;
+    }
     re = new RegExp("[^0-9]");
     var s;
     var i_value = document.getElementById(obj).value;
