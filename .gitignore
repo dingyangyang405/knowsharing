@@ -16,3 +16,4 @@
 /web/files/
 /web/bundles/app/img/
 /web/picture/
+!/vendor/codeages/
