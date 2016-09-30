@@ -8,7 +8,7 @@
 !app/logs/.gitkeep
 /app/phpunit.xml
 /build/
-/vendor/
+/vendor/*
 /bin/
 /app/config/biz.yml
 /composer.phar
@@ -16,4 +16,4 @@
 /web/files/
 /web/bundles/app/img/
 /web/picture/
-!/vendor/codeages/
+!vendor/codeages/
