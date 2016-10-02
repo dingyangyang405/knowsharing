@@ -65,14 +65,23 @@ class KnowledgeController extends BaseController
         $likeUsers = array();
         foreach ($likeUserIds as $likeUserId) {
             $likeUsers[$likeUserId] = $this->getUserService()->getUser($likeUserId);
+            if(empty($likeUsers[$likeUserId]['imageUrl'])) {
+                $likeUsers[$likeUserId]['imageUrl'] = 'picture/default-user-image.png';
+        }
         }
         $favoriteList = $this->getFavoriteService()->findFavoritesByKnowledgeId($id);
         $favoriteUserIds = ArrayToolKit::column($favoriteList, 'userId');
         $favoriteUsers = array();
         foreach ($favoriteUserIds as $favoriteUserId) {
             $favoriteUsers[$favoriteUserId] = $this->getUserService()->getUser($favoriteUserId);
+            if(empty($favoriteUsers[$favoriteUserId]['imageUrl'])) {
+                $favoriteUsers[$favoriteUserId]['imageUrl'] = 'picture/default-user-image.png';
+            }
         }
-
+        if(empty($user['imageUrl'])) {
+            $user['imageUrl'] = 'picture/default-user-image.png';
+        }
+        
         return $this->render('AppBundle:Knowledge:index.html.twig',array(
             'knowledge' => $knowledge[0],
             'user' => $user,

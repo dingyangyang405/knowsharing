@@ -48,7 +48,13 @@
     </div>
     <br>
       <div style="padding-left:19px;margin-top: 30px;">
-        <a class="collect-btn" data-img="{{ asset(app.user.imageUrl) }}" data-url="{{ path('knowledge_favorite', {id:knowledge.id}) }}" {% if knowledge.isFavorited %}style="display:none"{% endif %}>
+        <a class="collect-btn" 
+        {% if app.user.imageUrl is defined and app.user.imageUrl %}
+          data-img="{{ asset(user.imageUrl) }}"
+        {% else %}
+          data-img="{{asset('bundles/app/img/default-user-image.png')}}"
+        {% endif %}
+        data-url="{{ path('knowledge_favorite', {id:knowledge.id}) }}" {% if knowledge.isFavorited %}style="display:none"{% endif %}>
           <i class="fa fa-fw fa-star-o"></i>
           <span class="collect-num">{{knowledge.favoriteNum}}</span>
         </a>
@@ -59,13 +65,19 @@
         <ul class="users-list clearfix" id="favorite-list">
         {% for favoriteUser in favoriteUsers %}
           <li>
-            <a href="{{ path('user_page',{userId:favoriteUser.id}) }}" style="margin-left: 10px;"><img class="img-circle img-sm" src="{{ asset(favoriteUser.imageUrl) }}" alt="User Image"></a>
+            <a href="{{ path('user_page',{userId:favoriteUser.id}) }}" style="margin-left: 10px;"><img class="img-circle img-sm" src="{{ asset(favoriteUser.imageUrl) }}" alt="User Image" title={{favoriteUser.username}}></a>
           </li>
           {% endfor %}
         </ul>
       </div>
       <div style="padding-left:19px;margin-top: 15px;" id="likeMargin">
-        <a class="like-btn" data-img="{{ asset(app.user.imageUrl) }}" data-url="{{ path('knowledge_like', {id:knowledge.id}) }}" {% if knowledge.isLiked %}style="display:none"{% endif %}>
+        <a class="like-btn" 
+        {% if app.user.imageUrl is defined and app.user.imageUrl %}
+        data-img="{{ asset(user.imageUrl) }}"
+        {% else %}
+        data-img="{{asset('bundles/app/img/default-user-image.png')}}"
+        {% endif %}
+        data-url="{{ path('knowledge_like', {id:knowledge.id}) }}" {% if knowledge.isLiked %}style="display:none"{% endif %}>
           <i class="fa fa-fw fa-thumbs-o-up"></i>
           <span class="like-num">{{knowledge.likeNum}}</span>
         </a >
@@ -76,7 +88,7 @@
         <ul class="users-list clearfix" id="like-list">
         {% for likeUser in likeUsers %}
           <li>
-            <a href="{{ path('user_page',{userId:likeUser.id}) }}" style="margin-left: 10px;"><img class="img-circle img-sm" src="{{ asset(likeUser.imageUrl) }}" alt="User Image"></a>
+            <a href="{{ path('user_page',{userId:likeUser.id}) }}" style="margin-left: 10px;"><img class="img-circle img-sm" src="{{ asset(likeUser.imageUrl) }}" alt="User Image" title={{likeUser.username}}></a>
           </li>
         {% endfor %}
         </ul>
