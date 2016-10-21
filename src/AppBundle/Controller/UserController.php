@@ -50,7 +50,7 @@ class UserController extends BaseController
             $knowledgeTags[] = $singleTagIds;
         }
         $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
-        if ( $user['imageUrl'] == 0 ) {
+        if ( $user['imageUrl'] === '0' ) {
             $user['imageUrl'] = 'picture/default-user-image.png';
         }
         return $this->render('AppBundle:User:index.html.twig', array(
