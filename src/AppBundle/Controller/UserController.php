@@ -100,7 +100,9 @@ class UserController extends BaseController
             $knowledgeTags[] = $singleTagIds;
         }
         $knowledgeTags = ArrayToolKit::index($knowledgeTags, 'knowledgeId');
-
+        if ( $user['imageUrl'] === '0' ) {
+            $user['imageUrl'] = 'picture/default-user-image.png';
+        }
         return $this->render('AppBundle:User:favorite.html.twig', array(
             'users' => $users,
             'user' => $user,
@@ -195,7 +197,9 @@ class UserController extends BaseController
 
             $objects = $this->getFollowService()->hasFollowTopics($objects,$currentUser['id']);
         }
-
+        if ( $user['imageUrl'] === '0' ) {
+            $user['imageUrl'] = 'picture/default-user-image.png';
+        }
         return $this->render('AppBundle:User:follows.html.twig', array(
             'objects' => $objects,
             'type' => $type,
