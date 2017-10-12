@@ -1,5 +1,5 @@
 {
-  "name": "codeages/omnipay-wechatpay",
+  "name": "canuonifeng/omnipay-wechatpay",
   "type": "library",
   "description": "Wechat gateway for Omnipay payment processing library",
   "keywords": [
@@ -15,7 +15,7 @@
     "purchase",
     "微信支付"
   ],
-  "homepage": "https://github.com/codeages/omnipay-wechatpay",
+  "homepage": "https://github.com/canuonifeng/omnipay-wechatpay",
   "license": "MIT",
   "autoload": {
     "psr-4": {
