@@ -1,5 +1,9 @@
 # Omnipay: WechatPay
 
+* forked from [lokielse/omnipay-wechatpay](https://github.com/lokielse/omnipay-wechatpay)
+* for PHP 5.3+
+* add refunded notify
+
 ## Installation
 
 Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply add it
@@ -111,6 +115,25 @@ $response = $gateway->refund([
 
 var_dump($response->isSuccessful());
 var_dump($response->getData());
+```
+
+### Refund Notify [doc](https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_16&index=10)
+```php
+$gateway    = Omnipay::create('WechatPay');
+$gateway->setAppId($config['app_id']);
+$gateway->setMchId($config['mch_id']);
+$gateway->setApiKey($config['api_key']);
+
+$response = $gateway->completeRefund([
+    'request_params' => file_get_contents('php://input')
+])->send();
+
+if ($response->isRefunded()) {
+    //pay success
+    var_dump($response->getRequestData());
+}else{
+    //pay fail
+}
 ```
 
 ### QueryRefund [doc](https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_5&index=7)
