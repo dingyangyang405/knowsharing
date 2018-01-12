@@ -9,7 +9,7 @@ namespace Omnipay\WechatPay\Message;
  */
 class CloseOrderResponse extends \Omnipay\WechatPay\Message\BaseAbstractResponse
 {
-	public function isSuccessful()
+    public function isSuccessful()
     {
         return $this->isClosed();
     }
