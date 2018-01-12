@@ -9,22 +9,6 @@ namespace Omnipay\WechatPay\Message;
  */
 class CloseOrderResponse extends \Omnipay\WechatPay\Message\BaseAbstractResponse
 {
-    public function isSuccessful()
-    {
-        return $this->isClosed();
-    }
-
-    public function isClosed()
-    {
-        $data = $this->getData();
-
-        if (!empty($data['req_info']['refund_status']) && $data['req_info']['refund_status'] == 'SUCCESS') {
-            return true;
-        }
-
-        return false;
-    }
-
     public function getFailData()
     {
         $data = $this->getData();
