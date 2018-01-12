@@ -19,5 +19,4 @@ abstract class BaseAbstractResponse extends \Omnipay\Common\Message\AbstractResp
         $data = $this->getData();
         return isset($data['result_code']) && $data['result_code'] == 'SUCCESS';
     }
-
 }
